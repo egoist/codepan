@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "codepan",
+  "productName": "CodePan",
+  "description": "Play with JS/CSS/HTML so simple it hurts",
+  "version": "0.0.0",
+  "repository": {},
+  "scripts": {
+    "test": "echo lol",
+    "lint": "vbuild --eslint",
+    "dev": "vbuild -d",
+    "build": "vbuild",
+    "surge": "npm run build && surge -p dist -d codepan.surge.sh"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^0.9.1",
+    "offline-plugin": "^4.6.1",
+    "postcss-nested": "^1.0.0",
+    "postcss-property-lookup": "^1.2.1",
+    "raw-loader": "^0.5.1",
+    "vbuild": "^6.24.9"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "babel-standalone": "^6.24.0",
+    "codemirror": "^5.25.0",
+    "element-ui": "^1.2.5",
+    "nprogress": "^0.2.0",
+    "vue-router": "^2.3.0",
+    "vuex": "^2.2.1"
+  }
+}
