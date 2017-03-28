@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 import { babel, loadBabel } from '@/utils/transformer'
 import progress from 'nprogress'
 
-import htmlExample from '!raw-loader!@/assets/html-example.html'
-
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -18,7 +16,7 @@ const store = new Vuex.Store({
       transformer: 'CSS'
     },
     html: {
-      code: htmlExample,
+      code: '',
       transformer: 'HTML'
     },
     logs: [],
