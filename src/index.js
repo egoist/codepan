@@ -5,7 +5,7 @@ import router from '@/router'
 import store from '@/store'
 
 if (process.env.NODE_ENV === 'production') {
-  require('./pwa')
+  require('./pwa') // eslint-disable-line import/no-unassigned-import
 }
 
 new Vue({

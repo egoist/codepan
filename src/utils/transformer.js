@@ -1,6 +1,6 @@
 import progress from 'nprogress'
 
-let babel
+let babel // eslint-disable-line import/no-mutable-exports
 
 async function loadBabel() {
   progress.start()

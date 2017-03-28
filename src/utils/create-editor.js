@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unassigned-import */
 import CodeMirror from 'codemirror'
 import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/jsx/jsx'

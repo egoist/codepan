@@ -1,4 +1,3 @@
-const path = require('path')
 const OfflinePlugin = require('offline-plugin')
 
 module.exports = options => ({
