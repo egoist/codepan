@@ -28,6 +28,11 @@
     cursor: pointer;
     user-select: none;
   }
+
+  #nprogress {
+    z-index: 9999;
+    position: relative;
+  }
 </style>
 
 <style src="nprogress/nprogress.css"></style>
