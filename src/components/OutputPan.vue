@@ -38,9 +38,9 @@
       },
       run() {
         let js
+        // We may add preprocessors supports for html/css in the future
         let html
         let css
-        let hasError
 
         try {
           js = `
@@ -48,12 +48,12 @@
           function __executeCodePan(){
             ${this.transformJS(this.js.code)}
           };`
-        } catch(err) {
+        } catch (err) {
           return this.addLog({ type: 'error', message: err.message })
         }
 
-        html = this.html.code
-        css = this.css.code
+        html = this.html.code // eslint-disable-line prefer-const
+        css = this.css.code // eslint-disable-line prefer-const
 
         const ourJS = `
         window.onerror = function (message) {
@@ -81,7 +81,7 @@
         })();
         `
 
-        const output =  `${html}&lt;style>${css}&lt;/style>&lt;script>${ourJS}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
+        const output = `${html}&lt;style>${css}&lt;/style>&lt;script>${ourJS}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
 
         const newIframe = document.createElement('iframe')
         newIframe.id = 'output-iframe'

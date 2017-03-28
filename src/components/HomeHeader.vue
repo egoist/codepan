@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import  { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
   import { Button, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
   import Event from '@/utils/event'
 

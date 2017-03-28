@@ -39,7 +39,7 @@
       'console-pan': ConsolePan,
       'home-header': HomeHeader
     }
-  };
+  }
 </script>
 
 <style src="codemirror/lib/codemirror.css"></style>

@@ -7,39 +7,29 @@
   "repository": {},
   "scripts": {
     "test": "npm run lint",
-    "lint": "xo src/**/*.{vue,js} --extension=vue",
+    "lint": "eslint **/src/**/*.{vue,js}",
+    "fix": "eslint **/src/**/*.{vue,js} --fix",
     "dev": "vbuild -d",
     "build": "vbuild",
     "surge": "npm run build && surge -p dist -d codepan.surge.sh"
   },
-  "xo": {
+  "eslintConfig": {
     "extends": [
       "vue-app"
     ],
-    "ignores": [
-      "src/boilerplates/**/*"
-    ],
     "rules": {
-      "import/no-unresolved": [
-        2,
-        {
-          "ignore": [
-            "^@/"
-          ]
-        }
-      ],
       "no-warning-comments": 0
     }
   },
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
+    "eslint": "^3.18.0",
     "eslint-config-vue-app": "^1.2.1",
     "offline-plugin": "^4.6.1",
     "postcss-nested": "^1.0.0",
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
-    "vbuild": "^6.24.9",
-    "xo": "^0.18.1"
+    "vbuild": "^6.24.9"
   },
   "license": "MIT",
   "dependencies": {
