@@ -20,6 +20,12 @@
       </span>
       <span
         class="pan-toggle"
+        :class="{active: isActive('css')}"
+        @click="togglePan('css')">
+        CSS
+      </span>
+      <span
+        class="pan-toggle"
         :class="{active: isActive('js')}"
         @click="togglePan('js')">
         JS

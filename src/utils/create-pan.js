@@ -2,6 +2,7 @@ import { mapActions, mapState } from 'vuex'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
+import { hasNextPan } from '@/utils'
 
 export default ({
   name,
@@ -17,6 +18,9 @@ export default ({
       }),
       style() {
         return panPosition(this.activePans, name)
+      },
+      enableResizer() {
+        return hasNextPan(this.activePans, name)
       }
     },
     watch: {

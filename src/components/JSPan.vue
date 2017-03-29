@@ -13,7 +13,7 @@
       </el-dropdown>
     </div>
     <textarea ref="editor">{{ js.code }}</textarea>
-    <pan-resizer />
+    <pan-resizer :enable="enableResizer" />
   </div>
 </template>
 

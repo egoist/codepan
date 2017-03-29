@@ -1,6 +1,7 @@
 <template>
   <div
     class="pan-resizer"
+    :class="{ enable }"
     ref="resizer"
     @mousedown="handleMouseDown">
   </div>
@@ -8,6 +9,7 @@
 
 <script>
   export default {
+    props: ['enable'],
     data() {
       return {
         resizing: false,
@@ -81,10 +83,10 @@
     top: 0;
     right: 0;
     border-right: 1px solid #e2e2e2;
-    cursor: move;
     z-index: 1000;
 
-    &:hover {
+    &.enable:hover {
+      cursor: move;
       border-right: 1px dashed #39f;
     }
   }

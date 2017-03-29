@@ -3,6 +3,7 @@
     <home-header />
     <div class="pans">
       <html-pan class="pan" v-show="isActive('html')" />
+      <css-pan class="pan" v-show="isActive('css')" />
       <js-pan class="pan" v-show="isActive('js')" />
       <console-pan class="pan" v-show="isActive('console')" />
       <output-pan class="pan" v-show="isActive('output')" />
@@ -18,6 +19,7 @@
   import JSPan from '@/components/JSPan.vue'
   import OutputPan from '@/components/OutputPan.vue'
   import ConsolePan from '@/components/ConsolePan.vue'
+  import CSSPan from '@/components/CSSPan.vue'
 
   export default {
     name: 'home',
@@ -37,6 +39,7 @@
       'js-pan': JSPan,
       'output-pan': OutputPan,
       'console-pan': ConsolePan,
+      'css-pan': CSSPan,
       'home-header': HomeHeader
     }
   }

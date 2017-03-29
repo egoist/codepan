@@ -23,7 +23,7 @@
         {{ log.message }}
       </div>
     </div>
-    <pan-resizer />
+    <pan-resizer :enable="enableResizer" />
   </div>
 </template>
 
@@ -32,6 +32,7 @@
   import { Badge, Button } from 'element-ui'
   import panPosition from '@/utils/pan-position'
   import PanResizer from '@/components/PanResizer.vue'
+  import { hasNextPan } from '@/utils'
 
   export default {
     watch: {
@@ -46,6 +47,9 @@
       ...mapState(['logs', 'activePans']),
       style() {
         return panPosition(this.activePans, 'console')
+      },
+      enableResizer() {
+        return hasNextPan(this.activePans, 'console')
       }
     },
     methods: {

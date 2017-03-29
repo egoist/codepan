@@ -1,16 +1,16 @@
 <template>
-  <div class="html-pan" :style="style">
+  <div class="vue-pan" :style="style">
     <div class="pan-head">
       <el-dropdown @command="setTransformer" trigger="click">
         <span class="el-dropdown-link">
-          {{ html.transformer }} <i class="el-icon-caret-bottom el-icon--right"></i>
+          {{ css.transformer }} <i class="el-icon-caret-bottom el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="HTML">HTML</el-dropdown-item>
+          <el-dropdown-item command="CSS">CSS</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <textarea ref="editor">{{ html.code }}</textarea>
+    <textarea ref="editor">{{ css.code }}</textarea>
     <pan-resizer :enable="enableResizer" />
   </div>
 </template>
@@ -21,9 +21,9 @@
   import PanResizer from '@/components/PanResizer.vue'
 
   export default createPan({
-    name: 'html',
+    name: 'css',
     editor: {
-      mode: 'xml'
+      mode: 'css'
     },
     components: {
       'el-dropdown': Dropdown,
