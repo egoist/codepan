@@ -75,6 +75,7 @@
     right: 0;
     border-right: 1px solid #e2e2e2;
     cursor: move;
+    z-index: 1000;
 
     &:hover {
       border-right: 1px dashed #39f;
