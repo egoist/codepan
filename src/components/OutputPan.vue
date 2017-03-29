@@ -87,12 +87,12 @@
             window.parent.postMessage({ type: 'iframe-' + type, message: msg}, '*')
           }
           console.log = function () {
-            report('log', arguments)
             _log.apply(null, arguments)
+            report('log', arguments)
           }
           console.error = function () {
-            report('error', arguments)
             _error.apply(null, arguments)
+            report('error', arguments)
           }
           console.clear = function () {
             window.parent.postMessage({ type: 'codepan-clear-logs' }, '*')
