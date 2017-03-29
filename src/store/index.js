@@ -12,6 +12,16 @@ const sortPans = ps => {
   })
 }
 
+// Load entries of all boilerplates
+const boilerplates = {}
+function importAll(r) {
+  r.keys().forEach(key => {
+    const name = /^\.\/(.+)\//.exec(key)[1]
+    boilerplates[name] = r(key).default
+  })
+}
+importAll(require.context('@/boilerplates', true, /index.js$/))
+
 const store = new Vuex.Store({
   state: {
     js: {
@@ -87,50 +97,28 @@ const store = new Vuex.Store({
     // todo: simplify this action
     async setBoilerplate({ dispatch }, type) {
       progress.start()
-      let html
-      let js
-      if (type === 'Vue') {
-        [html, js] = await Promise.all([
-          import('!raw-loader!@/boilerplates/vue/codepan.html'),
-          import('!raw-loader!@/boilerplates/vue/codepan.js')
-        ])
-        await Promise.all([
-          dispatch('updateTransformer', { type: 'js', transformer: 'JavaScript' }),
-          dispatch('showPans', ['html', 'js', 'output'])
-        ])
-      } else if (type === 'React') {
-        [html, js] = await Promise.all([
-          import('!raw-loader!@/boilerplates/react/codepan.html'),
-          import('!raw-loader!@/boilerplates/react/codepan.js')
-        ])
-        await Promise.all([
-          dispatch('updateTransformer', { type: 'js', transformer: 'JSX' }),
-          dispatch('showPans', ['html', 'js', 'output'])
-        ])
-      } else if (type === 'Preact') {
-        [html, js] = await Promise.all([
-          import('!raw-loader!@/boilerplates/preact/codepan.html'),
-          import('!raw-loader!@/boilerplates/preact/codepan.js')
-        ])
-        await Promise.all([
-          dispatch('updateTransformer', { type: 'js', transformer: 'JSX' }),
-          dispatch('showPans', ['html', 'js', 'output'])
-        ])
-      } else if (type === 'RxJS') {
-        [html, js] = await Promise.all([
-          import('!raw-loader!@/boilerplates/rxjs/codepan.html'),
-          import('!raw-loader!@/boilerplates/rxjs/codepan.js')
-        ])
-        await Promise.all([
-          dispatch('updateTransformer', { type: 'js', transformer: 'JavaScript' }),
-          dispatch('showPans', ['html', 'js', 'console'])
-        ])
+
+      const boilerplate = await boilerplates[type]()
+
+      const ps = []
+      for (const type in boilerplate) {
+        if (['html', 'js', 'css'].indexOf(type) !== -1) {
+          const payload = boilerplate[type]
+          if (typeof payload.code !== 'undefined') {
+            ps.push(dispatch('updateCode', { type, code: payload.code }))
+          }
+          if (typeof payload.transformer !== 'undefined') {
+            ps.push(dispatch('updateTransformer', { type, transformer: payload.transformer }))
+          }
+        } else if (type === 'showPans') {
+          ps.push(dispatch('showPans', boilerplate.showPans))
+        }
       }
-      await Promise.all([
-        dispatch('updateCode', { type: 'html', code: html }),
-        dispatch('updateCode', { type: 'js', code: js })
-      ])
-      dispatch('clearLogs')
+
+      ps.push(dispatch('clearLogs'))
+
+      await Promise.all(ps)
+
       progress.done()
     }
   }

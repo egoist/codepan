@@ -4,10 +4,10 @@
       <el-dropdown @command="setBoilerplate" trigger="click">
         <el-button icon="document" size="mini">Boilerplates</el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="Vue">Vue</el-dropdown-item>
-          <el-dropdown-item command="React">React</el-dropdown-item>
-          <el-dropdown-item command="Preact">Preact</el-dropdown-item>
-          <el-dropdown-item command="RxJS">RxJS</el-dropdown-item>
+          <el-dropdown-item command="vue">Vue</el-dropdown-item>
+          <el-dropdown-item command="react">React</el-dropdown-item>
+          <el-dropdown-item command="preact">Preact</el-dropdown-item>
+          <el-dropdown-item command="rxjs">RxJS</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
