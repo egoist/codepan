@@ -49,9 +49,20 @@
         icon="caret-right"
         size="mini"
         type="primary"
+        class="home-header-right-item"
         @click="runCode">
         Run (CMD+S)
       </el-button>
+      <el-dropdown
+        class="home-header-right-item home-header-more"
+        trigger="click">
+        <el-button icon="more" size="mini"></el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item style="padding: 0;">
+            <a class="el-dropdown-menu__item" target="_blank" href="https://github.com/egoist/codepan">GitHub</a>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </header>
 </template>
@@ -118,6 +129,9 @@
   .home-header-right {
     display: flex;
     justify-content: flex-end;
+    .home-header-right-item {
+      margin-left: 10px;
+    }
   }
 
   .pan-toggles {

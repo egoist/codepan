@@ -33,6 +33,14 @@
     z-index: 9999;
     position: relative;
   }
+
+  .el-dropdown-menu {
+    a {
+      color: #333;
+      text-decoration: none;
+      display: block;
+    }
+  }
 </style>
 
 <style src="nprogress/nprogress.css"></style>
