@@ -1,7 +1,3 @@
-const hasPan = (pans, pan) => {
-  return pans.some(p => p === pan)
-}
-
 export default (pans, pan) => {
   const panWidth = 100 / pans.length
   const pansCount = matchedPans => {
@@ -10,7 +6,7 @@ export default (pans, pan) => {
     }).length
   }
   const rightOffset = leftCount => pans.length - 1 - leftCount
-  const suffix = count => count * panWidth + '%'
+  const suffix = count => `${count * panWidth}%`
 
   if (pan === 'html') {
     return {

@@ -59,7 +59,6 @@
       },
       handleMouseMove(e) {
         if (this.resizing) {
-          const newWidth = e.clientX + 'px'
           const newNextPanLeft = e.clientX / window.innerWidth * 100
           if (
              (newNextPanLeft - this.originalCurrentPanLeft > 5) &&
