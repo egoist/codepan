@@ -1,7 +1,10 @@
 <template>
   <header class="home-header">
     <div class="home-header-left home-header-block">
-      <el-dropdown @command="setBoilerplate" trigger="click">
+      <el-dropdown
+        @command="setBoilerplate"
+        trigger="click"
+        class="home-header-left-item">
         <el-button icon="document" size="mini">Boilerplates</el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="empty">Empty</el-dropdown-item>
@@ -11,6 +14,12 @@
           <el-dropdown-item command="rxjs">RxJS</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <el-button
+        class="home-header-left-item"
+        @click="addLibrary"
+        size="mini">
+        Add library
+      </el-button>
     </div>
     <div class="home-header-middle home-header-block pan-toggles">
       <span
@@ -69,7 +78,8 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { Button, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
+  import { Button, Input, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
+  import { MessageBox } from 'element-ui'
   import Event from '@/utils/event'
 
   export default {
@@ -83,11 +93,22 @@
       window.removeEventListener('keydown', this.handleKeydown)
     },
     methods: {
-      ...mapActions(['togglePan']),
+      ...mapActions(['togglePan', 'updateCode']),
       handleKeydown(e) {
         if (e.key === 's' && (e.metaKey || e.ctrlKey)) {
           e.preventDefault()
           this.runCode()
+        }
+      },
+      async addLibrary() {
+        const { value } = await MessageBox.prompt('Type an npm package name:', 'Add Library', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel'
+        })
+        if (value) {
+          const code = `&lt;script src="https://unpkg.com/${value}">&lt;/script>\n`.replace(/&lt;/g, '<') + this.$store.state.html.code
+          await this.updateCode({ type: 'html', code })
+          Event.$emit('refresh-editor')
         }
       },
       async setBoilerplate(type) {
@@ -105,7 +126,8 @@
       'el-dropdown': Dropdown,
       'el-dropdown-menu': DropdownMenu,
       'el-dropdown-item': DropdownItem,
-      'el-button': Button
+      'el-button': Button,
+      'el-input': Input
     }
   }
 </script>
@@ -124,6 +146,14 @@
   .home-header-block {
     flex: 1;
     width: 0;
+  }
+
+  .home-header-left {
+    display: flex;
+    justify-content: flex-start;
+    .home-header-left-item {
+      margin-right: 10px;
+    }
   }
 
   .home-header-right {
