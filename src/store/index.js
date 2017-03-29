@@ -5,6 +5,13 @@ import progress from 'nprogress'
 
 Vue.use(Vuex)
 
+const pans = ['html', 'css', 'js', 'console', 'output']
+const sortPans = ps => {
+  return ps.sort((a, b) => {
+    return pans.indexOf(a) > pans.indexOf(b)
+  })
+}
+
 const store = new Vuex.Store({
   state: {
     js: {
@@ -36,15 +43,17 @@ const store = new Vuex.Store({
       state.logs = []
     },
     TOGGLE_PAN(state, pan) {
-      const idx = state.activePans.indexOf(pan)
+      const pans = state.activePans
+      const idx = pans.indexOf(pan)
       if (idx === -1) {
-        state.activePans.push(pan)
+        pans.push(pan)
       } else {
-        state.activePans.splice(idx, 1)
+        pans.splice(idx, 1)
       }
+      state.activePans = sortPans(pans)
     },
     SHOW_PANS(state, pans) {
-      state.activePans = pans
+      state.activePans = sortPans(pans)
     }
   },
   actions: {

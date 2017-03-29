@@ -20,10 +20,17 @@
       }
     },
     methods: {
+      getNextVisiblePan(current) {
+        const next = current.nextElementSibling
+        if (next && next.style.display === 'none') {
+          return this.getNextVisiblePan(next)
+        }
+        return next
+      },
       handleMouseDown() {
         this.resizing = true
         this.currentPan = this.$refs.resizer.parentNode
-        this.nextPan = this.currentPan.nextElementSibling
+        this.nextPan = this.getNextVisiblePan(this.currentPan)
         this.originalNextPanLeft = parseFloat(this.nextPan.style.left)
         this.originalNextPanRight = parseFloat(this.nextPan.style.right)
         this.originalCurrentPanRight = parseFloat(this.currentPan.style.right)
