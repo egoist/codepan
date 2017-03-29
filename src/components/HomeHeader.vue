@@ -16,6 +16,7 @@
       </el-dropdown>
       <el-button
         class="home-header-left-item"
+        icon="plus"
         @click="addLibrary"
         size="mini">
         Add library
