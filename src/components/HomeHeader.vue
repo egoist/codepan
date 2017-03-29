@@ -7,6 +7,7 @@
           <el-dropdown-item command="Vue">Vue</el-dropdown-item>
           <el-dropdown-item command="React">React</el-dropdown-item>
           <el-dropdown-item command="Preact">Preact</el-dropdown-item>
+          <el-dropdown-item command="Rxjs">Rxjs</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
