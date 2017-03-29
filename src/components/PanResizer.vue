@@ -42,6 +42,7 @@
         document.addEventListener('mouseup', this.handleMouseUp)
 
         this.currentPan.parentNode.classList.add('resizing')
+        document.getElementById('output-iframe').classList.add('disable-mouse-events')
 
         // prevent select
         document.onselectstart = () => false
@@ -53,6 +54,7 @@
         document.removeEventListener('mouseup', this.handleMouseUp)
 
         this.currentPan.parentNode.classList.remove('resizing')
+        document.getElementById('output-iframe').classList.remove('disable-mouse-events')
 
         // enable select
         document.onselectstart = () => false

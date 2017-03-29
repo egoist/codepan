@@ -45,6 +45,8 @@
           this.addLog({ type: 'log', message: data.message })
         } else if (data.type === 'codepan-clear-logs') {
           this.clearLogs()
+        } else if (data.type === 'codepan-highlight-output') {
+          this.setHighlightPan('output')
         }
       },
       run() {
@@ -74,6 +76,9 @@
         window.addEventListener('unhandledrejection', function (e) {
           window.parent.postMessage({ type: 'iframe-error', message: e.reason.stack  }, '*')
         });
+        window.addEventListener('click', function () {
+          window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
+        })
         var _console = window.console;
         (function () {
           function report(type, arguments) {
@@ -133,6 +138,8 @@
   .output-iframe {
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    &.disable-mouse-events {
+      pointer-events: none;
+    }
   }
 </style>
