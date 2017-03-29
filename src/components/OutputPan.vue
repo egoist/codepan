@@ -79,17 +79,20 @@
         window.addEventListener('click', function () {
           window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
         })
-        var _console = window.console;
-        (function () {
+        ;(function () {
+          var _log = console.log;
+          var _error = console.error
           function report(type, arguments) {
             var msg = [].slice.call(arguments).map(JSON.stringify).join('\\n')
             window.parent.postMessage({ type: 'iframe-' + type, message: msg}, '*')
           }
           console.log = function () {
             report('log', arguments)
+            _log.apply(null, arguments)
           }
           console.error = function () {
             report('error', arguments)
+            _error.apply(null, arguments)
           }
           console.clear = function () {
             window.parent.postMessage({ type: 'codepan-clear-logs' }, '*')
