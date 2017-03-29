@@ -107,7 +107,7 @@ const store = new Vuex.Store({
           dispatch('updateTransformer', { type: 'js', transformer: 'JSX' }),
           dispatch('showPans', ['html', 'js', 'output'])
         ])
-      } else if (type === 'Rxjs') {
+      } else if (type === 'RxJS') {
         [html, js] = await Promise.all([
           import('!raw-loader!@/boilerplates/rxjs/codepan.html'),
           import('!raw-loader!@/boilerplates/rxjs/codepan.js')
