@@ -4,6 +4,7 @@
       <el-dropdown @command="setBoilerplate" trigger="click">
         <el-button icon="document" size="mini">Boilerplates</el-button>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="empty">Empty</el-dropdown-item>
           <el-dropdown-item command="vue">Vue</el-dropdown-item>
           <el-dropdown-item command="react">React</el-dropdown-item>
           <el-dropdown-item command="preact">Preact</el-dropdown-item>

@@ -12,8 +12,28 @@ const sortPans = ps => {
   })
 }
 
+const emptyPans = () => ({
+  js: {
+    code: '',
+    transformer: 'JavaScript'
+  },
+  css: {
+    code: '',
+    transformer: 'CSS'
+  },
+  html: {
+    code: '',
+    transformer: 'HTML'
+  }
+})
+
 // Load entries of all boilerplates
-const boilerplates = {}
+const boilerplates = {
+  empty: async () => ({
+    ...emptyPans(),
+    showPans: ['html', 'js', 'console']
+  })
+}
 function importAll(r) {
   r.keys().forEach(key => {
     const name = /^\.\/(.+)\//.exec(key)[1]
@@ -24,18 +44,7 @@ importAll(require.context('@/boilerplates', true, /index.js$/))
 
 const store = new Vuex.Store({
   state: {
-    js: {
-      code: '',
-      transformer: 'JavaScript'
-    },
-    css: {
-      code: '',
-      transformer: 'CSS'
-    },
-    html: {
-      code: '',
-      transformer: 'HTML'
-    },
+    ...emptyPans(),
     logs: [],
     activePans: ['html', 'js', 'console']
   },
