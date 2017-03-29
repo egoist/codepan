@@ -41,6 +41,10 @@
       display: block;
     }
   }
+
+  .el-badge {
+    z-index: 1000;
+  }
 </style>
 
 <style src="nprogress/nprogress.css"></style>

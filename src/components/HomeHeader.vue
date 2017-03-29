@@ -45,7 +45,10 @@
         class="pan-toggle"
         :class="{visible: isVisible('console')}"
         @click="togglePan('console')">
-        Console
+        <el-badge
+          :is-dot="totalLogsCount > 0">
+          Console
+        </el-badge>
       </span>
       <span
         class="pan-toggle"
@@ -79,12 +82,15 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { Button, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
+  import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
   import Event from '@/utils/event'
 
   export default {
     computed: {
-      ...mapState(['visiblePans'])
+      ...mapState(['visiblePans']),
+      ...mapState({
+        totalLogsCount: state => state.logs.length
+      })
     },
     mounted() {
       window.addEventListener('keydown', this.handleKeydown)
@@ -130,7 +136,8 @@
       'el-dropdown-menu': DropdownMenu,
       'el-dropdown-item': DropdownItem,
       'el-button': Button,
-      'el-input': Input
+      'el-input': Input,
+      'el-badge': Badge
     }
   }
 </script>
@@ -178,7 +185,6 @@
       height: 100%;
       border-left: 1px solid #e2e2e2;
       border-right: @border-left;
-      z-index: 1;
       position: relative;
       padding: 0 10px;
       cursor: pointer;
@@ -189,7 +195,6 @@
       }
 
       &:hover {
-        z-index: 2;
         &:not(.visible) {
           background-color: #f9f9f9;
         }
