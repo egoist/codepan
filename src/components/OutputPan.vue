@@ -1,5 +1,5 @@
 <template>
-  <div class="output-pan">
+  <div class="output-pan" :style="style">
     <div class="pan-head">
       Output
     </div>
@@ -11,11 +11,15 @@
   import { mapState, mapActions } from 'vuex'
   import { babel } from '@/utils/transformer'
   import Event from '@/utils/event'
+  import panPosition from '@/utils/pan-position'
 
   export default {
     name: 'output-pan',
     computed: {
-      ...mapState(['js', 'css', 'html'])
+      ...mapState(['js', 'css', 'html', 'activePans']),
+      style() {
+        return panPosition(this.activePans, 'output')
+      }
     },
     mounted() {
       window.addEventListener('message', this.listenIframe)

@@ -1,6 +1,7 @@
 import { mapActions, mapState } from 'vuex'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
+import panPosition from '@/utils/pan-position'
 
 export default ({
   name,
@@ -10,10 +11,13 @@ export default ({
   return {
     name: `${name}-pan`,
     computed: {
-      ...mapState([name]),
+      ...mapState([name, 'activePans']),
       ...mapState({
         isActive: state => state.activePans.indexOf(name) !== -1
-      })
+      }),
+      style() {
+        return panPosition(this.activePans, name)
+      }
     },
     watch: {
       isActive() {

@@ -46,19 +46,17 @@
 
 <style scoped>
   .pans {
-    display: flex;
     height: calc(100% - 40px);
+    display: flex;
+    position: relative;
   }
 
   .pan {
-    flex: 1;
-    width: 0;
     background-color: white;
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
     overflow: auto;
-    &:not(:last-child) {
-      border-right: 1px solid #e2e2e2;
-    }
   }
 </style>
 
@@ -79,5 +77,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .pans.resizing {
+    cursor: ew-resize;
+    .pan-resizer {
+      cursor: ew-resize;
+    }
   }
 </style>

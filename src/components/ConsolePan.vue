@@ -1,5 +1,5 @@
 <template>
-  <div class="console-pan">
+  <div class="console-pan" :style="style">
     <div class="pan-head">
       <el-badge
         :value="logs.length"
@@ -29,6 +29,7 @@
 <script>
   import { mapState, mapActions } from 'vuex'
   import { Badge, Button } from 'element-ui'
+  import panPosition from '@/utils/pan-position'
 
   export default {
     watch: {
@@ -40,7 +41,10 @@
       }
     },
     computed: {
-      ...mapState(['logs'])
+      ...mapState(['logs', 'activePans']),
+      style() {
+        return panPosition(this.activePans, 'console')
+      }
     },
     methods: {
       ...mapActions(['clearLogs'])
