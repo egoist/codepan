@@ -110,8 +110,11 @@
           Event.$emit('refresh-editor')
         }
       },
-      async setBoilerplate(type) {
-        await this.$store.dispatch('setBoilerplate', type)
+      async setBoilerplate(boilerplate) {
+        this.$router.push({
+          query: { ...this.$route.query, boilerplate }
+        })
+        await this.$store.dispatch('setBoilerplate', boilerplate)
         Event.$emit('refresh-editor')
       },
       isActive(pan) {

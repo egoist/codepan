@@ -13,7 +13,8 @@
 
 <script>
   import progress from 'nprogress'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
+  import Event from '@/utils/event'
   import HomeHeader from '@/components/HomeHeader.vue'
   import HTMLPan from '@/components/HTMLPan.vue'
   import JSPan from '@/components/JSPan.vue'
@@ -26,10 +27,16 @@
     computed: {
       ...mapState(['activePans'])
     },
-    mounted() {
+    async mounted() {
+      const { boilerplate } = this.$route.query
+      if (boilerplate) {
+        await this.setBoilerplate(boilerplate)
+        Event.$emit('refresh-editor')
+      }
       progress.done()
     },
     methods: {
+      ...mapActions(['setBoilerplate']),
       isActive(pan) {
         return this.activePans.indexOf(pan) !== -1
       }
