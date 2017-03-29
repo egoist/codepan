@@ -23,6 +23,7 @@
         {{ log.message }}
       </div>
     </div>
+    <pan-resizer />
   </div>
 </template>
 
@@ -30,6 +31,7 @@
   import { mapState, mapActions } from 'vuex'
   import { Badge, Button } from 'element-ui'
   import panPosition from '@/utils/pan-position'
+  import PanResizer from '@/components/PanResizer.vue'
 
   export default {
     watch: {
@@ -51,7 +53,8 @@
     },
     components: {
       'el-badge': Badge,
-      'el-button': Button
+      'el-button': Button,
+      'pan-resizer': PanResizer
     }
   }
 </script>
