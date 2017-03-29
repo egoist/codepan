@@ -16,6 +16,7 @@
   import { babel } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
+  import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
 
   export default {
     name: 'output-pan',
@@ -41,10 +42,12 @@
       listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
-        } else if (data.type === 'iframe-log') {
-          this.addLog({ type: 'log', message: data.message })
-        } else if (data.type === 'codepan-clear-logs') {
-          this.clearLogs()
+        } else if (data.type === 'codepan-console') {
+          if (data.method === 'clear') {
+            this.clearLogs()
+          } else {
+            this.addLog({ type: data.method, message: data.args.join('\\n') })
+          }
         } else if (data.type === 'codepan-highlight-output') {
           this.setHighlightPan('output')
         }
@@ -68,39 +71,7 @@
         html = this.html.code // eslint-disable-line prefer-const
         css = this.css.code // eslint-disable-line prefer-const
 
-        const ourJS = `
-        window.onerror = function (message) {
-          window.parent.postMessage({ type: 'iframe-error', message: message  }, '*')
-          return false
-        }
-        window.addEventListener('unhandledrejection', function (e) {
-          window.parent.postMessage({ type: 'iframe-error', message: e.reason.stack  }, '*')
-        });
-        window.addEventListener('click', function () {
-          window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
-        })
-        ;(function () {
-          var _log = console.log;
-          var _error = console.error
-          function report(type, arguments) {
-            var msg = [].slice.call(arguments).map(JSON.stringify).join('\\n')
-            window.parent.postMessage({ type: 'iframe-' + type, message: msg}, '*')
-          }
-          console.log = function () {
-            _log.apply(null, arguments)
-            report('log', arguments)
-          }
-          console.error = function () {
-            _error.apply(null, arguments)
-            report('error', arguments)
-          }
-          console.clear = function () {
-            window.parent.postMessage({ type: 'codepan-clear-logs' }, '*')
-          }
-        })();
-        `
-
-        const output = `${html}&lt;style>${css}&lt;/style>&lt;script>${ourJS}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
+        const output = `${html}&lt;style>${css}&lt;/style>&lt;script>${proxyConsole}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
 
         const newIframe = document.createElement('iframe')
         newIframe.id = 'output-iframe'
