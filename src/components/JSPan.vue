@@ -30,7 +30,8 @@
     name: 'js',
     editor: {
       mode: 'jsx',
-      autofocus: true
+      autofocus: true,
+      autoCloseBrackets: true
     },
     components: {
       'el-dropdown': Dropdown,

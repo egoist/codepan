@@ -6,6 +6,7 @@ import 'codemirror/mode/css/css'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/edit/matchtags'
 import 'codemirror/addon/edit/matchbrackets'
+import 'codemirror/addon/edit/closebrackets'
 
 export default function (el, opts = {}) {
   const editor = CodeMirror.fromTextArea(el, {
