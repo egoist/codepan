@@ -43,9 +43,6 @@
 
         this.currentPan.parentNode.classList.add('resizing')
         document.getElementById('output-iframe').classList.add('disable-mouse-events')
-
-        // prevent select
-        document.onselectstart = () => false
       },
       handleMouseUp() {
         this.resizing = false
@@ -55,12 +52,10 @@
 
         this.currentPan.parentNode.classList.remove('resizing')
         document.getElementById('output-iframe').classList.remove('disable-mouse-events')
-
-        // enable select
-        document.onselectstart = () => false
       },
       handleMouseMove(e) {
         if (this.resizing) {
+          e.preventDefault()
           const newNextPanLeft = e.clientX / window.innerWidth * 100
           if (
              (newNextPanLeft - this.originalCurrentPanLeft > 5) &&
