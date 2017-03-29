@@ -130,6 +130,7 @@ const store = new Vuex.Store({
         dispatch('updateCode', { type: 'html', code: html }),
         dispatch('updateCode', { type: 'js', code: js })
       ])
+      dispatch('clearLogs')
       progress.done()
     }
   }
