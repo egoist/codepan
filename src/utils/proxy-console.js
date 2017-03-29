@@ -9,115 +9,114 @@
     window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
   })
 
+/**
+ * Stringify.
+ * Inspect native browser objects and functions.
+ */
   const stringify = (function () {
-    /*
-    Copyright (c) 2014, Yahoo! Inc. All rights reserved.
-    Copyrights licensed under the New BSD License.
-    See the accompanying LICENSE file for terms.
-    */
-
-    'use strict'
-
-    const isRegExp = re => Object.prototype.toString.call(re) === '[object RegExp]'
-
-    // Generate an internal UID to make the regexp pattern harder to guess.
-    const UID = Math.floor(Math.random() * 0x10000000000).toString(16)
-    const PLACE_HOLDER_REGEXP = new RegExp('"@__(F|R)-' + UID + '-(\\d+)__@"', 'g')
-
-    const IS_NATIVE_CODE_REGEXP = /\{\s*\[native code\]\s*\}/g
-    const UNSAFE_CHARS_REGEXP = /[<>/\u2028\u2029]/g
-
-    // Mapping of unsafe HTML and invalid JavaScript line terminator chars to their
-    // Unicode char counterparts which are safe to use in JavaScript strings.
-    const ESCAPED_CHARS = {
-      '<': '\\u003C',
-      '>': '\\u003E',
-      '/': '\\u002F',
-      '\u2028': '\\u2028',
-      '\u2029': '\\u2029'
+    const sortci = function (a, b) {
+      return a.toLowerCase() < b.toLowerCase() ? -1 : 1
     }
 
-    function escapeUnsafeChars(unsafeChar) {
-      return ESCAPED_CHARS[unsafeChar]
+    const htmlEntities = function (str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
     }
 
-    return function (obj, options) {
-      options || (options = {})
+  /**
+   * Recursively stringify an object. Keeps track of which objects it has
+   * visited to avoid hitting circular references, and a buffer for indentation.
+   * Goes 2 levels deep.
+   */
+    return function stringify(o, visited, buffer) { // eslint-disable-line complexity
+      let i
+      let vi
+      let type = ''
+      const parts = []
+      // const circular = false
+      buffer = buffer || ''
+      visited = visited || []
 
-        // Backwards-compatability for `space` as the second argument.
-      if (typeof options === 'number' || typeof options === 'string') {
-        options = { space: options }
+    // Get out fast with primitives that don't like toString
+      if (o === null) {
+        return 'null'
+      }
+      if (typeof o === 'undefined') {
+        return 'undefined'
       }
 
-      const functions = []
-      const regexps = []
+    // Determine the type
+      try {
+        type = ({}).toString.call(o)
+      } catch (e) { // only happens when typeof is protected (...randomly)
+        type = '[object Object]'
+      }
 
-        // Returns placeholders for functions and regexps (identified by index)
-        // which are later replaced by their string representation.
-      function replacer(key, value) {
-        if (!value) {
-          return value
+    // Handle the primitive types
+      if (type === '[object Number]') {
+        return String(o)
+      }
+      if (type === '[object Boolean]') {
+        return o ? 'true' : 'false'
+      }
+      if (type === '[object Function]') {
+        return o.toString().split('\n  ').join('\n' + buffer)
+      }
+      if (type === '[object String]') {
+        return '"' + htmlEntities(o.replace(/"/g, '\\"')) + '"'
+      }
+
+    // Check for circular references
+      for (vi = 0; vi < visited.length; vi++) {
+        if (o === visited[vi]) {
+        // Notify the user that a circular object was found and, if available,
+        // show the object's outerHTML (for body and elements)
+          return '[circular ' + type.slice(1) +
+          ('outerHTML' in o ? ' :\n' + htmlEntities(o.outerHTML).split('\n').join('\n' + buffer) : '')
         }
+      }
 
-        const type = typeof value
+    // Remember that we visited this object
+      visited.push(o)
 
-        if (type === 'object') {
-          if (isRegExp(value)) {
-            return '@__R-' + UID + '-' + (regexps.push(value) - 1) + '__@'
+    // Stringify each member of the array
+      if (type === '[object Array]') {
+        for (i = 0; i < o.length; i++) {
+          parts.push(stringify(o[i], visited))
+        }
+        return '[' + parts.join(', ') + ']'
+      }
+
+    // Fake array – very tricksy, get out quickly
+      if (type.match(/Array/)) {
+        return type
+      }
+
+      const typeStr = type + ' '
+      const newBuffer = buffer + '  '
+
+    // Dive down if we're less than 2 levels deep
+      if (buffer.length / 2 < 2) {
+        const names = []
+      // Some objects don't like 'in', so just skip them
+        try {
+          for (i in o) { // eslint-disable-line guard-for-in
+            names.push(i)
           }
+        } catch (e) {}
 
-          return value
+        names.sort(sortci)
+        for (i = 0; i < names.length; i++) {
+          try {
+            parts.push(newBuffer + names[i] + ': ' + stringify(o[names[i]], visited, newBuffer))
+          } catch (e) {}
         }
-
-        if (type === 'function') {
-          return '@__F-' + UID + '-' + (functions.push(value) - 1) + '__@'
-        }
-
-        return value
       }
 
-      let str
+    // If nothing was gathered, return empty object
+      if (!parts.length) return typeStr + '{ ... }'
 
-        // Creates a JSON string representation of the value.
-        // NOTE: Node 0.12 goes into slow mode with extra JSON.stringify() args.
-      if (options.isJSON && !options.space) {
-        str = JSON.stringify(obj)
-      } else {
-        str = JSON.stringify(obj, options.isJSON ? null : replacer, options.space)
-      }
-
-        // Protects against `JSON.stringify()` returning `undefined`, by serializing
-        // to the literal string: "undefined".
-      if (typeof str !== 'string') {
-        return String(str)
-      }
-
-        // Replace unsafe HTML and invalid JavaScript line terminator chars with
-        // their safe Unicode char counterpart. This _must_ happen before the
-        // regexps and functions are serialized and added back to the string.
-      str = str.replace(UNSAFE_CHARS_REGEXP, escapeUnsafeChars)
-
-      if (functions.length === 0 && regexps.length === 0) {
-        return str
-      }
-
-        // Replaces all occurrences of function and regexp placeholders in the JSON
-        // string with their string representations. If the original value can not
-        // be found, then `undefined` is used.
-      return str.replace(PLACE_HOLDER_REGEXP, (match, type, valueIndex) => {
-        if (type === 'R') {
-          return regexps[valueIndex].toString()
-        }
-
-        const fn = functions[valueIndex]
-        const serializedFn = fn.toString()
-
-        if (IS_NATIVE_CODE_REGEXP.test(serializedFn)) {
-          throw new TypeError('Serializing native function: ' + fn.name)
-        }
-
-        return serializedFn
-      })
+    // Return the indented object with new lines
+      return typeStr + '{\n' + parts.join(',\n') + '\n' + buffer + '}'
     }
   })()
   /** =========================================================================
@@ -143,7 +142,7 @@
         if (typeof arg === 'undefined') {
           newArgs.push('undefined')
         } else {
-          newArgs.push(stringify(arg, { space: 2 }))
+          newArgs.push(stringify(arg))
         }
       }
       return newArgs
