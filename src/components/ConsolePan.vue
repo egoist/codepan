@@ -20,11 +20,11 @@
     </div>
     <div class="console-logs" ref="console">
       <div
-        class="console-log"
+        class="console-log cm-s-default"
         :class="`console-log-${log.type}`"
         key="index"
+        v-html="highlight(log.message)"
         v-for="(log, index) in logs">
-        {{ log.message }}
       </div>
     </div>
     <pan-resizer :enable="enableResizer" />
@@ -37,6 +37,8 @@
   import panPosition from '@/utils/pan-position'
   import PanResizer from '@/components/PanResizer.vue'
   import { hasNextPan } from '@/utils'
+  import CodeMirror from 'codemirror'
+  import '@/utils/highlight'
 
   export default {
     watch: {
@@ -60,7 +62,10 @@
       }
     },
     methods: {
-      ...mapActions(['clearLogs', 'setHighlightPan'])
+      ...mapActions(['clearLogs', 'setHighlightPan']),
+      highlight(value) {
+        return CodeMirror.highlight(value, { mode: 'javascript' })
+      }
     },
     components: {
       'el-badge': Badge,
@@ -74,12 +79,13 @@
   .console-logs {
     height: calc(100% - 40px);
     overflow: auto;
-    padding: 0 10px;
   }
 
   .console-log {
     white-space: pre;
     font-size: 13px;
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
   }
 
   .console-log-error {
