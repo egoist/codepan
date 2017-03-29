@@ -11,7 +11,8 @@
     "fix": "eslint **/src/**/*.{vue,js} --fix",
     "dev": "vbuild -d",
     "build": "vbuild",
-    "surge": "npm run build && surge -p dist -d codepan.surge.sh"
+    "surge": "npm run build && surge -p dist -d codepan.surge.sh",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
@@ -25,6 +26,7 @@
     "babel-plugin-component": "^0.9.1",
     "eslint": "^3.18.0",
     "eslint-config-vue-app": "^1.2.1",
+    "gh-pages": "^0.12.0",
     "offline-plugin": "^4.6.1",
     "postcss-nested": "^1.0.0",
     "postcss-property-lookup": "^1.2.1",
