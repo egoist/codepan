@@ -1,5 +1,9 @@
 <template>
-  <div class="console-pan" :style="style">
+  <div
+    class="console-pan"
+    :class="{'highlight-pan': isHighlightPan}"
+    @click="setHighlightPan('console')"
+    :style="style">
     <div class="pan-head">
       <el-badge
         :value="logs.length"
@@ -44,16 +48,19 @@
       }
     },
     computed: {
-      ...mapState(['logs', 'activePans']),
+      ...mapState(['logs', 'visiblePans', 'highlightPan']),
       style() {
-        return panPosition(this.activePans, 'console')
+        return panPosition(this.visiblePans, 'console')
       },
       enableResizer() {
-        return hasNextPan(this.activePans, 'console')
+        return hasNextPan(this.visiblePans, 'console')
+      },
+      isHighlightPan() {
+        return this.highlightPan === 'console'
       }
     },
     methods: {
-      ...mapActions(['clearLogs'])
+      ...mapActions(['clearLogs', 'setHighlightPan'])
     },
     components: {
       'el-badge': Badge,

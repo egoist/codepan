@@ -2,11 +2,11 @@
   <div class="page" >
     <home-header />
     <div class="pans">
-      <html-pan class="pan" v-show="isActive('html')" />
-      <css-pan class="pan" v-show="isActive('css')" />
-      <js-pan class="pan" v-show="isActive('js')" />
-      <console-pan class="pan" v-show="isActive('console')" />
-      <output-pan class="pan" v-show="isActive('output')" />
+      <html-pan class="pan" v-show="isVisible('html')" />
+      <css-pan class="pan" v-show="isVisible('css')" />
+      <js-pan class="pan" v-show="isVisible('js')" />
+      <console-pan class="pan" v-show="isVisible('console')" />
+      <output-pan class="pan" v-show="isVisible('output')" />
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@
   export default {
     name: 'home',
     computed: {
-      ...mapState(['activePans'])
+      ...mapState(['visiblePans'])
     },
     async mounted() {
       const { boilerplate } = this.$route.query
@@ -37,8 +37,8 @@
     },
     methods: {
       ...mapActions(['setBoilerplate']),
-      isActive(pan) {
-        return this.activePans.indexOf(pan) !== -1
+      isVisible(pan) {
+        return this.visiblePans.indexOf(pan) !== -1
       }
     },
     components: {
@@ -62,17 +62,21 @@
   }
 
   .pan {
-    background-color: white;
+    background-color: #f9f9f9;
     position: absolute;
     top: 0;
     bottom: 0;
     overflow: auto;
+    &.highlight-pan {
+      background-color: white;
+    }
   }
 </style>
 
 <style>
   .CodeMirror {
     height: calc(100% - 40px);
+    background-color: transparent;
   }
 
   .CodeMirror-gutters {

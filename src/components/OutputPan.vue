@@ -1,5 +1,9 @@
 <template>
-  <div class="output-pan" :style="style">
+  <div
+    class="output-pan"
+    :class="{ 'highlight-pan': isHighlightPan }"
+    @click="setHighlightPan('output')"
+    :style="style">
     <div class="pan-head">
       Output
     </div>
@@ -16,9 +20,12 @@
   export default {
     name: 'output-pan',
     computed: {
-      ...mapState(['js', 'css', 'html', 'activePans']),
+      ...mapState(['js', 'css', 'html', 'visiblePans', 'highlightPan']),
       style() {
-        return panPosition(this.activePans, 'output')
+        return panPosition(this.visiblePans, 'output')
+      },
+      isHighlightPan() {
+        return this.highlightPan === 'output'
       }
     },
     mounted() {
@@ -30,7 +37,7 @@
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
-      ...mapActions(['addLog', 'clearLogs']),
+      ...mapActions(['addLog', 'clearLogs', 'setHighlightPan']),
       listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })

@@ -12,19 +12,22 @@ export default ({
   return {
     name: `${name}-pan`,
     computed: {
-      ...mapState([name, 'activePans']),
+      ...mapState([name, 'visiblePans', 'highlightPan']),
       ...mapState({
-        isActive: state => state.activePans.indexOf(name) !== -1
+        isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
       style() {
-        return panPosition(this.activePans, name)
+        return panPosition(this.visiblePans, name)
       },
       enableResizer() {
-        return hasNextPan(this.activePans, name)
+        return hasNextPan(this.visiblePans, name)
+      },
+      isHighlightPan() {
+        return this.highlightPan === name
       }
     },
     watch: {
-      isActive() {
+      isVisible() {
         this.editor.refresh()
       }
     },
@@ -33,13 +36,18 @@ export default ({
       this.editor.on('change', e => {
         this.updateCode({ code: e.getValue(), type: name })
       })
+      this.editor.on('focus', () => {
+        if (this.highlightPan !== name) {
+          this.setHighlightPan(name)
+        }
+      })
       Event.$on('refresh-editor', () => {
         this.editor.setValue(this[name].code)
         this.editor.refresh()
       })
     },
     methods: {
-      ...mapActions(['updateCode', 'updateTransformer']),
+      ...mapActions(['updateCode', 'updateTransformer', 'setHighlightPan']),
       setTransformer(transformer) {
         this.updateTransformer({ type: name, transformer })
       }

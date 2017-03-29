@@ -1,5 +1,9 @@
 <template>
-  <div class="vue-pan" :style="style">
+  <div
+    class="vue-pan"
+    :class="{ 'highlight-pan': isHighlightPan }"
+    @click="setHighlightPan('css')"
+    :style="style">
     <div class="pan-head">
       <el-dropdown @command="setTransformer" trigger="click">
         <span class="el-dropdown-link">

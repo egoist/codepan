@@ -1,5 +1,9 @@
 <template>
-  <div class="html-pan" :style="style">
+  <div
+    class="html-pan"
+    :class="{ 'highlight-pan': isHighlightPan }"
+    @click="setHighlightPan('html')"
+    :style="style">
     <div class="pan-head">
       <el-dropdown @command="setTransformer" trigger="click">
         <span class="el-dropdown-link">

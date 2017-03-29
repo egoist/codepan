@@ -24,31 +24,31 @@
     <div class="home-header-middle home-header-block pan-toggles">
       <span
         class="pan-toggle"
-        :class="{active: isActive('html')}"
+        :class="{visible: isVisible('html')}"
         @click="togglePan('html')">
         HTML
       </span>
       <span
         class="pan-toggle"
-        :class="{active: isActive('css')}"
+        :class="{visible: isVisible('css')}"
         @click="togglePan('css')">
         CSS
       </span>
       <span
         class="pan-toggle"
-        :class="{active: isActive('js')}"
+        :class="{visible: isVisible('js')}"
         @click="togglePan('js')">
         JS
       </span>
       <span
         class="pan-toggle"
-        :class="{active: isActive('console')}"
+        :class="{visible: isVisible('console')}"
         @click="togglePan('console')">
         Console
       </span>
       <span
         class="pan-toggle"
-        :class="{active: isActive('output')}"
+        :class="{visible: isVisible('output')}"
         @click="togglePan('output')">
         Output
       </span>
@@ -83,7 +83,7 @@
 
   export default {
     computed: {
-      ...mapState(['activePans'])
+      ...mapState(['visiblePans'])
     },
     mounted() {
       window.addEventListener('keydown', this.handleKeydown)
@@ -117,8 +117,8 @@
         await this.$store.dispatch('setBoilerplate', boilerplate)
         Event.$emit('refresh-editor')
       },
-      isActive(pan) {
-        return this.activePans.indexOf(pan) !== -1
+      isVisible(pan) {
+        return this.visiblePans.indexOf(pan) !== -1
       },
       runCode() {
         Event.$emit('run')
@@ -189,12 +189,12 @@
 
       &:hover {
         z-index: 2;
-        &:not(.active) {
+        &:not(.visible) {
           background-color: #f9f9f9;
         }
       }
 
-      &.active {
+      &.visible {
         background-color: #EBF3FF;
       }
     }

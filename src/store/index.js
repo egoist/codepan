@@ -46,7 +46,8 @@ const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    activePans: ['html', 'js', 'console']
+    visiblePans: ['html', 'js', 'console'],
+    highlightPan: 'js'
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -62,17 +63,20 @@ const store = new Vuex.Store({
       state.logs = []
     },
     TOGGLE_PAN(state, pan) {
-      const pans = state.activePans
+      const pans = state.visiblePans
       const idx = pans.indexOf(pan)
       if (idx === -1) {
         pans.push(pan)
       } else {
         pans.splice(idx, 1)
       }
-      state.activePans = sortPans(pans)
+      state.visiblePans = sortPans(pans)
     },
     SHOW_PANS(state, pans) {
-      state.activePans = sortPans(pans)
+      state.visiblePans = sortPans(pans)
+    },
+    HIGHLIGHT_PAN(state, pan) {
+      state.highlightPan = pan
     }
   },
   actions: {
@@ -87,6 +91,9 @@ const store = new Vuex.Store({
     },
     clearLogs({ commit }) {
       commit('CLEAR_LOGS')
+    },
+    setHighlightPan({ commit }, pan) {
+      commit('HIGHLIGHT_PAN', pan)
     },
     togglePan({ commit }, payload) {
       commit('TOGGLE_PAN', payload)
@@ -124,6 +131,7 @@ const store = new Vuex.Store({
         }
       }
 
+      ps.push(dispatch('setHighlightPan', boilerplate.highlightPan || 'js'))
       ps.push(dispatch('clearLogs'))
 
       await Promise.all(ps)
