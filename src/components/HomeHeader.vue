@@ -78,8 +78,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { Button, Input, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
-  import { MessageBox } from 'element-ui'
+  import { Button, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
   import Event from '@/utils/event'
 
   export default {
