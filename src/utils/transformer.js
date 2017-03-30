@@ -1,6 +1,8 @@
+// eslint-disable import/no-mutable-exports
 import progress from 'nprogress'
 
-let babel // eslint-disable-line import/no-mutable-exports
+let babel
+let pug
 
 async function loadBabel() {
   progress.start()
@@ -8,7 +10,15 @@ async function loadBabel() {
   progress.done()
 }
 
+async function loadPug() {
+  progress.start()
+  pug = await import('browserified-pug')
+  progress.done()
+}
+
 export {
   babel,
-  loadBabel
+  loadBabel,
+  pug,
+  loadPug
 }

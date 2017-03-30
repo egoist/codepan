@@ -13,7 +13,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { babel } from '@/utils/transformer'
+  import { babel, pug } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
   import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
@@ -62,14 +62,13 @@
           js = `
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
-            ${this.transformJS(this.js.code)}
+            ${this.transformJS(this.js)}
           };`
+          html = this.transformHTML(this.html)
+          css = this.css.code // eslint-disable-line prefer-const
         } catch (err) {
           return this.addLog({ type: 'error', message: err.message })
         }
-
-        html = this.html.code // eslint-disable-line prefer-const
-        css = this.css.code // eslint-disable-line prefer-const
 
         const output = `${html}&lt;style>${css}&lt;/style>&lt;script>${proxyConsole}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
 
@@ -85,24 +84,32 @@
         doc.open().write(output)
         doc.close()
       },
-      transformJS(source) {
-        if (this.js.transformer === 'JavaScript') {
-          return source
+      transformJS({ code, transformer }) {
+        if (transformer === 'JavaScript') {
+          return code
         }
-        if (this.js.transformer === 'Babel') {
-          return babel.transform(source, {
+        if (transformer === 'Babel') {
+          return babel.transform(code, {
             presets: ['es2015', 'stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
-        if (this.js.transformer === 'JSX') {
-          return babel.transform(source, {
+        if (transformer === 'JSX') {
+          return babel.transform(code, {
             presets: ['stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
 
         console.error('Unknow transformer!')
+      },
+      transformHTML({ code, transformer }) {
+        if (transformer === 'HTML') {
+          return code
+        }
+        if (transformer === 'Pug') {
+          return pug.render(code)
+        }
       }
     }
   }

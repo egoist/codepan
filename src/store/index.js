@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { babel, loadBabel } from '@/utils/transformer'
+import { loadBabel, loadPug } from '@/utils/transformer'
 import progress from 'nprogress'
 
 Vue.use(Vuex)
@@ -102,11 +102,14 @@ const store = new Vuex.Store({
       commit('SHOW_PANS', pans)
     },
     async updateTransformer({ commit }, { type, transformer }) {
-      if (transformer === 'Babel' && !babel) {
+      if (transformer === 'Babel') {
         await loadBabel()
       }
-      if (transformer === 'JSX' && !babel) {
+      if (transformer === 'JSX') {
         await loadBabel()
+      }
+      if (transformer === 'Pug') {
+        await loadPug()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

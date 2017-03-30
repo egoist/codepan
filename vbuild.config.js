@@ -18,6 +18,10 @@ module.exports = options => ({
       }))
     }
 
+    config.node = {
+      fs: 'empty'
+    }
+
     return config
   }
 })
