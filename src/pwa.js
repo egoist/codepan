@@ -1,16 +1,51 @@
 import runtime from 'offline-plugin/runtime'
+import { Notification, Button } from 'element-ui'
+
+const createNotifier = () => new Vue({
+  data: {
+    updating: false
+  },
+  created() {
+    const h = this.$createElement
+    this.notification = Notification({
+      title: 'Detected an update for CodePan, apply updates will reload the tab automatically!',
+      type: 'info',
+      message: h('el-button', {
+        on: { click: this.update },
+        props: {
+          icon: 'check',
+          type: 'success',
+          loading: this.updating
+        }
+       }, [this.updating ? 'Updating' : 'Apply Updates']),
+      duration: 0
+    })
+  },
+  methods: {
+    update() {
+      this.updating = true
+      runtime.applyUpdate()
+    }
+  },
+  components: {
+    'el-button': Button
+  }
+})
+
+let notifier
 
 runtime.install({
   // When an update is ready, tell ServiceWorker to take control immediately:
   onUpdateReady() {
     console.log('update ready')
-    runtime.applyUpdate()
+    notifier = createNotifier()
   },
 
   // Reload to get the new version:
   onUpdated() {
     console.log('updated')
-    // location.reload()
-    // TODO: show a message box to tell you to refresh
+    notifier.updating = false
+    notifier.notification.close()
+    location.reload()
   }
 })
