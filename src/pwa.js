@@ -8,7 +8,7 @@ const createNotifier = () => new Vue({
   },
   created() {
     const h = this.$createElement
-    this.notification = Notification({
+    this.notification = Notification({ // eslint-disable-line new-cap
       title: 'Detected an update for CodePan, apply updates will reload the tab automatically!',
       type: 'info',
       message: h('el-button', {
@@ -18,7 +18,7 @@ const createNotifier = () => new Vue({
           type: 'success',
           loading: this.updating
         }
-       }, [this.updating ? 'Updating' : 'Apply Updates']),
+      }, [this.updating ? 'Updating' : 'Apply Updates']),
       duration: 0
     })
   },
