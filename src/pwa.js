@@ -36,13 +36,11 @@ const createNotifier = () => new Vue({
 let notifier
 
 runtime.install({
-  // When an update is ready, tell ServiceWorker to take control immediately:
   onUpdateReady() {
     console.log('update ready')
     notifier = createNotifier()
   },
 
-  // Reload to get the new version:
   onUpdated() {
     console.log('updated')
     notifier.updating = false
