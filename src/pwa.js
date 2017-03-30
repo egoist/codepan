@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import runtime from 'offline-plugin/runtime'
 import { Notification, Button } from 'element-ui'
 
