@@ -1,28 +1,45 @@
 CACHE MANIFEST
-#ver:2017-3-29 20:20:56
+#ver:2017-3-30 20:19:24
 #plugin:4.6.2
 
 CACHE:
 /static/element-icons.b02bdc1b.ttf
 /static/element-icons.d2f69a92.woff
-/0.958d1651.js
-/1.76b68a74.js
-/2.442f720a.js
-/3.068e9902.js
-/4.c3082d91.js
-/5.9cc16288.js
-/6.d19d5930.js
-/7.6d38bdfd.js
-/8.12cbbd95.js
-/9.fb5ed18b.js
-/client.c5ebd73a.js
-/vendor.8d497edc.js
-/manifest.3252c2f2.js
-/client.295f2fb9.css
-/vendor.02c770f9.css
+/0.8cb3d10f.js
+/1.5bc0f7f6.js
+/2.33458000.js
+/3.668eb093.js
+/4.ec27ff39.js
+/5.492b8d79.js
+/6.54359c2d.js
+/7.6d330778.js
+/8.978a9c41.js
+/9.94e3d4a7.js
+/10.1b6b79b8.js
+/11.b39c401d.js
+/vendor.a9bb68f5.js
+/client.4981aef4.js
+/manifest.3db56a1f.js
+/client.cc269f11.css
+/vendor.c482d8be.css
 /
+/favicon-120.png
+/favicon-114.png
 /CNAME
+/favicon-152.png
+/favicon-180.png
+/favicon-144.png
+/favicon-192.png
+/favicon-36.png
+/favicon-48.png
+/favicon-72.png
+/favicon-32.png
+/favicon-57.png
+/favicon-60.png
+/favicon-96.png
+/favicon-76.png
 /favicon.ico
+/manifest.json
 
 NETWORK:
 *
