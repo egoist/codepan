@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unassigned-import */
 import CodeMirror from 'codemirror'
-import 'codemirror/mode/xml/xml'
+import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/mode/jsx/jsx'
 import 'codemirror/mode/css/css'
 import 'codemirror/addon/selection/active-line'

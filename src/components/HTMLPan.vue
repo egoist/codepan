@@ -28,7 +28,7 @@
   export default createPan({
     name: 'html',
     editor: {
-      mode: 'xml'
+      mode: 'htmlmixed'
     },
     components: {
       'el-dropdown': Dropdown,

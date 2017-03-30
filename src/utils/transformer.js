@@ -12,7 +12,11 @@ async function loadBabel() {
 
 async function loadPug() {
   progress.start()
-  pug = await import('browserified-pug')
+  const res = await Promise.all([
+    import('browserified-pug'),
+    import('codemirror/mode/pug/pug')
+  ])
+  pug = res[0]
   progress.done()
 }
 

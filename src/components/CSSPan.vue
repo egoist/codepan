@@ -27,7 +27,8 @@
   export default createPan({
     name: 'css',
     editor: {
-      mode: 'css'
+      mode: 'css',
+      autoCloseBrackets: true
     },
     components: {
       'el-dropdown': Dropdown,

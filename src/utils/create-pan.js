@@ -4,6 +4,18 @@ import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
 import { hasNextPan } from '@/utils'
 
+const getEditorModeByTransfomer = transformer => {
+  const modes = {
+    HTML: 'htmlmixed',
+    Pug: 'pug',
+    JavaScript: 'jsx',
+    Babel: 'jsx',
+    JSX: 'jsx',
+    CSS: 'css'
+  }
+  return modes[transformer]
+}
+
 export default ({
   name,
   editor,
@@ -48,8 +60,9 @@ export default ({
     },
     methods: {
       ...mapActions(['updateCode', 'updateTransformer', 'setHighlightPan']),
-      setTransformer(transformer) {
-        this.updateTransformer({ type: name, transformer })
+      async setTransformer(transformer) {
+        await this.updateTransformer({ type: name, transformer })
+        this.editor.setOption('mode', getEditorModeByTransfomer(transformer))
       }
     },
     components
