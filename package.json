@@ -41,6 +41,8 @@
     "codemirror": "^5.25.0",
     "element-ui": "^1.2.5",
     "nprogress": "^0.2.0",
+    "object-assign": "^4.1.1",
+    "promise-polyfill": "^6.0.2",
     "vue": "^2.2.6",
     "vue-router": "^2.3.0",
     "vuex": "^2.2.1"
