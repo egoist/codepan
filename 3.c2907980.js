@@ -1,0 +1,2 @@
+webpackJsonp([3],{53:function(n,t){n.exports="new Vue({\n  el: '#app',\n  data: { count: 0 },\n  methods: {\n    inc() {\n      this.count++\n    },\n    dec() {\n      this.count--\n    }\n  }\n})\n"}});
+//# sourceMappingURL=3.c2907980.js.map
