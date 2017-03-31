@@ -15,7 +15,6 @@ module.exports = options => ({
         safeToUseOptionalCaches: true,
         caches: {
           main: [':rest:'],
-          optional: ['*.chunk.js'],
           additional: ['static/*', 'favicon-*.png', 'favicon.ico']
         },
         ServiceWorker: {
