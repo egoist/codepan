@@ -32,7 +32,7 @@
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
     "uglify-loader": "^2.0.0",
-    "vbuild": "^6.24.11"
+    "vbuild": "^6.24.13"
   },
   "license": "MIT",
   "dependencies": {
