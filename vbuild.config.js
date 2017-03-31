@@ -12,8 +12,16 @@ module.exports = options => ({
     // inject offline-plugin in production build
     if (!options.dev) {
       config.plugins.push(new OfflinePlugin({
+        caches: {
+          main: [':rest:'],
+          // additional: [':externals:'],
+          optional: ['*.chunk.js']
+        },
         ServiceWorker: {
           events: true
+        },
+        AppCache: {
+          caches: ['main', 'additional', 'optional']
         }
       }))
     }
