@@ -1,11 +1,11 @@
 CACHE MANIFEST
-#ver:2017-3-31 16:14:29
+#ver:2017-3-31 16:34:25
 #plugin:4.6.2
 
 CACHE:
 /vendor.2b1375ed.js
-/client.c2e4924d.js
-/manifest.f1b4eb49.js
+/client.b6028fbe.js
+/manifest.7f1ae253.js
 /client.deaf2cb6.css
 /vendor.c482d8be.css
 /
@@ -15,18 +15,18 @@ CACHE:
 /static/element-icons.d2f69a92.woff
 /favicon-114.png
 /favicon-120.png
-/favicon-144.png
 /favicon-152.png
-/favicon-180.png
 /favicon-32.png
 /favicon-192.png
-/favicon-48.png
-/favicon-36.png
+/favicon-144.png
+/favicon-180.png
 /favicon-60.png
+/favicon-36.png
+/favicon-48.png
 /favicon-57.png
-/favicon-96.png
-/favicon-76.png
 /favicon-72.png
+/favicon-76.png
+/favicon-96.png
 /favicon.ico
 /0.e5f59bdf.chunk.js
 /1.6152145d.chunk.js
