@@ -101,7 +101,7 @@
     methods: {
       ...mapActions(['togglePan', 'updateCode']),
       handleKeydown(e) {
-        if (e.key === 's' && (e.metaKey || e.ctrlKey)) {
+        if (e.which === 83 && (e.metaKey || e.ctrlKey)) {
           e.preventDefault()
           this.runCode()
         }

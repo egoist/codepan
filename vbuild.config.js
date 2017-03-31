@@ -12,17 +12,14 @@ module.exports = options => ({
     // inject offline-plugin in production build
     if (!options.dev) {
       config.plugins.push(new OfflinePlugin({
-        safeToUseOptionalCaches: true,
         caches: {
-          main: [':rest:'],
-          additional: ['static/*', 'favicon-*.png', 'favicon.ico']
+          main: [':rest:']
         },
         ServiceWorker: {
           events: true
         },
         AppCache: {
-          events: true,
-          caches: ['main', 'additional', 'optional']
+          events: true
         }
       }))
     }

@@ -4,7 +4,7 @@ import progress from 'nprogress'
 const transformers = {}
 
 async function loadBabel() {
-  if (transformers.babel) {
+  if (!transformers.babel) {
     progress.start()
     transformers.babel = await import('babel-standalone')
     progress.done()
