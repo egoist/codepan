@@ -117,10 +117,12 @@ const store = new Vuex.Store({
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },
     // todo: simplify this action
-    async setBoilerplate({ dispatch }, type) {
+    async setBoilerplate({ dispatch }, boilerplate) {
       progress.start()
 
-      const boilerplate = await boilerplates[type]()
+      if (typeof boilerplate === 'string') {
+        boilerplate = await boilerplates[boilerplate]()
+      }
 
       const ps = []
       for (const type in boilerplate) {

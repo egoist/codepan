@@ -47,7 +47,7 @@
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
-      ...mapActions(['addLog', 'clearLogs', 'setHighlightPan']),
+      ...mapActions(['addLog', 'clearLogs', 'setHighlightPan', 'setBoilerplate']),
       listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
@@ -59,6 +59,8 @@
           }
         } else if (data.type === 'codepan-highlight-output') {
           this.setHighlightPan('output')
+        } else if (data.type === 'codepan-set-boilerplate' && data.boilerplate) {
+          this.setBoilerplate(data.boilerplate)
         }
       },
       run() {
