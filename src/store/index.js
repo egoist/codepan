@@ -31,7 +31,7 @@ const emptyPans = () => ({
 const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
-    showPans: ['html', 'js', 'console']
+    showPans: ['html', 'js', 'output']
   })
 }
 function importAll(r) {
@@ -46,7 +46,7 @@ const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: ['html', 'js', 'console'],
+    visiblePans: ['html', 'js', 'output'],
     highlightPan: 'js'
   },
   mutations: {
