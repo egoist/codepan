@@ -1,0 +1,1 @@
+webpackJsonp([6],{53:function(e,s){e.exports="/*\n  timer takes a second argument, how often to emit subsequent values\n  in this case we will emit first value after 1 second and subsequent\n  values every 2 seconds after\n*/\nconst source = Rx.Observable.timer(1000, 2000);\n//output: 0,1,2,3,4,5......\nconst subscribe = source.subscribe(val => console.log(val));\n"}});
