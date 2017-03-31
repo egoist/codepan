@@ -8,6 +8,8 @@
 </template>
 
 <script>
+  import Event from '@/utils/event'
+
   export default {
     props: ['enable'],
     data() {
@@ -52,6 +54,8 @@
 
         this.currentPan.parentNode.classList.remove('resizing')
         document.getElementById('output-iframe').classList.remove('disable-mouse-events')
+
+        Event.$emit('refresh-editor')
       },
       handleMouseMove(e) {
         if (this.resizing) {
