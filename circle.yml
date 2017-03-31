@@ -9,3 +9,9 @@ dependencies:
     - yarn
   cache_directories:
     - ~/.cache/yarn
+
+general:
+  branches:
+    ignore:
+      - gh-pages # list of branches to ignore
+      - /release\/.*/ # or ignore regexes
