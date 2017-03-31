@@ -16,7 +16,6 @@ export default function (el, opts = {}) {
     styleActiveLine: true,
     matchTags: { bothTags: true },
     matchBrackets: true,
-    extraKeys: {"Ctrl-E": "autocomplete"},
     ...opts
   })
 
