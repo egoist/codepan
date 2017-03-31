@@ -48,7 +48,7 @@
     },
     methods: {
       ...mapActions(['addLog', 'clearLogs', 'setHighlightPan', 'setBoilerplate']),
-      listenIframe({ data = {} }) {
+      async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
         } else if (data.type === 'codepan-console') {
@@ -60,7 +60,8 @@
         } else if (data.type === 'codepan-highlight-output') {
           this.setHighlightPan('output')
         } else if (data.type === 'codepan-set-boilerplate' && data.boilerplate) {
-          this.setBoilerplate(data.boilerplate)
+          await this.setBoilerplate(JSON.parse(data.boilerplate))
+          Event.$emit('refresh-editor')
         }
       },
       run() {

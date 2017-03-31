@@ -34,6 +34,11 @@
         Event.$emit('refresh-editor')
       }
       progress.done()
+
+      // Tell the parent window we're ready!
+      if (window.self !== window.top) {
+        window.parent.postMessage({ type: 'codepan-ready' }, '*')
+      }
     },
     methods: {
       ...mapActions(['setBoilerplate']),
