@@ -13,10 +13,15 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import createIframe from 'iframe'
   import { babel, pug } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
   import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
+
+  const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
+
+  const replaceQuote = str => str.replace(/&lt;/g, '<')
 
   export default {
     name: 'output-pan',
@@ -30,6 +35,10 @@
       }
     },
     mounted() {
+      this.iframe = createIframe({
+        container: document.getElementById('output-iframe')
+      })
+
       window.addEventListener('message', this.listenIframe)
       Event.$on('run', () => this.run())
       Event.$on('refresh-editor', () => this.run())
@@ -70,19 +79,14 @@
           return this.addLog({ type: 'error', message: err.message })
         }
 
-        const output = `${html}&lt;style>${css}&lt;/style>&lt;script>${proxyConsole}&lt;/script>&lt;script>${js}&lt;/script>`.replace(/&lt;/g, '<')
+        const head = replaceQuote(`&lt;style>${css}&lt;/style>`)
+        const body = replaceQuote(`${html}&lt;script>${proxyConsole}&lt;/script>&lt;script>${js}&lt;/script>`)
 
-        const newIframe = document.createElement('iframe')
-        newIframe.id = 'output-iframe'
-        newIframe.className = 'output-iframe'
-        newIframe.frameBorder = '0'
-
-        const oldIframe = document.getElementById('output-iframe')
-        oldIframe.parentNode.replaceChild(newIframe, oldIframe)
-
-        const doc = newIframe.contentWindow.document
-        doc.open().write(output)
-        doc.close()
+        this.iframe.setHTML({
+          head,
+          body,
+          sandboxAttributes
+        })
       },
       transformJS({ code, transformer }) {
         if (transformer === 'JavaScript') {
@@ -118,7 +122,7 @@
 <style>
   .output-iframe {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
     &.disable-mouse-events {
       pointer-events: none;
     }
