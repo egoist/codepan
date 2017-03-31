@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { loadBabel, loadPug } from '@/utils/transformer'
+import { loadBabel, loadPug, loadMarkdown } from '@/utils/transformer'
 import progress from 'nprogress'
 
 Vue.use(Vuex)
@@ -110,6 +110,9 @@ const store = new Vuex.Store({
       }
       if (transformer === 'Pug') {
         await loadPug()
+      }
+      if (transformer === 'Markdown') {
+        await loadMarkdown()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

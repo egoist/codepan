@@ -14,7 +14,7 @@
 <script>
   import { mapState, mapActions } from 'vuex'
   import createIframe from 'iframe'
-  import { babel, pug } from '@/utils/transformer'
+  import { transformers } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
   import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
@@ -93,13 +93,13 @@
           return code
         }
         if (transformer === 'Babel') {
-          return babel.transform(code, {
+          return transformers.babel.transform(code, {
             presets: ['es2015', 'stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
         if (transformer === 'JSX') {
-          return babel.transform(code, {
+          return transformers.babel.transform(code, {
             presets: ['stage-2'],
             plugins: ['transform-react-jsx']
           }).code
@@ -112,7 +112,10 @@
           return code
         }
         if (transformer === 'Pug') {
-          return pug.render(code)
+          return transformers.pug.render(code)
+        }
+        if (transformer === 'Markdown') {
+          return transformers.markdown(code)
         }
       }
     }

@@ -12,6 +12,7 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="HTML">HTML</el-dropdown-item>
           <el-dropdown-item command="Pug">Pug</el-dropdown-item>
+          <el-dropdown-item command="Markdown">Markdown</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

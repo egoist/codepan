@@ -41,6 +41,7 @@
     "codemirror": "^5.25.0",
     "element-ui": "^1.2.5",
     "iframe": "^1.0.0",
+    "marked": "^0.3.6",
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",

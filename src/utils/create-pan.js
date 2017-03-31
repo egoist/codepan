@@ -8,6 +8,7 @@ const getEditorModeByTransfomer = transformer => {
   const modes = {
     HTML: 'htmlmixed',
     Pug: 'pug',
+    Markdown: 'markdown',
     JavaScript: 'jsx',
     Babel: 'jsx',
     JSX: 'jsx',
