@@ -18,6 +18,9 @@ module.exports = options => ({
         },
         ServiceWorker: {
           events: true
+        },
+        AppCache: {
+          events: true
         }
       }))
     }
