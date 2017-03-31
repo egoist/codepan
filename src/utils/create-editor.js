@@ -7,6 +7,7 @@ import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/edit/matchtags'
 import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/edit/closebrackets'
+import 'codemirror/addon/edit/closetag'
 
 export default function (el, opts = {}) {
   const editor = CodeMirror.fromTextArea(el, {
@@ -15,6 +16,7 @@ export default function (el, opts = {}) {
     styleActiveLine: true,
     matchTags: { bothTags: true },
     matchBrackets: true,
+    extraKeys: {"Ctrl-E": "autocomplete"},
     ...opts
   })
 

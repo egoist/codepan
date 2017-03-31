@@ -29,7 +29,8 @@
   export default createPan({
     name: 'html',
     editor: {
-      mode: 'htmlmixed'
+      mode: 'htmlmixed',
+      autoCloseTags: true
     },
     components: {
       'el-dropdown': Dropdown,
