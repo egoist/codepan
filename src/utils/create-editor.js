@@ -26,5 +26,12 @@ export default function (el, opts = {}) {
     }
   })
 
+  if (opts.mode === 'htmlmixed') {
+    import('emmet-codemirror').then(emmet => {
+      emmet.setup(CodeMirror)
+      emmet.default(editor)
+    })
+  }
+
   return editor
 }

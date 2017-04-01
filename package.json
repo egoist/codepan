@@ -40,6 +40,7 @@
     "browserified-pug": "^0.1.0",
     "codemirror": "^5.25.0",
     "element-ui": "^1.2.5",
+    "emmet-codemirror": "emmetio/codemirror#webpack",
     "iframe": "^1.0.0",
     "marked": "^0.3.6",
     "nprogress": "^0.2.0",
