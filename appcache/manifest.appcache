@@ -1,14 +1,14 @@
 CACHE MANIFEST
-#ver:2017-4-1 00:18:22
+#ver:2017-4-1 22:55:02
 #plugin:4.6.2
 
 CACHE:
 /static/element-icons.b02bdc1b.ttf
 /static/element-icons.d2f69a92.woff
-/0.0d3f0953.chunk.js
-/1.ad4f3d15.chunk.js
-/2.b83f032b.chunk.js
-/3.58b2b0b6.chunk.js
+/0.a15d3922.chunk.js
+/1.11846732.chunk.js
+/2.a786c552.chunk.js
+/3.52496ae7.chunk.js
 /4.5b30761c.chunk.js
 /5.315c36b1.chunk.js
 /6.bc025877.chunk.js
@@ -21,25 +21,26 @@ CACHE:
 /13.c65cb741.chunk.js
 /vendor.14fb567a.js
 /client.68c48f93.js
-/manifest.d4a5e8a0.js
+/16.4480195f.chunk.js
+/manifest.ae01a4a5.js
 /client.eec936bc.css
 /vendor.e1632b1d.css
 /
 /favicon-144.png
+/favicon-120.png
 /CNAME
 /favicon-114.png
-/favicon-120.png
+/favicon-192.png
 /favicon-152.png
 /favicon-180.png
 /favicon-32.png
-/favicon-192.png
-/favicon-60.png
+/favicon-48.png
 /favicon-36.png
 /favicon-57.png
-/favicon-48.png
-/favicon-96.png
+/favicon-60.png
 /favicon-76.png
 /favicon-72.png
+/favicon-96.png
 /favicon.ico
 /manifest.json
 
