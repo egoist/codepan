@@ -1032,7 +1032,7 @@ caniuse-api@^1.5.2:
     lodash.memoize "^4.1.0"
     lodash.uniq "^4.3.0"
 
-caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
+caniuse-db@^1.0.30000161, caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000641"
   resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000641.tgz#4810fc75fbb3f5b3bd75c2d6a94d894a7c709873"
 
@@ -1702,6 +1702,18 @@ elliptic@^6.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
+
+emmet-codemirror@emmetio/codemirror#webpack:
+  version "1.2.5"
+  resolved "https://codeload.github.com/emmetio/codemirror/tar.gz/2c1956ce753e8b6aa89b812a88f79be37040fc7c"
+  dependencies:
+    emmet "^1.5.0"
+
+emmet@^1.5.0:
+  version "1.6.2"
+  resolved "http://r.cnpmjs.org/emmet/download/emmet-1.6.2.tgz#ba860d84571b51189152b337503ddb0224dff2d7"
+  dependencies:
+    caniuse-db "^1.0.30000161"
 
 emojis-list@^2.0.0:
   version "2.1.0"
