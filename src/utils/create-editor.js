@@ -9,9 +9,6 @@ import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 
-import * as emmet from 'emmet-codemirror'
-emmet.setup(CodeMirror)
-
 export default function (el, opts = {}) {
   const editor = CodeMirror.fromTextArea(el, {
     lineNumbers: true,
@@ -30,7 +27,10 @@ export default function (el, opts = {}) {
   })
 
   if (opts.mode === 'htmlmixed') {
-    emmet.default(editor)
+    import('emmet-codemirror').then(emmet => {
+      emmet.setup(CodeMirror)
+      emmet.default(editor)
+    })
   }
 
   return editor
