@@ -55,7 +55,7 @@
         this.currentPan.parentNode.classList.remove('resizing')
         document.getElementById('output-iframe').classList.remove('disable-mouse-events')
 
-        Event.$emit('refresh-editor')
+        Event.$emit('refresh-editor', { run: false })
       },
       handleMouseMove(e) {
         if (this.resizing) {

@@ -41,7 +41,11 @@
 
       window.addEventListener('message', this.listenIframe)
       Event.$on('run', () => this.run())
-      Event.$on('refresh-editor', () => this.run())
+      Event.$on('refresh-editor', ({
+        run = true
+      } = {}) => {
+        run && this.run()
+      })
     },
     beforeDestroy() {
       window.removeEventListener('message', this.listenIframe)
