@@ -4747,9 +4747,9 @@ vary@~1.1.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.1.tgz#67535ebb694c1d52257457984665323f587e8d37"
 
-vbuild@7.0.0-beta.2:
-  version "7.0.0-beta.2"
-  resolved "https://registry.npmjs.org/vbuild/-/vbuild-7.0.0-beta.2.tgz#58f69ad2bd2204161eded22e8763d5f19a51be6b"
+vbuild@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.npmjs.org/vbuild/-/vbuild-7.0.2.tgz#379309930547fd7467189c6729bdd00c9f43cb68"
   dependencies:
     "@ream/babel-loader" "^7.0.0"
     autoprefixer "^6.7.7"
