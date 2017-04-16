@@ -3,13 +3,14 @@
   "name": "codepan",
   "productName": "CodePan",
   "description": "Play with JS/CSS/HTML so simple it hurts",
+  "main": "src/index.js",
   "version": "0.0.0",
   "repository": {},
   "scripts": {
     "test": "npm run lint",
     "lint": "eslint **/src/**/*.{vue,js}",
     "fix": "eslint **/src/**/*.{vue,js} --fix",
-    "dev": "vbuild -d",
+    "dev": "vbuild dev",
     "build": "vbuild",
     "surge": "npm run build && surge -p dist -d codepan.surge.sh",
     "deploy": "npm run build && gh-pages -d dist"
@@ -24,22 +25,22 @@
   },
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "eslint-config-vue-app": "^1.2.1",
     "gh-pages": "^0.12.0",
-    "offline-plugin": "^4.6.1",
-    "postcss-nested": "^1.0.0",
+    "offline-plugin": "^4.7.0",
+    "postcss-nested": "^1.0.1",
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
     "uglify-loader": "^2.0.0",
-    "vbuild": "^6.24.13"
+    "vbuild": "7.0.0-beta.2"
   },
   "license": "MIT",
   "dependencies": {
     "babel-standalone": "^6.24.0",
     "browserified-pug": "^0.1.0",
     "codemirror": "^5.25.0",
-    "element-ui": "^1.2.5",
+    "element-ui": "^1.2.8",
     "emmet-codemirror": "emmetio/codemirror#webpack",
     "iframe": "^1.0.0",
     "marked": "^0.3.6",
@@ -47,7 +48,7 @@
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
     "vue": "^2.2.6",
-    "vue-router": "^2.3.0",
-    "vuex": "^2.2.1"
+    "vue-router": "^2.4.0",
+    "vuex": "^2.3.0"
   }
 }
