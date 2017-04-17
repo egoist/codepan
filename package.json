@@ -23,6 +23,12 @@
       "no-warning-comments": 0
     }
   },
+  "postcss": {
+    "plugins": {
+      "postcss-nested": {},
+      "postcss-property-lookup": {}
+    }
+  },
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
     "eslint": "^3.19.0",
@@ -33,7 +39,7 @@
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
     "uglify-loader": "^2.0.0",
-    "vbuild": "^7.0.2"
+    "vbuild": "^7.0.6"
   },
   "license": "MIT",
   "dependencies": {
