@@ -17,7 +17,7 @@
   import { transformers } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
-  import proxyConsole from '!raw-loader!uglify-loader!@ream/babel-loader!@/utils/proxy-console'
+  import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
 
   const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
 
