@@ -97,8 +97,10 @@
     },
     watch: {
       '$route.query.npm': {
-        handler(v) {
-          this.addLibrary(v)
+        handler(next, prev) {
+          if (next !== prev) {
+            this.addLibrary(next)
+          }
         },
         immediate: true
       }

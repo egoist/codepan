@@ -31,6 +31,18 @@
       progress.done()
       next()
     },
+    watch: {
+      '$route.query.show': {
+        handler(next, prev) {
+          if (!next && prev) {
+            this.showPans(['js', 'html', 'output'])
+          } else if (next !== prev) {
+            this.showPans(next.split(','))
+          }
+        },
+        immediate: true
+      }
+    },
     async mounted() {
       const { boilerplate } = this.$route.query
       if (boilerplate) {
@@ -45,7 +57,7 @@
       }
     },
     methods: {
-      ...mapActions(['setBoilerplate']),
+      ...mapActions(['setBoilerplate', 'showPans']),
       isVisible(pan) {
         return this.visiblePans.indexOf(pan) !== -1
       }

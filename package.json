@@ -51,6 +51,7 @@
     "iframe": "^1.0.0",
     "marked": "^0.3.6",
     "nprogress": "^0.2.0",
+    "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
     "vue": "^2.2.6",
     "vue-router": "^2.5.2",
