@@ -27,6 +27,10 @@
     computed: {
       ...mapState(['visiblePans'])
     },
+    beforeRouteUpdate(to, from, next) {
+      progress.done()
+      next()
+    },
     async mounted() {
       const { boilerplate } = this.$route.query
       if (boilerplate) {

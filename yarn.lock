@@ -375,9 +375,9 @@ babel-load-config@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/babel-load-config/-/babel-load-config-0.1.0.tgz#27280b4a90830c47a1fbbc7baaac4c002cd8c8bd"
 
-babel-loader@7.0.0-beta.1:
-  version "7.0.0-beta.1"
-  resolved "https://registry.npmjs.org/babel-loader/-/babel-loader-7.0.0-beta.1.tgz#1318888dfcbbd5f05750ba2d72c744cc07815ce2"
+babel-loader@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-7.0.0.tgz#2e43a66bee1fff4470533d0402c8a4532fafbaf7"
   dependencies:
     find-cache-dir "^0.1.1"
     loader-utils "^1.0.2"
@@ -1061,9 +1061,9 @@ cli-width@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/cli-width/-/cli-width-2.1.0.tgz#b234ca209b29ef66fc518d9b98d5847b00edf00a"
 
-clipboardy@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/clipboardy/-/clipboardy-1.1.0.tgz#e060337afad251fce05456d83dd3a5d6dcb3fa6b"
+clipboardy@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-1.1.1.tgz#75b5a7ac50d83c98025fb6303298c6a9007c16c7"
   dependencies:
     execa "^0.6.0"
 
@@ -1101,9 +1101,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codemirror@^5.25.0:
-  version "5.25.0"
-  resolved "https://registry.npmjs.org/codemirror/-/codemirror-5.25.0.tgz#78e06939c7bb41f65707b8aa9c5328111948b756"
+codemirror@^5.25.2:
+  version "5.25.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.25.2.tgz#8c77677ca9c9248d757d3a07ed1e89a8404850b7"
 
 collections@^0.2.0:
   version "0.2.2"
@@ -1645,9 +1645,9 @@ electron-to-chromium@^1.2.6, electron-to-chromium@^1.2.7:
   version "1.2.8"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.2.8.tgz#22c2e6200d350da27d6050db7e3f6f85d18cf4ed"
 
-element-ui@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.npmjs.org/element-ui/-/element-ui-1.2.8.tgz#aa95bde8ad550d17b23b2a73ae84cfa1f0c2635d"
+element-ui@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-1.2.9.tgz#ce7332dbbde73f239a72b7ca517cf83b1bf7f1fb"
   dependencies:
     async-validator "^1.6.6"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -4109,6 +4109,18 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
+req-cwd@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/req-cwd/-/req-cwd-1.0.1.tgz#0d73aeae9266e697a78f7976019677e76acf0fff"
+  dependencies:
+    req-from "^1.0.1"
+
+req-from@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/req-from/-/req-from-1.0.1.tgz#bf81da5147947d32d13b947dc12a58ad4587350e"
+  dependencies:
+    resolve-from "^2.0.0"
+
 request@^2.81.0:
   version "2.81.0"
   resolved "https://registry.npmjs.org/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
@@ -4162,6 +4174,10 @@ requires-port@1.x.x:
 resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
+
+resolve-from@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-2.0.0.tgz#9480ab20e94ffa1d9e80a804c7ea147611966b57"
 
 resolve@^1.1.6:
   version "1.3.2"
@@ -4747,17 +4763,17 @@ vary@~1.1.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.1.tgz#67535ebb694c1d52257457984665323f587e8d37"
 
-vbuild@^7.0.6:
-  version "7.0.6"
-  resolved "https://registry.npmjs.org/vbuild/-/vbuild-7.0.6.tgz#c19198cf759edc4e667a4d13bd8b1193f00817b5"
+vbuild@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/vbuild/-/vbuild-7.1.1.tgz#881a1d4a2d4a1926f2272ddb8217cdacd473f702"
   dependencies:
     autoprefixer "^6.7.7"
     babel-core "^6.24.1"
     babel-load-config "^0.1.0"
-    babel-loader "7.0.0-beta.1"
+    babel-loader "^7.0.0"
     babel-preset-vue-app "^1.2.0"
     chalk "^1.1.3"
-    clipboardy "^1.1.0"
+    clipboardy "^1.1.1"
     co "^4.6.0"
     connect-history-api-fallback "^1.3.0"
     copy-webpack-plugin "^4.0.1"
@@ -4777,6 +4793,7 @@ vbuild@^7.0.6:
     post-compile-webpack-plugin "^0.1.1"
     postcss-load-config "^1.2.0"
     postcss-loader "^1.3.3"
+    req-cwd "^1.0.1"
     rimraf "^2.6.1"
     strip-ansi "^3.0.1"
     tildify "^1.2.0"
@@ -4787,7 +4804,7 @@ vbuild@^7.0.6:
     vue-template-compiler "^2.2.6"
     webpack "^2.4.1"
     webpack-chain "^3.2.0"
-    webpack-dev-middleware "^1.10.1"
+    webpack-dev-middleware "^1.10.2"
     webpack-hot-middleware "^2.18.0"
     webpack-merge "^4.1.0"
     webpack-node-externals "^1.5.4"
@@ -4830,9 +4847,9 @@ vue-loader@^11.3.4:
     vue-style-loader "^2.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-router@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/vue-router/-/vue-router-2.4.0.tgz#56a635e1434a1966ac095f2a485bebdcfc36cec5"
+vue-router@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.5.2.tgz#870db3b63ead0aab4cd0bac63a7b81341c593f56"
 
 vue-style-loader@^2.0.0:
   version "2.0.4"
@@ -4856,9 +4873,9 @@ vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
-vuex@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/vuex/-/vuex-2.3.0.tgz#600048bef1682d657a6f3b7b1ffb44898703f2b4"
+vuex@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.3.1.tgz#cde8e997c1f9957719bc7dea154f9aa691d981a6"
 
 watchpack@^1.3.1:
   version "1.3.1"
@@ -4878,9 +4895,9 @@ webpack-chain@^3.2.0:
   dependencies:
     deepmerge "^1.3.2"
 
-webpack-dev-middleware@^1.10.1:
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-1.10.1.tgz#c6b4cf428139cf1aefbe06a0c00fdb4f8da2f893"
+webpack-dev-middleware@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.10.2.tgz#2e252ce1dfb020dbda1ccb37df26f30ab014dbd1"
   dependencies:
     memory-fs "~0.4.1"
     mime "^1.3.4"

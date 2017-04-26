@@ -17,7 +17,7 @@
       <el-button
         class="home-header-left-item"
         icon="plus"
-        @click="addLibrary"
+        @click="promptLibrary"
         size="mini">
         Add library
       </el-button>
@@ -95,6 +95,14 @@
     mounted() {
       window.addEventListener('keydown', this.handleKeydown)
     },
+    watch: {
+      '$route.query.npm': {
+        handler(v) {
+          this.addLibrary(v)
+        },
+        immediate: true
+      }
+    },
     beforeDestroy() {
       window.removeEventListener('keydown', this.handleKeydown)
     },
@@ -106,13 +114,24 @@
           this.runCode()
         }
       },
-      async addLibrary() {
+      updateQuery(name, value) {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            [name]: value
+          }
+        })
+      },
+      async promptLibrary() {
         const { value } = await MessageBox.prompt('Type an npm package name:', 'Add Library', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel'
         })
-        if (value) {
-          const code = `&lt;script src="https://unpkg.com/${value}">&lt;/script>\n`.replace(/&lt;/g, '<') + this.$store.state.html.code
+        this.updateQuery('npm', value)
+      },
+      async addLibrary(name) {
+        if (name) {
+          const code = `&lt;script src="https://unpkg.com/${name}">&lt;/script>\n`.replace(/&lt;/g, '<') + this.$store.state.html.code
           await this.updateCode({ type: 'html', code })
           Event.$emit('refresh-editor')
         }

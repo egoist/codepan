@@ -39,21 +39,21 @@
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
     "uglify-loader": "^2.0.0",
-    "vbuild": "^7.0.6"
+    "vbuild": "^7.1.1"
   },
   "license": "MIT",
   "dependencies": {
     "babel-standalone": "^6.24.0",
     "browserified-pug": "^0.1.0",
-    "codemirror": "^5.25.0",
-    "element-ui": "^1.2.8",
+    "codemirror": "^5.25.2",
+    "element-ui": "^1.2.9",
     "emmet-codemirror": "emmetio/codemirror#webpack",
     "iframe": "^1.0.0",
     "marked": "^0.3.6",
     "nprogress": "^0.2.0",
     "promise-polyfill": "^6.0.2",
     "vue": "^2.2.6",
-    "vue-router": "^2.4.0",
-    "vuex": "^2.3.0"
+    "vue-router": "^2.5.2",
+    "vuex": "^2.3.1"
   }
 }
