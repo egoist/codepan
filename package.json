@@ -23,12 +23,6 @@
       "no-warning-comments": 0
     }
   },
-  "postcss": {
-    "plugins": {
-      "postcss-nested": {},
-      "postcss-property-lookup": {}
-    }
-  },
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
     "eslint": "^3.19.0",
@@ -39,7 +33,7 @@
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
     "uglify-loader": "^2.0.0",
-    "vbuild": "^7.1.1"
+    "vbuild": "^7.2.2"
   },
   "license": "MIT",
   "dependencies": {
@@ -53,7 +47,7 @@
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
-    "vue": "^2.2.6",
+    "vue": "^2.3.0",
     "vue-router": "^2.5.2",
     "vuex": "^2.3.1"
   }
