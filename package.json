@@ -10,8 +10,8 @@
     "test": "npm run lint",
     "lint": "eslint **/src/**/*.{vue,js}",
     "fix": "eslint **/src/**/*.{vue,js} --fix",
-    "dev": "vbuild dev",
-    "build": "vbuild",
+    "dev": "poi",
+    "build": "poi build",
     "surge": "npm run build && surge -p dist -d codepan.surge.sh",
     "deploy": "npm run build && gh-pages -d dist"
   },
@@ -29,11 +29,11 @@
     "eslint-config-vue-app": "^1.2.1",
     "gh-pages": "^0.12.0",
     "offline-plugin": "^4.7.0",
+    "poi": "^8.0.0-rc.1",
     "postcss-nested": "^1.0.1",
     "postcss-property-lookup": "^1.2.1",
     "raw-loader": "^0.5.1",
-    "uglify-loader": "^2.0.0",
-    "vbuild": "^7.2.2"
+    "uglify-loader": "^2.0.0"
   },
   "license": "MIT",
   "dependencies": {
