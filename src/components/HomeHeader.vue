@@ -66,6 +66,14 @@
         @click="runCode">
         Run (CMD+S)
       </el-button>
+      <el-button
+        icon="caret-bottom"
+        size="mini"
+        type="primary"
+        class="home-header-right-item"
+        @click="save">
+        Download
+      </el-button>
       <el-dropdown
         class="home-header-right-item home-header-more"
         trigger="click">
@@ -84,6 +92,7 @@
   import { mapState, mapActions } from 'vuex'
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
   import Event from '@/utils/event'
+  import save from '@/utils/save'
 
   export default {
     computed: {
@@ -110,6 +119,7 @@
     },
     methods: {
       ...mapActions(['togglePan', 'updateCode']),
+      save,
       handleKeydown(e) {
         if (e.which === 83 && (e.metaKey || e.ctrlKey)) {
           e.preventDefault()
