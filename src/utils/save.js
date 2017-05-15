@@ -24,6 +24,6 @@ export default async function save() {
   zip.file('index.html', html)
   zip.file('bundle.js', state.js.code)
   zip.file('style.css', state.css.code)
-  const content = await zip.generateAsync({type:"blob"})
+  const content = await zip.generateAsync({ type: 'blob' })
   saveAs(content, `codepan-${Date.now()}`)
 }
