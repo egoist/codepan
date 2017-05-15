@@ -66,14 +66,21 @@
         @click="runCode">
         Run (CMD+S)
       </el-button>
-      <el-button
-        icon="caret-bottom"
-        size="mini"
-        type="primary"
-        class="home-header-right-item"
-        @click="save">
-        Download
-      </el-button>
+      <el-dropdown
+        class="home-header-right-item home-header-more"
+        trigger="click">
+        <el-button icon="caret-bottom" size="mini">Download</el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item style="padding: 0;">
+            <p class="el-dropdown-menu__item" target="_blank"
+            @click="save">inline</p>
+          </el-dropdown-item>
+          <el-dropdown-item style="padding: 0;">
+            <p class="el-dropdown-menu__item" target="_blank"
+            @click="save({ inline: false })">zip</p>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <el-dropdown
         class="home-header-right-item home-header-more"
         trigger="click">
