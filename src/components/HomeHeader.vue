@@ -69,6 +69,21 @@
       <el-dropdown
         class="home-header-right-item home-header-more"
         trigger="click">
+        <el-button icon="caret-bottom" size="mini">Download</el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item style="padding: 0;">
+            <p class="el-dropdown-menu__item" target="_blank"
+            @click="save">inline</p>
+          </el-dropdown-item>
+          <el-dropdown-item style="padding: 0;">
+            <p class="el-dropdown-menu__item" target="_blank"
+            @click="save({ inline: false })">zip</p>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown
+        class="home-header-right-item home-header-more"
+        trigger="click">
         <el-button icon="more" size="mini"></el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item style="padding: 0;">
@@ -84,6 +99,7 @@
   import { mapState, mapActions } from 'vuex'
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
   import Event from '@/utils/event'
+  import save from '@/utils/save'
 
   export default {
     computed: {
@@ -110,6 +126,7 @@
     },
     methods: {
       ...mapActions(['togglePan', 'updateCode']),
+      save,
       handleKeydown(e) {
         if (e.which === 83 && (e.metaKey || e.ctrlKey)) {
           e.preventDefault()
