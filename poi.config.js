@@ -24,5 +24,8 @@ module.exports = options => ({
   },
   production: {
     sourceMap: false
-  }
+  },
+  presets: [
+    require('poi-preset-bundle-report')()
+  ]
 })

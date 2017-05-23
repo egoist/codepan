@@ -16,7 +16,7 @@ async function loadPug() {
     progress.start()
     const res = await Promise.all([
       import('browserified-pug'),
-      import('codemirror/mode/pug/pug')
+      import(/* webpackChunkName: "codemirror-mode-pug" */ 'codemirror/mode/pug/pug')
     ])
     transformers.pug = res[0]
     progress.done()
