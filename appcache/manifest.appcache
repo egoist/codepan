@@ -1,12 +1,12 @@
 CACHE MANIFEST
-#ver:2017-4-30 20:13:00
+#ver:2017-6-15 15:13:43
 #plugin:4.7.0
 
 CACHE:
-/static/element-icons.b02bdc1b.ttf
-/static/element-icons.d2f69a92.woff
-/0.5986ffef.chunk.js
-/1.9dcffd24.chunk.js
+/static/media/element-icons.b02bdc1b.ttf
+/static/media/element-icons.d2f69a92.woff
+/0.bb0ce21a.chunk.js
+/codemirror-mode-pug.9ee5d389.chunk.js
 /2.c4bf65bf.chunk.js
 /3.0515bdbc.chunk.js
 /4.430086e9.chunk.js
@@ -17,30 +17,30 @@ CACHE:
 /9.3df93cbb.chunk.js
 /10.39094f4a.chunk.js
 /11.afd81f20.chunk.js
-/12.2ce2b345.chunk.js
+/12.bb227fe2.chunk.js
 /13.98976fe0.chunk.js
-/vendor.fff4d8bc.js
-/client.9a863142.js
+/vendor.1e6477ef.js
+/client.7d316db7.js
 /16.a9810e43.chunk.js
-/manifest.89b560c1.js
-/client.075752d5.css
-/vendor.4a260fbc.css
-/favicon-144.png
+/manifest.db2aceda.js
+/client.394835a4.css
+/vendor.baee1d9b.css
+/CNAME
 /favicon-114.png
 /favicon-120.png
-/CNAME
+/favicon-144.png
+/favicon-152.png
 /favicon-180.png
 /favicon-32.png
-/favicon-152.png
 /favicon-192.png
-/favicon-57.png
 /favicon-36.png
-/favicon-48.png
+/favicon-57.png
 /favicon-60.png
-/favicon-76.png
-/favicon-96.png
-/favicon.ico
+/favicon-48.png
 /favicon-72.png
+/favicon-96.png
+/favicon-76.png
+/favicon.ico
 /manifest.json
 /
 
