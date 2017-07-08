@@ -102,7 +102,11 @@ const store = new Vuex.Store({
       commit('SHOW_PANS', pans)
     },
     async updateTransformer({ commit }, { type, transformer }) {
-      if (transformer === 'Babel' || transformer === 'JSX' || transformer === 'Vue JSX') {
+      if (
+        transformer === 'Babel' ||
+        transformer === 'JSX' ||
+        transformer === 'Vue JSX'
+      ) {
         await loadBabel()
       } else if (transformer === 'Pug') {
         await loadPug()
@@ -127,7 +131,12 @@ const store = new Vuex.Store({
             ps.push(dispatch('updateCode', { type, code: payload.code }))
           }
           if (typeof payload.transformer !== 'undefined') {
-            ps.push(dispatch('updateTransformer', { type, transformer: payload.transformer }))
+            ps.push(
+              dispatch('updateTransformer', {
+                type,
+                transformer: payload.transformer
+              })
+            )
           }
         } else if (type === 'showPans') {
           ps.push(dispatch('showPans', boilerplate.showPans))

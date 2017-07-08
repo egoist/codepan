@@ -15,7 +15,7 @@ CodeMirror.highlight = function (string, options = {}) {
 
     let content = ''
 
-		// replace tabs
+    // replace tabs
     for (let pos = 0; ;) {
       const idx = text.indexOf('\t', pos)
       if (idx === -1) {

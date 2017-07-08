@@ -8,10 +8,13 @@ runtime.install({
   },
 
   onUpdated() {
-    Notification({ // eslint-disable-line new-cap
+    // eslint-disable-next-line new-cap
+    Notification({
+      // eslint-disable-line new-cap
       title: 'New version is ready',
       type: 'info',
-      message: 'CodePan has been updated in the background, you can refresh the page to apply updates!'
+      message:
+        'CodePan has been updated in the background, you can refresh the page to apply updates!'
     })
   }
 })

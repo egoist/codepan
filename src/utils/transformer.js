@@ -54,9 +54,4 @@ async function loadMarkdown() {
   }
 }
 
-export {
-  loadBabel,
-  loadPug,
-  loadMarkdown,
-  transformers
-}
+export { loadBabel, loadPug, loadMarkdown, transformers }

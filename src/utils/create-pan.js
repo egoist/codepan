@@ -18,11 +18,7 @@ const getEditorModeByTransfomer = transformer => {
   return modes[transformer]
 }
 
-export default ({
-  name,
-  editor,
-  components
-} = {}) => {
+export default ({ name, editor, components } = {}) => {
   return {
     name: `${name}-pan`,
     computed: {

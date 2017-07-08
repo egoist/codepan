@@ -10,7 +10,7 @@ import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 import 'codemirror/addon/comment/comment'
 
-const isMac = CodeMirror.keyMap['default'] == CodeMirror.keyMap.macDefault
+const isMac = CodeMirror.keyMap.default === CodeMirror.keyMap.macDefault
 
 export default function (el, opts = {}) {
   const editor = CodeMirror.fromTextArea(el, {

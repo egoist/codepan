@@ -2,14 +2,17 @@
   window.onerror = function (message) {
     window.parent.postMessage({ type: 'iframe-error', message }, '*')
   }
-  window.addEventListener('unhandledrejection', e => {
-    window.parent.postMessage({ type: 'iframe-error', message: e.reason.stack }, '*')
+  window.addEventListener('unhandledrejection', err => {
+    window.parent.postMessage(
+      { type: 'iframe-error', message: err.reason.stack },
+      '*'
+    )
   })
   window.addEventListener('click', () => {
     window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
   })
 
-/**
+  /**
  * Stringify.
  * Inspect native browser objects and functions.
  */
@@ -19,15 +22,20 @@
     }
 
     const htmlEntities = function (str) {
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
     }
 
-  /**
+    /**
    * Recursively stringify an object. Keeps track of which objects it has
    * visited to avoid hitting circular references, and a buffer for indentation.
    * Goes 2 levels deep.
    */
-    return function stringify(o, visited, buffer) { // eslint-disable-line complexity
+    return function stringify(o, visited, buffer) {
+      // eslint-disable-line complexity
       let i
       let vi
       let type = ''
@@ -36,7 +44,7 @@
       buffer = buffer || ''
       visited = visited || []
 
-    // Get out fast with primitives that don't like toString
+      // Get out fast with primitives that don't like toString
       if (o === null) {
         return 'null'
       }
@@ -44,14 +52,15 @@
         return 'undefined'
       }
 
-    // Determine the type
+      // Determine the type
       try {
-        type = ({}).toString.call(o)
-      } catch (e) { // only happens when typeof is protected (...randomly)
+        type = {}.toString.call(o)
+      } catch (err) {
+        // only happens when typeof is protected (...randomly)
         type = '[object Object]'
       }
 
-    // Handle the primitive types
+      // Handle the primitive types
       if (type === '[object Number]') {
         return String(o)
       }
@@ -65,20 +74,26 @@
         return '"' + htmlEntities(o.replace(/"/g, '\\"')) + '"'
       }
 
-    // Check for circular references
+      // Check for circular references
       for (vi = 0; vi < visited.length; vi++) {
         if (o === visited[vi]) {
-        // Notify the user that a circular object was found and, if available,
-        // show the object's outerHTML (for body and elements)
-          return '[circular ' + type.slice(1) +
-          ('outerHTML' in o ? ' :\n' + htmlEntities(o.outerHTML).split('\n').join('\n' + buffer) : '')
+          // Notify the user that a circular object was found and, if available,
+          // show the object's outerHTML (for body and elements)
+          return (
+            '[circular ' +
+            type.slice(1) +
+            ('outerHTML' in o ?
+              ' :\n' +
+                htmlEntities(o.outerHTML).split('\n').join('\n' + buffer) :
+              '')
+          )
         }
       }
 
-    // Remember that we visited this object
+      // Remember that we visited this object
       visited.push(o)
 
-    // Stringify each member of the array
+      // Stringify each member of the array
       if (type === '[object Array]') {
         for (i = 0; i < o.length; i++) {
           parts.push(stringify(o[i], visited))
@@ -86,7 +101,7 @@
         return '[' + parts.join(', ') + ']'
       }
 
-    // Fake array – very tricksy, get out quickly
+      // Fake array – very tricksy, get out quickly
       if (type.match(/Array/)) {
         return type
       }
@@ -94,28 +109,34 @@
       const typeStr = type + ' '
       const newBuffer = buffer + '  '
 
-    // Dive down if we're less than 2 levels deep
+      // Dive down if we're less than 2 levels deep
       if (buffer.length / 2 < 2) {
         const names = []
-      // Some objects don't like 'in', so just skip them
+        // Some objects don't like 'in', so just skip them
         try {
-          for (i in o) { // eslint-disable-line guard-for-in
+          for (i in o) {
+            // eslint-disable-line guard-for-in
             names.push(i)
           }
-        } catch (e) {}
+        } catch (err) {}
 
         names.sort(sortci)
         for (i = 0; i < names.length; i++) {
           try {
-            parts.push(newBuffer + names[i] + ': ' + stringify(o[names[i]], visited, newBuffer))
-          } catch (e) {}
+            parts.push(
+              newBuffer +
+                names[i] +
+                ': ' +
+                stringify(o[names[i]], visited, newBuffer)
+            )
+          } catch (err) {}
         }
       }
 
-    // If nothing was gathered, return empty object
-      if (!parts.length) return typeStr + '{ ... }'
+      // If nothing was gathered, return empty object
+      if (parts.length === 0) return typeStr + '{ ... }'
 
-    // Return the indented object with new lines
+      // Return the indented object with new lines
       return typeStr + '{\n' + parts.join(',\n') + '\n' + buffer + '}'
     }
   })()
@@ -150,12 +171,31 @@
 
     // Create each of these methods on the proxy, and postMessage up to JS Bin
     // when one is called.
-    const methods = ProxyConsole.prototype.methods = [
-      'debug', 'clear', 'error', 'info', 'log', 'warn', 'dir', 'props', '_raw',
-      'group', 'groupEnd', 'dirxml', 'table', 'trace', 'assert', 'count',
-      'markTimeline', 'profile', 'profileEnd', 'time', 'timeEnd', 'timeStamp',
+    const methods = (ProxyConsole.prototype.methods = [
+      'debug',
+      'clear',
+      'error',
+      'info',
+      'log',
+      'warn',
+      'dir',
+      'props',
+      '_raw',
+      'group',
+      'groupEnd',
+      'dirxml',
+      'table',
+      'trace',
+      'assert',
+      'count',
+      'markTimeline',
+      'profile',
+      'profileEnd',
+      'time',
+      'timeEnd',
+      'timeStamp',
       'groupCollapsed'
-    ]
+    ])
 
     methods.forEach(method => {
       // Create console method
@@ -167,11 +207,14 @@
         const args = stringifyArgs(originalArgs)
 
         // Post up with method and the arguments
-        window.parent.postMessage({
-          type: 'codepan-console',
-          method: method === '_raw' ? originalArgs.shift() : method,
-          args: method === '_raw' ? args.slice(1) : args
-        }, '*')
+        window.parent.postMessage(
+          {
+            type: 'codepan-console',
+            method: method === '_raw' ? originalArgs.shift() : method,
+            args: method === '_raw' ? args.slice(1) : args
+          },
+          '*'
+        )
 
         // If the browner supports it, use the browser console but ignore _raw,
         // as _raw should only go to the proxy console.
@@ -194,4 +237,4 @@
   })()
 
   window.console = proxyConsole
-})(); // eslint-disable-line semi
+})() // eslint-disable-line semi
