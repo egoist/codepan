@@ -8,6 +8,9 @@ import 'codemirror/addon/edit/matchtags'
 import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
+import 'codemirror/addon/comment/comment'
+
+const isMac = CodeMirror.keyMap['default'] == CodeMirror.keyMap.macDefault
 
 export default function (el, opts = {}) {
   const editor = CodeMirror.fromTextArea(el, {
@@ -23,6 +26,9 @@ export default function (el, opts = {}) {
     Tab(cm) {
       const spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
       cm.replaceSelection(spaces)
+    },
+    [isMac ? 'Cmd-/' : 'Ctrl-/'](cm) {
+      cm.toggleComment()
     }
   })
 
