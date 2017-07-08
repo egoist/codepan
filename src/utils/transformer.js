@@ -1,41 +1,55 @@
 // eslint-disable import/no-mutable-exports
 import progress from 'nprogress'
 
-const transformers = {}
+class Transformers {
+  constructor() {
+    this.map = {}
+  }
+
+  set(k, v) {
+    this.map[k] = v
+  }
+
+  get(k) {
+    return this.map[k]
+  }
+}
+
+const transformers = new Transformers()
 
 async function loadBabel() {
-  if (!transformers.babel) {
+  if (!transformers.get('babel')) {
     progress.start()
     const [babel, VuePreset] = await Promise.all([
       import(/* webpackChunkName: "babel-stuffs" */ 'babel-standalone'),
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue')
+      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue')
     ])
-    transformers.babel = babel
-    transformers.VuePreset = VuePreset
+    transformers.set('babel', babel)
+    transformers.set('VuePreset', VuePreset)
     progress.done()
   }
 }
 
 async function loadPug() {
-  if (!transformers.pug) {
+  if (!transformers.get('pug')) {
     progress.start()
     const res = await Promise.all([
       import('browserified-pug'),
       import(/* webpackChunkName: "codemirror-mode-pug" */ 'codemirror/mode/pug/pug')
     ])
-    transformers.pug = res[0]
+    transformers.set('pug', res[0])
     progress.done()
   }
 }
 
 async function loadMarkdown() {
-  if (!transformers.markdown) {
+  if (!transformers.get('markdown')) {
     progress.start()
     const [marked] = await Promise.all([
       import('marked'),
       import('codemirror/mode/markdown/markdown')
     ])
-    transformers.markdown = marked
+    transformers.set('markdown', marked)
     progress.done()
   }
 }

@@ -100,20 +100,20 @@
           return code
         }
         if (transformer === 'Babel') {
-          return transformers.babel.transform(code, {
+          return transformers.get('babel').transform(code, {
             presets: ['es2015', 'stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
         if (transformer === 'JSX') {
-          return transformers.babel.transform(code, {
+          return transformers.get('babel').transform(code, {
             presets: ['stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
         if (transformer === 'Vue JSX') {
-          return transformers.babel.transform(code, {
-            presets: ['stage-2', transformers.VuePreset]
+          return transformers.get('babel').transform(code, {
+            presets: ['stage-2', transformers.get('VuePreset')]
           }).code
         }
 
@@ -124,10 +124,10 @@
           return code
         }
         if (transformer === 'Pug') {
-          return transformers.pug.render(code)
+          return transformers.get('pug').render(code)
         }
         if (transformer === 'Markdown') {
-          return transformers.markdown(code)
+          return transformers.get('markdown')(code)
         }
       }
     }

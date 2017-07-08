@@ -441,9 +441,9 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-component@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.npmjs.org/babel-plugin-component/-/babel-plugin-component-0.9.1.tgz#17b74ce8025256d52bb24fac0a4d4185ad01813f"
+babel-plugin-component@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-component/-/babel-plugin-component-0.10.0.tgz#55d6dbc0f35d7a381931b16ff1ee34ef93085add"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -685,6 +685,12 @@ babel-plugin-transform-vue-jsx@^3.1.2:
   dependencies:
     esutils "^2.0.2"
 
+babel-plugin-transform-vue-jsx@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-vue-jsx/-/babel-plugin-transform-vue-jsx-3.4.3.tgz#de57d8dd7d619333c981867728f3e6fdf68982ff"
+  dependencies:
+    esutils "^2.0.2"
+
 babel-preset-env@^1.2.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.4.0.tgz#c8e02a3bcc7792f23cded68e0355b9d4c28f0f7a"
@@ -738,13 +744,13 @@ babel-preset-vue@^0.1.0:
     babel-plugin-syntax-jsx "^6.18.0"
     babel-plugin-transform-vue-jsx "^3.1.2"
 
-babel-preset-vue@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-vue/-/babel-preset-vue-0.2.0.tgz#3ec4c94f6f13874ebcf2c4333c3f283fbe0ddd84"
+babel-preset-vue@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-vue/-/babel-preset-vue-1.0.2.tgz#c22705154ab17643b4a66b3c0939dd97e126fdac"
   dependencies:
     babel-helper-vue-jsx-merge-props "^2.0.2"
     babel-plugin-syntax-jsx "^6.18.0"
-    babel-plugin-transform-vue-jsx "^3.1.2"
+    babel-plugin-transform-vue-jsx "^3.4.3"
 
 babel-register@^6.24.1:
   version "6.24.1"

@@ -1,3 +1,4 @@
+const path = require('path')
 const OfflinePlugin = require('offline-plugin')
 
 module.exports = options => ({
@@ -18,7 +19,8 @@ module.exports = options => ({
           },
           AppCache: {
             events: true
-          }
+          },
+          responseStrategy: 'network-first'
         }])
     }
   },
