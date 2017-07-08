@@ -111,6 +111,11 @@
             plugins: ['transform-react-jsx']
           }).code
         }
+        if (transformer === 'Vue JSX') {
+          return transformers.babel.transform(code, {
+            presets: ['stage-2', transformers.VuePreset]
+          }).code
+        }
 
         console.error('Unknow transformer!')
       },

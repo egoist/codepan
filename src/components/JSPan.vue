@@ -13,6 +13,7 @@
           <el-dropdown-item command="JavaScript">JavaScript</el-dropdown-item>
           <el-dropdown-item command="Babel">Babel</el-dropdown-item>
           <el-dropdown-item command="JSX">JSX</el-dropdown-item>
+          <el-dropdown-item command="Vue JSX">Vue JSX</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

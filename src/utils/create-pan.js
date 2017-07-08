@@ -10,6 +10,7 @@ const getEditorModeByTransfomer = transformer => {
     Pug: 'pug',
     Markdown: 'markdown',
     JavaScript: 'jsx',
+    'Vue JSX': 'jsx',
     Babel: 'jsx',
     JSX: 'jsx',
     CSS: 'css'

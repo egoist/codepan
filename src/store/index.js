@@ -102,16 +102,11 @@ const store = new Vuex.Store({
       commit('SHOW_PANS', pans)
     },
     async updateTransformer({ commit }, { type, transformer }) {
-      if (transformer === 'Babel') {
+      if (transformer === 'Babel' || transformer === 'JSX' || transformer === 'Vue JSX') {
         await loadBabel()
-      }
-      if (transformer === 'JSX') {
-        await loadBabel()
-      }
-      if (transformer === 'Pug') {
+      } else if (transformer === 'Pug') {
         await loadPug()
-      }
-      if (transformer === 'Markdown') {
+      } else if (transformer === 'Markdown') {
         await loadMarkdown()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })

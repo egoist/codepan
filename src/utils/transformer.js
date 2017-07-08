@@ -6,7 +6,12 @@ const transformers = {}
 async function loadBabel() {
   if (!transformers.babel) {
     progress.start()
-    transformers.babel = await import('babel-standalone')
+    const [babel, VuePreset] = await Promise.all([
+      import(/* webpackChunkName: "babel-stuffs" */ 'babel-standalone'),
+      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue')
+    ])
+    transformers.babel = babel
+    transformers.VuePreset = VuePreset
     progress.done()
   }
 }
