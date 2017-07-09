@@ -7,6 +7,7 @@ module.exports = options => ({
     if (options.mode === 'production') {
       config.plugin('offline').use(OfflinePlugin, [
         {
+          autoUpdate: true,
           caches: {
             main: [':rest:']
           },
