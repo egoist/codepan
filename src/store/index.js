@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { loadBabel, loadPug, loadMarkdown } from '@/utils/transformer'
 import progress from 'nprogress'
+import axios from 'axios'
+import req from 'reqjs'
 
 Vue.use(Vuex)
 
@@ -47,7 +49,7 @@ const store = new Vuex.Store({
     ...emptyPans(),
     logs: [],
     visiblePans: ['html', 'js', 'output'],
-    highlightPan: 'js'
+    activePan: 'js'
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -75,8 +77,8 @@ const store = new Vuex.Store({
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)
     },
-    HIGHLIGHT_PAN(state, pan) {
-      state.highlightPan = pan
+    ACTIVE_PAN(state, pan) {
+      state.activePan = pan
     }
   },
   actions: {
@@ -92,8 +94,8 @@ const store = new Vuex.Store({
     clearLogs({ commit }) {
       commit('CLEAR_LOGS')
     },
-    setHighlightPan({ commit }, pan) {
-      commit('HIGHLIGHT_PAN', pan)
+    setActivePan({ commit }, pan) {
+      commit('ACTIVE_PAN', pan)
     },
     togglePan({ commit }, payload) {
       commit('TOGGLE_PAN', payload)
@@ -143,12 +145,31 @@ const store = new Vuex.Store({
         }
       }
 
-      ps.push(dispatch('setHighlightPan', boilerplate.highlightPan || 'js'))
+      ps.push(dispatch('setActivePan', boilerplate.activePan || 'js'))
       ps.push(dispatch('clearLogs'))
 
       await Promise.all(ps)
 
       progress.done()
+    },
+    async setGist({ commit, dispatch }, id) {
+      const { data: { files } } = await axios.get(`https://api.github.com/gists/${id}`)
+
+      const main = {
+        html: {},
+        css: {},
+        js: {},
+        ...(files['index.js'] ? req(files['index.js'].content) : {})
+      }
+      for (const type of ['html', 'js', 'css']) {
+        if (!main[type].code) {
+          const filename = main[type].filename || `codepan.${type}`
+          if (files[filename]) {
+            main[type].code = files[filename].content
+          }
+        }
+      }
+      await dispatch('setBoilerplate', main)
     }
   }
 })

@@ -1,8 +1,8 @@
 <template>
   <div
     class="output-pan"
-    :class="{ 'highlight-pan': isHighlightPan }"
-    @click="setHighlightPan('output')"
+    :class="{ 'active-pan': isActivePan }"
+    @click="setActivePan('output')"
     :style="style">
     <div class="pan-head">
       Output
@@ -21,17 +21,17 @@
 
   const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
 
-  const replaceQuote = str => str.replace(/&lt;/g, '<')
+  const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
 
   export default {
     name: 'output-pan',
     computed: {
-      ...mapState(['js', 'css', 'html', 'visiblePans', 'highlightPan']),
+      ...mapState(['js', 'css', 'html', 'visiblePans', 'activePan']),
       style() {
         return panPosition(this.visiblePans, 'output')
       },
-      isHighlightPan() {
-        return this.highlightPan === 'output'
+      isActivePan() {
+        return this.activePan === 'output'
       }
     },
     mounted() {
@@ -51,7 +51,7 @@
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
-      ...mapActions(['addLog', 'clearLogs', 'setHighlightPan', 'setBoilerplate']),
+      ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate']),
       async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
@@ -61,8 +61,8 @@
           } else {
             this.addLog({ type: data.method, message: data.args.join('\\n') })
           }
-        } else if (data.type === 'codepan-highlight-output') {
-          this.setHighlightPan('output')
+        } else if (data.type === 'codepan-make-output-active') {
+          this.setActivePan('output')
         } else if (data.type === 'codepan-set-boilerplate' && data.boilerplate) {
           await this.setBoilerplate(JSON.parse(data.boilerplate))
           Event.$emit('refresh-editor')
@@ -86,8 +86,8 @@
           return this.addLog({ type: 'error', message: err.message })
         }
 
-        const head = replaceQuote(`&lt;style>${css}&lt;/style>`)
-        const body = replaceQuote(`${html}&lt;script>${proxyConsole}&lt;/script>&lt;script>${js}&lt;/script>`)
+        const head = replaceQuote(`__QUOTE_LEFT__style>${css}__QUOTE_LEFT__/style>`)
+        const body = replaceQuote(`${html}__QUOTE_LEFT__script>${proxyConsole}__QUOTE_LEFT__/script>__QUOTE_LEFT__script>${js}__QUOTE_LEFT__/script>`)
 
         this.iframe.setHTML({
           head,

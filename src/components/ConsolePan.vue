@@ -1,8 +1,8 @@
 <template>
   <div
     class="console-pan"
-    :class="{'highlight-pan': isHighlightPan}"
-    @click="setHighlightPan('console')"
+    :class="{'active-pan': isActivePan}"
+    @click="setActivePan('console')"
     :style="style">
     <div class="pan-head">
       <el-badge
@@ -50,19 +50,19 @@
       }
     },
     computed: {
-      ...mapState(['logs', 'visiblePans', 'highlightPan']),
+      ...mapState(['logs', 'visiblePans', 'activePan']),
       style() {
         return panPosition(this.visiblePans, 'console')
       },
       enableResizer() {
         return hasNextPan(this.visiblePans, 'console')
       },
-      isHighlightPan() {
-        return this.highlightPan === 'console'
+      isActivePan() {
+        return this.activePan === 'console'
       }
     },
     methods: {
-      ...mapActions(['clearLogs', 'setHighlightPan']),
+      ...mapActions(['clearLogs', 'setActivePan']),
       highlight(value) {
         return CodeMirror.highlight(value, { mode: 'javascript' })
       }

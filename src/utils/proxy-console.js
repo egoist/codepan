@@ -9,7 +9,7 @@
     )
   })
   window.addEventListener('click', () => {
-    window.parent.postMessage({ type: 'codepan-highlight-output' }, '*')
+    window.parent.postMessage({ type: 'codepan-make-output-active' }, '*')
   })
 
   /**

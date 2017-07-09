@@ -44,9 +44,12 @@
       }
     },
     async mounted() {
-      const { boilerplate } = this.$route.query
+      const { boilerplate, gist } = this.$route.query
       if (boilerplate) {
         await this.setBoilerplate(boilerplate)
+        Event.$emit('refresh-editor')
+      } else if (gist) {
+        await this.setGist(gist)
         Event.$emit('refresh-editor')
       }
       progress.done()
@@ -57,7 +60,7 @@
       }
     },
     methods: {
-      ...mapActions(['setBoilerplate', 'showPans']),
+      ...mapActions(['setBoilerplate', 'setGist', 'showPans']),
       isVisible(pan) {
         return this.visiblePans.indexOf(pan) !== -1
       }
@@ -88,7 +91,7 @@
     top: 0;
     bottom: 0;
     overflow: auto;
-    &.highlight-pan {
+    &.active-pan {
       background-color: white;
     }
   }

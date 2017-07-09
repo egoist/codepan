@@ -46,7 +46,7 @@ async function loadMarkdown() {
   if (!transformers.get('markdown')) {
     progress.start()
     const [marked] = await Promise.all([
-      import('marked'),
+      import('marked3').then(m => m.default),
       import('codemirror/mode/markdown/markdown')
     ])
     transformers.set('markdown', marked)
