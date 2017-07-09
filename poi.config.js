@@ -3,6 +3,10 @@ const OfflinePlugin = require('offline-plugin')
 module.exports = options => ({
   postcss: [require('postcss-nested'), require('postcss-property-lookup')],
   extendWebpack(config) {
+    config.module.noParse
+      .add(/babel-standalone/)
+      .add(/browserified-pug/)
+      .add(/babel-preset-vue/)
     // inject offline-plugin in production build
     if (options.mode === 'production') {
       config.plugin('offline').use(OfflinePlugin, [

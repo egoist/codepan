@@ -8,6 +8,14 @@
     <% if (htmlWebpackPlugin.options.description) { %>
     <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
     <% } %>
+
+    <meta property="og:url" content="<%= htmlWebpackPlugin.options.pkg.homepage %>">
+    <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.title %>">
+    <meta property="og:title" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta property="og:description" content="<%= htmlWebpackPlugin.options.pkg.details %>">
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.pkg.homepage + 'favicon-192.png' %>">
+    <meta property="og:image:type" content="image/png">
+
     <!-- For old IEs -->
     <link rel="shortcut icon" href="favicon.ico" />
 
