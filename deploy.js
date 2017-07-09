@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const gh = require('gh-pages')
 
 const ci = process.env.CI
