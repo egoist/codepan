@@ -22,7 +22,7 @@ async function loadBabel() {
     progress.start()
     const [babel, VuePreset] = await Promise.all([
       import(/* webpackChunkName: "babel-stuffs" */ 'babel-standalone'),
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue')
+      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue') // use umd bundle since we don't want to parse `require`
     ])
     transformers.set('babel', babel)
     transformers.set('VuePreset', VuePreset)
@@ -46,7 +46,7 @@ async function loadMarkdown() {
   if (!transformers.get('markdown')) {
     progress.start()
     const [marked] = await Promise.all([
-      import('marked3'),
+      import('marked3').then(m => m.default),
       import('codemirror/mode/markdown/markdown')
     ])
     transformers.set('markdown', marked)
