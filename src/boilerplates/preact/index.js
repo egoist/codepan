@@ -7,11 +7,11 @@ export default async () => {
   return {
     html: {
       code: htmlCode,
-      transformer: 'HTML'
+      transformer: 'html'
     },
     js: {
       code: jsCode,
-      transformer: 'JSX'
+      transformer: 'jsx'
     },
     showPans: ['html', 'js', 'output']
   }

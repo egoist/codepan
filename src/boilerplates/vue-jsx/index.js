@@ -8,15 +8,15 @@ export default async () => {
   return {
     js: {
       code: jsCode,
-      transformer: 'Vue JSX'
+      transformer: 'vue-jsx'
     },
     html: {
       code: htmlCode,
-      transformer: 'HTML'
+      transformer: 'html'
     },
     css: {
       code: cssCode,
-      transformer: 'CSS'
+      transformer: 'css'
     },
     showPans: ['html', 'js', 'output']
   }

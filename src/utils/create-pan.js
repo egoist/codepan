@@ -6,14 +6,14 @@ import { hasNextPan } from '@/utils'
 
 const getEditorModeByTransfomer = transformer => {
   const modes = {
-    HTML: 'htmlmixed',
-    Pug: 'pug',
-    Markdown: 'markdown',
-    JavaScript: 'jsx',
-    'Vue JSX': 'jsx',
-    Babel: 'jsx',
-    JSX: 'jsx',
-    CSS: 'css'
+    html: 'htmlmixed',
+    pug: 'pug',
+    markdown: 'markdown',
+    js: 'jsx',
+    'vue-jsx': 'jsx',
+    babel: 'jsx',
+    jsx: 'jsx',
+    css: 'css'
   }
   return modes[transformer]
 }

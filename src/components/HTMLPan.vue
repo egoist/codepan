@@ -10,9 +10,9 @@
           {{ html.transformer }} <i class="el-icon-caret-bottom el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="HTML">HTML</el-dropdown-item>
-          <el-dropdown-item command="Pug">Pug</el-dropdown-item>
-          <el-dropdown-item command="Markdown">Markdown</el-dropdown-item>
+          <el-dropdown-item command="html">HTML</el-dropdown-item>
+          <el-dropdown-item command="pug">Pug</el-dropdown-item>
+          <el-dropdown-item command="markdown">Markdown</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

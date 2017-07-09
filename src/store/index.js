@@ -17,15 +17,15 @@ const sortPans = ps => {
 const emptyPans = () => ({
   js: {
     code: '',
-    transformer: 'JavaScript'
+    transformer: 'js'
   },
   css: {
     code: '',
-    transformer: 'CSS'
+    transformer: 'css'
   },
   html: {
     code: '',
-    transformer: 'HTML'
+    transformer: 'html'
   }
 })
 
@@ -105,14 +105,14 @@ const store = new Vuex.Store({
     },
     async updateTransformer({ commit }, { type, transformer }) {
       if (
-        transformer === 'Babel' ||
-        transformer === 'JSX' ||
-        transformer === 'Vue JSX'
+        transformer === 'babel' ||
+        transformer === 'jsx' ||
+        transformer === 'vue-jsx'
       ) {
         await loadBabel()
-      } else if (transformer === 'Pug') {
+      } else if (transformer === 'pug') {
         await loadPug()
-      } else if (transformer === 'Markdown') {
+      } else if (transformer === 'markdown') {
         await loadMarkdown()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })

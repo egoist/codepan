@@ -96,37 +96,37 @@
         })
       },
       transformJS({ code, transformer }) {
-        if (transformer === 'JavaScript') {
+        if (transformer === 'js') {
           return code
         }
-        if (transformer === 'Babel') {
+        if (transformer === 'babel') {
           return transformers.get('babel').transform(code, {
             presets: ['es2015', 'stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
-        if (transformer === 'JSX') {
+        if (transformer === 'jsx') {
           return transformers.get('babel').transform(code, {
             presets: ['stage-2'],
             plugins: ['transform-react-jsx']
           }).code
         }
-        if (transformer === 'Vue JSX') {
+        if (transformer === 'vue-jsx') {
           return transformers.get('babel').transform(code, {
             presets: ['stage-2', transformers.get('VuePreset')]
           }).code
         }
 
-        console.error('Unknow transformer!')
+        console.error('Unknow transformer:', transformer)
       },
       transformHTML({ code, transformer }) {
-        if (transformer === 'HTML') {
+        if (transformer === 'html') {
           return code
         }
-        if (transformer === 'Pug') {
+        if (transformer === 'pug') {
           return transformers.get('pug').render(code)
         }
-        if (transformer === 'Markdown') {
+        if (transformer === 'markdown') {
           return transformers.get('markdown')(code)
         }
       }
