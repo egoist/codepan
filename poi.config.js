@@ -20,8 +20,7 @@ module.exports = options => ({
           },
           AppCache: {
             events: true
-          },
-          responseStrategy: 'network-first'
+          }
         }
       ])
     }
