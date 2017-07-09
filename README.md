@@ -12,6 +12,10 @@ Yep! So why not one more? And this one could work **offline** for you!
 
 How? `codepan` is just a single page app with **no-backend**! Built with Webpack and Vue.js, and the offline feature is provided by [offline-plugin](https://github.com/NekR/offline-plugin).
 
+## Docs
+
+- [How to run GitHub Gist?](https://codepan.js.org/#/?gist=1f37a2f1db3d6db300a966d92e41812b)
+
 ## Browser Support
 
 We aim to support IE10+ and all modern browsers, feel free to file an issue if you encounter some problem.
