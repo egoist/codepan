@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#ver:2017-7-9 18:09:07
+#ver:2017-7-9 18:16:46
 #plugin:4.7.0
 
 CACHE:
@@ -7,7 +7,7 @@ CACHE:
 /static/media/element-icons.d2f69a92.woff
 /boilerplate-vue-jsx.77143468.chunk.js
 /babel-stuffs.7564daa5.chunk.js
-/2.e3f12e59.chunk.js
+/2.2a97463c.chunk.js
 /codemirror-mode-pug.bb884b88.chunk.js
 /4.0cf1947e.chunk.js
 /5.8c05225a.chunk.js
@@ -23,25 +23,25 @@ CACHE:
 /vendor.04a9ab2a.js
 /client.b79ce252.js
 /17.22eda27c.chunk.js
-/manifest.f6457f8b.js
-/client.e2bd2c2e.css
+/manifest.d321d335.js
+/client.5748bd45.css
 /vendor.718a8d9d.css
-/CNAME
-/favicon-114.png
 /favicon-120.png
-/favicon-144.png
-/favicon-192.png
-/favicon-180.png
-/favicon-32.png
-/favicon-57.png
-/favicon-60.png
-/favicon-48.png
-/favicon-36.png
-/favicon-76.png
 /favicon-152.png
+/favicon-114.png
+/CNAME
+/favicon-32.png
+/favicon-180.png
+/favicon-192.png
+/favicon-144.png
+/favicon-36.png
+/favicon-60.png
+/favicon-57.png
+/favicon-48.png
 /favicon-72.png
-/favicon.ico
+/favicon-76.png
 /favicon-96.png
+/favicon.ico
 /manifest.json
 /
 
