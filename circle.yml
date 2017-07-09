@@ -15,3 +15,9 @@ general:
     ignore:
       - gh-pages # list of branches to ignore
       - /release\/.*/ # or ignore regexes
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run deploy
