@@ -134,7 +134,11 @@
   }
 </script>
 
-<style>
+<style scoped>
+  .output-pan {
+    overflow: hidden;
+  }
+
   .output-iframe {
     width: 100%;
     height: calc(100% - 40px);
