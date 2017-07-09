@@ -18,6 +18,21 @@ const getEditorModeByTransfomer = transformer => {
   return modes[transformer]
 }
 
+const getHumanlizedTransformerName = transformer => {
+  const names = {
+    html: 'HTML',
+    pug: 'Pug',
+    markdown: 'Markdown',
+    js: 'JavaScript',
+    'vue-jsx': 'Vue JSX',
+    babel: 'Babel',
+    jsx: 'JSX',
+    css: 'CSS'
+  }
+
+  return names[transformer] || transformer
+}
+
 export default ({ name, editor, components } = {}) => {
   return {
     name: `${name}-pan`,
@@ -36,6 +51,9 @@ export default ({ name, editor, components } = {}) => {
       },
       isActivePan() {
         return this.activePan === name
+      },
+      humanlizedTransformerName() {
+        return getHumanlizedTransformerName(this[name].transformer)
       }
     },
     watch: {

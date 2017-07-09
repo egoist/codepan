@@ -7,7 +7,7 @@
     <div class="pan-head">
       <el-dropdown @command="setTransformer" trigger="click">
         <span class="el-dropdown-link">
-          {{ css.transformer }} <i class="el-icon-caret-bottom el-icon--right"></i>
+          {{ humanlizedTransformerName }} <i class="el-icon-caret-bottom el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="css">CSS</el-dropdown-item>
