@@ -25,11 +25,21 @@
 
   export default {
     name: 'output-pan',
+    data() {
+      return {
+        style: {}
+      }
+    },
+    watch: {
+      visiblePans: {
+        immediate: true,
+        handler(val) {
+          this.style = panPosition(val, 'output')
+        }
+      }
+    },
     computed: {
       ...mapState(['js', 'css', 'html', 'visiblePans', 'activePan']),
-      style() {
-        return panPosition(this.visiblePans, 'output')
-      },
       isActivePan() {
         return this.activePan === 'output'
       }
@@ -45,6 +55,12 @@
         run = true
       } = {}) => {
         run && this.run()
+      })
+      Event.$on(`set-output-pan-style`, style => {
+        this.style = {
+          ...this.style,
+          ...style
+        }
       })
     },
     beforeDestroy() {

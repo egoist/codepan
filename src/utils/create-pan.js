@@ -21,14 +21,16 @@ const getEditorModeByTransfomer = transformer => {
 export default ({ name, editor, components } = {}) => {
   return {
     name: `${name}-pan`,
+    data() {
+      return {
+        style: {}
+      }
+    },
     computed: {
       ...mapState([name, 'visiblePans', 'activePan']),
       ...mapState({
         isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
-      style() {
-        return panPosition(this.visiblePans, name)
-      },
       enableResizer() {
         return hasNextPan(this.visiblePans, name)
       },
@@ -39,6 +41,12 @@ export default ({ name, editor, components } = {}) => {
     watch: {
       isVisible() {
         this.editor.refresh()
+      },
+      visiblePans: {
+        immediate: true,
+        handler(val) {
+          this.style = panPosition(val, name)
+        }
       }
     },
     mounted() {
@@ -54,6 +62,12 @@ export default ({ name, editor, components } = {}) => {
       Event.$on('refresh-editor', () => {
         this.editor.setValue(this[name].code)
         this.editor.refresh()
+      })
+      Event.$on(`set-${name}-pan-style`, style => {
+        this.style = {
+          ...this.style,
+          ...style
+        }
       })
     },
     methods: {

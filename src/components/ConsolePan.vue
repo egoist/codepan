@@ -27,7 +27,7 @@
         v-for="(log, index) in logs">
       </div>
     </div>
-    <pan-resizer :enable="enableResizer" />
+    <pan-resizer pan="console" :enable="enableResizer" />
   </div>
 </template>
 
@@ -39,21 +39,38 @@
   import { hasNextPan } from '@/utils'
   import CodeMirror from 'codemirror'
   import '@/utils/highlight'
+  import Event from '@/utils/event'
 
   export default {
+    data() {
+      return {
+        style: {}
+      }
+    },
     watch: {
       logs() {
         const { console } = this.$refs
         this.$nextTick(() => {
           console.scrollTop = console.scrollHeight
         })
+      },
+      visiblePans: {
+        immediate: true,
+        handler(val) {
+          this.style = panPosition(val, 'console')
+        }
       }
+    },
+    mounted() {
+      Event.$on(`set-console-pan-style`, style => {
+        this.style = {
+          ...this.style,
+          ...style
+        }
+      })
     },
     computed: {
       ...mapState(['logs', 'visiblePans', 'activePan']),
-      style() {
-        return panPosition(this.visiblePans, 'console')
-      },
       enableResizer() {
         return hasNextPan(this.visiblePans, 'console')
       },

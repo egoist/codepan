@@ -9,9 +9,10 @@
 
 <script>
   import Event from '@/utils/event'
+  import { mapState } from 'vuex'
 
   export default {
-    props: ['enable'],
+    props: ['enable', 'pan'],
     data() {
       return {
         resizing: false,
@@ -23,7 +24,20 @@
         nextPan: null
       }
     },
+    computed: {
+      ...mapState(['visiblePans']),
+      nextPanName() {
+        const currentIndex = this.visiblePans.indexOf(this.pan)
+        return this.visiblePans[currentIndex + 1]
+      }
+    },
     methods: {
+      updateNextPan(style) {
+        Event.$emit(`set-${this.nextPanName}-pan-style`, style)
+      },
+      updateCurrentPan(style) {
+        Event.$emit(`set-${this.pan}-pan-style`, style)
+      },
       getNextVisiblePan(current) {
         const next = current.nextElementSibling
         if (next && next.style.display === 'none') {
@@ -65,9 +79,9 @@
              (newNextPanLeft - this.originalCurrentPanLeft > 5) &&
             (100 - newNextPanLeft - this.originalNextPanRight > 5)
           ) {
-            this.nextPan.style.left = `${newNextPanLeft}%`
+            this.updateNextPan({ left: `${newNextPanLeft}%` })
             const newCurrentPanRight = this.originalCurrentPanRight - (newNextPanLeft - this.originalNextPanLeft)
-            this.currentPan.style.right = `${newCurrentPanRight}%`
+            this.updateCurrentPan({ right: `${newCurrentPanRight}%` })
           }
         }
       }
