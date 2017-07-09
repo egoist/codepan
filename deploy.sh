@@ -4,7 +4,7 @@ if [ "$CI" = "true" ]
 then
   git config --global user.email "bot@egoist.moe"
   git config --global user.name "egoist bot"
-  repo=https://$GITHUB_TOKEN@github.com/egoist/codepan.git
+  repo=https://$GH_TOKEN@github.com/egoist/codepan.git
 else
   repo=git@github.com:egoist/codepan.git
 fi
