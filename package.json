@@ -60,6 +60,8 @@
     "postcss-nested": "^2.0.2",
     "postcss-property-lookup": "^2.0.0",
     "raw-loader": "^0.5.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
     "uglify-loader": "^2.0.0",
     "xo": "^0.18.2"
   },
@@ -78,6 +80,7 @@
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
     "reqjs": "^1.0.3",
+    "vue-inline": "^1.0.1",
     "vue-router": "^2.7.0",
     "vuex": "^2.3.1"
   }

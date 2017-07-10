@@ -6,6 +6,17 @@
     :style="style">
     <div class="pan-head">
       Output
+      <spinner
+        class="output-loading"
+        :height="12"
+        :line-width="1"
+        v-if="iframeStatus === 'loading'">
+      </spinner>
+      <svg-icon
+        v-else-if="iframeStatus"
+        :name="iframeStatus"
+        :class="`output-${iframeStatus}`">
+      </svg-icon>
     </div>
     <div id="output-iframe" class="output-iframe"></div>
   </div>
@@ -18,6 +29,8 @@
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
   import proxyConsole from '!raw-loader!uglify-loader!babel-loader!@/utils/proxy-console'
+  import SvgIcon from './SvgIcon.vue'
+  import Spinner from './Spinner.vue'
 
   const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
 
@@ -29,7 +42,8 @@
     name: 'output-pan',
     data() {
       return {
-        style: {}
+        style: {},
+        iframeStatus: 'loading'
       }
     },
     watch: {
@@ -73,6 +87,7 @@
       async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
+          this.iframeStatus = 'error'
         } else if (data.type === 'codepan-console') {
           if (data.method === 'clear') {
             this.clearLogs()
@@ -84,6 +99,8 @@
         } else if (data.type === 'codepan-set-boilerplate' && data.boilerplate) {
           await this.setBoilerplate(JSON.parse(data.boilerplate))
           Event.$emit('refresh-editor')
+        } else if (data.type === 'iframe-success') {
+          this.iframeStatus = 'success'
         }
       },
       run() {
@@ -96,6 +113,7 @@
           js = `
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
+            window.parent.postMessage({ type: 'iframe-success' }, '*');
             ${this.transformJS(this.js)}
           };`
           html = this.transformHTML(this.html)
@@ -112,6 +130,7 @@
           body,
           sandboxAttributes
         })
+        this.iframeStatus = 'loading'
       },
       transformJS({ code, transformer }) {
         if (transformer === 'js') {
@@ -148,20 +167,43 @@
           return transformers.get('markdown')(code)
         }
       }
+    },
+    components: {
+      SvgIcon,
+      Spinner
     }
   }
 </script>
 
-<style scoped>
-  .output-pan {
-    overflow: hidden;
-  }
+<style lang="stylus" scoped>
+$statusSize = 12px
 
-  .output-iframe {
-    width: 100%;
-    height: calc(100% - 40px);
-    &.disable-mouse-events {
-      pointer-events: none;
-    }
-  }
+.output-pan
+  overflow: hidden
+
+.output-iframe
+  width: 100%
+  height: calc(100% - 40px)
+  &.disable-mouse-events
+    pointer-events: none
+
+.output-success, .output-error
+  margin-right: -100px
+  animation: 5s ease-out slide-out
+  >>> svg
+    width: $statusSize
+    height: @width
+    color: #11bf11
+    stroke-width: 3
+
+.output-error
+  >>> svg
+    color: red
+
+@keyframes slide-out
+  0%, 60%
+    margin-right: 0
+
+  100%
+    margin-right: -100px
 </style>
