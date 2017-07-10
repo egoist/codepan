@@ -23,6 +23,8 @@
 
   const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
 
+  const createElement = tag => content => replaceQuote(`__QUOTE_LEFT__${tag}>${content}__QUOTE_LEFT__/${tag}>`)
+
   export default {
     name: 'output-pan',
     data() {
@@ -102,8 +104,8 @@
           return this.addLog({ type: 'error', message: err.message })
         }
 
-        const head = replaceQuote(`__QUOTE_LEFT__style>${css}__QUOTE_LEFT__/style>`)
-        const body = replaceQuote(`${html}__QUOTE_LEFT__script>${proxyConsole}__QUOTE_LEFT__/script>__QUOTE_LEFT__script>${js}__QUOTE_LEFT__/script>`)
+        const head = createElement('style')(css)
+        const body = html + createElement('script')(proxyConsole) + createElement('script')(js)
 
         this.iframe.setHTML({
           head,
