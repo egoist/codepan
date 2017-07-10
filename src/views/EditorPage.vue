@@ -100,49 +100,41 @@
 
 <style src="codemirror/lib/codemirror.css"></style>
 
-<style scoped>
-  .pans {
-    height: calc(100% - 40px);
-    display: flex;
-    position: relative;
-  }
+<style lang="stylus" scoped>
+.pans
+  height: calc(100% - 40px)
+  display: flex
+  position: relative
 
-  .pan {
-    background-color: #f9f9f9;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    overflow: auto;
-    &.active-pan {
-      background-color: white;
-    }
-  }
+.pan
+  background-color: #f9f9f9
+  position: absolute
+  top: 0
+  bottom: 0
+  overflow: auto
+  &.active-pan
+    background-color: white
 </style>
 
-<style>
-  .CodeMirror {
-    height: calc(100% - 40px);
-    background-color: transparent;
-  }
+<style lang="stylus">
+.CodeMirror
+  height: calc(100% - 40px)
+  background-color: transparent
 
-  .CodeMirror-gutters {
-    background-color: transparent;
-    border-right: none;
-  }
+.CodeMirror-gutters
+  background-color: transparent
+  border-right: none
 
-  .pan-head {
-    height: 40px;
-    padding: 0 10px;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.pan-head
+  height: 40px
+  padding: 0 10px
+  font-size: 14px
+  display: flex
+  justify-content: space-between
+  align-items: center
 
-  .pans.resizing {
-    cursor: ew-resize;
-    .pan-resizer {
-      cursor: ew-resize;
-    }
-  }
+.pans.resizing
+  cursor: ew-resize
+  .pan-resizer
+    cursor: ew-resize
 </style>

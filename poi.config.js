@@ -1,7 +1,6 @@
 const OfflinePlugin = require('offline-plugin')
 
 module.exports = options => ({
-  postcss: [require('postcss-nested'), require('postcss-property-lookup')],
   extendWebpack(config) {
     config.module.noParse
       .add(/babel-standalone/)

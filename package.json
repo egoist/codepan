@@ -57,8 +57,6 @@
     "offline-plugin": "^4.7.0",
     "poi": "next",
     "poi-preset-bundle-report": "^2.0.0",
-    "postcss-nested": "^2.0.2",
-    "postcss-property-lookup": "^2.0.0",
     "raw-loader": "^0.5.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",

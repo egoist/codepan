@@ -92,20 +92,17 @@
   }
 </script>
 
-<style scoped>
-  .console-logs {
-    height: calc(100% - 40px);
-    overflow: auto;
-  }
+<style lang="stylus" scoped>
+.console-logs
+  height: calc(100% - 40px)
+  overflow: auto
 
-  .console-log {
-    white-space: pre;
-    font-size: 13px;
-    padding: 10px;
-    border-bottom: 1px solid #efefef;
-  }
+.console-log
+  white-space: pre
+  font-size: 13px
+  padding: 10px
+  border-bottom: 1px solid #efefef
 
-  .console-log-error {
-    color: red;
-  }
+.console-log-error
+  color: red
 </style>

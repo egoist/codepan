@@ -43,7 +43,7 @@
     data() {
       return {
         style: {},
-        iframeStatus: 'loading'
+        iframeStatus: null
       }
     },
     watch: {
@@ -189,7 +189,7 @@ $statusSize = 12px
 
 .output-success, .output-error
   margin-right: -100px
-  animation: 5s ease-out slide-out
+  animation: 4s ease-out slide-out
   >>> svg
     width: $statusSize
     height: @width

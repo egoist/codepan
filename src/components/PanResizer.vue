@@ -89,19 +89,17 @@
   }
 </script>
 
-<style scoped>
-  .pan-resizer {
-    width: 5px;
-    position: absolute;
-    height: 100%;
-    top: 0;
-    right: 0;
-    border-right: 1px solid #e2e2e2;
-    z-index: 1000;
+<style lang="stylus" scoped>
+.pan-resizer
+  width: 5px
+  position: absolute
+  height: 100%
+  top: 0
+  right: 0
+  border-right: 1px solid #e2e2e2
+  z-index: 1000
 
-    &.enable:hover {
-      cursor: move;
-      border-right: 1px dashed #39f;
-    }
-  }
+  &.enable:hover
+    cursor: move
+    border-right: 1px dashed #39f
 </style>

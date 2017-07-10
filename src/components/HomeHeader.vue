@@ -147,67 +147,55 @@
   }
 </script>
 
-<style scoped>
-  .home-header {
-    height: 40px;
-    border-bottom: 1px solid #bfbfbf;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    justify-content: space-between;
-  }
+<style lang="stylus" scoped>
+.home-header
+  height: 40px;
+  border-bottom: 1px solid #bfbfbf
+  background-color: white
+  display: flex
+  align-items: center
+  padding: 0 10px
+  justify-content: space-between
 
-  .home-header-block {
-    flex: 1;
-    width: 0;
-  }
+.home-header-block
+  flex: 1
+  width: 0
 
-  .home-header-left {
-    display: flex;
-    justify-content: flex-start;
-    .home-header-left-item {
-      margin-right: 10px;
-    }
-  }
+.home-header-left
+  display: flex
+  justify-content: flex-start
+  .home-header-left-item
+    margin-right: 10px
 
-  .home-header-right {
-    display: flex;
-    justify-content: flex-end;
-    .home-header-right-item {
-      margin-left: 10px;
-    }
-  }
+.home-header-right
+  display: flex
+  justify-content: flex-end
+  .home-header-right-item
+    margin-left: 10px
 
-  .pan-toggles {
-    display: flex;
-    justify-content: center;
-    height: 100%;
+.pan-toggles
+  display: flex
+  justify-content: center
+  height: 100%
 
-    .pan-toggle {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      border-left: 1px solid #e2e2e2;
-      border-right: @border-left;
-      position: relative;
-      padding: 0 10px;
-      cursor: pointer;
-      user-select: none;
+  .pan-toggle
+    display: flex
+    align-items: center
+    height: 100%
+    border-left: 1px solid #e2e2e2
+    border-right: @border-left
+    position: relative
+    padding: 0 10px
+    cursor: pointer
+    user-select: none
 
-      &:not(:first-child) {
-        margin-left: -1px;
-      }
+    &:not(:first-child)
+      margin-left: -1px
 
-      &:hover {
-        &:not(.visible) {
-          background-color: #f9f9f9;
-        }
-      }
+    &:hover
+      &:not(.visible)
+        background-color: #f9f9f9
 
-      &.visible {
-        background-color: #EBF3FF;
-      }
-    }
-  }
+    &.visible
+      background-color: #EBF3FF
 </style>
