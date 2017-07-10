@@ -14,7 +14,7 @@ How? `codepan` is just a single page app with **no-backend**! Built with Webpack
 
 ## Docs
 
-- [How to run GitHub Gist?](https://codepan.js.org/#/?gist=1f37a2f1db3d6db300a966d92e41812b)
+- [How to run GitHub Gist?](https://codepan.js.org/#/gist/1f37a2f1db3d6db300a966d92e41812b)
 
 ## Browser Support
 
