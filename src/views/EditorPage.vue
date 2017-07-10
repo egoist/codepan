@@ -22,13 +22,45 @@
   import ConsolePan from '@/components/ConsolePan.vue'
   import CSSPan from '@/components/CSSPan.vue'
 
+  async function handleRouteChange(to, vm) {
+    let boilerplate
+    let gist
+
+    const { name } = to
+
+    if (name === 'home') {
+      boilerplate = to.query.boilerplate
+      gist = to.query.gist
+    } else if (name === 'boilerplate') {
+      boilerplate = to.params.boilerplate
+    } else if (name === 'gist') {
+      gist = to.params.gist
+    }
+
+    if (boilerplate) {
+      await vm.setBoilerplate(boilerplate)
+      Event.$emit('refresh-editor')
+    } else if (gist) {
+      await vm.setGist(gist)
+      Event.$emit('refresh-editor')
+    }
+
+    progress.done()
+  }
+
   export default {
-    name: 'home',
+    name: 'editor-page',
     computed: {
       ...mapState(['visiblePans'])
     },
-    beforeRouteUpdate(to, from, next) {
-      progress.done()
+    beforeRouteEnter(to, from, next) {
+      next(async vm => {
+        await handleRouteChange(to, vm)
+      })
+    },
+    async beforeRouteUpdate(to, from, next) {
+      console.log('route updated to', to)
+      await handleRouteChange(to, this)
       next()
     },
     watch: {
@@ -43,17 +75,7 @@
         immediate: true
       }
     },
-    async mounted() {
-      const { boilerplate, gist } = this.$route.query
-      if (boilerplate) {
-        await this.setBoilerplate(boilerplate)
-        Event.$emit('refresh-editor')
-      } else if (gist) {
-        await this.setGist(gist)
-        Event.$emit('refresh-editor')
-      }
-      progress.done()
-
+    mounted() {
       // Tell the parent window we're ready!
       if (window.self !== window.top) {
         window.parent.postMessage({ type: 'codepan-ready' }, '*')

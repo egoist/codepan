@@ -96,16 +96,6 @@
     mounted() {
       window.addEventListener('keydown', this.handleKeydown)
     },
-    watch: {
-      '$route.query.npm': {
-        handler(next, prev) {
-          if (next !== prev) {
-            this.addLibrary(next)
-          }
-        },
-        immediate: true
-      }
-    },
     beforeDestroy() {
       window.removeEventListener('keydown', this.handleKeydown)
     },
@@ -117,20 +107,12 @@
           this.runCode()
         }
       },
-      updateQuery(name, value) {
-        this.$router.push({
-          query: {
-            ...this.$route.query,
-            [name]: value
-          }
-        })
-      },
       async promptLibrary() {
         const { value } = await MessageBox.prompt('Type an npm package name:', 'Add Library', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel'
         })
-        this.updateQuery('npm', value)
+        this.addLibrary(value)
       },
       async addLibrary(name) {
         if (name) {
@@ -141,10 +123,11 @@
       },
       async setBoilerplate(boilerplate) {
         this.$router.push({
-          query: { ...this.$route.query, boilerplate }
+          name: 'boilerplate',
+          params: {
+            boilerplate
+          }
         })
-        await this.$store.dispatch('setBoilerplate', boilerplate)
-        Event.$emit('refresh-editor')
       },
       isVisible(pan) {
         return this.visiblePans.indexOf(pan) !== -1

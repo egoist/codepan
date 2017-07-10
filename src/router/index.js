@@ -4,11 +4,24 @@ import progress from 'nprogress'
 
 Vue.use(Router)
 
+const EditorPage = () => import(/* webpackChunkName: "editor-page" */ '@/views/EditorPage.vue')
+
 const router = new Router({
   routes: [
     {
+      name: 'home',
       path: '/',
-      component: () => import('@/views/Home.vue')
+      component: EditorPage
+    },
+    {
+      name: 'gist',
+      path: '/gist/:gist',
+      component: EditorPage
+    },
+    {
+      name: 'boilerplate',
+      path: '/boilerplate/:boilerplate',
+      component: EditorPage
     }
   ]
 })
