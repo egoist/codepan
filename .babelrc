@@ -1,6 +1,8 @@
 {
   "presets": [
-    "vue-app"
+    ["vue-app", {
+      "useBuiltIns": true
+    }]
   ],
   "plugins": [["component", [
     {
