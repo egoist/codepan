@@ -123,7 +123,7 @@
         }
 
         const head = createElement('style')(css)
-        const body = html + createElement('script')(proxyConsole) + createElement('script')(js)
+        const body = createElement('script')(proxyConsole) + html + createElement('script')(js)
 
         this.iframe.setHTML({
           head,
