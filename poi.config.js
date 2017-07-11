@@ -15,6 +15,12 @@ module.exports = {
       pluginOptions: {
         version: '[hash]',
         autoUpdate: true,
+        safeToUseOptionalCaches: true,
+        caches: {
+          main: ['index.html', 'client.*.*', 'vendor.*.*', 'editor-page.*.chunk.js'],
+          additional: ['*.chunk.js', ':externals:'],
+          optional: [':rest:']
+        },
         ServiceWorker: {
           events: true
         },
