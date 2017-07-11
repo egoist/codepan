@@ -1,100 +1,100 @@
 var __wpo = {
   "assets": {
     "main": [
-      "/static/media/element-icons.b02bdc1b.ttf",
-      "/static/media/element-icons.d2f69a92.woff",
-      "/boilerplate-vue-jsx.77143468.chunk.js",
-      "/babel-stuffs.ea19b995.chunk.js",
-      "/editor-page.e9a8d7e8.chunk.js",
-      "/codemirror-mode-pug.a43a0b5c.chunk.js",
-      "/4.f0e3626b.chunk.js",
-      "/5.69eaf555.chunk.js",
-      "/6.57185cff.chunk.js",
-      "/7.78ce8acd.chunk.js",
-      "/8.8468cddb.chunk.js",
-      "/9.d9142a2b.chunk.js",
-      "/10.0a389557.chunk.js",
-      "/11.fc3d8581.chunk.js",
-      "/12.f9f19c69.chunk.js",
-      "/13.a3d32d1e.chunk.js",
-      "/14.a030c768.chunk.js",
-      "/vendor.a69f6faf.js",
-      "/client.143b4b6c.js",
-      "/17.25d3a599.chunk.js",
-      "/manifest.dd9445ef.js",
-      "/client.ec76012f.css",
-      "/vendor.4de2bb99.css",
-      "/favicon-120.png",
-      "/favicon-114.png",
-      "/favicon-144.png",
-      "/CNAME",
-      "/favicon-152.png",
-      "/favicon-192.png",
-      "/favicon-32.png",
-      "/favicon-180.png",
-      "/favicon-36.png",
-      "/favicon-48.png",
-      "/favicon-57.png",
-      "/favicon-60.png",
-      "/favicon-72.png",
-      "/favicon.ico",
-      "/favicon-96.png",
-      "/favicon-76.png",
-      "/manifest.json",
-      "/"
+      "https://codepan.js.org/static/media/element-icons.b02bdc1b.ttf",
+      "https://codepan.js.org/static/media/element-icons.d2f69a92.woff",
+      "https://codepan.js.org/boilerplate-vue-jsx.542fb63e.chunk.js",
+      "https://codepan.js.org/babel-stuffs.4c58e285.chunk.js",
+      "https://codepan.js.org/editor-page.974594c0.chunk.js",
+      "https://codepan.js.org/codemirror-mode-pug.fb040669.chunk.js",
+      "https://codepan.js.org/4.1cd36ae0.chunk.js",
+      "https://codepan.js.org/5.571cabf5.chunk.js",
+      "https://codepan.js.org/6.22b15e08.chunk.js",
+      "https://codepan.js.org/7.8d5fbc70.chunk.js",
+      "https://codepan.js.org/8.e265896d.chunk.js",
+      "https://codepan.js.org/9.304e7d11.chunk.js",
+      "https://codepan.js.org/10.f14c2e67.chunk.js",
+      "https://codepan.js.org/11.09be8304.chunk.js",
+      "https://codepan.js.org/12.982f9e7a.chunk.js",
+      "https://codepan.js.org/13.2753dac0.chunk.js",
+      "https://codepan.js.org/14.82f82ec0.chunk.js",
+      "https://codepan.js.org/vendor.1664f0df.js",
+      "https://codepan.js.org/client.3a792e3c.js",
+      "https://codepan.js.org/17.e7b112d1.chunk.js",
+      "https://codepan.js.org/manifest.f689807b.js",
+      "https://codepan.js.org/client.c939aab5.css",
+      "https://codepan.js.org/vendor.53a7f031.css",
+      "https://codepan.js.org/favicon-114.png",
+      "https://codepan.js.org/favicon-120.png",
+      "https://codepan.js.org/CNAME",
+      "https://codepan.js.org/favicon-144.png",
+      "https://codepan.js.org/favicon-180.png",
+      "https://codepan.js.org/favicon-152.png",
+      "https://codepan.js.org/favicon-192.png",
+      "https://codepan.js.org/favicon-32.png",
+      "https://codepan.js.org/favicon-60.png",
+      "https://codepan.js.org/favicon-36.png",
+      "https://codepan.js.org/favicon-57.png",
+      "https://codepan.js.org/favicon-48.png",
+      "https://codepan.js.org/favicon-72.png",
+      "https://codepan.js.org/favicon.ico",
+      "https://codepan.js.org/favicon-76.png",
+      "https://codepan.js.org/favicon-96.png",
+      "https://codepan.js.org/manifest.json",
+      "https://codepan.js.org/"
     ],
     "additional": [],
     "optional": []
   },
   "externals": [],
   "hashesMap": {
-    "b56f18e001f5505e10ff5dc49162f8f87a0e3734": "/static/media/element-icons.b02bdc1b.ttf",
-    "4dfc8ae8d658e62a2e3ee713112ae56e174303f9": "/static/media/element-icons.d2f69a92.woff",
-    "6a0da2abee8e4aad54385a53d8c60581b0fbf285": "/boilerplate-vue-jsx.77143468.chunk.js",
-    "a4ff5c77feef35905044a12ea651b74f8e4dba2e": "/babel-stuffs.ea19b995.chunk.js",
-    "22098dd58f1e89a70e350df2d5cabd8002ad2c52": "/editor-page.e9a8d7e8.chunk.js",
-    "34a7a7da179854cfbc1426bb3750e3d269016876": "/codemirror-mode-pug.a43a0b5c.chunk.js",
-    "322983d20fcb2d8b0f111eb0a2daeea88c7eff97": "/4.f0e3626b.chunk.js",
-    "ee87117ba53434bab4d8a5d3e7222cbcf717173f": "/5.69eaf555.chunk.js",
-    "0dcb64ffebf2e90ecdaa5681e48257117d11d853": "/6.57185cff.chunk.js",
-    "5afc5ce657f34feaabcd44b14a837ba0e6e7b5d0": "/7.78ce8acd.chunk.js",
-    "f4ca86d52a080629de6d027deaed42ab83d6472f": "/8.8468cddb.chunk.js",
-    "8a242369d1a561ebfd9dc762d3d1dbfefe74747c": "/9.d9142a2b.chunk.js",
-    "02db4fa87605332f7f53757b619226ccdf526cb7": "/10.0a389557.chunk.js",
-    "dfdefbba35f59abc98b58d1b7861a0c51adb9ff5": "/11.fc3d8581.chunk.js",
-    "44eeb1f0785852f9fc0cf7a71963ed2a5ebf04c7": "/12.f9f19c69.chunk.js",
-    "c23ff08378d1610b1161c6a2fedceae88a6caab0": "/13.a3d32d1e.chunk.js",
-    "f8d778bdb8b9b39817b6cb75d170a3bb5961d5d9": "/14.a030c768.chunk.js",
-    "ce1056289ae115379f29f57247cfa22cb822f4b6": "/vendor.a69f6faf.js",
-    "33b1ba02adf074e6c50c3fbff2d0998f43596f1a": "/client.143b4b6c.js",
-    "881a6559b22e3881714a72cd9037f1d29012b98a": "/17.25d3a599.chunk.js",
-    "e803d9fd6cc629656fa4060f2d73f9c9e224d150": "/manifest.dd9445ef.js",
-    "521ac4324046929d012f63c56d5ed7da27f0451c": "/client.ec76012f.css",
-    "c13b83a9720294a6daac6770220c6ca7a8ff64b6": "/vendor.4de2bb99.css",
-    "97e0213dfefcbb0d7bd822f3e4a2414586990c46": "/favicon-120.png",
-    "18656dd4513e274da4f0095ba74ae1ffdd9dc437": "/favicon-114.png",
-    "51fd3fa7a9c0bc269c5814894a1e7c66ba88617a": "/favicon-144.png",
-    "99abfba640dd2edcbc8e1fdda9c5cbaac8a32347": "/CNAME",
-    "477765cb75bfc77589edbdf92c27ff9c0e059085": "/favicon-152.png",
-    "1d49e6dfbf2f8d472d0a3c42b43c072953abe0df": "/favicon-192.png",
-    "cb65ca3a13cc3504be1117c43aa9dda79a495da9": "/favicon-32.png",
-    "ebf7485ef5fa34644ee425a59b43a417762571fd": "/favicon-180.png",
-    "d6d22a9c29533d611b0edbec84b3202f0357c5c9": "/favicon-36.png",
-    "f57fb210b6be2611e6a93194f354b5432bcde86d": "/favicon-48.png",
-    "767eaded83e2700b754df1a781d696df76db3e44": "/favicon-57.png",
-    "cdb3de962e0b821ed0b67e2d1c8e3997bca76e7d": "/favicon-60.png",
-    "a22e8782fa2e6ba1f0196bd512446834489ad390": "/favicon-72.png",
-    "2563a4ea64f002323e51fee3616244ef217d3b81": "/favicon.ico",
-    "1d147609a2f168ea0bada5aa9f17df2c8968d85b": "/favicon-96.png",
-    "76f38708ff5cf9de3d54a5b4208b5c8090445165": "/favicon-76.png",
-    "3f6d2ec9a4205993edd256aa2a9ab12b0d49ec52": "/manifest.json",
-    "eb3b436b5203fd98f2e40667cc0387f583a087fd": "/"
+    "b56f18e001f5505e10ff5dc49162f8f87a0e3734": "https://codepan.js.org/static/media/element-icons.b02bdc1b.ttf",
+    "4dfc8ae8d658e62a2e3ee713112ae56e174303f9": "https://codepan.js.org/static/media/element-icons.d2f69a92.woff",
+    "dc1d6be20a19cc5c28ec970dc9f4942cda606190": "https://codepan.js.org/boilerplate-vue-jsx.542fb63e.chunk.js",
+    "90d02d05828d2304a7c6708b644499f78b26142d": "https://codepan.js.org/babel-stuffs.4c58e285.chunk.js",
+    "f6f17dbe71def69a4ab7385149db198364d00d1d": "https://codepan.js.org/editor-page.974594c0.chunk.js",
+    "8adcf1a03aa4ae640eed924cd48c6095d6be24fa": "https://codepan.js.org/codemirror-mode-pug.fb040669.chunk.js",
+    "a2c141c0a1842bd8add4b68cfdc143fea7930470": "https://codepan.js.org/4.1cd36ae0.chunk.js",
+    "cfa1fbf91e103ec8227b01492949b58e24219162": "https://codepan.js.org/5.571cabf5.chunk.js",
+    "87167d006547ad6e6e3f06dca6ae421063ee9020": "https://codepan.js.org/6.22b15e08.chunk.js",
+    "c590cfb543c8f9cfa863b7bff7cd9bb4e785c35e": "https://codepan.js.org/7.8d5fbc70.chunk.js",
+    "bf5124992d4f067f233cb98d39b4c0d8d1bf1d5a": "https://codepan.js.org/8.e265896d.chunk.js",
+    "df8bfc29ba39e6f3aa24c7f5b463990f57e462ab": "https://codepan.js.org/9.304e7d11.chunk.js",
+    "06a13905d4527c391efe90096df7666e5437277f": "https://codepan.js.org/10.f14c2e67.chunk.js",
+    "ab056f26356abbc688e2bdc759376c19063601ca": "https://codepan.js.org/11.09be8304.chunk.js",
+    "73dc617d1e10b5a8c7f7c8e304b616cb08d6e52c": "https://codepan.js.org/12.982f9e7a.chunk.js",
+    "966b1f440a042fc05c9058da01ee1b2cb55a443e": "https://codepan.js.org/13.2753dac0.chunk.js",
+    "98970a2dad68e54d2c91222d26158e283697be39": "https://codepan.js.org/14.82f82ec0.chunk.js",
+    "6d5ab283f07bdcc64cec758d4352b67c3ac96456": "https://codepan.js.org/vendor.1664f0df.js",
+    "b3a7d21c69f9f56926037b7feeb663891eaedb25": "https://codepan.js.org/client.3a792e3c.js",
+    "aac50fcd5c0d4fd0a225f187a9ef24573e0dd647": "https://codepan.js.org/17.e7b112d1.chunk.js",
+    "16e65c31d230af8c035be33628d6b336bf8dc459": "https://codepan.js.org/manifest.f689807b.js",
+    "02e50296a3f1599b8afa2b4281edb3aaaab92556": "https://codepan.js.org/client.c939aab5.css",
+    "7ddaf9566ea4d5ee5d58aafaa40a392b5b222dc2": "https://codepan.js.org/vendor.53a7f031.css",
+    "18656dd4513e274da4f0095ba74ae1ffdd9dc437": "https://codepan.js.org/favicon-114.png",
+    "97e0213dfefcbb0d7bd822f3e4a2414586990c46": "https://codepan.js.org/favicon-120.png",
+    "99abfba640dd2edcbc8e1fdda9c5cbaac8a32347": "https://codepan.js.org/CNAME",
+    "51fd3fa7a9c0bc269c5814894a1e7c66ba88617a": "https://codepan.js.org/favicon-144.png",
+    "ebf7485ef5fa34644ee425a59b43a417762571fd": "https://codepan.js.org/favicon-180.png",
+    "477765cb75bfc77589edbdf92c27ff9c0e059085": "https://codepan.js.org/favicon-152.png",
+    "1d49e6dfbf2f8d472d0a3c42b43c072953abe0df": "https://codepan.js.org/favicon-192.png",
+    "cb65ca3a13cc3504be1117c43aa9dda79a495da9": "https://codepan.js.org/favicon-32.png",
+    "cdb3de962e0b821ed0b67e2d1c8e3997bca76e7d": "https://codepan.js.org/favicon-60.png",
+    "d6d22a9c29533d611b0edbec84b3202f0357c5c9": "https://codepan.js.org/favicon-36.png",
+    "767eaded83e2700b754df1a781d696df76db3e44": "https://codepan.js.org/favicon-57.png",
+    "f57fb210b6be2611e6a93194f354b5432bcde86d": "https://codepan.js.org/favicon-48.png",
+    "a22e8782fa2e6ba1f0196bd512446834489ad390": "https://codepan.js.org/favicon-72.png",
+    "2563a4ea64f002323e51fee3616244ef217d3b81": "https://codepan.js.org/favicon.ico",
+    "76f38708ff5cf9de3d54a5b4208b5c8090445165": "https://codepan.js.org/favicon-76.png",
+    "1d147609a2f168ea0bada5aa9f17df2c8968d85b": "https://codepan.js.org/favicon-96.png",
+    "3f6d2ec9a4205993edd256aa2a9ab12b0d49ec52": "https://codepan.js.org/manifest.json",
+    "8624827bf787cb0b7e1416a84e8fd28d0f3ae67d": "https://codepan.js.org/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "2017-7-11 19:05:50",
+  "version": "2017-7-11 19:19:13",
   "name": "webpack-offline",
-  "pluginVersion": "4.7.0",
+  "pluginVersion": "4.8.1",
   "relativePaths": false
 };
 
@@ -160,7 +160,7 @@ var __wpo = {
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "https://codepan.js.org/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
@@ -170,9 +170,9 @@ var __wpo = {
 /* 0 */
 /* no static exports found */
 /* all exports used */
-/*!*****************************************!*\
-  !*** ./~/offline-plugin/empty-entry.js ***!
-  \*****************************************/
+/*!**********************************************!*\
+  !*** ./~/offline-plugin/tpls/empty-entry.js ***!
+  \**********************************************/
 /***/ (function(module, exports) {
 
 
@@ -181,14 +181,55 @@ var __wpo = {
 /* 1 */
 /* no static exports found */
 /* all exports used */
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./~/offline-plugin/lib/misc/sw-loader.js?json=%7B%22data_var_name%22%3A%22__wpo%22%2C%22loaders%22%3A%5B%5D%2C%22cacheMaps%22%3A%5B%5D%7D!./~/offline-plugin/empty-entry.js ***!
-  \***********************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./~/offline-plugin/lib/misc/sw-loader.js?json=%7B%22data_var_name%22%3A%22__wpo%22%2C%22loaders%22%3A%5B%5D%2C%22cacheMaps%22%3A%5B%5D%7D!./~/offline-plugin/tpls/empty-entry.js ***!
+  \****************************************************************************************************************************************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-      
+
+(function () {
+  var waitUntil = ExtendableEvent.prototype.waitUntil;
+  var respondWith = FetchEvent.prototype.respondWith;
+  var promisesMap = new WeakMap();
+
+  ExtendableEvent.prototype.waitUntil = function (promise) {
+    var extendableEvent = this;
+    var promises = promisesMap.get(extendableEvent);
+
+    if (promises) {
+      promises.push(Promise.resolve(promise));
+      return;
+    }
+
+    promises = [Promise.resolve(promise)];
+    promisesMap.set(extendableEvent, promises);
+
+    // call original method
+    return waitUntil.call(extendableEvent, Promise.resolve().then(function processPromises() {
+      var len = promises.length;
+
+      // wait for all to settle
+      return Promise.all(promises.map(function (p) {
+        return p["catch"](function () {});
+      })).then(function () {
+        // have new items been added? If so, wait again
+        if (promises.length != len) return processPromises();
+        // we're done!
+        promisesMap["delete"](extendableEvent);
+        // reject if one of the promises rejected
+        return Promise.all(promises);
+      });
+    }));
+  };
+
+  FetchEvent.prototype.respondWith = function (promise) {
+    this.waitUntil(promise);
+    return respondWith.call(this, promise);
+  };
+})();;
+        'use strict';
 
 if (typeof DEBUG === 'undefined') {
   var DEBUG = false;
@@ -529,12 +570,13 @@ function WebpackServiceWorker(params, helpers) {
         if (cacheUrl === urlString) {
           (function () {
             var responseClone = response.clone();
-
-            caches.open(CACHE_NAME).then(function (cache) {
+            var storing = caches.open(CACHE_NAME).then(function (cache) {
               return cache.put(urlString, responseClone);
             }).then(function () {
               console.log('[SW]:', 'Cache asset: ' + urlString);
             });
+
+            event.waitUntil(storing);
           })();
         }
 
@@ -834,12 +876,12 @@ function logGroup(title, assets) {
 
   console.groupEnd();
 }
-      WebpackServiceWorker(__wpo, {
+        WebpackServiceWorker(__wpo, {
 loaders: {},
 cacheMaps: [],
 });
-      module.exports = __webpack_require__(/*! ./empty-entry.js */ 0)
-    
+        module.exports = __webpack_require__(/*! ./empty-entry.js */ 0)
+      
 
 /***/ })
 /******/ ]);
