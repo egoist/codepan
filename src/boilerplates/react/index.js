@@ -13,6 +13,6 @@ export default async () => {
       code: jsCode,
       transformer: 'jsx'
     },
-    showPans: ['html', 'js', 'output']
+    showPans: ['js', 'output']
   }
 }
