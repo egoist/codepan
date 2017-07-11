@@ -1,4 +1,4 @@
-module.exports = options => ({
+module.exports = {
   extendWebpack(config) {
     config.module.noParse
       .add(/babel-standalone/)
@@ -24,4 +24,4 @@ module.exports = options => ({
       }
     })
   ]
-})
+}
