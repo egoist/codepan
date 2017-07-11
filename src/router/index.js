@@ -7,7 +7,6 @@ Vue.use(Router)
 const EditorPage = () => import(/* webpackChunkName: "editor-page" */ '@/views/EditorPage.vue')
 
 const router = new Router({
-  mode: 'history',
   routes: [
     {
       name: 'home',
