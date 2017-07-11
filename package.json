@@ -14,7 +14,6 @@
     "dev": "poi",
     "build": "poi build",
     "surge": "npm run build && surge -p dist -d codepan.surge.sh",
-    "deploy": "npm run build && ./deploy.sh",
     "report": "poi build --bundle-report"
   },
   "xo": {
