@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#ver:8acd66e16ed4ceff5066e250b6e5bbc11ecbd55d
+#ver:16cba786231b2ee1c5ac005c5ece05daaa6f5c89
 #plugin:4.8.3
 
 CACHE:
@@ -8,7 +8,7 @@ CACHE:
 /client.be03ea9f.css
 /vendor.bd1d971c.js
 /vendor.53a7f031.css
-/editor-page.71301cc9.chunk.js
+/editor-page.7147c23d.chunk.js
 
 NETWORK:
 *
