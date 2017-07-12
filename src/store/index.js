@@ -126,23 +126,26 @@ const store = new Vuex.Store({
       }
 
       const ps = []
-      for (const type in boilerplate) {
-        if (['html', 'js', 'css'].indexOf(type) !== -1) {
-          const payload = boilerplate[type]
-          if (typeof payload.code !== 'undefined') {
-            ps.push(dispatch('updateCode', { type, code: payload.code }))
-          }
-          if (typeof payload.transformer !== 'undefined') {
-            ps.push(
-              dispatch('updateTransformer', {
-                type,
-                transformer: payload.transformer
-              })
-            )
-          }
-        } else if (type === 'showPans') {
-          ps.push(dispatch('showPans', boilerplate.showPans))
+
+      const defaultPans = emptyPans()
+
+      for (const type of ['html', 'js', 'css']) {
+        const { code, transformer } = {
+           code: defaultPans[type].code,
+           transformer: defaultPans[type].transformer,
+           ...boilerplate[type]
         }
+        ps.push(
+          dispatch('updateCode', { type, code }),
+          dispatch('updateTransformer', {
+            type,
+            transformer
+          })
+        )
+      }
+
+      if (boilerplate.showPans) {
+        ps.push(dispatch('showPans', boilerplate.showPans))
       }
 
       ps.push(dispatch('setActivePan', boilerplate.activePan || 'js'))
