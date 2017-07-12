@@ -28,7 +28,7 @@
   import { transformers } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
-  import proxyConsole from '!raw-loader!babel-loader?presets[]=env,presets[]=babili&-babelrc!@/utils/proxy-console'
+  import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
   import SvgIcon from './SvgIcon.vue'
   import Spinner from './Spinner.vue'
 

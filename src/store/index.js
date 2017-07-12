@@ -29,6 +29,12 @@ const emptyPans = () => ({
   }
 })
 
+const getFileNameByLang = {
+  html: 'index.html',
+  js: 'script.js',
+  css: 'style.css'
+}
+
 // Load entries of all boilerplates
 const boilerplates = {
   empty: async () => ({
@@ -166,7 +172,7 @@ const store = new Vuex.Store({
       }
       for (const type of ['html', 'js', 'css']) {
         if (!main[type].code) {
-          const filename = main[type].filename || `codepan.${type}`
+          const filename = main[type].filename || getFileNameByLang[type]
           if (files[filename]) {
             main[type].code = files[filename].content
           }

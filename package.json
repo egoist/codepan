@@ -52,6 +52,7 @@
     "babel-eslint": "^7.2.3",
     "babel-plugin-component": "^0.10.0",
     "babel-preset-babili": "^0.1.4",
+    "buble-loader": "^0.4.1",
     "eslint-config-rem": "^3.1.0",
     "eslint-plugin-html": "^3.0.0",
     "gh-pages": "^1.0.0",
