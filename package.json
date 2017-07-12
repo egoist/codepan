@@ -13,8 +13,8 @@
     "lint": "xo",
     "dev": "poi",
     "build": "poi build",
-    "surge": "npm run build && surge -p dist -d codepan.surge.sh",
-    "deploy": "npm run build && ./deploy.sh",
+    "deploy": "surge -p dist -d codepan.surge.sh",
+    "predeploy": "npm run build && cp dist/index.html dist/200.html",
     "report": "poi build --bundle-report"
   },
   "xo": {
@@ -63,6 +63,7 @@
     "raw-loader": "^0.5.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "surge": "^0.19.0",
     "xo": "^0.18.2"
   },
   "license": "MIT",
