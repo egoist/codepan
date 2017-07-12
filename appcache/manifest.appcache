@@ -1,14 +1,14 @@
 CACHE MANIFEST
-#ver:0da066d74c840afdfefc0c5874132e76daeaacbd
+#ver:7ed668b80da82d51af6841acb0efba4c59cc5998
 #plugin:4.8.3
 
 CACHE:
 /
-/client.613704dd.js
+/client.05eeaf65.js
 /client.be03ea9f.css
 /vendor.bd1d971c.js
 /vendor.53a7f031.css
-/editor-page.844c8564.chunk.js
+/editor-page.75331da6.chunk.js
 
 NETWORK:
 *
