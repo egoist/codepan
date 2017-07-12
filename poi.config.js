@@ -22,10 +22,12 @@ module.exports = {
           optional: [':rest:']
         },
         ServiceWorker: {
-          events: true
+          events: true,
+          navigateFallbackURL: '/'
         },
         AppCache: {
-          events: true
+          events: true,
+          FALLBACK: { '/': '/' }
         }
       }
     })
