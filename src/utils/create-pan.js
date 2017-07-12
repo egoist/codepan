@@ -76,7 +76,7 @@ export default ({ name, editor, components } = {}) => {
         this.updateCode({ code: e.getValue(), type: name })
       })
       this.editor.on('focus', () => {
-        if (this.activePan !== name) {
+        if (this.activePan !== name && this.visiblePans.indexOf(name) > -1) {
           this.setActivePan(name)
         }
       })
