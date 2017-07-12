@@ -131,9 +131,9 @@ const store = new Vuex.Store({
 
       for (const type of ['html', 'js', 'css']) {
         const { code, transformer } = {
-           code: defaultPans[type].code,
-           transformer: defaultPans[type].transformer,
-           ...boilerplate[type]
+          code: defaultPans[type].code,
+          transformer: defaultPans[type].transformer,
+          ...boilerplate[type]
         }
         ps.push(
           dispatch('updateCode', { type, code }),
