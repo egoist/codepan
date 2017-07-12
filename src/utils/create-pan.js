@@ -1,4 +1,5 @@
 import { mapActions, mapState } from 'vuex'
+import debounce from 'debounce'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
@@ -42,7 +43,7 @@ export default ({ name, editor, components } = {}) => {
       }
     },
     computed: {
-      ...mapState([name, 'visiblePans', 'activePan']),
+      ...mapState([name, 'visiblePans', 'activePan', 'autoRun']),
       ...mapState({
         isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
@@ -68,6 +69,11 @@ export default ({ name, editor, components } = {}) => {
       },
       [`${name}.transformer`](val) {
         this.editor.setOption('mode', getEditorModeByTransfomer(val))
+      },
+      [`${name}.code`]() {
+        if (this.autoRun) {
+          this.debounceRunCode()
+        }
       }
     },
     mounted() {
@@ -95,7 +101,10 @@ export default ({ name, editor, components } = {}) => {
       ...mapActions(['updateCode', 'updateTransformer', 'setActivePan']),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
-      }
+      },
+      debounceRunCode: debounce(() => {
+        Event.$emit('run')
+      }, 500)
     },
     components
   }

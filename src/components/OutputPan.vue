@@ -24,7 +24,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import createIframe from 'iframe'
+  import createIframe from '@/utils/iframe'
   import { transformers } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
@@ -62,7 +62,8 @@
     },
     mounted() {
       this.iframe = createIframe({
-        container: document.getElementById('output-iframe')
+        el: document.getElementById('output-iframe'),
+        sandboxAttributes
       })
 
       window.addEventListener('message', this.listenIframe)
@@ -127,8 +128,7 @@
 
         this.iframe.setHTML({
           head,
-          body,
-          sandboxAttributes
+          body
         })
         this.iframeStatus = 'loading'
       },

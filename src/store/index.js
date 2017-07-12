@@ -55,7 +55,8 @@ const store = new Vuex.Store({
     ...emptyPans(),
     logs: [],
     visiblePans: ['html', 'js', 'output'],
-    activePan: 'js'
+    activePan: 'js',
+    autoRun: false
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
