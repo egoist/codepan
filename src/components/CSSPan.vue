@@ -1,6 +1,6 @@
 <template>
   <div
-    class="vue-pan"
+    class="css-pan"
     :class="{ 'active-pan': isActivePan }"
     @click="setActivePan('css')"
     :style="style">
