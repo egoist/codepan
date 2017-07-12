@@ -65,6 +65,9 @@ export default ({ name, editor, components } = {}) => {
         handler(val) {
           this.style = panPosition(val, name)
         }
+      },
+      [`${name}.transformer`](val) {
+        this.editor.setOption('mode', getEditorModeByTransfomer(val))
       }
     },
     mounted() {
@@ -92,7 +95,6 @@ export default ({ name, editor, components } = {}) => {
       ...mapActions(['updateCode', 'updateTransformer', 'setActivePan']),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
-        this.editor.setOption('mode', getEditorModeByTransfomer(transformer))
       }
     },
     components
