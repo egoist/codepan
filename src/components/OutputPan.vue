@@ -18,7 +18,9 @@
         :class="`output-${iframeStatus}`">
       </svg-icon>
     </div>
-    <div id="output-iframe" class="output-iframe"></div>
+    <div class="output-iframe">
+      <div id="output-iframe-holder"></div>
+    </div>
   </div>
 </template>
 
@@ -62,7 +64,7 @@
     },
     mounted() {
       this.iframe = createIframe({
-        el: document.getElementById('output-iframe'),
+        el: document.getElementById('output-iframe-holder'),
         sandboxAttributes
       })
 
