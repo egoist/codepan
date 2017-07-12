@@ -13,7 +13,7 @@
     "lint": "xo",
     "dev": "poi",
     "build": "poi build",
-    "deploy": "surge -p dist -d codepan.surge.sh",
+    "deploy": "surge -p dist -d codepan.net",
     "predeploy": "npm run build && cp dist/index.html dist/200.html",
     "report": "poi build --bundle-report"
   },
