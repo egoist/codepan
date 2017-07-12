@@ -5,7 +5,7 @@
   "description": "Play with JS/CSS/HTML so simple it hurts",
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
-  "homepage": "https://codepan.js.org/",
+  "homepage": "https://codepan.net/",
   "version": "0.0.0",
   "repository": {},
   "scripts": {
