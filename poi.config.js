@@ -1,9 +1,15 @@
+const nodeModules = require('webpack-node-modules')
+
 module.exports = {
   extendWebpack(config) {
     config.module.noParse
       .add(/babel-standalone/)
       .add(/browserified-pug/)
       .add(/babel-preset-vue/)
+
+    config.module.rule('js')
+      .include
+      .add(nodeModules())
   },
   production: {
     sourceMap: false

@@ -6537,6 +6537,13 @@ webpack-node-externals@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-1.6.0.tgz#232c62ec6092b100635a3d29d83c1747128df9bd"
 
+webpack-node-modules@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/webpack-node-modules/-/webpack-node-modules-0.1.1.tgz#14cfbf1c2a3ae91426b09e2dd3e67c622a934842"
+  dependencies:
+    read-pkg-up "^2.0.0"
+    semver "^5.3.0"
+
 webpack-sources@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.0.1.tgz#c7356436a4d13123be2e2426a05d1dad9cbe65cf"

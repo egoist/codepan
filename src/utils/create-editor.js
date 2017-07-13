@@ -34,17 +34,17 @@ export default function (el, opts = {}) {
   })
 
   if (opts.mode === 'htmlmixed') {
-    import(/* webpackChunkName: "emmet-codemirror" */  '@emmetio/codemirror-plugin').then(emmet => {
+    import('@emmetio/codemirror-plugin').then(emmet => {
       emmet.default(CodeMirror)
       editor.setOption('extraKeys', {
         ...editor.getOption('extraKeys'),
-        'Tab': 'emmetExpandAbbreviation',
-		    'Enter': 'emmetInsertLineBreak'
+        Tab: 'emmetExpandAbbreviation',
+        Enter: 'emmetInsertLineBreak'
       })
       editor.setOption('emmet', {
         markupSnippets: {
           'script:unpkg': 'script[src="https://unpkg.com/"]',
-          'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]',
+          'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]'
         }
       })
     })
