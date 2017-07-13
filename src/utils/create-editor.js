@@ -23,6 +23,7 @@ export default function (el, opts = {}) {
   })
 
   editor.setOption('extraKeys', {
+    ...editor.getOption('extraKeys'),
     Tab(cm) {
       const spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
       cm.replaceSelection(spaces)
@@ -33,9 +34,19 @@ export default function (el, opts = {}) {
   })
 
   if (opts.mode === 'htmlmixed') {
-    import('emmet-codemirror').then(emmet => {
-      emmet.setup(CodeMirror)
-      emmet.default(editor)
+    import(/* webpackChunkName: "emmet-codemirror" */  '@emmetio/codemirror-plugin').then(emmet => {
+      emmet.default(CodeMirror)
+      editor.setOption('extraKeys', {
+        ...editor.getOption('extraKeys'),
+        'Tab': 'emmetExpandAbbreviation',
+		    'Enter': 'emmetInsertLineBreak'
+      })
+      editor.setOption('emmet', {
+        markupSnippets: {
+          'script:unpkg': 'script[src="https://unpkg.com/"]',
+          'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]',
+        }
+      })
     })
   }
 
