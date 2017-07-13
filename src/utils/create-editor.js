@@ -34,7 +34,7 @@ export default function (el, opts = {}) {
   })
 
   if (opts.mode === 'htmlmixed') {
-    import('codemirror-emmet').then(emmet => {
+    import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
       emmet(CodeMirror)
       editor.setOption('extraKeys', {
         ...editor.getOption('extraKeys'),
