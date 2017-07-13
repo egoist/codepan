@@ -34,8 +34,8 @@ export default function (el, opts = {}) {
   })
 
   if (opts.mode === 'htmlmixed') {
-    import('@emmetio/codemirror-plugin').then(emmet => {
-      emmet.default(CodeMirror)
+    import('codemirror-emmet').then(emmet => {
+      emmet(CodeMirror)
       editor.setOption('extraKeys', {
         ...editor.getOption('extraKeys'),
         Tab: 'emmetExpandAbbreviation',
