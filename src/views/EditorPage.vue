@@ -132,6 +132,14 @@
   display: flex
   justify-content: space-between
   align-items: center
+  .svg-icon
+    cursor: pointer
+    svg
+      width: 16px
+      color: #666
+    &:hover
+      svg
+        color: #333
 
 .pans.resizing
   cursor: ew-resize

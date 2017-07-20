@@ -4,6 +4,23 @@
     :class="{ 'active-pan': isActivePan }"
     @click="setActivePan('output')"
     :style="style">
+
+    <compiled-code-dialog
+      v-if="js.code"
+      :code="js"
+      :show.sync="showCompiledCode.js"
+      highlight="javascript"
+      type="js">
+    </compiled-code-dialog>
+
+    <compiled-code-dialog
+      v-if="html.code"
+      :code="html"
+      :show.sync="showCompiledCode.html"
+      highlight="htmlmixed"
+      type="html">
+    </compiled-code-dialog>
+
     <div class="pan-head">
       Output
       <spinner
@@ -18,7 +35,7 @@
         :class="`output-${iframeStatus}`">
       </svg-icon>
     </div>
-    <div class="output-iframe">
+    <div class="output-iframe" id="output-iframe">
       <div id="output-iframe-holder"></div>
     </div>
   </div>
@@ -26,13 +43,16 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import Modal from 'vue-slim-modal'
+  import { getHumanlizedTransformerName } from '@/utils'
+  import * as transform from '@/utils/transform'
   import createIframe from '@/utils/iframe'
-  import { transformers } from '@/utils/transformer'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
   import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
   import SvgIcon from './SvgIcon.vue'
   import Spinner from './Spinner.vue'
+  import CompiledCodeDialog from './CompiledCodeDialog.vue'
 
   const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
 
@@ -45,7 +65,12 @@
     data() {
       return {
         style: {},
-        iframeStatus: null
+        iframeStatus: null,
+        showCompiledCode: {
+          js: false,
+          css: false,
+          html: false
+        }
       }
     },
     watch: {
@@ -81,12 +106,19 @@
           ...style
         }
       })
+      Event.$on('show-compiled-code', type => {
+        this.showCompiledCode[type] = true
+      })
     },
     beforeDestroy() {
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
       ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate']),
+      getHumanlizedTransformerName,
+      closeModal(type) {
+        return () => this.showCompiledCode[type] = false
+      },
       async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
@@ -111,18 +143,17 @@
         // We may add preprocessors supports for html/css in the future
         let html
         let css
-
         try {
           js = `
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
-            ${this.transformJS(this.js)}
+            ${transform.js(this.js)}
           };`
-          html = this.transformHTML(this.html)
+          html = transform.html(this.html)
           css = this.css.code // eslint-disable-line prefer-const
         } catch (err) {
-          return this.addLog({ type: 'error', message: err.message })
+          return this.addLog({ type: 'error', message: err.stack })
         }
 
         const head = createElement('style')(css)
@@ -133,46 +164,12 @@
           body
         })
         this.iframeStatus = 'loading'
-      },
-      transformJS({ code, transformer }) {
-        if (transformer === 'js') {
-          return code
-        }
-        if (transformer === 'babel') {
-          return transformers.get('babel').transform(code, {
-            presets: ['es2015', 'stage-2'],
-            plugins: ['transform-react-jsx']
-          }).code
-        }
-        if (transformer === 'jsx') {
-          return transformers.get('babel').transform(code, {
-            presets: ['stage-2'],
-            plugins: ['transform-react-jsx']
-          }).code
-        }
-        if (transformer === 'vue-jsx') {
-          return transformers.get('babel').transform(code, {
-            presets: ['stage-2', transformers.get('VuePreset')]
-          }).code
-        }
-
-        console.error('Unknow transformer:', transformer)
-      },
-      transformHTML({ code, transformer }) {
-        if (transformer === 'html') {
-          return code
-        }
-        if (transformer === 'pug') {
-          return transformers.get('pug').render(code)
-        }
-        if (transformer === 'markdown') {
-          return transformers.get('markdown')(code)
-        }
       }
     },
     components: {
       SvgIcon,
-      Spinner
+      Spinner,
+      CompiledCodeDialog
     }
   }
 </script>

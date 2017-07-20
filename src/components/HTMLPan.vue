@@ -15,6 +15,8 @@
           <el-dropdown-item command="markdown">Markdown</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+
+      <compiled-code-switcher type="html" v-if="html.code"></compiled-code-switcher>
     </div>
     <textarea ref="editor">{{ html.code }}</textarea>
     <pan-resizer pan="html" :enable="enableResizer" />
@@ -31,12 +33,6 @@
     editor: {
       mode: 'htmlmixed',
       autoCloseTags: true
-    },
-    components: {
-      'el-dropdown': Dropdown,
-      'el-dropdown-menu': DropdownMenu,
-      'el-dropdown-item': DropdownItem,
-      'pan-resizer': PanResizer
     }
   })
 </script>

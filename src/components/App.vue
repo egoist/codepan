@@ -11,6 +11,7 @@
 </script>
 
 <style src="nprogress/nprogress.css"></style>
+<style src="vue-slim-modal/themes/default.css"></style>
 
 <style lang="stylus">
 html, body, #app, .page
@@ -24,6 +25,23 @@ body
 
 *
   box-sizing: border-box
+
+pre
+  padding: 16px
+  overflow: auto
+  font-size: 85%
+  line-height: 1.45
+  background-color: #f6f8fa
+  border-radius: 3px
+
+pre > code
+  padding: 0
+  margin: 0
+  font-size: 100%
+  word-break: normal
+  white-space: pre
+  background: transparent
+  border: 0
 
 .el-dropdown-link
   cursor: pointer

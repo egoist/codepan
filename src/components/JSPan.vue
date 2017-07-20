@@ -16,6 +16,7 @@
           <el-dropdown-item command="vue-jsx">Vue JSX</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <compiled-code-switcher type="js" v-if="js.code"></compiled-code-switcher>
     </div>
     <textarea ref="editor">{{ js.code }}</textarea>
     <pan-resizer pan="js" :enable="enableResizer" />
@@ -33,12 +34,6 @@
       mode: 'jsx',
       autofocus: true,
       autoCloseBrackets: true
-    },
-    components: {
-      'el-dropdown': Dropdown,
-      'el-dropdown-menu': DropdownMenu,
-      'el-dropdown-item': DropdownItem,
-      'pan-resizer': PanResizer
     }
   })
 </script>

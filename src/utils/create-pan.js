@@ -1,9 +1,12 @@
 import { mapActions, mapState } from 'vuex'
 import debounce from 'debounce'
+import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
+import PanResizer from '@/components/PanResizer.vue'
+import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
-import { hasNextPan } from '@/utils'
+import { hasNextPan, getHumanlizedTransformerName } from '@/utils'
 
 const getEditorModeByTransfomer = transformer => {
   const modes = {
@@ -17,21 +20,6 @@ const getEditorModeByTransfomer = transformer => {
     css: 'css'
   }
   return modes[transformer]
-}
-
-const getHumanlizedTransformerName = transformer => {
-  const names = {
-    html: 'HTML',
-    pug: 'Pug',
-    markdown: 'Markdown',
-    js: 'JavaScript',
-    'vue-jsx': 'Vue JSX',
-    babel: 'Babel',
-    jsx: 'JSX',
-    css: 'CSS'
-  }
-
-  return names[transformer] || transformer
 }
 
 export default ({ name, editor, components } = {}) => {
@@ -106,6 +94,13 @@ export default ({ name, editor, components } = {}) => {
         Event.$emit('run')
       }, 500)
     },
-    components
+    components: {
+      'el-dropdown': Dropdown,
+      'el-dropdown-menu': DropdownMenu,
+      'el-dropdown-item': DropdownItem,
+      PanResizer,
+      CompiledCodeSwitcher,
+      ...components
+    }
   }
 }

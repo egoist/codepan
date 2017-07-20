@@ -20,21 +20,13 @@
 </template>
 
 <script>
-  import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
-  import createPan from '@/utils/create-pan'
-  import PanResizer from '@/components/PanResizer.vue'
+import createPan from '@/utils/create-pan'
 
-  export default createPan({
-    name: 'css',
-    editor: {
-      mode: 'css',
-      autoCloseBrackets: true
-    },
-    components: {
-      'el-dropdown': Dropdown,
-      'el-dropdown-menu': DropdownMenu,
-      'el-dropdown-item': DropdownItem,
-      'pan-resizer': PanResizer
-    }
-  })
+export default createPan({
+  name: 'css',
+  editor: {
+    mode: 'css',
+    autoCloseBrackets: true
+  }
+})
 </script>

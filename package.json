@@ -73,6 +73,7 @@
     "babel-preset-vue": "^1.0.2",
     "babel-standalone": "^6.25.0",
     "browserified-pug": "^0.1.0",
+    "cm-highlight": "^0.1.1",
     "codemirror": "^5.27.4",
     "codemirror-emmet": "^1.0.0",
     "debounce": "^1.0.2",
@@ -84,6 +85,7 @@
     "reqjs": "^1.0.3",
     "vue-inline": "^1.0.1",
     "vue-router": "^2.7.0",
+    "vue-slim-modal": "^1.0.4",
     "vuex": "^2.3.1"
   }
 }

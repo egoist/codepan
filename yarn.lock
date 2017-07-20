@@ -482,7 +482,7 @@ babel-helper-to-multiple-sequence-expressions@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/babel-helper-to-multiple-sequence-expressions/-/babel-helper-to-multiple-sequence-expressions-0.1.1.tgz#5f1b832b39e4acf954e9137f0251395c71196b35"
 
-babel-helper-vue-jsx-merge-props@^2.0.0, babel-helper-vue-jsx-merge-props@^2.0.2:
+babel-helper-vue-jsx-merge-props@^2.0.0, babel-helper-vue-jsx-merge-props@^2.0.1, babel-helper-vue-jsx-merge-props@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.2.tgz#aceb1c373588279e2755ea1cfd35c22394fd33f8"
 
@@ -1442,6 +1442,10 @@ cliui@^3.2.0:
 clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+
+cm-highlight@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/cm-highlight/-/cm-highlight-0.1.1.tgz#47aacc3cec1ccdef40c2e0b5e31b9dbc0a01fb88"
 
 co@3.1.0:
   version "3.1.0"
@@ -6281,6 +6285,12 @@ vue-loader@^13.0.0:
 vue-router@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.7.0.tgz#16d424493aa51c3c8cce8b7c7210ea4c3a89aff1"
+
+vue-slim-modal@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vue-slim-modal/-/vue-slim-modal-1.0.4.tgz#7d745655d465333a93c9bb395ba241ae21f925df"
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.1"
 
 vue-style-loader@^3.0.0:
   version "3.0.1"
