@@ -45,7 +45,8 @@
       "import/no-webpack-loader-syntax": 0
     },
     "ignores": [
-      "src/boilerplates/**"
+      "src/boilerplates/**",
+      "src/utils/vue-jsx-merge-props.js"
     ]
   },
   "devDependencies": {

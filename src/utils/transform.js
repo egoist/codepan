@@ -17,6 +17,7 @@ export function js({ code, transformer }) {
     return transformers.get('babel').transform(code, {
       presets: ['stage-2', transformers.get('VuePreset')]
     }).code
+      .replace(/import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/, transformers.get('VueJSXMergeProps'))
   } else if (transformer === 'svelte') {
     return 'var SvelteShadowComponent = ' + transformers.get('svelte').compile(code, {
       format: 'eval'

@@ -20,12 +20,14 @@ const transformers = new Transformers()
 async function loadBabel() {
   if (!transformers.get('babel')) {
     progress.start()
-    const [babel, VuePreset] = await Promise.all([
+    const [babel, VuePreset, VueJSXMergeProps] = await Promise.all([
       import(/* webpackChunkName: "babel-stuffs" */ 'babel-standalone'),
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue') // use umd bundle since we don't want to parse `require`
+      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue'), // use umd bundle since we don't want to parse `require`
+      import(/* webpackChunkName: "babel-stuffs" */ '!raw-loader!./vue-jsx-merge-props')
     ])
     transformers.set('babel', babel)
     transformers.set('VuePreset', VuePreset)
+    transformers.set('VueJSXMergeProps', VueJSXMergeProps)
     progress.done()
   }
 }
