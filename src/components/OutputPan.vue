@@ -153,7 +153,7 @@
         }
 
         const head = createElement('style')(css)
-        const body = createElement('script')(proxyConsole) + '<div id="codepan_output_root"></div>' + html + createElement('script')(js)
+        const body = createElement('script')(proxyConsole) + html + createElement('script')(js)
 
         this.iframe.setHTML({
           head,

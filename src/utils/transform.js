@@ -20,7 +20,7 @@ export function js({ code, transformer }) {
   } else if (transformer === 'svelte') {
     return 'var SvelteShadowComponent = ' + transformers.get('svelte').compile(code, {
       format: 'eval'
-    }).code + `\n\nnew SvelteShadowComponent({target: document.getElementById('codepan_output_root')})`
+    }).code + `\n\nnew SvelteShadowComponent({target: document.body})`
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }
