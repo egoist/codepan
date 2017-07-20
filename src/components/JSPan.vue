@@ -24,9 +24,7 @@
 </template>
 
 <script>
-  import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
   import createPan from '@/utils/create-pan'
-  import PanResizer from '@/components/PanResizer.vue'
 
   export default createPan({
     name: 'js',

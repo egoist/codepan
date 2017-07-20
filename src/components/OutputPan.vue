@@ -43,7 +43,6 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import Modal from 'vue-slim-modal'
   import { getHumanlizedTransformerName } from '@/utils'
   import * as transform from '@/utils/transform'
   import createIframe from '@/utils/iframe'
@@ -116,9 +115,6 @@
     methods: {
       ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate']),
       getHumanlizedTransformerName,
-      closeModal(type) {
-        return () => this.showCompiledCode[type] = false
-      },
       async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })

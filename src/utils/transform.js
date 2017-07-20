@@ -17,9 +17,8 @@ export function js({ code, transformer }) {
     return transformers.get('babel').transform(code, {
       presets: ['stage-2', transformers.get('VuePreset')]
     }).code
-  } else {
-    throw new Error(`Unknow transformer: ${transformer}`)
   }
+  throw new Error(`Unknow transformer: ${transformer}`)
 }
 
 export function html({ code, transformer }) {
@@ -29,7 +28,6 @@ export function html({ code, transformer }) {
     return transformers.get('pug').render(code)
   } else if (transformer === 'markdown') {
     return transformers.get('markdown')(code)
-  } else {
-    throw new Error(`Unknow transformer: ${transformer}`)
   }
+  throw new Error(`Unknow transformer: ${transformer}`)
 }
