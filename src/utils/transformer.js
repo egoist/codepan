@@ -54,4 +54,13 @@ async function loadMarkdown() {
   }
 }
 
-export { loadBabel, loadPug, loadMarkdown, transformers }
+async function loadSvelte() {
+  if (!transformers.get('svelte')) {
+    progress.start()
+    const svelte = await import('svelte')
+    transformers.set('svelte', svelte)
+    progress.done()
+  }
+}
+
+export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte }

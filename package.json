@@ -83,6 +83,7 @@
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
     "reqjs": "^1.0.3",
+    "svelte": "^1.25.0",
     "vue-inline": "^1.0.1",
     "vue-router": "^2.7.0",
     "vue-slim-modal": "^1.0.4",

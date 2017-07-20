@@ -5853,6 +5853,10 @@ surge@^0.19.0:
     tar.gz "0.1.1"
     url-parse-as-address "1.0.0"
 
+svelte@^1.25.0:
+  version "1.25.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.25.0.tgz#e5d84eeec57befabe8f09344f954f3bb04859f51"
+
 svgo@^0.7.0:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-0.7.2.tgz#9f5772413952135c6fefbf40afe6a4faa88b4bb5"

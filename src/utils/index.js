@@ -11,8 +11,24 @@ export const getHumanlizedTransformerName = transformer => {
     'vue-jsx': 'Vue JSX',
     babel: 'Babel',
     jsx: 'JSX',
-    css: 'CSS'
+    css: 'CSS',
+    svelte: 'Svelte'
   }
 
   return names[transformer] || transformer
+}
+
+export const getEditorModeByTransfomer = transformer => {
+  const modes = {
+    html: 'htmlmixed',
+    pug: 'pug',
+    markdown: 'markdown',
+    js: 'jsx',
+    'vue-jsx': 'jsx',
+    babel: 'jsx',
+    jsx: 'jsx',
+    css: 'css',
+    svelte: 'htmlmixed'
+  }
+  return modes[transformer]
 }

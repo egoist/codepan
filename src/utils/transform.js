@@ -17,6 +17,10 @@ export function js({ code, transformer }) {
     return transformers.get('babel').transform(code, {
       presets: ['stage-2', transformers.get('VuePreset')]
     }).code
+  } else if (transformer === 'svelte') {
+    return 'var SvelteShadowComponent = ' + transformers.get('svelte').compile(code, {
+      format: 'eval'
+    }).code + `\n\nnew SvelteShadowComponent({target: document.getElementById('codepan_output_root')})`
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }

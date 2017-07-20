@@ -33,22 +33,20 @@ export default function (el, opts = {}) {
     }
   })
 
-  if (opts.mode === 'htmlmixed') {
-    import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
-      emmet(CodeMirror)
-      editor.setOption('extraKeys', {
-        ...editor.getOption('extraKeys'),
-        Tab: 'emmetExpandAbbreviation',
-        Enter: 'emmetInsertLineBreak'
-      })
-      editor.setOption('emmet', {
-        markupSnippets: {
-          'script:unpkg': 'script[src="https://unpkg.com/"]',
-          'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]'
-        }
-      })
+  import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
+    emmet(CodeMirror)
+    editor.setOption('extraKeys', {
+      ...editor.getOption('extraKeys'),
+      Tab: 'emmetExpandAbbreviation',
+      Enter: 'emmetInsertLineBreak'
     })
-  }
+    editor.setOption('emmet', {
+      markupSnippets: {
+        'script:unpkg': 'script[src="https://unpkg.com/"]',
+        'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]'
+      }
+    })
+  })
 
   return editor
 }
