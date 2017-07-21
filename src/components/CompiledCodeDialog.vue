@@ -73,6 +73,7 @@ export default {
   display: flex
   align-items: center
   justify-content: center
+  border-bottom: 1px solid #e2e2e2
 
 .svg-icon
   margin-right: 8px

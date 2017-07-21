@@ -136,6 +136,7 @@
     cursor: pointer
     svg
       width: 16px
+      height: @width
       color: #666
     &:hover
       svg

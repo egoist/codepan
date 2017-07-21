@@ -12,6 +12,7 @@
 
 <style src="nprogress/nprogress.css"></style>
 <style src="vue-slim-modal/themes/default.css"></style>
+<style src="v-tippy/dist/tippy.css"></style>
 
 <style lang="stylus">
 html, body, #app, .page

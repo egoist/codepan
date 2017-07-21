@@ -1,15 +1,13 @@
 <template>
-  <el-tooltip content="View compiled">
-    <svg-icon
-      class="svg-icon"
-      name="code"
-      @click="handleClick">
-    </svg-icon>
-  </el-tooltip>
+  <svg-icon
+    class="svg-icon"
+    name="code"
+    @click="handleClick"
+    v-tippy="{title: 'View compiled'}">
+  </svg-icon>
 </template>
 
 <script>
-import { Tooltip } from 'element-ui'
 import SvgIcon from '@/components/SvgIcon.vue'
 import Event from '@/utils/event'
 
@@ -26,7 +24,6 @@ export default {
     }
   },
   components: {
-    'el-tooltip': Tooltip,
     SvgIcon
   }
 }
