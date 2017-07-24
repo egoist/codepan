@@ -25,19 +25,31 @@ export default function (el, opts = {}) {
   editor.setOption('extraKeys', {
     ...editor.getOption('extraKeys'),
     Tab(cm) {
-      const spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
-      cm.replaceSelection(spaces)
+      // Indent, or place 2 spaces
+      if (cm.somethingSelected()) {
+        cm.indentSelection('add')
+      } else if (cm.getOption('mode').indexOf('html') > -1) {
+        try {
+          cm.execCommand('emmetExpandAbbreviation')
+        } catch (err) {
+          console.error(err)
+        }
+      } else {
+        const spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
+        cm.replaceSelection(spaces, 'end', '+input')
+      }
     },
     [isMac ? 'Cmd-/' : 'Ctrl-/'](cm) {
       cm.toggleComment()
     }
   })
 
+  console.log('hi')
   import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
     emmet(CodeMirror)
+    console.log(editor.getOption('extraKeys'))
     editor.setOption('extraKeys', {
       ...editor.getOption('extraKeys'),
-      Tab: 'emmetExpandAbbreviation',
       Enter: 'emmetInsertLineBreak'
     })
     editor.setOption('emmet', {
