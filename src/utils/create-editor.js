@@ -44,10 +44,8 @@ export default function (el, opts = {}) {
     }
   })
 
-  console.log('hi')
   import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
     emmet(CodeMirror)
-    console.log(editor.getOption('extraKeys'))
     editor.setOption('extraKeys', {
       ...editor.getOption('extraKeys'),
       Enter: 'emmetInsertLineBreak'
