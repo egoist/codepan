@@ -76,6 +76,9 @@
           <el-dropdown-item style="padding: 0;">
             <a class="el-dropdown-menu__item" target="_blank" href="https://github.com/egoist/codepan">GitHub</a>
           </el-dropdown-item>
+          <el-dropdown-item style="padding: 0;">
+            <a class="el-dropdown-menu__item" target="_blank" href="https://changelog.codepan.net">Changelog</a>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
