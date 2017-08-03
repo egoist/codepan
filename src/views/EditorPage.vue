@@ -90,7 +90,7 @@
         return this.visiblePans.indexOf(pan) !== -1
       },
       handleStorageChanged(e) {
-        if (e.key === 'codepan:gh-token') {
+        if (e.key === 'codepan:gh-token' && e.newValue) {
           this.$store.dispatch('setGitHubToken', e.newValue)
           notie.alert({
             type: 'success',
