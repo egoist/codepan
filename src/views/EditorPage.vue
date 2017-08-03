@@ -99,6 +99,9 @@
         }
       }
     },
+    beforeDestroy() {
+      window.removeEventListener('storage', this.handleStorageChanged)
+    },
     components: {
       'html-pan': HTMLPan,
       'js-pan': JSPan,
