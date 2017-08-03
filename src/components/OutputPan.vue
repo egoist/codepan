@@ -44,6 +44,9 @@
 <script>
   import { mapState, mapActions } from 'vuex'
   import { getHumanlizedTransformerName } from '@/utils'
+  import axios from 'axios'
+  import notie from 'notie'
+  import progress from 'nprogress'
   import * as transform from '@/utils/transform'
   import createIframe from '@/utils/iframe'
   import Event from '@/utils/event'
@@ -58,6 +61,41 @@
   const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
 
   const createElement = tag => content => replaceQuote(`__QUOTE_LEFT__${tag}>${content}__QUOTE_LEFT__/${tag}>`)
+
+  const makeGist = (data, { showPans, activePan, update }) => {
+    const files = {}
+    const filenameMap = {
+      js: 'script.js',
+      css: 'style.css',
+      html: 'index.html'
+    }
+
+    const manifest = {
+      showPans,
+      activePan
+    }
+
+    for (const type in data) {
+      const { code, transformer } = data[type]
+      const filename = filenameMap[type]
+      if (!code && update) {
+        files[filename] = null
+      } else if (code) {
+        files[filename] = {
+          content: code
+        }
+      }
+      if (transformer) {
+        manifest[type] = { transformer }
+      }
+    }
+
+    files['codepan.json'] = {
+      content: JSON.stringify(manifest)
+    }
+
+    return files
+  }
 
   export default {
     name: 'output-pan',
@@ -81,7 +119,7 @@
       }
     },
     computed: {
-      ...mapState(['js', 'css', 'html', 'visiblePans', 'activePan']),
+      ...mapState(['js', 'css', 'html', 'visiblePans', 'activePan', 'githubToken']),
       isActivePan() {
         return this.activePan === 'output'
       }
@@ -108,6 +146,12 @@
       Event.$on('show-compiled-code', type => {
         this.showCompiledCode[type] = true
       })
+      Event.$on('save-gist', update => {
+        this.saveGist({ token: this.githubToken, update })
+      })
+      Event.$on('save-anonymous-gist', () => {
+        this.saveGist()
+      })
     },
     beforeDestroy() {
       window.removeEventListener('message', this.listenIframe)
@@ -115,6 +159,7 @@
     methods: {
       ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate']),
       getHumanlizedTransformerName,
+
       async listenIframe({ data = {} }) {
         if (data.type === 'iframe-error') {
           this.addLog({ type: 'error', message: data.message.trim() })
@@ -134,6 +179,7 @@
           this.iframeStatus = 'success'
         }
       },
+
       run() {
         let js
         // We may add preprocessors supports for html/css in the future
@@ -160,6 +206,50 @@
           body
         })
         this.iframeStatus = 'loading'
+      },
+
+      async saveGist({ token, update }) {
+        try {
+          progress.start()
+          const files = makeGist({
+            js: this.js,
+            css: this.css,
+            html: this.html
+          }, {
+            showPans: this.visiblePans,
+            activePan: this.activePan
+          })
+          const params = {}
+          if (token) {
+            // eslint-disable-next-line camelcase
+            params.access_token = token
+          }
+          const gistId = this.$route.params.gist
+          const url = `https://api.github.com/gists${update ? `/${gistId}` : ''}`
+          const method = update ? 'PATCH' : 'POST'
+          const { data } = await axios(url, {
+            params,
+            method,
+            data: {
+              description: 'Try it online! https://codepan.net/gist/<gist_id>',
+              public: false,
+              files
+            }
+          })
+          if (update) {
+            progress.done()
+          } else {
+            this.$router.push(`/gist/${data.id}`)
+          }
+        } catch (err) {
+          progress.done()
+          if (err.response) {
+            notie.alert({
+              type: 'error',
+              text: err.response.data.message
+            })
+          }
+        }
       }
     },
     components: {

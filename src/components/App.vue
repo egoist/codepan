@@ -13,6 +13,8 @@
 <style src="nprogress/nprogress.css"></style>
 <style src="vue-slim-modal/themes/default.css"></style>
 <style src="v-tippy/dist/tippy.css"></style>
+<style src="notie/dist/notie.min.css"></style>
+
 
 <style lang="stylus">
 html, body, #app, .page
@@ -60,4 +62,7 @@ pre > code
 
 .el-badge
   z-index: 1000
+
+.notie-container
+  z-index: 9999
 </style>

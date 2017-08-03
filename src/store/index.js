@@ -56,7 +56,8 @@ const store = new Vuex.Store({
     logs: [],
     visiblePans: ['html', 'js', 'output'],
     activePan: 'js',
-    autoRun: false
+    autoRun: false,
+    githubToken: localStorage.getItem('codepan:gh-token') || ''
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -86,6 +87,9 @@ const store = new Vuex.Store({
     },
     ACTIVE_PAN(state, pan) {
       state.activePan = pan
+    },
+    SET_GITHUB_TOKEN(state, token) {
+      state.githubToken = token
     }
   },
   actions: {
@@ -164,14 +168,23 @@ const store = new Vuex.Store({
 
       progress.done()
     },
-    async setGist({ commit, dispatch }, id) {
-      const { data: { files } } = await axios.get(`https://api.github.com/gists/${id}`)
+    async setGist({ commit, dispatch, state }, id) {
+      const params = {}
+      if (state.githubToken) {
+        // eslint-disable-next-line camelcase
+        params.access_token = state.githubToken
+      }
+      const { data: { files } } = await axios.get(`https://api.github.com/gists/${id}`, {
+        params
+      })
 
       const main = {
         html: {},
         css: {},
         js: {},
-        ...(files['index.js'] ? req(files['index.js'].content) : {})
+        ...(files['index.js'] ? req(files['index.js'].content) : {}),
+        ...(files['codepan.js'] ? req(files['codepan.js'].content) : {}),
+        ...(files['codepan.json'] ? JSON.parse(files['codepan.json'].content) : {})
       }
       for (const type of ['html', 'js', 'css']) {
         if (!main[type].code) {
@@ -182,6 +195,9 @@ const store = new Vuex.Store({
         }
       }
       await dispatch('setBoilerplate', main)
+    },
+    setGitHubToken({ commit }, token) {
+      commit('SET_GITHUB_TOKEN', token)
     }
   }
 })
