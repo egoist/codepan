@@ -4700,9 +4700,9 @@ poi-preset-offline@^9.0.1:
   version "9.0.1"
   resolved "https://registry.npmjs.org/poi-preset-offline/-/poi-preset-offline-9.0.1.tgz#f05079bc504671b04acc2cc3294bde23abd2de37"
 
-poi@^9.1.11:
-  version "9.1.11"
-  resolved "https://registry.npmjs.org/poi/-/poi-9.1.11.tgz#36aaba1feafb145e121a73cf80ef42b1b8e7ba4d"
+poi@^9.1.12:
+  version "9.1.12"
+  resolved "https://registry.npmjs.org/poi/-/poi-9.1.12.tgz#6dd5a253f052ace15a1f15d5d0d4b332f3b20010"
   dependencies:
     address "^1.0.1"
     autoprefixer "^7.1.2"
