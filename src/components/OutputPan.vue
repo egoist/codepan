@@ -62,32 +62,13 @@
 
   const createElement = tag => content => replaceQuote(`__QUOTE_LEFT__${tag}>${content}__QUOTE_LEFT__/${tag}>`)
 
-  const makeGist = (data, { showPans, activePan, update }) => {
+  const makeGist = (data, { showPans, activePan }) => {
     const files = {}
-    const filenameMap = {
-      js: 'script.js',
-      css: 'style.css',
-      html: 'index.html'
-    }
 
     const manifest = {
+      ...data,
       showPans,
       activePan
-    }
-
-    for (const type in data) {
-      const { code, transformer } = data[type]
-      const filename = filenameMap[type]
-      if (!code && update) {
-        files[filename] = null
-      } else if (code) {
-        files[filename] = {
-          content: code
-        }
-      }
-      if (transformer) {
-        manifest[type] = { transformer }
-      }
     }
 
     files['codepan.json'] = {
@@ -217,8 +198,7 @@
             html: this.html
           }, {
             showPans: this.visiblePans,
-            activePan: this.activePan,
-            update
+            activePan: this.activePan
           })
           const params = {}
           if (token) {
