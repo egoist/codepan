@@ -102,6 +102,7 @@
   import { mapState, mapActions } from 'vuex'
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
   import Event from '@/utils/event'
+  import popup from '@/utils/popup'
   import notie from 'notie'
 
   export default {
@@ -182,11 +183,10 @@
           }, {
             text: 'OAuth',
             type: 2,
-            handler() {
-              notie.alert({
-                type: 'warning',
-                text: 'Not avaliable for now!'
-              })
+            handler: () => {
+              const loginURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4001/login' : 'https://codepan-gh-login.now.sh/login'
+
+              popup(loginURL, 'gh login', 600, 400)
             }
           }]
         })
@@ -196,7 +196,6 @@
           text: 'Please set your personal access token for GitHub Gist',
           submitCallback: value => {
             this.$store.dispatch('setGitHubToken', value)
-            localStorage.setItem('codepan:gh-token', value)
             notie.alert({
               type: 'success',
               time: 6,

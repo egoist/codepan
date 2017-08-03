@@ -14,6 +14,7 @@
 <script>
   import progress from 'nprogress'
   import { mapState, mapActions } from 'vuex'
+  import notie from 'notie'
   import Event from '@/utils/event'
   import HomeHeader from '@/components/HomeHeader.vue'
   import HTMLPan from '@/components/HTMLPan.vue'
@@ -80,11 +81,22 @@
       if (window.self !== window.top) {
         window.parent.postMessage({ type: 'codepan-ready' }, '*')
       }
+
+      window.addEventListener('storage', this.handleStorageChanged)
     },
     methods: {
       ...mapActions(['setBoilerplate', 'setGist', 'showPans']),
       isVisible(pan) {
         return this.visiblePans.indexOf(pan) !== -1
+      },
+      handleStorageChanged(e) {
+        if (e.key === 'codepan:gh-token') {
+          this.$store.dispatch('setGitHubToken', e.newValue)
+          notie.alert({
+            type: 'success',
+            text: 'Successfully logged in with GitHub!'
+          })
+        }
       }
     },
     components: {

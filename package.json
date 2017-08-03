@@ -42,7 +42,8 @@
       "complexity": 0,
       "guard-for-in": 0,
       "unicorn/filename-case": 0,
-      "import/no-webpack-loader-syntax": 0
+      "import/no-webpack-loader-syntax": 0,
+      "unicorn/no-abusive-eslint-disable": 0
     },
     "ignores": [
       "src/boilerplates/**",

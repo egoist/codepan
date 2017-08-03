@@ -198,6 +198,7 @@ const store = new Vuex.Store({
     },
     setGitHubToken({ commit }, token) {
       commit('SET_GITHUB_TOKEN', token)
+      localStorage.setItem('codepan:gh-token', token)
     }
   }
 })
