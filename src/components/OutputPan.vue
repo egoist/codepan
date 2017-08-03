@@ -232,7 +232,6 @@
             params,
             method,
             data: {
-              description: 'Try it online! https://codepan.net/gist/<gist_id>',
               public: false,
               files
             }
@@ -241,6 +240,16 @@
             progress.done()
           } else {
             this.$router.push(`/gist/${data.id}`)
+            if (token) {
+              // Update gist id in the description of newly created gist
+              axios(`https://api.github.com/gists/${data.id}`, {
+                method: 'PATCH',
+                params,
+                data: {
+                  description: `Try it online! https://codepan.net/gist/${data.id}`
+                }
+              }).catch(err => console.log(err))
+            }
           }
         } catch (err) {
           progress.done()
