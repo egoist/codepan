@@ -217,7 +217,8 @@
             html: this.html
           }, {
             showPans: this.visiblePans,
-            activePan: this.activePan
+            activePan: this.activePan,
+            update
           })
           const params = {}
           if (token) {
