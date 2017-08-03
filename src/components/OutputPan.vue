@@ -208,7 +208,7 @@
         this.iframeStatus = 'loading'
       },
 
-      async saveGist({ token, update }) {
+      async saveGist({ token, update } = {}) {
         try {
           progress.start()
           const files = makeGist({
