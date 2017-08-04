@@ -75,22 +75,33 @@
         <el-button icon="more" size="mini"></el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
-            GitHub Login
+            <div class="fake-anchor">
+              <github-icon></github-icon> GitHub Login
+            </div>
           </el-dropdown-item>
           <el-dropdown-item command="save-anonymous-gist">
-            Save Anonymous Gist
+            <div class="fake-anchor">
+              <file-icon></file-icon> Save Anonymous Gist
+            </div>
           </el-dropdown-item>
           <el-dropdown-item command="save-gist">
-            Save New Gist
+            <div class="fake-anchor">
+              <file-plus-icon></file-plus-icon> Save New Gist
+            </div>
           </el-dropdown-item>
           <el-dropdown-item v-tippy="{title: 'You can update this gist if you own it', position: 'left', arrow: true}" v-if="canUpdateGist" command="update-gist">
-            Update Gist
+            <div class="fake-anchor">
+              <save-icon></save-icon> Update Gist
+            </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
-            <a class="el-dropdown-menu__item" target="_blank" href="https://github.com/egoist/codepan">Source Code</a>
+            <a class="el-dropdown-menu__item fake-anchor" target="_blank" href="https://github.com/egoist/codepan"><link2-icon></link2-icon> Source Code</a>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
-            <a class="el-dropdown-menu__item" target="_blank" href="https://changelog.codepan.net">Changelog</a>
+            <a class="el-dropdown-menu__item fake-anchor" target="_blank" href="https://twitter.com/_egoistlily"><twitter-icon></twitter-icon> Follow me on Twitter</a>
+          </el-dropdown-item>
+          <el-dropdown-item style="padding: 0;">
+            <a class="el-dropdown-menu__item fake-anchor" target="_blank" href="https://changelog.codepan.net"><map-icon></map-icon> Changelog</a>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -104,6 +115,15 @@
   import Event from '@/utils/event'
   import popup from '@/utils/popup'
   import notie from 'notie'
+  import {
+    GithubIcon,
+    MapIcon,
+    FileIcon,
+    FilePlusIcon,
+    Link2Icon,
+    SaveIcon,
+    TwitterIcon
+  } from 'vue-feather-icons'
 
   export default {
     computed: {
@@ -211,7 +231,14 @@
       'el-dropdown-item': DropdownItem,
       'el-button': Button,
       'el-input': Input,
-      'el-badge': Badge
+      'el-badge': Badge,
+      GithubIcon,
+      MapIcon,
+      FileIcon,
+      FilePlusIcon,
+      Link2Icon,
+      SaveIcon,
+      TwitterIcon
     }
   }
 </script>

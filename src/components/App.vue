@@ -55,10 +55,17 @@ pre > code
   position: relative
 
 .el-dropdown-menu
-  a
+  .fake-anchor
     color: #333
     text-decoration: none
-    display: block
+    align-items: center
+    display: flex
+    width: 100%
+    svg
+      margin-right: 10px
+      width: 16px
+      height: @width
+      color: #666
 
 .el-badge
   z-index: 1000
