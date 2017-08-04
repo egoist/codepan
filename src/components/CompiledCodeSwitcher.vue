@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import SvgIcon from '@/components/SvgIcon.vue'
 import Event from '@/utils/event'
 import { RepeatIcon } from 'vue-feather-icons'
 

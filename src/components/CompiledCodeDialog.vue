@@ -13,10 +13,10 @@
 <script>
 import Modal from 'vue-slim-modal'
 import { mapActions } from 'vuex'
+import { RepeatIcon } from 'vue-feather-icons'
 import { getHumanlizedTransformerName } from '@/utils'
 import * as transform from '@/utils/transform'
 import Highlight from './Highlight'
-import { RepeatIcon } from 'vue-feather-icons'
 
 export default {
   name: 'compiled-code-dialog',
