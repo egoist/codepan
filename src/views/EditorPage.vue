@@ -147,15 +147,15 @@
   display: flex
   justify-content: space-between
   align-items: center
-  .svg-icon
+  svg.svg-icon
+    margin-left: 5px
     cursor: pointer
-    svg
-      width: 16px
-      height: @width
-      color: #666
+    width: 14px
+    height: @width
+    color: #666
+    outline: none
     &:hover
-      svg
-        color: #333
+      color: #000
 
 .pans.resizing
   cursor: ew-resize

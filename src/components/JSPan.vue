@@ -17,7 +17,9 @@
           <el-dropdown-item command="svelte">Svelte</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <compiled-code-switcher type="js" v-if="js.code"></compiled-code-switcher>
+      <div class="pan-head-right">
+        <compiled-code-switcher type="js" v-if="js.code"></compiled-code-switcher>
+      </div>
     </div>
     <textarea ref="editor">{{ js.code }}</textarea>
     <pan-resizer pan="js" :enable="enableResizer" />

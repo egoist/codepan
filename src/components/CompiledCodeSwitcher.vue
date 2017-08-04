@@ -1,15 +1,15 @@
 <template>
-  <svg-icon
+  <repeat-icon
     class="svg-icon"
-    name="code"
     @click="handleClick"
     v-tippy="{title: 'View compiled'}">
-  </svg-icon>
+  </repeat-icon>
 </template>
 
 <script>
 import SvgIcon from '@/components/SvgIcon.vue'
 import Event from '@/utils/event'
+import { RepeatIcon } from 'vue-feather-icons'
 
 export default {
   props: {
@@ -24,7 +24,7 @@ export default {
     }
   },
   components: {
-    SvgIcon
+    RepeatIcon
   }
 }
 </script>
