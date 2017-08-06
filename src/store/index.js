@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
-    isEditorSaved: true
+    editorStatus: 'saved'
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -92,8 +92,8 @@ const store = new Vuex.Store({
     SET_GITHUB_TOKEN(state, token) {
       state.githubToken = token
     },
-    SET_SAVE_STATUS(state, save) {
-      state.isEditorSaved = save
+    SET_EDITOR_STATUS(state, status) {
+      state.editorStatus = status
     }
   },
   actions: {
@@ -209,10 +209,16 @@ const store = new Vuex.Store({
       localStorage.setItem('codepan:gh-token', token)
     },
     editorSaved({ commit }) {
-      commit('SET_SAVE_STATUS', true)
+      commit('SET_EDITOR_STATUS', 'saved')
     },
     editorChanged({ commit }) {
-      commit('SET_SAVE_STATUS', false)
+      commit('SET_EDITOR_STATUS', 'changed')
+    },
+    editorSaving({ commit }) {
+      commit('SET_EDITOR_STATUS', 'saving')
+    },
+    editorSavingError({ commit }) {
+      commit('SET_EDITOR_STATUS', 'error')
     }
   }
 })

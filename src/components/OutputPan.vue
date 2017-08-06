@@ -138,7 +138,7 @@
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
-      ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate', 'editorSaved']),
+      ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate', 'editorSaved', 'editorSaving', 'editorSavingError']),
       getHumanlizedTransformerName,
 
       async listenIframe({ data = {} }) {
@@ -190,8 +190,8 @@
       },
 
       async saveGist({ token, update } = {}) {
+        this.editorSaving()
         try {
-          progress.start()
           const files = makeGist({
             js: this.js,
             css: this.css,
@@ -218,7 +218,6 @@
           })
 
           if (update) {
-            progress.done()
             this.editorSaved()
           } else {
             this.$router.push(`/gist/${data.id}`)
@@ -234,7 +233,7 @@
             }
           }
         } catch (err) {
-          progress.done()
+          this.editorSavingError()
           if (err.response) {
             notie.alert({
               type: 'error',

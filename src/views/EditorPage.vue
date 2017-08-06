@@ -52,7 +52,7 @@
   export default {
     name: 'editor-page',
     computed: {
-      ...mapState(['visiblePans', 'isEditorSaved'])
+      ...mapState(['visiblePans', 'editorStatus'])
     },
     beforeRouteEnter(to, from, next) {
       next(async vm => {
@@ -85,7 +85,7 @@
       window.addEventListener('storage', this.handleStorageChanged)
 
       window.onbeforeunload = () => {
-        if (!this.isEditorSaved) {
+        if (this.editorStatus !== 'saved') {
           return true
         }
       }

@@ -60,6 +60,9 @@
       </span>
     </div>
     <div class="home-header-right home-header-block">
+      <span class="editor-save-status" v-if="editorStatus === 'saving'">
+        <svg-icon class="svg-icon" name="loading"></svg-icon> Saving...
+      </span>
       <el-button
         icon="caret-right"
         size="mini"
@@ -124,10 +127,11 @@
     SaveIcon,
     TwitterIcon
   } from 'vue-feather-icons'
+  import SvgIcon from './SvgIcon.vue'
 
   export default {
     computed: {
-      ...mapState(['visiblePans', 'githubToken']),
+      ...mapState(['visiblePans', 'githubToken', 'editorStatus']),
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
@@ -238,7 +242,8 @@
       FilePlusIcon,
       Link2Icon,
       SaveIcon,
-      TwitterIcon
+      TwitterIcon,
+      SvgIcon
     }
   }
 </script>
@@ -294,4 +299,17 @@
 
     &.visible
       background-color: #EBF3FF
+
+.editor-save-status
+  display: flex
+  align-items: center
+  color: #607d8b
+  .svg-icon
+    display: flex
+    align-items: center
+    margin-right: 5px
+  >>> svg
+    fill: @color
+    width: 16px
+    height: @width
 </style>
