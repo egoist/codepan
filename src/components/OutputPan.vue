@@ -138,7 +138,7 @@
       window.removeEventListener('message', this.listenIframe)
     },
     methods: {
-      ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate']),
+      ...mapActions(['addLog', 'clearLogs', 'setActivePan', 'setBoilerplate', 'editorSaved']),
       getHumanlizedTransformerName,
 
       async listenIframe({ data = {} }) {
@@ -216,8 +216,10 @@
               files
             }
           })
+
           if (update) {
             progress.done()
+            this.editorSaved()
           } else {
             this.$router.push(`/gist/${data.id}`)
             if (token) {

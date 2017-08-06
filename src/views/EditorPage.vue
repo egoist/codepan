@@ -52,7 +52,7 @@
   export default {
     name: 'editor-page',
     computed: {
-      ...mapState(['visiblePans'])
+      ...mapState(['visiblePans', 'isEditorSaved'])
     },
     beforeRouteEnter(to, from, next) {
       next(async vm => {
@@ -83,6 +83,12 @@
       }
 
       window.addEventListener('storage', this.handleStorageChanged)
+
+      window.onbeforeunload = () => {
+        if (!this.isEditorSaved) {
+          return true
+        }
+      }
     },
     methods: {
       ...mapActions(['setBoilerplate', 'setGist', 'showPans']),

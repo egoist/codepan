@@ -55,6 +55,7 @@ export default ({ name, editor, components } = {}) => {
       this.editor = createEditor(this.$refs.editor, editor)
       this.editor.on('change', e => {
         this.updateCode({ code: e.getValue(), type: name })
+        this.editorChanged()
       })
       this.editor.on('focus', () => {
         if (this.activePan !== name && this.visiblePans.indexOf(name) > -1) {
@@ -73,7 +74,7 @@ export default ({ name, editor, components } = {}) => {
       })
     },
     methods: {
-      ...mapActions(['updateCode', 'updateTransformer', 'setActivePan']),
+      ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
       },
