@@ -46,7 +46,6 @@
   import { getHumanlizedTransformerName } from '@/utils'
   import axios from 'axios'
   import notie from 'notie'
-  import progress from 'nprogress'
   import * as transform from '@/utils/transform'
   import createIframe from '@/utils/iframe'
   import Event from '@/utils/event'
