@@ -5,17 +5,17 @@ export function js({ code, transformer }) {
     return code
   } else if (transformer === 'babel') {
     return transformers.get('babel').transform(code, {
-      presets: ['es2015', 'stage-2'],
+      presets: ['es2015', 'stage-2', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'jsx') {
     return transformers.get('babel').transform(code, {
-      presets: ['stage-2'],
+      presets: ['stage-2', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'vue-jsx') {
     return transformers.get('babel').transform(code, {
-      presets: ['stage-2', transformers.get('VuePreset')]
+      presets: ['stage-2', transformers.get('VuePreset'), transformers.get('FlowPreset')]
     }).code
       .replace(/import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/, transformers.get('VueJSXMergeProps'))
   } else if (transformer === 'svelte') {
