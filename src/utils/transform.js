@@ -47,7 +47,7 @@ export function js({ code, transformer }) {
       }
       throw new Error(res.js_error_msg)
     } else {
-      console.log(converted)
+      throw new Error(converted[1])
     }
   }
   throw new Error(`Unknow transformer: ${transformer}`)
