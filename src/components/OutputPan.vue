@@ -5,22 +5,6 @@
     @click="setActivePan('output')"
     :style="style">
 
-    <compiled-code-dialog
-      v-if="js.code"
-      :code="js"
-      :show.sync="showCompiledCode.js"
-      highlight="javascript"
-      type="js">
-    </compiled-code-dialog>
-
-    <compiled-code-dialog
-      v-if="html.code"
-      :code="html"
-      :show.sync="showCompiledCode.html"
-      highlight="htmlmixed"
-      type="html">
-    </compiled-code-dialog>
-
     <div class="pan-head">
       Output
       <spinner
@@ -53,7 +37,6 @@
   import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
   import SvgIcon from './SvgIcon.vue'
   import Spinner from './Spinner.vue'
-  import CompiledCodeDialog from './CompiledCodeDialog.vue'
 
   const sandboxAttributes = ['allow-modals', 'allow-forms', 'allow-pointer-lock', 'allow-popups', 'allow-same-origin', 'allow-scripts']
 
@@ -82,12 +65,7 @@
     data() {
       return {
         style: {},
-        iframeStatus: null,
-        showCompiledCode: {
-          js: false,
-          css: false,
-          html: false
-        }
+        iframeStatus: null
       }
     },
     watch: {
@@ -122,9 +100,6 @@
           ...this.style,
           ...style
         }
-      })
-      Event.$on('show-compiled-code', type => {
-        this.showCompiledCode[type] = true
       })
       Event.$on('save-gist', update => {
         this.saveGist({ token: this.githubToken, update })
@@ -244,8 +219,7 @@
     },
     components: {
       SvgIcon,
-      Spinner,
-      CompiledCodeDialog
+      Spinner
     }
   }
 </script>

@@ -1,6 +1,23 @@
 <template>
   <div class="page" >
     <home-header />
+
+    <compiled-code-dialog
+      v-if="js.code"
+      :code="js"
+      :show.sync="showCompiledCode.js"
+      highlight="javascript"
+      type="js">
+    </compiled-code-dialog>
+
+    <compiled-code-dialog
+      v-if="html.code"
+      :code="html"
+      :show.sync="showCompiledCode.html"
+      highlight="htmlmixed"
+      type="html">
+    </compiled-code-dialog>
+
     <div class="pans">
       <html-pan class="pan" v-show="isVisible('html')" />
       <css-pan class="pan" v-show="isVisible('css')" />
@@ -22,6 +39,7 @@
   import OutputPan from '@/components/OutputPan.vue'
   import ConsolePan from '@/components/ConsolePan.vue'
   import CSSPan from '@/components/CSSPan.vue'
+  import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
 
   async function handleRouteChange(to, vm) {
     let boilerplate
@@ -51,8 +69,17 @@
 
   export default {
     name: 'editor-page',
+    data() {
+      return {
+        showCompiledCode: {
+          js: false,
+          css: false,
+          html: false
+        }
+      }
+    },
     computed: {
-      ...mapState(['visiblePans', 'editorStatus'])
+      ...mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html'])
     },
     beforeRouteEnter(to, from, next) {
       next(async vm => {
@@ -89,6 +116,10 @@
           return true
         }
       }
+
+      Event.$on('show-compiled-code', type => {
+        this.showCompiledCode[type] = true
+      })
     },
     methods: {
       ...mapActions(['setBoilerplate', 'setGist', 'showPans']),
@@ -114,7 +145,8 @@
       'output-pan': OutputPan,
       'console-pan': ConsolePan,
       'css-pan': CSSPan,
-      'home-header': HomeHeader
+      'home-header': HomeHeader,
+      CompiledCodeDialog
     }
   }
 </script>
