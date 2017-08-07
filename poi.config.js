@@ -34,7 +34,11 @@ module.exports = {
         AppCache: {
           events: true,
           FALLBACK: { '/': '/' }
-        }
+        },
+        externals: [
+          'https://reasonml.github.io/bs.js',
+          'https://reasonml.github.io/refmt.js'
+        ]
       }
     })
   ]

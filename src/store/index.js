@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { loadBabel, loadPug, loadMarkdown, loadSvelte } from '@/utils/transformer'
+import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason } from '@/utils/transformer'
 import progress from 'nprogress'
 import axios from 'axios'
 import req from 'reqjs'
@@ -131,6 +131,8 @@ const store = new Vuex.Store({
         await loadMarkdown()
       } else if (transformer === 'svelte') {
         await loadSvelte()
+      } else if (transformer === 'reason') {
+        await loadReason()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

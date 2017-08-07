@@ -81,6 +81,7 @@
     "codemirror-emmet": "^1.0.0",
     "debounce": "^1.0.2",
     "element-ui": "^1.4.1",
+    "loadjs": "^3.5.0",
     "marked3": "^0.5.1",
     "notie": "^4.3.1",
     "nprogress": "^0.2.0",

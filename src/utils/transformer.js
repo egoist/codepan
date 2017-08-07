@@ -1,5 +1,6 @@
 // eslint-disable import/no-mutable-exports
 import progress from 'nprogress'
+import loadjs from 'loadjs'
 
 class Transformers {
   constructor() {
@@ -67,4 +68,26 @@ async function loadSvelte() {
   }
 }
 
-export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte }
+async function loadReason() {
+  return new Promise((resolve, reject) => {
+    if (loadjs.isDefined('reason')) {
+      resolve()
+    } else {
+      progress.start()
+      loadjs([
+        'https://reasonml.github.io/bs.js',
+        'https://reasonml.github.io/refmt.js'
+      ], 'reason', {
+        success() {
+          progress.done()
+          resolve()
+        },
+        error() {
+          reject(new Error('network error'))
+        }
+      })
+    }
+  })
+}
+
+export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte, loadReason }

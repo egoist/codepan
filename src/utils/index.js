@@ -12,7 +12,8 @@ export const getHumanlizedTransformerName = transformer => {
     babel: 'Babel',
     jsx: 'JSX',
     css: 'CSS',
-    svelte: 'Svelte'
+    svelte: 'Svelte',
+    reason: 'Reason'
   }
 
   return names[transformer] || transformer
@@ -28,7 +29,8 @@ export const getEditorModeByTransfomer = transformer => {
     babel: 'jsx',
     jsx: 'jsx',
     css: 'css',
-    svelte: 'htmlmixed'
+    svelte: 'htmlmixed',
+    reason: 'mllike'
   }
   return modes[transformer]
 }

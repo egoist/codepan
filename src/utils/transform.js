@@ -14,14 +14,41 @@ export function js({ code, transformer }) {
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'vue-jsx') {
-    return transformers.get('babel').transform(code, {
-      presets: ['stage-2', transformers.get('VuePreset'), transformers.get('FlowPreset')]
-    }).code
-      .replace(/import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/, transformers.get('VueJSXMergeProps'))
+    return transformers
+      .get('babel')
+      .transform(code, {
+        presets: [
+          'stage-2',
+          transformers.get('VuePreset'),
+          transformers.get('FlowPreset')
+        ]
+      })
+      .code.replace(
+        /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
+        transformers.get('VueJSXMergeProps')
+      )
   } else if (transformer === 'svelte') {
-    return 'var SvelteShadowComponent = ' + transformers.get('svelte').compile(code, {
-      format: 'eval'
-    }).code + `\n\nnew SvelteShadowComponent({target: document.body})`
+    return (
+      'var SvelteShadowComponent = ' +
+      transformers.get('svelte').compile(code, {
+        format: 'eval'
+      }).code +
+      `\n\nnew SvelteShadowComponent({target: document.body})`
+    )
+  } else if (transformer === 'reason') {
+    const wrapInExports = code =>
+      `;(function(exports) {\n${code}\n})(window.exports = {})`
+
+    const converted = window.refmt(code, 'RE', 'implementation', 'ML')
+    if (converted[0] === 'REtoML') {
+      const res = JSON.parse(window.ocaml.compile(converted[1]))
+      if (res.js_code) {
+        return wrapInExports(res.js_code)
+      }
+      throw new Error(res.js_error_msg)
+    } else {
+      console.log(converted)
+    }
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }
