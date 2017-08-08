@@ -60,7 +60,7 @@
     "eslint-plugin-html": "^3.1.1",
     "gh-pages": "^1.0.0",
     "offline-plugin": "^4.8.3",
-    "poi": "^9.2.0",
+    "poi": "^9.2.1",
     "poi-preset-bundle-report": "^2.0.0",
     "poi-preset-offline": "^9.0.1",
     "raw-loader": "^0.5.1",
