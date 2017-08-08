@@ -2,6 +2,25 @@
 import progress from 'nprogress'
 import loadjs from 'loadjs'
 
+function asyncLoad(resources, name) {
+  return new Promise((resolve, reject) => {
+    if (loadjs.isDefined(name)) {
+      resolve()
+    } else {
+      progress.start()
+      loadjs(resources, name, {
+        success() {
+          progress.done()
+          resolve()
+        },
+        error() {
+          reject(new Error('network error'))
+        }
+      })
+    }
+  })
+}
+
 class Transformers {
   constructor() {
     this.map = {}
@@ -21,13 +40,12 @@ const transformers = new Transformers()
 async function loadBabel() {
   if (!transformers.get('babel')) {
     progress.start()
-    const [babel, VuePreset, VueJSXMergeProps, FlowPreset] = await Promise.all([
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-standalone'),
+    const [, VuePreset, VueJSXMergeProps, FlowPreset] = await Promise.all([
+      asyncLoad(process.env.BABEL_CDN, 'babel'),
       import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue'), // use umd bundle since we don't want to parse `require`
       import(/* webpackChunkName: "babel-stuffs" */ '!raw-loader!./vue-jsx-merge-props'),
       import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-flow')
     ])
-    transformers.set('babel', babel)
     transformers.set('VuePreset', VuePreset)
     transformers.set('VueJSXMergeProps', VueJSXMergeProps)
     transformers.set('FlowPreset', FlowPreset)
@@ -69,25 +87,10 @@ async function loadSvelte() {
 }
 
 async function loadReason() {
-  return new Promise((resolve, reject) => {
-    if (loadjs.isDefined('reason')) {
-      resolve()
-    } else {
-      progress.start()
-      loadjs([
-        'https://reasonml.github.io/bs.js',
-        'https://reasonml.github.io/refmt.js'
-      ], 'reason', {
-        success() {
-          progress.done()
-          resolve()
-        },
-        error() {
-          reject(new Error('network error'))
-        }
-      })
-    }
-  })
+  return asyncLoad([
+    'https://reasonml.github.io/bs.js',
+    'https://reasonml.github.io/refmt.js'
+  ], 'reason')
 }
 
 export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte, loadReason }
