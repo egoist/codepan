@@ -4731,9 +4731,9 @@ poi-preset-bundle-report@^2.0.0:
   dependencies:
     webpack-bundle-analyzer "^2.8.2"
 
-poi-preset-offline@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.npmjs.org/poi-preset-offline/-/poi-preset-offline-9.0.1.tgz#f05079bc504671b04acc2cc3294bde23abd2de37"
+poi-preset-offline@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.npmjs.org/poi-preset-offline/-/poi-preset-offline-9.0.2.tgz#d43929d779b95a16def62665c1f378801d707a6d"
 
 poi@^9.2.1:
   version "9.2.1"
