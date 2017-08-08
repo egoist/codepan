@@ -7,13 +7,12 @@ function asyncLoad(resources, name) {
     if (loadjs.isDefined(name)) {
       resolve()
     } else {
-      progress.start()
       loadjs(resources, name, {
         success() {
-          progress.done()
           resolve()
         },
         error() {
+          progress.done()
           reject(new Error('network error'))
         }
       })
@@ -38,19 +37,19 @@ class Transformers {
 const transformers = new Transformers()
 
 async function loadBabel() {
-  if (!transformers.get('babel')) {
-    progress.start()
-    const [, VuePreset, VueJSXMergeProps, FlowPreset] = await Promise.all([
-      asyncLoad(process.env.BABEL_CDN, 'babel'),
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue'), // use umd bundle since we don't want to parse `require`
-      import(/* webpackChunkName: "babel-stuffs" */ '!raw-loader!./vue-jsx-merge-props'),
-      import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-flow')
-    ])
-    transformers.set('VuePreset', VuePreset)
-    transformers.set('VueJSXMergeProps', VueJSXMergeProps)
-    transformers.set('FlowPreset', FlowPreset)
-    progress.done()
-  }
+  if (loadjs.isDefined('babel')) return
+  
+  progress.start()
+  const [, VuePreset, VueJSXMergeProps, FlowPreset] = await Promise.all([
+    asyncLoad(process.env.BABEL_CDN, 'babel'),
+    import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-vue/dist/babel-preset-vue'), // use umd bundle since we don't want to parse `require`
+    import(/* webpackChunkName: "babel-stuffs" */ '!raw-loader!./vue-jsx-merge-props'),
+    import(/* webpackChunkName: "babel-stuffs" */ 'babel-preset-flow')
+  ])
+  transformers.set('VuePreset', VuePreset)
+  transformers.set('VueJSXMergeProps', VueJSXMergeProps)
+  transformers.set('FlowPreset', FlowPreset)
+  progress.done()
 }
 
 async function loadPug() {
@@ -87,10 +86,14 @@ async function loadSvelte() {
 }
 
 async function loadReason() {
-  return asyncLoad([
+  if (loadjs.isDefined('reason')) return
+  
+  progress.start()
+  await asyncLoad([
     'https://reasonml.github.io/bs.js',
     'https://reasonml.github.io/refmt.js'
   ], 'reason')
+  progress.done()
 }
 
 export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte, loadReason }
