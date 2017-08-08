@@ -38,7 +38,7 @@ const transformers = new Transformers()
 
 async function loadBabel() {
   if (loadjs.isDefined('babel')) return
-  
+
   progress.start()
   const [, VuePreset, VueJSXMergeProps, FlowPreset] = await Promise.all([
     asyncLoad(process.env.BABEL_CDN, 'babel'),
@@ -87,7 +87,7 @@ async function loadSvelte() {
 
 async function loadReason() {
   if (loadjs.isDefined('reason')) return
-  
+
   progress.start()
   await asyncLoad([
     'https://reasonml.github.io/bs.js',
