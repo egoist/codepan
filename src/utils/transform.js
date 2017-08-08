@@ -48,6 +48,12 @@ export function js({ code, transformer }) {
     } else {
       throw new Error(converted[1])
     }
+  } else if (transformer === 'coffeescript-2') {
+    const esCode = window.CoffeeScript.compile(code)
+    const jsCode = window.Babel.transform(esCode, {
+      plugins: ['transform-react-jsx']
+    }).code
+    return jsCode
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }

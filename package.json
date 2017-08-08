@@ -47,7 +47,8 @@
     },
     "ignores": [
       "src/boilerplates/**",
-      "src/utils/vue-jsx-merge-props.js"
+      "src/utils/vue-jsx-merge-props.js",
+      "static/**"
     ]
   },
   "devDependencies": {

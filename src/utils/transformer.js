@@ -95,4 +95,27 @@ async function loadReason() {
   progress.done()
 }
 
-export { loadBabel, loadPug, loadMarkdown, transformers, loadSvelte, loadReason }
+async function loadCoffeeScript2() {
+  if (loadjs.isDefined('coffeescript-2')) return
+
+  progress.start()
+  await Promise.all([
+    asyncLoad([
+      '/vendor/coffeescript-2.js',
+      // Need babel to transform JSX
+      process.env.BABEL_CDN
+    ], 'coffeescript-2'),
+    import('codemirror/mode/coffeescript/coffeescript')
+  ])
+  progress.done()
+}
+
+export {
+  loadBabel,
+  loadPug,
+  loadMarkdown,
+  transformers,
+  loadSvelte,
+  loadReason,
+  loadCoffeeScript2
+}

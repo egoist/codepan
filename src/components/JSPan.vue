@@ -16,6 +16,7 @@
           <el-dropdown-item command="vue-jsx">Vue JSX</el-dropdown-item>
           <el-dropdown-item command="svelte">Svelte</el-dropdown-item>
           <el-dropdown-item command="reason">Reason</el-dropdown-item>
+          <el-dropdown-item command="coffeescript-2">CoffeeScript 2</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <div class="pan-head-right">
