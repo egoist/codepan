@@ -4,18 +4,17 @@ export function js({ code, transformer }) {
   if (transformer === 'js') {
     return code
   } else if (transformer === 'babel') {
-    return transformers.get('babel').transform(code, {
+    return window.Babel.transform(code, {
       presets: ['es2015', 'stage-2', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'jsx') {
-    return transformers.get('babel').transform(code, {
+    return window.Babel.transform(code, {
       presets: ['stage-2', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'vue-jsx') {
-    return transformers
-      .get('babel')
+    return window.Babel
       .transform(code, {
         presets: [
           'stage-2',

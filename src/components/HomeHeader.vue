@@ -103,9 +103,6 @@
           <el-dropdown-item style="padding: 0;">
             <a class="el-dropdown-menu__item fake-anchor" target="_blank" href="https://twitter.com/_egoistlily"><twitter-icon></twitter-icon> Follow me on Twitter</a>
           </el-dropdown-item>
-          <el-dropdown-item style="padding: 0;">
-            <a class="el-dropdown-menu__item fake-anchor" target="_blank" href="https://changelog.codepan.net"><map-icon></map-icon> Changelog</a>
-          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -120,7 +117,6 @@
   import notie from 'notie'
   import {
     GithubIcon,
-    MapIcon,
     FileIcon,
     FilePlusIcon,
     Link2Icon,
@@ -237,7 +233,6 @@
       'el-input': Input,
       'el-badge': Badge,
       GithubIcon,
-      MapIcon,
       FileIcon,
       FilePlusIcon,
       Link2Icon,
