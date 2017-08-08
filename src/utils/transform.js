@@ -56,7 +56,7 @@ export function html({ code, transformer }) {
   if (transformer === 'html') {
     return code
   } else if (transformer === 'pug') {
-    return transformers.get('pug').render(code)
+    return window.pug.render(code)
   } else if (transformer === 'markdown') {
     return transformers.get('markdown')(code)
   }

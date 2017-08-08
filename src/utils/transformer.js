@@ -53,15 +53,14 @@ async function loadBabel() {
 }
 
 async function loadPug() {
-  if (!transformers.get('pug')) {
-    progress.start()
-    const res = await Promise.all([
-      import('browserified-pug'),
-      import(/* webpackChunkName: "codemirror-mode-pug" */ 'codemirror/mode/pug/pug')
-    ])
-    transformers.set('pug', res[0])
-    progress.done()
-  }
+  if (loadjs.isDefined('pug')) return
+
+  progress.start()
+  await Promise.all([
+    asyncLoad(process.env.PUG_CDN, 'pug'),
+    import(/* webpackChunkName: "codemirror-mode-pug" */ 'codemirror/mode/pug/pug')
+  ])
+  progress.done()
 }
 
 async function loadMarkdown() {
