@@ -17,6 +17,7 @@ module.exports = {
   production: {
     sourceMap: false
   },
+  hash: false,
   homepage: '/',
   env: Object.assign({}, cdns),
   presets: [
@@ -27,7 +28,7 @@ module.exports = {
         autoUpdate: true,
         safeToUseOptionalCaches: true,
         caches: {
-          main: ['index.html', 'client.*.*', 'vendor.*.*', 'editor-page.*.chunk.js'],
+          main: ['index.html', 'client.*', 'vendor.*', 'editor-page.chunk.js'],
           additional: ['*.chunk.js', ':externals:'],
           optional: [':rest:']
         },

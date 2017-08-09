@@ -2176,9 +2176,9 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.17:
   version "1.3.17"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.17.tgz#41c13457cc7166c5c15e767ae61d86a8cacdee5d"
 
-element-ui@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/element-ui/-/element-ui-1.4.1.tgz#f4471cadb43dc779c3098dc73634aea94d03f255"
+element-ui@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/element-ui/-/element-ui-1.4.2.tgz#26046a7c0e1229987dd87b9e5ec860f6cbe1e6b0"
   dependencies:
     async-validator "1.6.9"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -4735,9 +4735,9 @@ poi-preset-offline@^9.0.2:
   version "9.0.2"
   resolved "https://registry.npmjs.org/poi-preset-offline/-/poi-preset-offline-9.0.2.tgz#d43929d779b95a16def62665c1f378801d707a6d"
 
-poi@^9.2.1:
-  version "9.2.1"
-  resolved "https://registry.npmjs.org/poi/-/poi-9.2.1.tgz#e560f859de1155be7dd02ce3bbfd7f43ead9f84a"
+poi@^9.2.3:
+  version "9.2.3"
+  resolved "https://registry.npmjs.org/poi/-/poi-9.2.3.tgz#c8e070626ee7c16ddf1f53027a31354f8338b7da"
   dependencies:
     address "^1.0.1"
     autoprefixer "^7.1.2"
@@ -6064,9 +6064,9 @@ surge@^0.19.0:
     tar.gz "0.1.1"
     url-parse-as-address "1.0.0"
 
-svelte@^1.29.0:
-  version "1.29.0"
-  resolved "https://registry.npmjs.org/svelte/-/svelte-1.29.0.tgz#4b111c5ca06717addb293c68c85a3ecc85d9bcde"
+svelte@^1.29.1:
+  version "1.29.1"
+  resolved "https://registry.npmjs.org/svelte/-/svelte-1.29.1.tgz#f4a79e9007ec48731d4b9e5aca5b1e7ec9e573d1"
 
 svgo@^0.7.0:
   version "0.7.2"
