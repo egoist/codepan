@@ -5,19 +5,19 @@ export function js({ code, transformer }) {
     return code
   } else if (transformer === 'babel') {
     return window.Babel.transform(code, {
-      presets: ['es2015', 'stage-2', transformers.get('FlowPreset')],
+      presets: ['es2015', 'stage-0', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'jsx') {
     return window.Babel.transform(code, {
-      presets: ['stage-2', transformers.get('FlowPreset')],
+      presets: ['stage-0', transformers.get('FlowPreset')],
       plugins: ['transform-react-jsx']
     }).code
   } else if (transformer === 'vue-jsx') {
     return window.Babel
       .transform(code, {
         presets: [
-          'stage-2',
+          'stage-0',
           transformers.get('VuePreset'),
           transformers.get('FlowPreset')
         ]
