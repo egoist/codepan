@@ -142,6 +142,9 @@
         let css
         try {
           js = `
+          if (window.Vue) {
+            window.Vue.config.productionTip = false
+          }
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
