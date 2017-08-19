@@ -72,4 +72,7 @@ pre > code
 
 .notie-container
   z-index: 9999
+
+#HW_frame_cont.HW_visible
+  z-index: 9999
 </style>
