@@ -10,6 +10,12 @@ import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 import 'codemirror/addon/comment/comment'
+import 'codemirror/addon/fold/foldcode'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/fold/brace-fold'
+import 'codemirror/addon/fold/xml-fold'
+import 'codemirror/addon/fold/markdown-fold'
+import 'codemirror/addon/fold/comment-fold'
 
 const isMac = CodeMirror.keyMap.default === CodeMirror.keyMap.macDefault
 
@@ -20,6 +26,8 @@ export default function (el, opts = {}) {
     styleActiveLine: true,
     matchTags: { bothTags: true },
     matchBrackets: true,
+    foldGutter: true,
+    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
     ...opts
   })
 

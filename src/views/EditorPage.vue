@@ -152,6 +152,7 @@
 </script>
 
 <style src="codemirror/lib/codemirror.css"></style>
+<style src="codemirror/addon/fold/foldgutter.css"></style>
 
 <style lang="stylus" scoped>
 .pans
