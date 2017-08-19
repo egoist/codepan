@@ -1,11 +1,22 @@
 const App = {
+  data() {
+    return {
+      increment: 1
+    }
+  },
   render() {
-    return <Counter initialCount={0} />
+    return (
+      <div>
+        Increment:{' '}
+        <input type="number" v-model:number={this.increment} />
+        <Counter initialCount={0} increment={this.increment} />
+      </div>
+    )
   }
 }
 
 const Counter = {
-  props: ['initialCount'],
+  props: ['initialCount', 'increment'],
   data() {
     return {
       count: this.initialCount
@@ -13,11 +24,13 @@ const Counter = {
   },
   render() {
     return (
-      <button
-        class="button"
-        onClick={() => this.count++}>
-        {this.count}
-      </button>
+      <div class="counter">
+        <button
+          class="button"
+          onClick={() => this.count += this.increment}>
+          Count: {this.count}
+        </button>
+      </div>
     )
   }
 }
