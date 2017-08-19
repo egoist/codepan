@@ -53,6 +53,13 @@ export default function (el, opts = {}) {
     }
   })
 
+  editor.on('gutterClick', (cm, line, gutter) => {
+    if (gutter === 'CodeMirror-linenumbers') {
+      // eslint-disable-next-line new-cap
+      return cm.setSelection(CodeMirror.Pos(line, 0), CodeMirror.Pos(line + 1, 0))
+    }
+  })
+
   import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
     emmet(CodeMirror)
     editor.setOption('extraKeys', {
