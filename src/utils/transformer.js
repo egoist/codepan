@@ -110,6 +110,17 @@ async function loadCoffeeScript2() {
   progress.done()
 }
 
+async function loadCssnext() {
+  if (loadjs.isDefined('cssnext')) return
+
+  progress.start()
+  await asyncLoad([
+    process.env.CSSNEXT_CDN,
+    process.env.POSTCSS_CDN
+  ], 'cssnext')
+  progress.done()
+}
+
 export {
   loadBabel,
   loadPug,
@@ -117,5 +128,6 @@ export {
   transformers,
   loadSvelte,
   loadReason,
-  loadCoffeeScript2
+  loadCoffeeScript2,
+  loadCssnext
 }

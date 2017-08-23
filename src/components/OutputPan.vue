@@ -135,7 +135,7 @@
         }
       },
 
-      run() {
+      async run() {
         let js
         // We may add preprocessors supports for html/css in the future
         let html
@@ -148,10 +148,10 @@
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
-            ${transform.js(this.js)}
+            ${await transform.js(this.js)}
           };`
-          html = transform.html(this.html)
-          css = this.css.code // eslint-disable-line prefer-const
+          html = await transform.html(this.html)
+          css = await transform.css(this.css) // eslint-disable-line prefer-const
         } catch (err) {
           return this.addLog({ type: 'error', message: err.stack })
         }

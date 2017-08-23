@@ -11,8 +11,12 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="css">CSS</el-dropdown-item>
+          <el-dropdown-item command="cssnext">cssnext</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <div class="pan-head-right">
+        <compiled-code-switcher type="css" v-if="css.code"></compiled-code-switcher>
+      </div>
     </div>
     <textarea ref="editor">{{ css.code }}</textarea>
     <pan-resizer pan="css" :enable="enableResizer" />

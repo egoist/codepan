@@ -1,6 +1,6 @@
 import { transformers } from '@/utils/transformer'
 
-export function js({ code, transformer }) {
+export async function js({ code, transformer }) {
   if (transformer === 'js') {
     return code
   } else if (transformer === 'babel') {
@@ -58,7 +58,7 @@ export function js({ code, transformer }) {
   throw new Error(`Unknow transformer: ${transformer}`)
 }
 
-export function html({ code, transformer }) {
+export async function html({ code, transformer }) {
   if (transformer === 'html') {
     return code
   } else if (transformer === 'pug') {
@@ -67,4 +67,16 @@ export function html({ code, transformer }) {
     return transformers.get('markdown')(code)
   }
   throw new Error(`Unknow transformer: ${transformer}`)
+}
+
+export async function css({ code, transformer }) {
+  switch (transformer) {
+    case 'css':
+      return code
+    case 'cssnext':
+      const res = await window.postcss([window.cssnext]).process(code)
+      return res.css
+    default:
+      throw new Error(`Unknow transformer: ${transformer}`)
+  }
 }

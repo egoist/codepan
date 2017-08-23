@@ -27,11 +27,11 @@ export default {
     }
   },
   watch: {
-    show(show) {
+    async show(show) {
       if (!show) return
 
       try {
-        this.transformedCode = transform[this.type](this.code)
+        this.transformedCode = await transform[this.type](this.code)
       } catch (err) {
         const message = `compiler error: ${err.message}`
         this.addLog({ type: 'error', message })
