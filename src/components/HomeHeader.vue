@@ -63,7 +63,7 @@
     </div>
     <div class="home-header-right home-header-block">
       <span class="home-header-right-item editor-save-status" v-if="editorStatus === 'saving'">
-        <svg-icon class="svg-icon" name="loading"></svg-icon> Saving...
+        <saving />
       </span>
       <el-button
         icon="caret-right"
@@ -126,6 +126,7 @@
     TwitterIcon
   } from 'vue-feather-icons'
   import SvgIcon from './SvgIcon.vue'
+  import Saving from './Saving.vue'
 
   export default {
     computed: {
@@ -240,7 +241,8 @@
       Link2Icon,
       SaveIcon,
       TwitterIcon,
-      SvgIcon
+      SvgIcon,
+      Saving
     }
   }
 </script>
