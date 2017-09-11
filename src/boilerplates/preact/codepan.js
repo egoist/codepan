@@ -1,23 +1,28 @@
 /* @jsx h */
 const { Component, h, render } = preact
 
-const githubStars = repo => fetch(`https://api.github.com/repos/${repo}`)
-  .then(res => res.json())
-  .then(res => res.stargazers_count)
-
-class Stars extends Component {
-  async componentDidMount() {
-    const stars = await githubStars(this.props.repo)
-    this.setState({ stars })
+class App extends Component {
+  state = {
+    count: 0
   }
-  render({ repo }, { stars = 0 }) {
-    const url = `//github.com/${repo}`
+
+  inc = () => this.setState({
+    count: this.state.count + 1
+  })
+
+  dec = () => this.setState({
+    count: this.state.count - 1
+  })
+
+  render() {
     return (
-            <a href={url} class="stars">
-                ⭐️ {stars} Stars
-            </a>
+      <div>
+        <h2>{ this.state.count }</h2>
+        <button onClick={this.inc}>Increment</button>
+        <button onClick={this.dec}>Decrement</button>
+      </div>
     )
   }
 }
 
-render(<Stars repo="developit/preact" />, document.body)
+render(<App />, document.body)

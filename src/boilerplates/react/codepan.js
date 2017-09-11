@@ -1,28 +1,25 @@
-class Timer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { secondsElapsed: 0 }
+class App extends React.Component {
+  state = {
+    count: 0
   }
 
-  tick() {
-    this.setState(prevState => ({
-      secondsElapsed: prevState.secondsElapsed + 1
-    }))
-  }
+  inc = () => this.setState({
+    count: this.state.count + 1
+  })
 
-  componentDidMount() {
-    this.interval = setInterval(() => this.tick(), 1000)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
-  }
+  dec = () => this.setState({
+    count: this.state.count - 1
+  })
 
   render() {
     return (
-      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+      <div>
+        <h2>{ this.state.count }</h2>
+        <button onClick={this.inc}>Increment</button>
+        <button onClick={this.dec}>Decrement</button>
+      </div>
     )
   }
 }
 
-ReactDOM.render(<Timer />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))
