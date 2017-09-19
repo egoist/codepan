@@ -66,6 +66,13 @@ export default ({ name, editor, components } = {}) => {
         this.editor.setValue(this[name].code)
         this.editor.refresh()
       })
+      // Focus the editor
+      // This is usually emitted after setting boilerplate or gist
+      Event.$on('focus-editor', active => {
+        if (active === name) {
+          this.editor.focus()
+        }
+      })
       Event.$on(`set-${name}-pan-style`, style => {
         this.style = {
           ...this.style,

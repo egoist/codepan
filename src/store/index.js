@@ -4,6 +4,7 @@ import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason, loadCoffeeScr
 import progress from 'nprogress'
 import axios from 'axios'
 import req from 'reqjs'
+import Event from '@/utils/event'
 
 Vue.use(Vuex)
 
@@ -171,13 +172,15 @@ const store = new Vuex.Store({
         ps.push(dispatch('showPans', boilerplate.showPans))
       }
 
-      ps.push(dispatch('setActivePan', boilerplate.activePan || 'js'))
+      const { activePan = 'js' } = boilerplate
+      ps.push(dispatch('setActivePan', activePan))
       ps.push(dispatch('clearLogs'))
 
       await Promise.all(ps)
 
       setTimeout(() => {
         dispatch('editorSaved')
+        Event.$emit('focus-editor', activePan)
       })
 
       progress.done()
