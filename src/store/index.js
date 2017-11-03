@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason, loadCoffeeScript2, loadCssnext } from '@/utils/transformer'
+import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason, loadCoffeeScript2, loadCssnext, loadLess } from '@/utils/transformer'
 import progress from 'nprogress'
 import axios from 'axios'
 import req from 'reqjs'
@@ -138,6 +138,8 @@ const store = new Vuex.Store({
         await loadCoffeeScript2()
       } else if (transformer === 'cssnext') {
         await loadCssnext()
+      } else if (transformer === 'less') {
+        await loadLess()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

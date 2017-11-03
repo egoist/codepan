@@ -74,8 +74,9 @@ export async function css({ code, transformer }) {
     case 'css':
       return code
     case 'cssnext':
-      const res = await window.postcss([window.cssnext]).process(code)
-      return res.css
+      return window.postcss([window.cssnext]).process(code).then(res => res.css)
+    case 'less':
+      return transformers.get('less').render(code).then(res => res.css)
     default:
       throw new Error(`Unknow transformer: ${transformer}`)
   }

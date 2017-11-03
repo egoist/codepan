@@ -15,7 +15,8 @@ export const getHumanlizedTransformerName = transformer => {
     svelte: 'Svelte',
     reason: 'Reason',
     'coffeescript-2': 'CoffeeScript 2',
-    cssnext: 'cssnext'
+    cssnext: 'cssnext',
+    less: 'Less'
   }
 
   return names[transformer] || transformer
@@ -34,7 +35,8 @@ export const getEditorModeByTransfomer = transformer => {
     svelte: 'htmlmixed',
     reason: 'mllike',
     'coffeescript-2': 'coffeescript',
-    cssnext: 'css'
+    cssnext: 'css',
+    less: 'text/x-less'
   }
   return modes[transformer]
 }

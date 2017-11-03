@@ -1,6 +1,7 @@
 // eslint-disable import/no-mutable-exports
 import progress from 'nprogress'
 import loadjs from 'loadjs'
+import pify from 'pify'
 
 function asyncLoad(resources, name) {
   return new Promise((resolve, reject) => {
@@ -121,6 +122,15 @@ async function loadCssnext() {
   progress.done()
 }
 
+async function loadLess() {
+  if (!transformers.get('less')) {
+    progress.start()
+    const less = await import('less')
+    transformers.set('less', pify(less))
+    progress.done()
+  }
+}
+
 export {
   loadBabel,
   loadPug,
@@ -129,5 +139,6 @@ export {
   loadSvelte,
   loadReason,
   loadCoffeeScript2,
-  loadCssnext
+  loadCssnext,
+  loadLess
 }
