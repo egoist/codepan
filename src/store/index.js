@@ -5,6 +5,7 @@ import progress from 'nprogress'
 import axios from 'axios'
 import req from 'reqjs'
 import Event from '@/utils/event'
+import notie from 'notie'
 
 Vue.use(Vuex)
 
@@ -193,9 +194,27 @@ const store = new Vuex.Store({
         // eslint-disable-next-line camelcase
         params.access_token = state.githubToken
       }
-      const { data: { files } } = await axios.get(`https://api.github.com/gists/${id}`, {
-        params
-      })
+
+      let files
+      try {
+        files = await axios.get(`https://api.github.com/gists/${id}`, {
+          params
+        }).then(res => res.data.files)
+      } catch (err) {
+        progress.done()
+        if (err.response) {
+          notie.alert({
+            type: 'error',
+            text: err.response.data.message,
+            time: 5
+          })
+        } else {
+          notie.alert({
+            type: 'error',
+            text: err.message || 'GitHub API Error'
+          })
+        }
+      }
 
       const main = {
         html: {},
