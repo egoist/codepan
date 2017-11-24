@@ -1,28 +1,23 @@
 import { transformers } from '@/utils/transformer'
 
+const defaultPresets = ['es2015', 'es2016', 'es2017', 'stage-0']
+
 export async function js({ code, transformer }) {
   if (transformer === 'js') {
     return code
-  } else if (transformer === 'babel') {
+  } else if (transformer === 'babel' || transformer === 'jsx' /* @deprecated, use "babel" */) {
     return window.Babel.transform(code, {
-      presets: ['es2015', 'stage-0', transformers.get('FlowPreset')],
-      plugins: ['transform-react-jsx']
+      presets: [...defaultPresets, 'flow', 'react']
     }).code
-  } else if (transformer === 'jsx') {
+  } else if (transformer === 'typescript') {
     return window.Babel.transform(code, {
-      presets: ['stage-0', transformers.get('FlowPreset')],
-      plugins: ['transform-react-jsx']
+      presets: [...defaultPresets, 'typescript', 'react']
     }).code
   } else if (transformer === 'vue-jsx') {
-    return window.Babel
-      .transform(code, {
-        presets: [
-          'stage-0',
-          transformers.get('VuePreset'),
-          transformers.get('FlowPreset')
-        ]
-      })
-      .code.replace(
+    return window.Babel.transform(code, {
+      presets: [...defaultPresets, 'flow', transformers.get('VuePreset')]
+    }).code
+      .replace(
         /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
         transformers.get('VueJSXMergeProps')
       )
@@ -50,10 +45,9 @@ export async function js({ code, transformer }) {
     }
   } else if (transformer === 'coffeescript-2') {
     const esCode = window.CoffeeScript.compile(code)
-    const jsCode = window.Babel.transform(esCode, {
-      plugins: ['transform-react-jsx']
+    return window.Babel.transform(esCode, {
+      presets: [...defaultPresets, 'react']
     }).code
-    return jsCode
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }

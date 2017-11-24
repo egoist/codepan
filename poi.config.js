@@ -15,6 +15,8 @@ module.exports = {
     config.module.rule('js')
       .include
       .add(nodeModules())
+
+    config.node.set('fs', 'empty')
   },
   production: {
     sourceMap: false

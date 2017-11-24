@@ -10,13 +10,14 @@ export const getHumanlizedTransformerName = transformer => {
     js: 'JavaScript',
     'vue-jsx': 'Vue JSX',
     babel: 'Babel',
-    jsx: 'JSX',
+    jsx: 'JSX', // @deprecated, use "babel"
     css: 'CSS',
     svelte: 'Svelte',
     reason: 'Reason',
     'coffeescript-2': 'CoffeeScript 2',
     cssnext: 'cssnext',
-    less: 'Less'
+    less: 'Less',
+    typescript: 'TypeScript'
   }
 
   return names[transformer] || transformer
@@ -30,13 +31,14 @@ export const getEditorModeByTransfomer = transformer => {
     js: 'jsx',
     'vue-jsx': 'jsx',
     babel: 'jsx',
-    jsx: 'jsx',
+    jsx: 'jsx', // @deprecated, use "babel"
     css: 'css',
     svelte: 'htmlmixed',
     reason: 'mllike',
     'coffeescript-2': 'coffeescript',
     cssnext: 'css',
-    less: 'text/x-less'
+    less: 'text/x-less',
+    typescript: 'text/typescript'
   }
   return modes[transformer]
 }

@@ -12,6 +12,7 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="js">JavaScript</el-dropdown-item>
           <el-dropdown-item command="babel">Babel</el-dropdown-item>
+          <el-dropdown-item command="typescript">TypeScript</el-dropdown-item>
           <el-dropdown-item command="jsx">JSX</el-dropdown-item>
           <el-dropdown-item command="vue-jsx">Vue JSX</el-dropdown-item>
           <el-dropdown-item command="svelte">Svelte</el-dropdown-item>

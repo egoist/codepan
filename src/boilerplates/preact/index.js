@@ -11,7 +11,7 @@ export default async () => {
     },
     js: {
       code: jsCode,
-      transformer: 'jsx'
+      transformer: 'babel'
     },
     showPans: ['js', 'output']
   }

@@ -123,7 +123,8 @@ const store = new Vuex.Store({
     async updateTransformer({ commit }, { type, transformer }) {
       if (
         transformer === 'babel' ||
-        transformer === 'jsx' ||
+        transformer === 'typescript' ||
+        transformer === 'jsx' || // @deprecated, use "babel"
         transformer === 'vue-jsx'
       ) {
         await loadBabel()
