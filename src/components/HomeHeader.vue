@@ -81,7 +81,8 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
             <div class="fake-anchor">
-              <github-icon></github-icon> GitHub Login
+              <log-out-icon v-if="githubToken" />
+              <github-icon v-else /> GitHub {{ githubToken ? 'Logout' : 'Login' }}
             </div>
           </el-dropdown-item>
           <el-dropdown-item command="save-anonymous-gist">
@@ -123,7 +124,8 @@
     FilePlusIcon,
     Link2Icon,
     SaveIcon,
-    TwitterIcon
+    TwitterIcon,
+    LogOutIcon
   } from 'vue-feather-icons'
   import SvgIcon from './SvgIcon.vue'
   import Saving from './Saving.vue'
@@ -192,7 +194,15 @@
         } else if (command === 'update-gist') {
           Event.$emit('save-gist', true)
         } else if (command === 'github-login') {
-          this.githubLogin()
+          if (this.githubToken) {
+            this.$store.dispatch('setGitHubToken', null)
+            notie.alert({
+              type: 'success',
+              text: `Done, now you can only store GitHub Gist anonymously!`
+            })
+          } else {
+            this.githubLogin()
+          }
         }
       },
       githubLogin() {
@@ -242,7 +252,8 @@
       SaveIcon,
       TwitterIcon,
       SvgIcon,
-      Saving
+      Saving,
+      LogOutIcon
     }
   }
 </script>
