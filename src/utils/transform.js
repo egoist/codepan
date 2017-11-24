@@ -37,7 +37,7 @@ export async function js({ code, transformer }) {
       const ocamlCode = window.printML(window.parseRE(code))
       const res = JSON.parse(window.ocaml.compile(ocamlCode))
       if (res.js_error_msg) return res.js_error_msg
-      else return wrapInExports(res.js_code)
+      return wrapInExports(res.js_code)
     } catch (err) {
       console.log(err)
       return `${err.message}${err.location ? `\n${JSON.stringify(err.location, null, 2)}` : ''}`
