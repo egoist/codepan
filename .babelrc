@@ -7,7 +7,7 @@
   "plugins": [["component", [
     {
       "libraryName": "element-ui",
-      "styleLibraryName": "theme-default"
+      "styleLibraryName": "theme-chalk"
     }
   ]]]
 }
