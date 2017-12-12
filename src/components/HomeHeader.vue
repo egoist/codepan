@@ -163,6 +163,9 @@
       },
       async addLibrary(name) {
         if (name) {
+          if (name === 'axios') {
+            name = `axios/dist/axios.min.js`
+          }
           const code = `&lt;script src="https://unpkg.com/${name}">&lt;/script>\n`.replace(/&lt;/g, '<') + this.$store.state.html.code
           await this.updateCode({ type: 'html', code })
           Event.$emit('refresh-editor')
