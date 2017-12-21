@@ -237,7 +237,11 @@ const store = new Vuex.Store({
     },
     setGitHubToken({ commit }, token) {
       commit('SET_GITHUB_TOKEN', token)
-      localStorage.setItem('codepan:gh-token', token)
+      if (token) {
+        localStorage.setItem('codepan:gh-token', token)
+      } else {
+        localStorage.removeItem('codepan:gh-token')
+      }
     },
     editorSaved({ commit }) {
       commit('SET_EDITOR_STATUS', 'saved')
