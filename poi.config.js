@@ -9,8 +9,7 @@ const cdns = {
 
 module.exports = {
   extendWebpack(config) {
-    config.module.noParse
-      .add(/babel-preset-vue/)
+    config.module.set('noParse', /babel-preset-vue/)
 
     config.module.rule('js')
       .include
@@ -52,5 +51,17 @@ module.exports = {
         }, []))
       }
     })
-  ]
+  ],
+  babel: {
+    babelrc: false,
+    presets: [
+      require.resolve('babel-preset-poi')
+    ],
+    plugins: [[require.resolve('babel-plugin-component'), [
+      {
+        'libraryName': 'element-ui',
+        'styleLibraryName': 'theme-default'
+      }
+    ]]]
+  }
 }
