@@ -25,6 +25,7 @@ module.exports = {
   env: Object.assign({}, cdns),
   presets: [
     require('poi-preset-bundle-report')(),
+    require('poi-preset-babel-minify')(),
     require('poi-preset-offline')({
       pluginOptions: {
         version: '[hash]',
