@@ -71,6 +71,7 @@
     "stylus-loader": "^3.0.1",
     "surge": "^0.19.0",
     "webpack-node-modules": "^0.1.1",
+    "workerize-loader": "^1.0.1",
     "xo": "^0.18.2"
   },
   "license": "MIT",
@@ -78,6 +79,7 @@
     "@babel/core": "^7.0.0-beta.32",
     "axios": "^0.16.2",
     "babel-preset-vue": "^2.0.0",
+    "browserified-pug": "^0.1.0",
     "cm-highlight": "^0.1.1",
     "codemirror": "^5.28.0",
     "codemirror-emmet": "^1.0.0",

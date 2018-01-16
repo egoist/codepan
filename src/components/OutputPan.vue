@@ -34,6 +34,7 @@
   import createIframe from '@/utils/iframe'
   import Event from '@/utils/event'
   import panPosition from '@/utils/pan-position'
+  import getScripts from '@/utils/get-scripts'
   import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
   import SvgIcon from './SvgIcon.vue'
   import Spinner from './Spinner.vue'
@@ -42,7 +43,12 @@
 
   const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
 
-  const createElement = tag => content => replaceQuote(`__QUOTE_LEFT__${tag}>${content}__QUOTE_LEFT__/${tag}>`)
+  const createElement = tag => (content = '', attrs = {}) => {
+    attrs = Object.keys(attrs).map(key => {
+      return `${key}="${attrs[key]}"`
+    }).join(' ')
+    return replaceQuote(`__QUOTE_LEFT__${tag} ${attrs}>${content}__QUOTE_LEFT__/${tag}>`)
+  }
 
   const makeGist = (data, { showPans, activePan }) => {
     const files = {}
@@ -140,6 +146,8 @@
         // We may add preprocessors supports for html/css in the future
         let html
         let css
+        let scripts = []
+        js = getScripts(await transform.js(this.js), scripts)
         try {
           js = `
           if (window.Vue) {
@@ -148,16 +156,21 @@
           document.addEventListener('DOMContentLoaded', __executeCodePan)
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
-            ${await transform.js(this.js)}
+            ${js}
           };`
-          html = await transform.html(this.html)
+          html = await transform.html(this.html,)
           css = await transform.css(this.css) // eslint-disable-line prefer-const
         } catch (err) {
           return this.addLog({ type: 'error', message: err.stack })
         }
 
         const head = createElement('style')(css)
-        const body = createElement('script')(proxyConsole) + html + createElement('script')(js)
+        const shims = createElement('script')(`
+        window.process = window.process || { env: { NODE_ENV: 'development' } }
+        `)
+        const body = shims + scripts.map(script =>
+          createElement('script')('', { src: `https://packd.now.sh/${script.package}@latest?name=${script.variable}` })
+        ).join('\n') + createElement('script')(proxyConsole) + html + createElement('script')(js)
 
         this.iframe.setHTML({
           head,
