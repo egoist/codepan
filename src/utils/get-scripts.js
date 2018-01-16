@@ -9,7 +9,7 @@ export default (code, scripts) => {
     const moduleName = `__npm_module_${index}`
     const pkg = parsePackageName(item.moduleSpecifier)
     scripts.push({
-      module: pkg.name,
+      module: pkg.name === 'vue' ? 'vue/dist/vue.esm.js' : pkg.name,
       path: pkg.path ? `/${pkg.path}` : '',
       version: pkg.version || 'latest',
       name: moduleName
