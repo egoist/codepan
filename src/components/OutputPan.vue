@@ -158,7 +158,7 @@
             window.parent.postMessage({ type: 'iframe-success' }, '*');
             ${js}
           };`
-          html = await transform.html(this.html,)
+          html = await transform.html(this.html)
           css = await transform.css(this.css) // eslint-disable-line prefer-const
         } catch (err) {
           return this.addLog({ type: 'error', message: err.stack })
@@ -169,7 +169,7 @@
         window.process = window.process || { env: { NODE_ENV: 'development' } }
         `)
         const body = shims + scripts.map(script =>
-          createElement('script')('', { src: `https://packd.now.sh/${script.package}@latest?name=${script.variable}` })
+          createElement('script')('', { src: `https://bundle.run/${script.module}@latest?name=${script.name}` })
         ).join('\n') + createElement('script')(proxyConsole) + html + createElement('script')(js)
 
         this.iframe.setHTML({
