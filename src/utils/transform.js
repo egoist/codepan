@@ -1,11 +1,24 @@
 import { transformers } from '@/utils/transformer'
 
-const defaultPresets = ['es2015', 'es2016', 'es2017', 'stage-0']
+const defaultPresets = [
+  [
+    'es2015',
+    {
+      modules: false
+    }
+  ],
+  'es2016',
+  'es2017',
+  'stage-0'
+]
 
 export async function js({ code, transformer }) {
   if (transformer === 'js') {
     return code
-  } else if (transformer === 'babel' || transformer === 'jsx' /* @deprecated, use "babel" */) {
+  } else if (
+    transformer === 'babel' ||
+    transformer === 'jsx' /* @deprecated, use "babel" */
+  ) {
     return window.Babel.transform(code, {
       presets: [...defaultPresets, 'flow', 'react']
     }).code
@@ -16,11 +29,10 @@ export async function js({ code, transformer }) {
   } else if (transformer === 'vue-jsx') {
     return window.Babel.transform(code, {
       presets: [...defaultPresets, 'flow', transformers.get('VuePreset')]
-    }).code
-      .replace(
-        /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
-        transformers.get('VueJSXMergeProps')
-      )
+    }).code.replace(
+      /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
+      transformers.get('VueJSXMergeProps')
+    )
   } else if (transformer === 'svelte') {
     return (
       'var SvelteShadowComponent = ' +
@@ -40,7 +52,9 @@ export async function js({ code, transformer }) {
       return wrapInExports(res.js_code)
     } catch (err) {
       console.log(err)
-      return `${err.message}${err.location ? `\n${JSON.stringify(err.location, null, 2)}` : ''}`
+      return `${err.message}${
+        err.location ? `\n${JSON.stringify(err.location, null, 2)}` : ''
+      }`
     }
   } else if (transformer === 'coffeescript-2') {
     const esCode = window.CoffeeScript.compile(code)
@@ -67,9 +81,15 @@ export async function css({ code, transformer }) {
     case 'css':
       return code
     case 'cssnext':
-      return window.postcss([window.cssnext]).process(code).then(res => res.css)
+      return window
+        .postcss([window.cssnext])
+        .process(code)
+        .then(res => res.css)
     case 'less':
-      return transformers.get('less').render(code).then(res => res.css)
+      return transformers
+        .get('less')
+        .render(code)
+        .then(res => res.css)
     default:
       throw new Error(`Unknow transformer: ${transformer}`)
   }
