@@ -4,6 +4,7 @@ import parsePackageName from 'parse-package-name'
 export default (code, scripts) => {
   if (!/\bimport\b/.test(code)) return code
 
+  const replacements = []
   for (const [index, item] of parse(code).entries()) {
     const moduleName = `__npm_module_${index}`
     const pkg = parsePackageName(item.moduleSpecifier)
@@ -28,7 +29,14 @@ export default (code, scripts) => {
       const name = /as\s+(.+)/.exec(item.nameSpaceImport)[1]
       replacement += `var ${name} = ${moduleName};\n`
     }
-    code = code.slice(0, item.range.start) + replacement + code.slice(item.range.end)
+    if (replacement) {
+      replacements.push(replacement)
+    }
+    code = code.slice(0, item.range.start) + ' '.repeat(item.range.end - item.range.start) + code.slice(item.range.end)
+  }
+
+  if (replacements.length > 0) {
+    code = replacements.join('\n') + code
   }
 
   return code
