@@ -146,7 +146,7 @@
         // We may add preprocessors supports for html/css in the future
         let html
         let css
-        let scripts = []
+        const scripts = []
         js = getScripts(await transform.js(this.js), scripts)
         try {
           js = `
