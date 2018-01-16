@@ -9,7 +9,7 @@ export default (code, scripts) => {
     const pkg = parsePackageName(item.moduleSpecifier)
     scripts.push({
       module: pkg.name,
-      path: pkg.path ? `/${pkg.path}` '',
+      path: pkg.path ? `/${pkg.path}` : '',
       version: pkg.version || 'latest',
       name: moduleName
     })
