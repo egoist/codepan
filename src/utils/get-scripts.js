@@ -1,12 +1,16 @@
 import parse from 'parse-import-es6'
+import parsePackageName from 'parse-package-name'
 
 export default (code, scripts) => {
   if (!/\bimport\b/.test(code)) return code
 
   for (const [index, item] of parse(code).entries()) {
     const moduleName = `__npm_module_${index}`
+    const pkg = parsePackageName(item.moduleSpecifier)
     scripts.push({
-      module: item.moduleSpecifier,
+      module: pkg.name,
+      path: pkg.path || '',
+      version: pkg.version || 'latest',
       name: moduleName
     })
     let replacement = '\n'
