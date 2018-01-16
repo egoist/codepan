@@ -169,7 +169,7 @@
         window.process = window.process || { env: { NODE_ENV: 'development' } }
         `)
         const body = shims + scripts.map(script =>
-          createElement('script')('', { src: `https://bundle.run/${script.module}@${script.version}/${script.path}?name=${script.name}` })
+          createElement('script')('', { src: `https://bundle.run/${script.module}@${script.version}${script.path}?name=${script.name}` })
         ).join('\n') + createElement('script')(proxyConsole) + html + createElement('script')(js)
 
         this.iframe.setHTML({
