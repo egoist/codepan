@@ -75,4 +75,8 @@ pre > code
 
 #HW_frame_cont.HW_visible
   z-index: 9999
+
+.update-notifier
+  .el-notification__content
+    text-align: left
 </style>

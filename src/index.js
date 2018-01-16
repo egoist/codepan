@@ -18,3 +18,7 @@ new Vue({
   store,
   render: h => h(App)
 })
+
+if (process.env.NODE_ENV === 'production') {
+  require('./pwa')
+}
