@@ -4,8 +4,13 @@
       <el-dropdown
         @command="setBoilerplate"
         trigger="click"
+
         class="home-header-left-item">
-        <el-button icon="document" size="mini">Boilerplates</el-button>
+        <el-button
+          icon="el-icon-document"
+          size="mini">
+          Boilerplates
+        </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="empty">Empty</el-dropdown-item>
           <el-dropdown-item command="vue">Vue</el-dropdown-item>
@@ -19,7 +24,7 @@
       <el-button
         class="home-header-left-item"
         style="margin-right:0"
-        icon="plus"
+        icon="el-icon-plus"
         @click="promptLibrary"
         size="mini">
         Add library
@@ -66,7 +71,7 @@
         <saving />
       </span>
       <el-button
-        icon="caret-right"
+        icon="el-icon-caret-right"
         size="mini"
         type="primary"
         class="home-header-right-item"
@@ -77,7 +82,7 @@
         class="home-header-right-item home-header-more"
         @command="handleDropdownCommand"
         trigger="click">
-        <el-button icon="more" size="mini"></el-button>
+        <el-button icon="el-icon-more" size="mini"></el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
             <div class="fake-anchor">
@@ -277,18 +282,17 @@
   justify-content: flex-start
   .home-header-left-item
     margin-right: 10px
-    height: 22px
 
 .home-header-right
   display: flex
   justify-content: flex-end
   .home-header-right-item
     margin-left: 10px
-    height: 22px
 
 .changelog-indicator
   display: flex
   align-items: center
+  height: 28px
 
 .pan-toggles
   display: flex

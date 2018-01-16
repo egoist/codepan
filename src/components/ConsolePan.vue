@@ -11,7 +11,7 @@
         Console
       </el-badge>
       <el-button
-        icon="delete2"
+        icon="el-icon-delete"
         size="mini"
         v-show="logs.length"
         @click="clearLogs">
