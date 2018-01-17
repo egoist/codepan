@@ -6,7 +6,7 @@
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": {},
   "scripts": {
     "test": "npm run lint",
@@ -67,6 +67,7 @@
     "poi-preset-bundle-report": "^2.0.1",
     "poi-preset-offline": "^9.0.3",
     "raw-loader": "^0.5.1",
+    "repo-latest-commit": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "surge": "^0.19.0",

@@ -6070,6 +6070,12 @@ replace-ext@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
 
+repo-latest-commit@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/repo-latest-commit/-/repo-latest-commit-1.0.0.tgz#c27e6e73a50f6d32a89006d5059f3a0c4ab8274e"
+  dependencies:
+    split-on-first-occurrence "^1.0.2"
+
 reqjs@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/reqjs/-/reqjs-1.0.3.tgz#80db97ddaac7a65487ac546d7a23cbe54583f1ee"
@@ -6471,6 +6477,10 @@ spdy@^3.4.1:
     safe-buffer "^5.0.1"
     select-hose "^2.0.0"
     spdy-transport "^2.0.18"
+
+split-on-first-occurrence@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/split-on-first-occurrence/-/split-on-first-occurrence-1.0.2.tgz#07fd11bafd692ecced9c9e1daba586adb709f907"
 
 split@0.3.1:
   version "0.3.1"
