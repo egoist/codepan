@@ -8,11 +8,13 @@ export default (code, scripts) => {
   for (const [index, item] of parse(code).entries()) {
     const moduleName = `__npm_module_${index}`
     const pkg = parsePackageName(item.moduleSpecifier)
+    const version = pkg.version || 'latest'
     scripts.push({
-      module: pkg.name === 'vue' ? 'vue/dist/vue.esm.js' : pkg.name,
       path: pkg.path ? `/${pkg.path}` : '',
-      version: pkg.version || 'latest',
-      name: moduleName
+      name: moduleName,
+      module: pkg.name === 'vue' ?
+        `vue@${version}/dist/vue.esm.js` :
+        `${pkg.name}@${version}`
     })
     let replacement = '\n'
     if (item.importedDefaultBinding) {
