@@ -151,9 +151,10 @@
         try {
           js = `
           if (window.Vue) {
-            window.Vue.config.productionTip = false
+            window.Vue.config.productionTip = false;
           }
-          document.addEventListener('DOMContentLoaded', __executeCodePan)
+          console.clear();
+          document.addEventListener('DOMContentLoaded', __executeCodePan);
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
             ${js}
