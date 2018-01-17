@@ -19,6 +19,7 @@
           <el-dropdown-item command="preact">Preact</el-dropdown-item>
           <el-dropdown-item command="rxjs">RxJS</el-dropdown-item>
           <el-dropdown-item command="svelte">Svelte</el-dropdown-item>
+          <el-dropdown-item command="hyperapp">HyperApp</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button
