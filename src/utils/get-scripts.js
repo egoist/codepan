@@ -12,7 +12,7 @@ export default (code, scripts) => {
     scripts.push({
       path: pkg.path ? `/${pkg.path}` : '',
       name: moduleName,
-      module: pkg.name === 'vue' ?
+      module: (pkg.name === 'vue' && !pkg.path) ?
         `vue@${version}/dist/vue.esm.js` :
         `${pkg.name}@${version}`
     })
