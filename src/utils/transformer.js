@@ -88,8 +88,8 @@ async function loadReason() {
 
   progress.start()
   await asyncLoad([
-    'https://reasonml.github.io/bs.js',
-    'https://reasonml.github.io/refmt.js'
+    'https://reasonml.github.io/js/bs.js',
+    'https://reasonml.github.io/js/refmt.js'
   ], 'reason')
   progress.done()
 }
