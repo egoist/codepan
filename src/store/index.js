@@ -197,10 +197,11 @@ const store = new Vuex.Store({
       progress.done()
     },
     async setGist({ commit, dispatch, state }, id) {
-      const params = {}
-      if (state.githubToken) {
+      const params = {
+        // The default token does not really have any access to the user
+        // So we use it here to increase rate limit
         // eslint-disable-next-line camelcase
-        params.access_token = state.githubToken
+        access_token: state.githubToken || '17222552a4f694cd56a4b39bfb8628fcde3dbfea'
       }
 
       let files
