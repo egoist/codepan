@@ -83,10 +83,11 @@
         Auto-run
       </el-checkbox>
       <el-button
-        icon="el-icon-caret-right"
+        :icon="iframeStatusIcon"
         size="mini"
-        type="primary"
+        :type="iframeStatus === 'error' ? 'danger' : 'primary'"
         class="home-header-right-item"
+        plain
         @click="runCode">
         Run
       </el-button>
@@ -169,12 +170,22 @@
       }
     },
     computed: {
-      ...mapState(['visiblePans', 'githubToken', 'editorStatus', 'autoRun']),
+      ...mapState(['visiblePans', 'githubToken', 'editorStatus', 'autoRun', 'iframeStatus']),
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
       canUpdateGist() {
         return this.$route.name === 'gist' && this.githubToken
+      },
+      iframeStatusIcon() {
+        switch (this.iframeStatus) {
+          case 'loading':
+            return 'el-icon-loading'
+          case 'error':
+            return 'el-icon-warning'
+          default:
+            return 'el-icon-refresh'
+        }
       }
     },
     mounted() {

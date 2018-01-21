@@ -60,7 +60,8 @@ const store = new Vuex.Store({
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
-    editorStatus: 'saved'
+    editorStatus: 'saved',
+    iframeStatus: null
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -99,6 +100,9 @@ const store = new Vuex.Store({
     },
     SET_AUTO_RUN(state, status) {
       state.autoRun = status
+    },
+    SET_IFRAME_STATUS(state, status) {
+      state.iframeStatus = status
     }
   },
   actions: {
@@ -260,6 +264,9 @@ const store = new Vuex.Store({
     },
     setAutoRun({ commit }, status) {
       commit('SET_AUTO_RUN', status)
+    },
+    setIframeStatus({ commit }, status) {
+      commit('SET_IFRAME_STATUS', status)
     }
   }
 })

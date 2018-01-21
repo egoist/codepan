@@ -7,17 +7,6 @@
 
     <div class="pan-head">
       Output
-      <spinner
-        class="output-loading"
-        :height="12"
-        :line-width="1"
-        v-if="iframeStatus === 'loading'">
-      </spinner>
-      <svg-icon
-        v-else-if="iframeStatus"
-        :name="iframeStatus"
-        :class="`output-${iframeStatus}`">
-      </svg-icon>
     </div>
     <div class="output-iframe" id="output-iframe">
       <div id="output-iframe-holder"></div>
@@ -37,7 +26,6 @@ import panPosition from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
 import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
 import SvgIcon from './SvgIcon.vue'
-import Spinner from './Spinner.vue'
 
 const sandboxAttributes = [
   'allow-modals',
@@ -81,8 +69,7 @@ export default {
   name: 'output-pan',
   data() {
     return {
-      style: {},
-      iframeStatus: null
+      style: {}
     }
   },
   watch: {
@@ -100,7 +87,8 @@ export default {
       'html',
       'visiblePans',
       'activePan',
-      'githubToken'
+      'githubToken',
+      'iframeStatus'
     ]),
     isActivePan() {
       return this.activePan === 'output'
@@ -138,14 +126,15 @@ export default {
       'setBoilerplate',
       'editorSaved',
       'editorSaving',
-      'editorSavingError'
+      'editorSavingError',
+      'setIframeStatus'
     ]),
     getHumanlizedTransformerName,
 
     async listenIframe({ data = {} }) {
       if (data.type === 'iframe-error') {
         this.addLog({ type: 'error', message: data.message.trim() })
-        this.iframeStatus = 'error'
+        this.setIframeStatus('error')
       } else if (data.type === 'codepan-console') {
         if (data.method === 'clear') {
           this.clearLogs()
@@ -158,7 +147,7 @@ export default {
         await this.setBoilerplate(JSON.parse(data.boilerplate))
         Event.$emit('refresh-editor')
       } else if (data.type === 'iframe-success') {
-        this.iframeStatus = 'success'
+        this.setIframeStatus('success')
       }
     },
 
@@ -209,7 +198,7 @@ export default {
         head,
         body
       })
-      this.iframeStatus = 'loading'
+      this.setIframeStatus('loading')
     },
 
     async saveGist({ token, update } = {}) {
@@ -272,8 +261,7 @@ export default {
     }
   },
   components: {
-    SvgIcon,
-    Spinner
+    SvgIcon
   }
 }
 </script>
@@ -289,24 +277,4 @@ $statusSize = 12px
   height: calc(100% - 40px)
   &.disable-mouse-events
     pointer-events: none
-
-.output-success, .output-error
-  margin-right: -100px
-  animation: 4s ease-out slide-out
-  >>> svg
-    width: $statusSize
-    height: @width
-    color: #11bf11
-    stroke-width: 3
-
-.output-error
-  >>> svg
-    color: red
-
-@keyframes slide-out
-  0%, 60%
-    margin-right: 0
-
-  100%
-    margin-right: -100px
 </style>
