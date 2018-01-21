@@ -68,7 +68,7 @@
     </div>
     <div v-if="inIframe" class="home-header-right home-header-block">
       <a :href="url" target="_blank">
-        <img height="30" src="/static/favicon-180.png" alt="codepan">
+        <img height="30" src="/favicon-180.png" alt="codepan">
       </a>
     </div>
     <div v-else class="home-header-right home-header-block">
