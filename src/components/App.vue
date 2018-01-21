@@ -79,4 +79,7 @@ pre > code
 .update-notifier
   .el-notification__content
     text-align: left
+
+.notie-overlay
+  z-index: 9900
 </style>

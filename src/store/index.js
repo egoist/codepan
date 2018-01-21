@@ -198,10 +198,8 @@ const store = new Vuex.Store({
     },
     async setGist({ commit, dispatch, state }, id) {
       const params = {
-        // The default token does not really have any access to the user
-        // So we use it here to increase rate limit
         // eslint-disable-next-line camelcase
-        access_token: state.githubToken || '17222552a4f694cd56a4b39bfb8628fcde3dbfea'
+        access_token: state.githubToken
       }
 
       let files
@@ -212,11 +210,21 @@ const store = new Vuex.Store({
       } catch (err) {
         progress.done()
         if (err.response) {
-          notie.alert({
-            type: 'error',
-            text: err.response.data.message,
-            time: 5
-          })
+          const { headers, status } = err.response
+          if (!state.githubToken && status === 403 && headers['x-ratelimit-remaining'] === '0') {
+            notie.confirm({
+              text: 'API rate limit exceeded, do you want to login?',
+              submitCallback() {
+                Event.$emit('showLogin')
+              }
+            })
+          } else {
+            notie.alert({
+              type: 'error',
+              text: err.response.data.message,
+              time: 5
+            })
+          }
         } else {
           notie.alert({
             type: 'error',
@@ -224,6 +232,8 @@ const store = new Vuex.Store({
           })
         }
       }
+
+      if (!files) return
 
       const main = {
         html: {},

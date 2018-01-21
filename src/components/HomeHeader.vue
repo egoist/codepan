@@ -192,6 +192,7 @@
     },
     mounted() {
       window.addEventListener('keydown', this.handleKeydown)
+      Event.$on('showLogin', () => this.githubLogin())
     },
     beforeDestroy() {
       window.removeEventListener('keydown', this.handleKeydown)
