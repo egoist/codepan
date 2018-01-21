@@ -41,6 +41,7 @@ import progress from 'nprogress'
 import { mapState, mapActions } from 'vuex'
 import notie from 'notie'
 import isElectron from 'is-electron'
+import { inIframe } from '@/utils'
 import Event from '@/utils/event'
 import HomeHeader from '@/components/HomeHeader.vue'
 import HTMLPan from '@/components/HTMLPan.vue'
@@ -118,7 +119,7 @@ export default {
   },
   mounted() {
     // Tell the parent window we're ready!
-    if (window.self !== window.top) {
+    if (inIframe) {
       window.parent.postMessage({ type: 'codepan-ready' }, '*')
     }
 
@@ -143,10 +144,19 @@ export default {
     handleStorageChanged(e) {
       if (e.key === 'codepan:gh-token' && e.newValue) {
         this.$store.dispatch('setGitHubToken', e.newValue)
-        notie.alert({
-          type: 'success',
-          text: 'Successfully logged in with GitHub!'
-        })
+        if (inIframe) {
+          notie.confirm({
+            text: 'Success, reload this iframe?',
+            submitCallback() {
+              window.location.reload()
+            }
+          })
+        } else {
+          notie.alert({
+            type: 'success',
+            text: 'Successfully logged in with GitHub!'
+          })
+        }
       }
     }
   },

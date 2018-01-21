@@ -149,6 +149,7 @@
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox, Checkbox } from 'element-ui'
   import Event from '@/utils/event'
   import popup from '@/utils/popup'
+  import { inIframe } from '@/utils'
   import notie from 'notie'
   import {
     GithubIcon,
@@ -167,7 +168,7 @@
       return {
         version: process.env.VERSION,
         latestCommit: process.env.LATEST_COMMIT,
-        inIframe: window.self !== window.top,
+        inIframe,
         url: window.location.href
       }
     },

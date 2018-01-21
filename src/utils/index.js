@@ -42,3 +42,5 @@ export const getEditorModeByTransfomer = transformer => {
   }
   return modes[transformer]
 }
+
+export const inIframe = window.self !== window.top
