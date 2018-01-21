@@ -126,7 +126,7 @@ export default {
     window.addEventListener('storage', this.handleStorageChanged)
 
     window.addEventListener('beforeunload', e => {
-      if (!isElectron() && this.editorStatus !== 'saved') {
+      if (!inIframe && !isElectron() && this.editorStatus !== 'saved') {
         e.returnValue = false
         return false
       }
