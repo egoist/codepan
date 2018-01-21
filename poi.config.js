@@ -18,6 +18,10 @@ module.exports = {
       .add(nodeModules())
 
     config.node.set('fs', 'empty')
+
+    config.externals({
+      electron: 'commonjs electron'
+    })
   },
   production: {
     sourceMap: false
