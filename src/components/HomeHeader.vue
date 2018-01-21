@@ -4,7 +4,6 @@
       <el-dropdown
         @command="setBoilerplate"
         trigger="click"
-
         class="home-header-left-item">
         <el-button
           icon="el-icon-document"
@@ -67,7 +66,12 @@
         Output
       </span>
     </div>
-    <div class="home-header-right home-header-block">
+    <div v-if="inIframe" class="home-header-right home-header-block">
+      <a :href="url" target="_blank">
+        <img height="30" src="/static/favicon-180.png" alt="codepan">
+      </a>
+    </div>
+    <div v-else class="home-header-right home-header-block">
       <span class="home-header-right-item editor-save-status" v-if="editorStatus === 'saving'">
         <saving />
       </span>
@@ -150,7 +154,9 @@
     data() {
       return {
         version: process.env.VERSION,
-        latestCommit: process.env.LATEST_COMMIT
+        latestCommit: process.env.LATEST_COMMIT,
+        inIframe: window.parent != window.top,
+        url: window.location.href
       }
     },
     computed: {
@@ -350,4 +356,10 @@
     fill: @color
     width: 16px
     height: @width
+
+@media screen and (max-width: 768px)
+  .home-header-left
+    display: none
+  .pan-toggles
+    justify-content: left
 </style>
