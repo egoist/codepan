@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     logs: [],
     visiblePans: ['html', 'js', 'output'],
     activePan: 'js',
-    autoRun: false,
+    autoRun: true,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
     editorStatus: 'saved'
   },
