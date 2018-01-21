@@ -167,7 +167,7 @@
       return {
         version: process.env.VERSION,
         latestCommit: process.env.LATEST_COMMIT,
-        inIframe: window.parent !== window.top,
+        inIframe: window.self !== window.top,
         url: window.location.href
       }
     },
