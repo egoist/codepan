@@ -22,7 +22,7 @@
       <div
         class="console-log cm-s-default"
         :class="`console-log-${log.type}`"
-        key="index"
+        :key="index"
         v-html="highlight(log.message)"
         v-for="(log, index) in logs">
       </div>

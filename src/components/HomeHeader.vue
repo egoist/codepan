@@ -88,13 +88,16 @@
         type="primary"
         class="home-header-right-item"
         @click="runCode">
-        Run (CMD+S)
+        Run
       </el-button>
       <el-dropdown
         class="home-header-right-item home-header-more"
         @command="handleDropdownCommand"
         trigger="click">
-        <el-button icon="el-icon-more" size="mini"></el-button>
+        <el-button
+          :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-more'"
+          size="mini">
+        </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
             <div class="fake-anchor">
@@ -155,7 +158,6 @@
     InfoIcon
   } from 'vue-feather-icons'
   import SvgIcon from './SvgIcon.vue'
-  import Saving from './Saving.vue'
 
   export default {
     data() {
@@ -291,7 +293,6 @@
       SaveIcon,
       TwitterIcon,
       SvgIcon,
-      Saving,
       LogOutIcon,
       InfoIcon
     }
