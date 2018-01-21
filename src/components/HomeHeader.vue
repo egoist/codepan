@@ -22,6 +22,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <el-button
+        v-if="!inIframe"
         class="home-header-left-item"
         style="margin-right:0"
         icon="el-icon-plus"
@@ -66,19 +67,12 @@
         Output
       </span>
     </div>
-    <div v-if="inIframe" class="home-header-right home-header-block">
-      <a :href="url" target="_blank">
-        <img height="30" src="/favicon-180.png" alt="codepan">
-      </a>
-    </div>
-    <div v-else class="home-header-right home-header-block">
-      <span class="home-header-right-item editor-save-status" v-if="editorStatus === 'saving'">
-        <saving />
-      </span>
+    <div class="home-header-right home-header-block">
       <el-checkbox
         border
         size="mini"
         :value="autoRun"
+        v-if="!inIframe"
         @change="setAutoRun">
         Auto-run
       </el-checkbox>
@@ -92,6 +86,7 @@
         Run
       </el-button>
       <el-dropdown
+        v-if="!inIframe"
         class="home-header-right-item home-header-more"
         @command="handleDropdownCommand"
         trigger="click">
@@ -138,6 +133,13 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <a
+        v-if="inIframe"
+        class="home-header-right-item"
+        :href="url"
+        target="_blank">
+        <img height="30" src="/favicon-180.png" alt="codepan">
+      </a>
     </div>
   </header>
 </template>
@@ -333,6 +335,7 @@
 .home-header-right
   display: flex
   justify-content: flex-end
+  align-items: center
   .home-header-right-item
     margin-left: 10px
 
