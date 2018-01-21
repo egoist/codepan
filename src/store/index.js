@@ -97,8 +97,8 @@ const store = new Vuex.Store({
     SET_EDITOR_STATUS(state, status) {
       state.editorStatus = status
     },
-    ENABLE_AUTO_RUN(state) {
-      state.autoRun = true
+    SET_AUTO_RUN(state, status) {
+      state.autoRun = status
     }
   },
   actions: {
@@ -258,8 +258,8 @@ const store = new Vuex.Store({
     editorSavingError({ commit }) {
       commit('SET_EDITOR_STATUS', 'error')
     },
-    enableAutoRun({ commit }) {
-      commit('ENABLE_AUTO_RUN')
+    setAutoRun({ commit }, status) {
+      commit('SET_AUTO_RUN', status)
     }
   }
 })

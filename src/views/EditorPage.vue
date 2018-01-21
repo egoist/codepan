@@ -75,7 +75,7 @@ async function handleRouteChange(to, vm) {
     Event.$emit('run')
   }
 
-  await vm.enableAutoRun()
+  await vm.setAutoRun(true)
 
   progress.done()
 }
@@ -136,7 +136,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'enableAutoRun']),
+    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },

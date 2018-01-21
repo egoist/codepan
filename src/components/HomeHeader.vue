@@ -75,6 +75,13 @@
       <span class="home-header-right-item editor-save-status" v-if="editorStatus === 'saving'">
         <saving />
       </span>
+      <el-checkbox
+        border
+        size="mini"
+        :value="autoRun"
+        @change="setAutoRun">
+        Auto-run
+      </el-checkbox>
       <el-button
         icon="el-icon-caret-right"
         size="mini"
@@ -133,7 +140,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui'
+  import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox, Checkbox } from 'element-ui'
   import Event from '@/utils/event'
   import popup from '@/utils/popup'
   import notie from 'notie'
@@ -160,7 +167,7 @@
       }
     },
     computed: {
-      ...mapState(['visiblePans', 'githubToken', 'editorStatus']),
+      ...mapState(['visiblePans', 'githubToken', 'editorStatus', 'autoRun']),
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
@@ -181,6 +188,9 @@
           e.preventDefault()
           this.runCode()
         }
+      },
+      setAutoRun(status) {
+        this.$store.dispatch('setAutoRun', status)
       },
       async promptLibrary() {
         const { value } = await MessageBox.prompt('Type an npm package name:', 'Add Library', {
@@ -273,6 +283,7 @@
       'el-button': Button,
       'el-input': Input,
       'el-badge': Badge,
+      'el-checkbox': Checkbox,
       GithubIcon,
       FileIcon,
       FilePlusIcon,
