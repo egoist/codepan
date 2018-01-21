@@ -53,10 +53,7 @@ module.exports = {
           events: true,
           FALLBACK: { '/': '/' }
         },
-        externals: [
-          'https://reasonml.github.io/js/bs.js',
-          'https://reasonml.github.io/js/refmt.js'
-        ].concat(Object.keys(cdns).reduce((res, name) => {
+        externals: [].concat(Object.keys(cdns).reduce((res, name) => {
           return res.concat(cdns[name])
         }, []))
       }
