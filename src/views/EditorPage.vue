@@ -68,10 +68,14 @@ async function handleRouteChange(to, vm) {
   if (boilerplate) {
     await vm.setBoilerplate(boilerplate)
     Event.$emit('refresh-editor')
+    Event.$emit('run')
   } else if (gist) {
     await vm.setGist(gist)
     Event.$emit('refresh-editor')
+    Event.$emit('run')
   }
+
+  await vm.enableAutoRun()
 
   progress.done()
 }
@@ -132,7 +136,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans']),
+    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'enableAutoRun']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },

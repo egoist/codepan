@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     logs: [],
     visiblePans: ['html', 'js', 'output'],
     activePan: 'js',
-    autoRun: true,
+    autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
     editorStatus: 'saved'
   },
@@ -96,6 +96,9 @@ const store = new Vuex.Store({
     },
     SET_EDITOR_STATUS(state, status) {
       state.editorStatus = status
+    },
+    ENABLE_AUTO_RUN(state) {
+      state.autoRun = true
     }
   },
   actions: {
@@ -254,6 +257,9 @@ const store = new Vuex.Store({
     },
     editorSavingError({ commit }) {
       commit('SET_EDITOR_STATUS', 'error')
+    },
+    enableAutoRun({ commit }) {
+      commit('ENABLE_AUTO_RUN')
     }
   }
 })
