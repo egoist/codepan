@@ -63,7 +63,13 @@
         selector: ".changelog-indicator", // CSS selector where to inject the badge
         account:  "ypaPgx"
       }
+      // Not in iframe
+      if (window.self === window.top) {
+        var headwayScript = document.createElement('script')
+        headwayScript.src = 'https://cdn.headwayapp.co/widget.js'
+        headwayScript.async = true
+        document.body.appendChild(headwayScript)
+      }
     </script>
-    <script async src="//cdn.headwayapp.co/widget.js"></script>
   </body>
 </html>
