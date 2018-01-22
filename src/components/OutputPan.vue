@@ -152,6 +152,7 @@ export default {
     },
 
     async run() {
+      this.setIframeStatus('loading')
       let js
       // We may add preprocessors supports for html/css in the future
       let html
@@ -172,6 +173,7 @@ export default {
         html = await transform.html(this.html)
         css = await transform.css(this.css) // eslint-disable-line prefer-const
       } catch (err) {
+        this.setIframeStatus('error')
         return this.addLog({ type: 'error', message: err.stack })
       }
 
@@ -199,7 +201,6 @@ export default {
         head,
         body
       })
-      this.setIframeStatus('loading')
     },
 
     async saveGist({ token, update } = {}) {
