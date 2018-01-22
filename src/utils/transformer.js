@@ -129,6 +129,19 @@ async function loadLess() {
   }
 }
 
+async function loadSass() {
+  if (!transformers.get('sass')) {
+    progress.start()
+    const [Sass] = await Promise.all([
+      import('../../static/vendor/sass/sass'),
+      import('codemirror/mode/sass/sass.js')
+    ])
+    Sass.setWorkerUrl('/vendor/sass/sass.worker.js')
+    transformers.set('sass', new Sass())
+    progress.done()
+  }
+}
+
 export {
   loadBabel,
   loadPug,
@@ -138,5 +151,6 @@ export {
   loadReason,
   loadCoffeeScript2,
   loadCssnext,
-  loadLess
+  loadLess,
+  loadSass
 }

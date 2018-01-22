@@ -16,8 +16,10 @@ export const getHumanlizedTransformerName = transformer => {
     reason: 'Reason',
     'coffeescript-2': 'CoffeeScript 2',
     cssnext: 'cssnext',
-    less: 'Less',
-    typescript: 'TypeScript'
+    less: 'LESS',
+    typescript: 'TypeScript',
+    sass: 'SASS',
+    scss: 'SCSS'
   }
 
   return names[transformer] || transformer
@@ -38,7 +40,9 @@ export const getEditorModeByTransfomer = transformer => {
     'coffeescript-2': 'coffeescript',
     cssnext: 'css',
     less: 'text/x-less',
-    typescript: 'text/typescript'
+    typescript: 'text/typescript',
+    sass: 'text/x-sass',
+    scss: 'text/x-scss'
   }
   return modes[transformer]
 }

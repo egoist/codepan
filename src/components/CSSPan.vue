@@ -12,7 +12,9 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="css">CSS</el-dropdown-item>
           <el-dropdown-item command="cssnext">cssnext</el-dropdown-item>
-          <el-dropdown-item command="less">Less</el-dropdown-item>
+          <el-dropdown-item command="less">LESS</el-dropdown-item>
+          <el-dropdown-item command="sass">SASS</el-dropdown-item>
+          <el-dropdown-item command="scss">SCSS</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <div class="pan-head-right">

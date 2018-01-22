@@ -90,6 +90,16 @@ export async function css({ code, transformer }) {
         .get('less')
         .render(code)
         .then(res => res.css)
+    case 'scss':
+    case 'sass':
+      return new Promise((resolve, reject) => {
+        transformers.get('sass').compile(code, {
+          indentedSyntax: transformer === 'sass'
+        }, result => {
+          if (result.status === 0) return resolve(result.text)
+          reject(new Error(result.formatted))
+        })
+      })
     default:
       throw new Error(`Unknow transformer: ${transformer}`)
   }
