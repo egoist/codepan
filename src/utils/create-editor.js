@@ -28,7 +28,6 @@ export default function (el, opts = {}) {
     matchBrackets: true,
     foldGutter: true,
     gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-    readOnly: opts.readOnly,
     ...opts
   })
 
