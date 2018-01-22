@@ -68,8 +68,10 @@
       </span>
     </div>
     <div class="home-header-right home-header-block">
+      <open-comments-button v-if="$route.name === 'gist'" />
       <el-checkbox
         border
+        class="home-header-right-item"
         size="mini"
         :value="autoRun"
         v-if="!inIframe"
@@ -164,6 +166,7 @@
     InfoIcon
   } from 'vue-feather-icons'
   import SvgIcon from './SvgIcon.vue'
+  import OpenCommentsButton from './OpenCommentsButton.vue'
 
   export default {
     data() {
@@ -311,7 +314,8 @@
       TwitterIcon,
       SvgIcon,
       LogOutIcon,
-      InfoIcon
+      InfoIcon,
+      OpenCommentsButton
     }
   }
 </script>
