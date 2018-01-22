@@ -52,7 +52,10 @@ export default ({ name, editor, components } = {}) => {
       }
     },
     mounted() {
-      this.editor = createEditor(this.$refs.editor, editor)
+      this.editor = createEditor(this.$refs.editor, {
+        editor,
+        readOnly: 'readonly' in this.$route.query
+      })
       this.editor.on('change', e => {
         this.updateCode({ code: e.getValue(), type: name })
         this.editorChanged()

@@ -1,5 +1,5 @@
 <template>
-  <div class="page" >
+  <div class="page" :class="{readonly: isReadOnly}">
     <home-header />
 
     <compiled-code-dialog
@@ -89,7 +89,8 @@ export default {
         js: false,
         css: false,
         html: false
-      }
+      },
+      isReadOnly: 'readonly' in this.$route.query
     }
   },
   computed: {
@@ -228,4 +229,8 @@ export default {
   cursor: ew-resize
   .pan-resizer
     cursor: ew-resize
+
+.page.readonly
+  .CodeMirror-cursor
+    display: none !important
 </style>
