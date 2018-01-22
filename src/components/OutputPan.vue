@@ -175,12 +175,10 @@ export default {
         return this.addLog({ type: 'error', message: err.stack })
       }
 
-      const head = createElement('style')(css)
-      const shims = createElement('script')(`
+      const headStyle = createElement('style')(css)
+      const codePanRuntime = createElement('script')(`
         window.process = window.process || { env: { NODE_ENV: 'development' } }
-        `)
-      const body =
-        shims +
+        `) +
         scripts
           .map(script =>
             createElement('script')('', {
@@ -190,7 +188,10 @@ export default {
             })
           )
           .join('\n') +
-        createElement('script')(proxyConsole) +
+        createElement('script')(proxyConsole)
+      const head = headStyle + codePanRuntime
+
+      const body =
         html +
         createElement('script')(js)
 
