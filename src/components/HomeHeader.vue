@@ -134,6 +134,8 @@
         </el-dropdown-menu>
       </el-dropdown>
       <a
+        title="Edit on CodePan"
+        v-tippy
         v-if="inIframe"
         class="home-header-right-item"
         :href="url"
