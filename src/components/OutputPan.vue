@@ -158,9 +158,9 @@ export default {
       let html
       let css
       const scripts = []
-      js = await getScripts(await transform.js(this.js), scripts)
-      js = js.replace(/<\/script>/, '<\\/script>')
       try {
+        js = await getScripts(await transform.js(this.js), scripts)
+        js = js.replace(/<\/script>/, '<\\/script>')
         js = `
           if (window.Vue) {
             window.Vue.config.productionTip = false;
@@ -173,7 +173,10 @@ export default {
               ${js}
             } catch (err) {
               window.parent.postMessage(
-                { type: 'iframe-error', message: err.stack + (err.frame || '') },
+                {
+                  type: 'iframe-error',
+                  message: err.frame ? err.message + '\n' + err.frame : err.stack
+                },
                 '*'
               )
             }
@@ -182,7 +185,10 @@ export default {
         css = await transform.css(this.css) // eslint-disable-line prefer-const
       } catch (err) {
         this.setIframeStatus('error')
-        return this.addLog({ type: 'error', message: err.stack })
+        return this.addLog({
+          type: 'error',
+          message: err.frame ? `${err.message}\n${err.frame}` : err.stack
+        })
       }
 
       const headStyle = createElement('style')(css)
