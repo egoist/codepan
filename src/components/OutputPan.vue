@@ -158,7 +158,7 @@ export default {
       let html
       let css
       const scripts = []
-      js = getScripts(await transform.js(this.js), scripts)
+      js = await getScripts(await transform.js(this.js), scripts)
       try {
         js = `
           if (window.Vue) {

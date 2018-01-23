@@ -90,7 +90,6 @@
     "notie": "^4.3.1",
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
-    "parse-import-es6": "^0.5.9",
     "parse-package-name": "^0.1.0",
     "pify": "^3.0.0",
     "promise-polyfill": "^6.0.2",
