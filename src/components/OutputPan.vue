@@ -169,7 +169,14 @@ export default {
           document.addEventListener('DOMContentLoaded', __executeCodePan);
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
-            ${js}
+            try {
+              ${js}
+            } catch (err) {
+              window.parent.postMessage(
+                { type: 'iframe-error', message: err.stack + (err.frame || '') },
+                '*'
+              )
+            }
           };`
         html = await transform.html(this.html)
         css = await transform.css(this.css) // eslint-disable-line prefer-const
