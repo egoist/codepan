@@ -175,7 +175,7 @@ export default {
               window.parent.postMessage(
                 {
                   type: 'iframe-error',
-                  message: err.frame ? err.message + '\n' + err.frame : err.stack
+                  message: err.frame ? err.message + '\\n' + err.frame : err.stack
                 },
                 '*'
               )
