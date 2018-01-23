@@ -159,6 +159,7 @@ export default {
       let css
       const scripts = []
       js = await getScripts(await transform.js(this.js), scripts)
+      js = js.replace(/<\/script>/, '<\\/script>')
       try {
         js = `
           if (window.Vue) {

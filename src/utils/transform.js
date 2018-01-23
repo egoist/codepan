@@ -35,11 +35,12 @@ export async function js({ code, transformer }) {
     )
   } else if (transformer === 'svelte') {
     return (
-      'var SvelteShadowComponent = ' +
       transformers.get('svelte').compile(code, {
-        format: 'eval'
-      }).code +
-      `\n\nnew SvelteShadowComponent({target: document.body})`
+        format: 'es'
+      }).code.replace(
+        /^export default SvelteComponent;/m,
+        'new SvelteComponent({target: document.body})'
+      )
     )
   } else if (transformer === 'reason') {
     const wrapInExports = code =>
