@@ -96,6 +96,7 @@
     "reqjs": "^1.0.3",
     "svelte": "^1.30.0",
     "v-tippy": "^1.0.0",
+    "vue-bytesize-icons": "^0.1.1",
     "vue-feather-icons": "^0.1.1",
     "vue-ga": "^1.0.0",
     "vue-inline": "^1.0.1",

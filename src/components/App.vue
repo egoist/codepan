@@ -54,6 +54,12 @@ pre > code
   z-index: 9999
   position: relative
 
+.el-button
+  svg
+    height: 14px
+    width: 14px
+    margin-right: 8px
+
 .el-dropdown-menu
   .fake-anchor
     color: #333
