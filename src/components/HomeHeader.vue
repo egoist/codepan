@@ -87,13 +87,12 @@
       </el-button>
       <el-button
         v-if="canUpdateGist"
+        :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload'"
         size="mini"
         plain
         v-tippy="{title: 'Update this gist', position: 'bottom', arrow: true}"
         class="home-header-right-item"
         @click="updateGist">
-        <i v-if="editorStatus === 'saving'" class="el-icon-loading"></i>
-        <save-icon v-else width="1em" height="1em"></save-icon>
       </el-button>
       <el-dropdown
         v-if="!inIframe"
