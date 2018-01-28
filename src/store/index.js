@@ -2,10 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason, loadCoffeeScript2, loadCssnext, loadLess, loadSass } from '@/utils/transformer'
 import progress from 'nprogress'
-import axios from 'axios'
+import api from '@/utils/github-api'
 import req from 'reqjs'
 import Event from '@/utils/event'
-import notie from 'notie'
 
 Vue.use(Vuex)
 
@@ -60,6 +59,8 @@ const store = new Vuex.Store({
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
+    gistMeta: {},
+    userMeta: {},
     editorStatus: 'saved',
     iframeStatus: null
   },
@@ -91,6 +92,12 @@ const store = new Vuex.Store({
     },
     ACTIVE_PAN(state, pan) {
       state.activePan = pan
+    },
+    SET_GIST_META(state, meta) {
+      state.gistMeta = meta
+    },
+    SET_USER_META(state, meta) {
+      state.userMeta = meta
     },
     SET_GITHUB_TOKEN(state, token) {
       state.githubToken = token
@@ -199,41 +206,8 @@ const store = new Vuex.Store({
       progress.done()
     },
     async setGist({ commit, dispatch, state }, id) {
-      const params = {
-        // eslint-disable-next-line camelcase
-        access_token: state.githubToken
-      }
-
-      let files
-      try {
-        files = await axios.get(`https://api.github.com/gists/${id}`, {
-          params
-        }).then(res => res.data.files)
-      } catch (err) {
-        progress.done()
-        if (err.response) {
-          const { headers, status } = err.response
-          if (!state.githubToken && status === 403 && headers['x-ratelimit-remaining'] === '0') {
-            notie.confirm({
-              text: 'API rate limit exceeded, do you want to login?',
-              submitCallback() {
-                Event.$emit('showLogin')
-              }
-            })
-          } else {
-            notie.alert({
-              type: 'error',
-              text: err.response.data.message,
-              time: 5
-            })
-          }
-        } else {
-          notie.alert({
-            type: 'error',
-            text: err.message || 'GitHub API Error'
-          })
-        }
-      }
+      const data = await api(`gists/${id}`, state.githubToken, progress.done)
+      const files = data.files
 
       if (!files) return
 
@@ -254,11 +228,21 @@ const store = new Vuex.Store({
         }
       }
       await dispatch('setBoilerplate', main)
+
+      delete data.files
+      commit('SET_GIST_META', data)
     },
-    setGitHubToken({ commit }, token) {
+    async setUser({ commit, state }) {
+      const data = await api('user', state.githubToken)
+      if (!data) return
+
+      commit('SET_USER_META', data)
+    },
+    async setGitHubToken({ commit, dispatch }, token) {
       commit('SET_GITHUB_TOKEN', token)
       if (token) {
         localStorage.setItem('codepan:gh-token', token)
+        await dispatch('setUser')
       } else {
         localStorage.removeItem('codepan:gh-token')
       }
