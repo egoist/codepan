@@ -38,4 +38,6 @@ export default async function (endpoint, token, errCb = () => {}) {
       })
     }
   }
+
+  return {}
 }
