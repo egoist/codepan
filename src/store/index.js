@@ -60,7 +60,7 @@ const store = new Vuex.Store({
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
     gistMeta: {},
-    userMeta: {},
+    userMeta: JSON.parse(localStorage.getItem('codepan:user-meta')) || {},
     editorStatus: 'saved',
     iframeStatus: null
   },
@@ -232,19 +232,20 @@ const store = new Vuex.Store({
       delete data.files
       commit('SET_GIST_META', data)
     },
-    async setUser({ commit, state }) {
-      const data = await api('user', state.githubToken)
-      if (!data) return
-
-      commit('SET_USER_META', data)
-    },
     async setGitHubToken({ commit, dispatch }, token) {
       commit('SET_GITHUB_TOKEN', token)
+      let userMeta = {}
       if (token) {
         localStorage.setItem('codepan:gh-token', token)
-        await dispatch('setUser')
+        userMeta = await api('user', token)
       } else {
         localStorage.removeItem('codepan:gh-token')
+      }
+      commit('SET_USER_META', userMeta)
+      if (userMeta.keys().length > 0) {
+        localStorage.setItem('codepan:user-meta', JSON.stringify(userMeta))
+      } else {
+        localStorage.removeItem('codepan:user-meta')
       }
     },
     editorSaved({ commit }) {

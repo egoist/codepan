@@ -119,8 +119,6 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('setUser')
-
     // Tell the parent window we're ready!
     if (inIframe) {
       window.parent.postMessage({ type: 'codepan-ready' }, '*')
