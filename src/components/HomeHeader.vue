@@ -86,6 +86,7 @@
         Run
       </el-button>
       <el-button
+        v-if="!inIframe"
         :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload2'"
         size="mini"
         plain
