@@ -85,13 +85,24 @@
         @click="runCode">
         Run
       </el-button>
+      <el-button
+        :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload2'"
+        size="mini"
+        plain
+        :disabled="editorStatus === 'saving'"
+        :title="saveButtonTitle"
+        v-tippy="{position: 'bottom'}"
+        class="home-header-right-item"
+        @click="saveGist">
+        Save
+      </el-button>
       <el-dropdown
         v-if="!inIframe"
         class="home-header-right-item home-header-more"
         @command="handleDropdownCommand"
         trigger="click">
         <el-button
-          :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-more'"
+          icon="el-icon-more"
           size="mini">
         </el-button>
         <el-dropdown-menu slot="dropdown">
@@ -101,19 +112,14 @@
               <github-icon v-else /> GitHub {{ githubToken ? 'Logout' : 'Login' }}
             </div>
           </el-dropdown-item>
-          <el-dropdown-item command="save-anonymous-gist">
+          <el-dropdown-item
+            :disabled="editorStatus === 'saving'"
+            command="save-new-gist"
+            title="Create a new gist from editor"
+            v-tippy="{position: 'left',arrow: true}"
+            v-if="canUpdateGist">
             <div class="fake-anchor">
-              <file-icon></file-icon> Save Anonymous Gist
-            </div>
-          </el-dropdown-item>
-          <el-dropdown-item command="save-gist">
-            <div class="fake-anchor">
-              <file-plus-icon></file-plus-icon> Save New Gist
-            </div>
-          </el-dropdown-item>
-          <el-dropdown-item v-tippy="{title: 'You can update this gist if you own it', position: 'left', arrow: true}" v-if="canUpdateGist" command="update-gist">
-            <div class="fake-anchor">
-              <save-icon></save-icon> Update Gist
+              <git-branch-icon></git-branch-icon> Save new
             </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
@@ -147,7 +153,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox, Checkbox } from 'element-ui'
   import Event from '@/utils/event'
   import popup from '@/utils/popup'
@@ -155,8 +161,7 @@
   import notie from 'notie'
   import {
     GithubIcon,
-    FileIcon,
-    FilePlusIcon,
+    GitBranchIcon,
     Link2Icon,
     SaveIcon,
     TwitterIcon,
@@ -179,9 +184,7 @@
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
-      canUpdateGist() {
-        return this.$route.name === 'gist' && this.githubToken
-      },
+      ...mapGetters(['isLoggedIn', 'canUpdateGist']),
       iframeStatusIcon() {
         switch (this.iframeStatus) {
           case 'loading':
@@ -191,6 +194,12 @@
           default:
             return 'el-icon-refresh'
         }
+      },
+      saveButtonTitle() {
+        if (this.isLoggedIn) {
+          return this.canUpdateGist ? 'Update this gist' : 'Create new gist'
+        }
+        return 'Save anonymous gist'
       }
     },
     mounted() {
@@ -239,16 +248,11 @@
       runCode() {
         Event.$emit('run')
       },
+      saveGist() {
+        Event.$emit('save-gist')
+      },
       handleDropdownCommand(command) {
-        if (command === 'save-gist') {
-          if (this.githubToken) {
-            Event.$emit('save-gist')
-          } else {
-            this.githubLogin()
-          }
-        } else if (command === 'save-anonymous-gist') {
-          Event.$emit('save-anonymous-gist')
-        } else if (command === 'update-gist') {
+        if (command === 'save-new-gist') {
           Event.$emit('save-gist', true)
         } else if (command === 'github-login') {
           if (this.githubToken) {
@@ -304,8 +308,7 @@
       'el-badge': Badge,
       'el-checkbox': Checkbox,
       GithubIcon,
-      FileIcon,
-      FilePlusIcon,
+      GitBranchIcon,
       Link2Icon,
       SaveIcon,
       TwitterIcon,

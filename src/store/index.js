@@ -242,7 +242,7 @@ const store = new Vuex.Store({
         localStorage.removeItem('codepan:gh-token')
       }
       commit('SET_USER_META', userMeta)
-      if (userMeta.keys().length > 0) {
+      if (Object.keys(userMeta).length > 0) {
         localStorage.setItem('codepan:user-meta', JSON.stringify(userMeta))
       } else {
         localStorage.removeItem('codepan:user-meta')
@@ -265,6 +265,16 @@ const store = new Vuex.Store({
     },
     setIframeStatus({ commit }, status) {
       commit('SET_IFRAME_STATUS', status)
+    }
+  },
+  getters: {
+    isLoggedIn({ githubToken }) {
+      return Boolean(githubToken)
+    },
+    canUpdateGist({ gistMeta, userMeta }) {
+      return gistMeta && userMeta &&
+        gistMeta.owner &&
+        gistMeta.owner.id === userMeta.id
     }
   }
 })

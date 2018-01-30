@@ -7221,9 +7221,9 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-feather-icons@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/vue-feather-icons/-/vue-feather-icons-0.1.1.tgz#360cefc2a8a6f99912e4b8f82d7fbc04056063c3"
+vue-feather-icons@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/vue-feather-icons/-/vue-feather-icons-4.5.0.tgz#1aec9f4a512d7e79fc5a1df38b62b4192b052059"
   dependencies:
     babel-helper-vue-jsx-merge-props "^2.0.2"
 

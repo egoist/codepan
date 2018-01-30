@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import { getHumanlizedTransformerName } from '@/utils'
 import axios from 'axios'
 import notie from 'notie'
@@ -90,6 +90,10 @@ export default {
       'githubToken',
       'iframeStatus'
     ]),
+    ...mapGetters([
+      'isLoggedIn',
+      'canUpdateGist'
+    ]),
     isActivePan() {
       return this.activePan === 'output'
     }
@@ -108,11 +112,8 @@ export default {
         ...style
       }
     })
-    Event.$on('save-gist', update => {
-      this.saveGist({ token: this.githubToken, update })
-    })
-    Event.$on('save-anonymous-gist', () => {
-      this.saveGist()
+    Event.$on('save-gist', saveNew => {
+      this.saveGist({ token: this.githubToken, saveNew })
     })
   },
   beforeDestroy() {
@@ -217,7 +218,12 @@ export default {
       })
     },
 
-    async saveGist({ token, update } = {}) {
+    /**
+     * Save gist
+     * When you are not logged in (no github token) it saves as guest gist
+     * Otherwise it creates or updates gist
+     */
+    async saveGist({ token, saveNew } = {}) {
       this.editorSaving()
       try {
         const files = makeGist(
@@ -236,9 +242,13 @@ export default {
           // eslint-disable-next-line camelcase
           params.access_token = token
         }
-        const gistId = this.$route.params.gist
-        const url = `https://api.github.com/gists${update ? `/${gistId}` : ''}`
-        const method = update ? 'PATCH' : 'POST'
+        const shouldUpdateGist = this.canUpdateGist && !saveNew
+        const url = `https://api.github.com/gists${
+          shouldUpdateGist ?
+          `/${this.$route.params.gist}` :
+          ''
+        }`
+        const method = shouldUpdateGist ? 'PATCH' : 'POST'
         const { data } = await axios(url, {
           params,
           method,
@@ -248,7 +258,7 @@ export default {
           }
         })
 
-        if (update) {
+        if (shouldUpdateGist) {
           this.editorSaved()
         } else {
           this.$router.push(`/gist/${data.id}`)
