@@ -86,13 +86,14 @@
         Run
       </el-button>
       <el-button
-        v-if="canUpdateGist"
-        :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload'"
+        :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload2'"
         size="mini"
         plain
-        v-tippy="{title: 'Update this gist', position: 'bottom', arrow: true}"
+        :disabled="editorStatus === 'saving'"
+        v-tippy="{title: isLoggedIn ? 'Save Gist' : 'Save anonymous gist', position: 'bottom'}"
         class="home-header-right-item"
-        @click="updateGist">
+        @click="saveGist">
+        Save
       </el-button>
       <el-dropdown
         v-if="!inIframe"
@@ -100,7 +101,7 @@
         @command="handleDropdownCommand"
         trigger="click">
         <el-button
-          :icon="!canUpdateGist && editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-more'"
+          icon="el-icon-more"
           size="mini">
         </el-button>
         <el-dropdown-menu slot="dropdown">
@@ -110,14 +111,9 @@
               <github-icon v-else /> GitHub {{ githubToken ? 'Logout' : 'Login' }}
             </div>
           </el-dropdown-item>
-          <el-dropdown-item command="save-anonymous-gist">
+          <el-dropdown-item :disabled="editorStatus === 'saving'" command="fork-gist" v-if="$route.name === 'gist'">
             <div class="fake-anchor">
-              <file-icon></file-icon> Save Anonymous Gist
-            </div>
-          </el-dropdown-item>
-          <el-dropdown-item command="save-gist">
-            <div class="fake-anchor">
-              <file-plus-icon></file-plus-icon> Save New Gist
+              <file-plus-icon></file-plus-icon> Fork Gist
             </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
@@ -151,7 +147,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import { Button, Input, Badge, Dropdown, DropdownMenu, DropdownItem, MessageBox, Checkbox } from 'element-ui'
   import Event from '@/utils/event'
   import popup from '@/utils/popup'
@@ -183,9 +179,7 @@
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
-      canUpdateGist() {
-        return this.$route.name === 'gist' && this.githubToken
-      },
+      ...mapGetters(['isLoggedIn']),
       iframeStatusIcon() {
         switch (this.iframeStatus) {
           case 'loading':
@@ -243,18 +237,12 @@
       runCode() {
         Event.$emit('run')
       },
-      updateGist() {
-        Event.$emit('save-gist', true)
+      saveGist() {
+        Event.$emit('save-gist')
       },
       handleDropdownCommand(command) {
-        if (command === 'save-gist') {
-          if (this.githubToken) {
-            Event.$emit('save-gist')
-          } else {
-            this.githubLogin()
-          }
-        } else if (command === 'save-anonymous-gist') {
-          Event.$emit('save-anonymous-gist')
+        if (command === 'fork-gist') {
+          Event.$emit('save-gist', true)
         } else if (command === 'github-login') {
           if (this.githubToken) {
             this.$store.dispatch('setGitHubToken', null)
