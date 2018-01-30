@@ -90,7 +90,8 @@
         size="mini"
         plain
         :disabled="editorStatus === 'saving'"
-        v-tippy="{title: isLoggedIn ? 'Save Gist' : 'Save anonymous gist', position: 'bottom'}"
+        :title="isLoggedIn ? 'Save Gist' : 'Save anonymous gist'"
+        v-tippy="{position: 'bottom'}"
         class="home-header-right-item"
         @click="saveGist">
         Save
@@ -111,7 +112,10 @@
               <github-icon v-else /> GitHub {{ githubToken ? 'Logout' : 'Login' }}
             </div>
           </el-dropdown-item>
-          <el-dropdown-item :disabled="editorStatus === 'saving'" command="fork-gist" v-if="$route.name === 'gist'">
+          <el-dropdown-item
+            :disabled="editorStatus === 'saving'"
+            command="fork-gist"
+            v-if="$route.name === 'gist' && isLoggedIn">
             <div class="fake-anchor">
               <file-plus-icon></file-plus-icon> Fork Gist
             </div>
