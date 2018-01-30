@@ -114,10 +114,10 @@
           </el-dropdown-item>
           <el-dropdown-item
             :disabled="editorStatus === 'saving'"
-            command="fork-gist"
-            v-if="$route.name === 'gist' && isLoggedIn">
+            command="save-new-gist"
+            v-if="canUpdateGist">
             <div class="fake-anchor">
-              <git-branch-icon></git-branch-icon> Fork Gist
+              <git-branch-icon></git-branch-icon> Save new
             </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
@@ -182,7 +182,7 @@
       ...mapState({
         totalLogsCount: state => state.logs.length
       }),
-      ...mapGetters(['isLoggedIn']),
+      ...mapGetters(['isLoggedIn', 'canUpdateGist']),
       iframeStatusIcon() {
         switch (this.iframeStatus) {
           case 'loading':
@@ -244,7 +244,7 @@
         Event.$emit('save-gist')
       },
       handleDropdownCommand(command) {
-        if (command === 'fork-gist') {
+        if (command === 'save-new-gist') {
           Event.$emit('save-gist', true)
         } else if (command === 'github-login') {
           if (this.githubToken) {

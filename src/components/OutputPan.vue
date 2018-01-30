@@ -112,8 +112,8 @@ export default {
         ...style
       }
     })
-    Event.$on('save-gist', fork => {
-      this.saveGist({ token: this.githubToken, fork })
+    Event.$on('save-gist', saveNew => {
+      this.saveGist({ token: this.githubToken, saveNew })
     })
   },
   beforeDestroy() {
@@ -223,7 +223,7 @@ export default {
      * When you are not logged in (no github token) it saves as guest gist
      * Otherwise it creates or updates gist
      */
-    async saveGist({ token, fork } = {}) {
+    async saveGist({ token, saveNew } = {}) {
       this.editorSaving()
       try {
         const files = makeGist(
@@ -242,7 +242,7 @@ export default {
           // eslint-disable-next-line camelcase
           params.access_token = token
         }
-        const shouldUpdateGist = this.canUpdateGist && !fork
+        const shouldUpdateGist = this.canUpdateGist && !saveNew
         const url = `https://api.github.com/gists${
           shouldUpdateGist ?
           `/${this.$route.params.gist}` :
