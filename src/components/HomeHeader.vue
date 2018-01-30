@@ -117,7 +117,7 @@
             command="fork-gist"
             v-if="$route.name === 'gist' && isLoggedIn">
             <div class="fake-anchor">
-              <file-plus-icon></file-plus-icon> Fork Gist
+              <git-branch-icon></git-branch-icon> Fork Gist
             </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
@@ -159,8 +159,7 @@
   import notie from 'notie'
   import {
     GithubIcon,
-    FileIcon,
-    FilePlusIcon,
+    GitBranchIcon,
     Link2Icon,
     SaveIcon,
     TwitterIcon,
@@ -301,8 +300,7 @@
       'el-badge': Badge,
       'el-checkbox': Checkbox,
       GithubIcon,
-      FileIcon,
-      FilePlusIcon,
+      GitBranchIcon,
       Link2Icon,
       SaveIcon,
       TwitterIcon,
