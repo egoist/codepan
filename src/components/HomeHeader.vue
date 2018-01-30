@@ -85,13 +85,22 @@
         @click="runCode">
         Run
       </el-button>
+      <el-button
+        v-if="canUpdateGist"
+        :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload'"
+        size="mini"
+        plain
+        v-tippy="{title: 'Update this gist', position: 'bottom', arrow: true}"
+        class="home-header-right-item"
+        @click="updateGist">
+      </el-button>
       <el-dropdown
         v-if="!inIframe"
         class="home-header-right-item home-header-more"
         @command="handleDropdownCommand"
         trigger="click">
         <el-button
-          :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-more'"
+          :icon="!canUpdateGist && editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-more'"
           size="mini">
         </el-button>
         <el-dropdown-menu slot="dropdown">
@@ -109,11 +118,6 @@
           <el-dropdown-item command="save-gist">
             <div class="fake-anchor">
               <file-plus-icon></file-plus-icon> Save New Gist
-            </div>
-          </el-dropdown-item>
-          <el-dropdown-item v-tippy="{title: 'You can update this gist if you own it', position: 'left', arrow: true}" v-if="canUpdateGist" command="update-gist">
-            <div class="fake-anchor">
-              <save-icon></save-icon> Update Gist
             </div>
           </el-dropdown-item>
           <el-dropdown-item style="padding: 0;">
@@ -239,6 +243,9 @@
       runCode() {
         Event.$emit('run')
       },
+      updateGist() {
+        Event.$emit('save-gist', true)
+      },
       handleDropdownCommand(command) {
         if (command === 'save-gist') {
           if (this.githubToken) {
@@ -248,8 +255,6 @@
           }
         } else if (command === 'save-anonymous-gist') {
           Event.$emit('save-anonymous-gist')
-        } else if (command === 'update-gist') {
-          Event.$emit('save-gist', true)
         } else if (command === 'github-login') {
           if (this.githubToken) {
             this.$store.dispatch('setGitHubToken', null)
