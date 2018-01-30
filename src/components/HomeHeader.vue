@@ -90,7 +90,7 @@
         size="mini"
         plain
         :disabled="editorStatus === 'saving'"
-        :title="isLoggedIn ? 'Save Gist' : 'Save anonymous gist'"
+        :title="saveButtonTitle"
         v-tippy="{position: 'bottom'}"
         class="home-header-right-item"
         @click="saveGist">
@@ -115,6 +115,8 @@
           <el-dropdown-item
             :disabled="editorStatus === 'saving'"
             command="save-new-gist"
+            title="Create a new gist from editor"
+            v-tippy="{position: 'left',arrow: true}"
             v-if="canUpdateGist">
             <div class="fake-anchor">
               <git-branch-icon></git-branch-icon> Save new
@@ -192,6 +194,12 @@
           default:
             return 'el-icon-refresh'
         }
+      },
+      saveButtonTitle() {
+        if (this.isLoggedIn) {
+          return this.canUpdateGist ? 'Update this gist' : 'Create new gist'
+        }
+        return 'Save anonymous gist'
       }
     },
     mounted() {
