@@ -103,8 +103,9 @@
         @command="handleDropdownCommand"
         trigger="click">
         <el-button
-          icon="el-icon-more"
+          :icon="isLoggedIn ? '' : 'el-icon-more'"
           size="mini">
+          {{ isLoggedIn ? username : '' }}
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
@@ -183,7 +184,8 @@
     computed: {
       ...mapState(['visiblePans', 'githubToken', 'editorStatus', 'autoRun', 'iframeStatus']),
       ...mapState({
-        totalLogsCount: state => state.logs.length
+        totalLogsCount: state => state.logs.length,
+        username: state => state.userMeta && state.userMeta.login
       }),
       ...mapGetters(['isLoggedIn', 'canUpdateGist']),
       iframeStatusIcon() {
