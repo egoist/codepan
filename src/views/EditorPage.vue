@@ -135,11 +135,11 @@ export default {
 
     // Since in prevous versions we didn't fetch userMeta after login
     // We need to force user to re-login in order to get that data
-    if (this.$store.state.githubToken && !this.$store.state.userMeta) {
+    if (this.$store.state.githubToken && Object.keys(this.$store.state.userMeta).length === 0) {
       this.$store.dispatch('setGitHubToken', null)
         .then(() => {
           notie.alert({
-            type: 'success',
+            type: 'warning',
             text: `You need to login again to use the new version!`
           })
         })
