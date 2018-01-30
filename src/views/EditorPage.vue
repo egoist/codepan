@@ -133,6 +133,18 @@ export default {
       }
     })
 
+    // Since in prevous versions we didn't fetch userMeta after login
+    // We need to force user to re-login in order to get that data
+    if (this.$store.state.githubToken && !this.$store.state.userMeta) {
+      this.$store.dispatch('setGitHubToken', null)
+        .then(() => {
+          notie.alert({
+            type: 'success',
+            text: `You need to login again to use the new version!`
+          })
+        })
+    }
+
     Event.$on('show-compiled-code', type => {
       this.showCompiledCode[type] = true
     })
