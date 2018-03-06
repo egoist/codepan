@@ -1,6 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { loadBabel, loadPug, loadMarkdown, loadSvelte, loadReason, loadCoffeeScript2, loadCssnext, loadLess, loadSass } from '@/utils/transformer'
+import {
+  loadBabel,
+  loadPug,
+  loadMarkdown,
+  loadSvelte,
+  loadReason,
+  loadCoffeeScript2,
+  loadCssnext,
+  loadLess,
+  loadSass,
+  loadRust
+} from '@/utils/transformer'
 import progress from 'nprogress'
 import api from '@/utils/github-api'
 import req from 'reqjs'
@@ -62,7 +73,8 @@ const store = new Vuex.Store({
     gistMeta: {},
     userMeta: JSON.parse(localStorage.getItem('codepan:user-meta')) || {},
     editorStatus: 'saved',
-    iframeStatus: null
+    iframeStatus: null,
+    transforming: false
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -110,6 +122,9 @@ const store = new Vuex.Store({
     },
     SET_IFRAME_STATUS(state, status) {
       state.iframeStatus = status
+    },
+    SET_TRANSFORM(state, status) {
+      state.transforming = status
     }
   },
   actions: {
@@ -158,8 +173,13 @@ const store = new Vuex.Store({
         await loadLess()
       } else if (transformer === 'sass' || transformer === 'scss') {
         await loadSass()
+      } else if (transformer === 'rust') {
+        await loadRust()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
+    },
+    transform({ commit }, status) {
+      commit('SET_TRANSFORM', status)
     },
     // todo: simplify this action
     async setBoilerplate({ dispatch }, boilerplate) {

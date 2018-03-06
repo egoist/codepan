@@ -20,6 +20,7 @@
           <el-dropdown-item command="svelte">Svelte</el-dropdown-item>
           <el-dropdown-item command="hyperapp">Hyperapp</el-dropdown-item>
           <el-dropdown-item command="es-import">ES import</el-dropdown-item>
+          <el-dropdown-item command="rust">Rust</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button

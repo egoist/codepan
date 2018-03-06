@@ -19,7 +19,8 @@ export const getHumanlizedTransformerName = transformer => {
     less: 'LESS',
     typescript: 'TypeScript',
     sass: 'SASS',
-    scss: 'SCSS'
+    scss: 'SCSS',
+    rust: 'Rust'
   }
 
   return names[transformer] || transformer
@@ -42,7 +43,8 @@ export const getEditorModeByTransfomer = transformer => {
     less: 'text/x-less',
     typescript: 'text/typescript',
     sass: 'text/x-sass',
-    scss: 'text/x-scss'
+    scss: 'text/x-scss',
+    rust: 'rust'
   }
   return modes[transformer]
 }

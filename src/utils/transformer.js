@@ -74,6 +74,15 @@ async function loadMarkdown() {
   }
 }
 
+async function loadRust() {
+  if (!transformers.get('rust')) {
+    progress.start()
+    await import('codemirror/mode/rust/rust')
+    transformers.set('rust', true)
+    progress.done()
+  }
+}
+
 async function loadSvelte() {
   if (!transformers.get('svelte')) {
     progress.start()
@@ -152,5 +161,6 @@ export {
   loadCoffeeScript2,
   loadCssnext,
   loadLess,
-  loadSass
+  loadSass,
+  loadRust
 }

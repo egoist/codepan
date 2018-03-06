@@ -6,13 +6,13 @@
     <h2 class="modal-title">
       <repeat-icon class="svg-icon"></repeat-icon>
       Compiled with {{ transformerName }}</h2>
-    <highlight :mode="highlight">{{ transformedCode }}</highlight>
+    <highlight :mode="highlight">{{ transforming ? 'Compiling..' : transformedCode }}</highlight>
   </modal>
 </template>
 
 <script>
 import Modal from 'vue-slim-modal'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { RepeatIcon } from 'vue-feather-icons'
 import { getHumanlizedTransformerName } from '@/utils'
 import * as transform from '@/utils/transform'
@@ -29,7 +29,7 @@ export default {
   watch: {
     async show(show) {
       if (!show) return
-
+      await this.transform(true)
       try {
         this.transformedCode = await transform[this.type](this.code)
       } catch (err) {
@@ -37,9 +37,12 @@ export default {
         this.addLog({ type: 'error', message })
         this.transformedCode = message
       }
+      await this.$nextTick()
+      await this.transform(false)
     }
   },
   computed: {
+    ...mapState(['transforming']),
     source() {
       return this.$store.state[this.type]
     },
@@ -48,7 +51,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addLog'])
+    ...mapActions(['addLog', 'transform'])
   },
   components: {
     Modal,

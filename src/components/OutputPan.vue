@@ -128,7 +128,8 @@ export default {
       'editorSaved',
       'editorSaving',
       'editorSavingError',
-      'setIframeStatus'
+      'setIframeStatus',
+      'transform'
     ]),
     getHumanlizedTransformerName,
 
@@ -159,8 +160,26 @@ export default {
       let html
       let css
       const scripts = []
+
+      await this.transform(true)
+
       try {
-        js = await getScripts(await transform.js(this.js), scripts)
+        await Promise.all([
+          transform.js(this.js)
+            .then(code => getScripts(code, scripts))
+            .then(code => {
+              js = code
+            }),
+          transform.html(this.html)
+            .then(code => {
+              html = code
+            }),
+          transform.css(this.css)
+            .then(code => {
+              css = code
+            })
+        ])
+
         js = js.replace(/<\/script>/, '<\\/script>')
         js = `
           if (window.Vue) {
@@ -182,8 +201,6 @@ export default {
               )
             }
           };`
-        html = await transform.html(this.html)
-        css = await transform.css(this.css) // eslint-disable-line prefer-const
       } catch (err) {
         this.setIframeStatus('error')
         return this.addLog({
@@ -191,6 +208,8 @@ export default {
           message: err.frame ? `${err.message}\n${err.frame}` : err.stack
         })
       }
+
+      await this.transform(false)
 
       const headStyle = createElement('style')(css)
       const codePanRuntime = createElement('script')(`

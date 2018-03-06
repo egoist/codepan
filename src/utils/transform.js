@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { transformers } from '@/utils/transformer'
 
 const defaultPresets = [
@@ -62,6 +63,16 @@ export async function js({ code, transformer }) {
     return window.Babel.transform(esCode, {
       presets: [...defaultPresets, 'react']
     }).code
+  } else if (transformer === 'rust') {
+    const { data } = await axios.post('https://play.rust-lang.org/evaluate.json', {
+      code,
+      optimize: '0',
+      version: 'beta'
+    })
+    if (data.error) {
+      return data.error.trim()
+    }
+    return `console.log(${JSON.stringify(data.result.trim())})`
   }
   throw new Error(`Unknow transformer: ${transformer}`)
 }
