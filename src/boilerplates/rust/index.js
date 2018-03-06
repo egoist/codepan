@@ -1,10 +1,7 @@
-export default () => {
+export default async () => {
   return {
     js: {
-      code: `
-fn main() {
-    println!("hi");
-}`.trim(),
+      code: await import('!raw-loader!./codepan.rs'),
       transformer: 'rust'
     },
     showPans: ['js', 'console']
