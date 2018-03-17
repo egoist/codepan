@@ -204,7 +204,7 @@
         if (this.isLoggedIn) {
           return this.canUpdateGist ? 'Update this gist' : 'Create new gist'
         }
-        return 'Save anonymous gist'
+        return 'Login to save'
       }
     },
     mounted() {
@@ -254,6 +254,9 @@
         Event.$emit('run')
       },
       saveGist() {
+        if (!this.isLoggedIn) {
+          return this.githubLogin()
+        }
         Event.$emit('save-gist')
       },
       handleDropdownCommand(command) {
@@ -264,7 +267,7 @@
             this.$store.dispatch('setGitHubToken', null)
             notie.alert({
               type: 'success',
-              text: `Done, now you can only store GitHub Gist anonymously!`
+              text: `Done, you've been successfully logged out!`
             })
           } else {
             this.githubLogin()
