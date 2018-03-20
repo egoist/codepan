@@ -177,7 +177,6 @@ const store = new Vuex.Store({
         await loadRust()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
-      Event.$emit('run')
     },
     transform({ commit }, status) {
       commit('SET_TRANSFORM', status)
