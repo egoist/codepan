@@ -7,7 +7,7 @@ const cdns = {
   PUG_CDN: 'https://cdn.jsdelivr.net/npm/browserified-pug@0.3.0/index.js',
   CSSNEXT_CDN: 'https://cdn.jsdelivr.net/npm/browserified-postcss-cssnext@0.3.0/index.js',
   POSTCSS_CDN: 'https://cdn.jsdelivr.net/npm/browserified-postcss@0.3.0/index.js',
-  TYPESCRIPT_CDN: 'https://cdn.jsdelivr.net/npm/browserified-typescript@0.3.0/index.js',
+  TYPESCRIPT_CDN: 'https://cdn.jsdelivr.net/npm/browserified-typescript@0.3.0/index.js'
 }
 
 module.exports = {
