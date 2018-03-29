@@ -96,10 +96,7 @@ async function loadReason() {
   if (loadjs.isDefined('reason')) return
 
   progress.start()
-  await asyncLoad([
-    '/vendor/reason/bs.js',
-    '/vendor/reason/refmt.js'
-  ], 'reason')
+  await asyncLoad(['/vendor/reason/bs.js', '/vendor/reason/refmt.js'], 'reason')
   progress.done()
 }
 
@@ -108,11 +105,14 @@ async function loadCoffeeScript2() {
 
   progress.start()
   await Promise.all([
-    asyncLoad([
-      '/vendor/coffeescript-2.js',
-      // Need babel to transform JSX
-      process.env.BABEL_CDN
-    ], 'coffeescript-2'),
+    asyncLoad(
+      [
+        '/vendor/coffeescript-2.js',
+        // Need babel to transform JSX
+        process.env.BABEL_CDN
+      ],
+      'coffeescript-2'
+    ),
     import('codemirror/mode/coffeescript/coffeescript')
   ])
   progress.done()
@@ -122,10 +122,7 @@ async function loadCssnext() {
   if (loadjs.isDefined('cssnext')) return
 
   progress.start()
-  await asyncLoad([
-    process.env.CSSNEXT_CDN,
-    process.env.POSTCSS_CDN
-  ], 'cssnext')
+  await asyncLoad([process.env.CSSNEXT_CDN, process.env.POSTCSS_CDN], 'cssnext')
   progress.done()
 }
 
@@ -151,6 +148,14 @@ async function loadSass() {
   }
 }
 
+async function loadTypescript() {
+  if (loadjs.isDefined('typescript')) return
+
+  progress.start()
+  await asyncLoad([process.env.TYPESCRIPT_CDN], 'typescript')
+  progress.done()
+}
+
 export {
   loadBabel,
   loadPug,
@@ -162,5 +167,6 @@ export {
   loadCssnext,
   loadLess,
   loadSass,
-  loadRust
+  loadRust,
+  loadTypescript
 }

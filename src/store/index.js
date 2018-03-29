@@ -10,7 +10,8 @@ import {
   loadCssnext,
   loadLess,
   loadSass,
-  loadRust
+  loadRust,
+  loadTypescript
 } from '@/utils/transformer'
 import progress from 'nprogress'
 import api from '@/utils/github-api'
@@ -152,7 +153,6 @@ const store = new Vuex.Store({
     async updateTransformer({ commit }, { type, transformer }) {
       if (
         transformer === 'babel' ||
-        transformer === 'typescript' ||
         transformer === 'jsx' || // @deprecated, use "babel"
         transformer === 'vue-jsx'
       ) {
@@ -175,6 +175,8 @@ const store = new Vuex.Store({
         await loadSass()
       } else if (transformer === 'rust') {
         await loadRust()
+      } else if (transformer === 'typescript') {
+        await loadTypescript()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

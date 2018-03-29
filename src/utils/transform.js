@@ -24,9 +24,15 @@ export async function js({ code, transformer }) {
       presets: [...defaultPresets, 'flow', 'react']
     }).code
   } else if (transformer === 'typescript') {
-    return window.Babel.transform(code, {
-      presets: [...defaultPresets, 'typescript', 'react']
-    }).code
+    const res = window.typescript.transpileModule(code, {
+      fileName: '/foo.ts',
+      reportDiagnostics: true,
+      compilerOptions: {
+        module: 'es2015'
+      }
+    })
+    console.log(res)
+    return res.outputText
   } else if (transformer === 'vue-jsx') {
     return window.Babel.transform(code, {
       presets: [...defaultPresets, 'flow', transformers.get('VuePreset')]
