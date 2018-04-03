@@ -20,7 +20,8 @@ export const getHumanlizedTransformerName = transformer => {
     typescript: 'TypeScript',
     sass: 'SASS',
     scss: 'SCSS',
-    rust: 'Rust'
+    rust: 'Rust',
+    stylus: 'Stylus'
   }
 
   return names[transformer] || transformer
@@ -44,7 +45,8 @@ export const getEditorModeByTransfomer = transformer => {
     typescript: 'text/typescript',
     sass: 'text/x-sass',
     scss: 'text/x-scss',
-    rust: 'rust'
+    rust: 'rust',
+    stylus: 'text/x-styl'
   }
   return modes[transformer]
 }

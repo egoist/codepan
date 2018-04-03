@@ -11,7 +11,8 @@ import {
   loadLess,
   loadSass,
   loadRust,
-  loadTypescript
+  loadTypescript,
+  loadStylus
 } from '@/utils/transformer'
 import progress from 'nprogress'
 import api from '@/utils/github-api'
@@ -177,6 +178,8 @@ const store = new Vuex.Store({
         await loadRust()
       } else if (transformer === 'typescript') {
         await loadTypescript()
+      } else if (transformer === 'stylus') {
+        await loadStylus()
       }
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },

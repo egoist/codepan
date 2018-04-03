@@ -15,6 +15,7 @@
           <el-dropdown-item command="less">LESS</el-dropdown-item>
           <el-dropdown-item command="sass">SASS</el-dropdown-item>
           <el-dropdown-item command="scss">SCSS</el-dropdown-item>
+          <el-dropdown-item command="stylus">Stylus</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <div class="pan-head-right">

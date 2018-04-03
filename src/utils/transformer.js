@@ -140,7 +140,7 @@ async function loadSass() {
     progress.start()
     const [Sass] = await Promise.all([
       import('../../static/vendor/sass/sass'),
-      import('codemirror/mode/sass/sass.js')
+      import(/* webpackChunkName: "codemirror-mode" */ 'codemirror/mode/sass/sass.js')
     ])
     Sass.setWorkerUrl('/vendor/sass/sass.worker.js')
     transformers.set('sass', new Sass())
@@ -156,6 +156,17 @@ async function loadTypescript() {
   progress.done()
 }
 
+async function loadStylus() {
+  if (loadjs.isDefined('stylus')) return
+
+  progress.start()
+  await Promise.all([
+    import(/* webpackChunkName: "codemirror-mode" */ 'codemirror/mode/stylus/stylus'),
+    asyncLoad('/vendor/stylus.js', 'stylus')
+  ])
+  progress.done()
+}
+
 export {
   loadBabel,
   loadPug,
@@ -168,5 +179,6 @@ export {
   loadLess,
   loadSass,
   loadRust,
-  loadTypescript
+  loadTypescript,
+  loadStylus
 }

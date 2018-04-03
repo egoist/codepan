@@ -118,6 +118,13 @@ export async function css({ code, transformer }) {
           reject(new Error(result.formatted))
         })
       })
+    case 'stylus':
+      return new Promise((resolve, reject) => {
+        window.stylus.render(code, { filename: 'codepan.styl' }, (err, css) => {
+          if (err) return reject(err)
+          resolve(css)
+        })
+      })
     default:
       throw new Error(`Unknow transformer: ${transformer}`)
   }
