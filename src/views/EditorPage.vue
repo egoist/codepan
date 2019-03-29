@@ -33,6 +33,10 @@
       <console-pan class="pan" v-show="isVisible('console')" />
       <output-pan class="pan" v-show="isVisible('output')" />
     </div>
+
+    <div ref="codefund">
+      <div class="codefund-placeholder">Loading CodeFund...</div>
+    </div>
   </div>
 </template>
 
@@ -41,6 +45,7 @@ import progress from 'nprogress'
 import { mapState, mapActions } from 'vuex'
 import notie from 'notie'
 import isElectron from 'is-electron'
+import axios from 'axios'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
 import HomeHeader from '@/components/HomeHeader.vue'
@@ -148,6 +153,8 @@ export default {
     Event.$on('show-compiled-code', type => {
       this.showCompiledCode[type] = true
     })
+
+    this.getCodeFund()
   },
   methods: {
     ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
@@ -171,6 +178,10 @@ export default {
           })
         }
       }
+    },
+    async getCodeFund() {
+      const res = await axios.get('https://codefund.app/properties/241/funder.html')
+      this.$refs.codefund.innerHTML = res.data
     }
   },
   beforeDestroy() {
@@ -197,7 +208,7 @@ export default {
 
 <style lang="stylus" scoped>
 .pans
-  height: calc(100% - 40px)
+  height: calc(100% - 40px - 40px)
   display: flex
   position: relative
 
@@ -245,4 +256,17 @@ export default {
 .page.readonly
   .CodeMirror-cursor
     display: none !important
+
+.cf-wrapper
+  height: 40px
+  line-height: 40px !important
+  z-index: 9999 !important
+  padding: 0 10px !important
+
+.codefund-placeholder
+  height: 40px
+  line-height 40px
+  border-top: 1px solid #ccc
+  text-align: center
+  padding: 0 10px
 </style>
