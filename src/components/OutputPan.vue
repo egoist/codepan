@@ -193,7 +193,7 @@ export default {
               '*'
             )
           }
-        `;
+        `
         js = `
           if (window.Vue) {
             window.Vue.config.productionTip = false;
