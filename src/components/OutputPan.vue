@@ -182,6 +182,19 @@ export default {
 
         js = js.replace(/<\/script>/, '<\\/script>')
         js = `
+          try {
+            ${js}
+          } catch (err) {
+            window.parent.postMessage(
+              {
+                type: 'iframe-error',
+                message: err instanceof Error ? (err.frame ? err.message + '\\n' + err.frame : err.stack) : err
+              },
+              '*'
+            )
+          }
+        `
+        js = `
           if (window.Vue) {
             window.Vue.config.productionTip = false;
           }
@@ -189,17 +202,9 @@ export default {
           document.addEventListener('DOMContentLoaded', __executeCodePan);
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
-            try {
-              ${js}
-            } catch (err) {
-              window.parent.postMessage(
-                {
-                  type: 'iframe-error',
-                  message: err.frame ? err.message + '\\n' + err.frame : err.stack
-                },
-                '*'
-              )
-            }
+            let script = document.createElement('script');
+            script.innerHTML = ${JSON.stringify(js)};
+            document.body.appendChild(script);
           };`
       } catch (err) {
         this.setIframeStatus('error')
