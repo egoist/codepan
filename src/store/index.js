@@ -18,6 +18,7 @@ import progress from 'nprogress'
 import api from '@/utils/github-api'
 import req from 'reqjs'
 import Event from '@/utils/event'
+import { visiblePans } from './iframe'
 
 Vue.use(Vuex)
 
@@ -68,7 +69,7 @@ const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: ['html', 'js', 'output'],
+    visiblePans: visiblePans || ['html', 'js', 'output'],
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
