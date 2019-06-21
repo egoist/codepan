@@ -169,6 +169,31 @@
       return newArgs
     }
 
+    /**
+     * Add colors for console string or fallback on stringifyArgs for non-string types
+     */
+    const handleArgs = function (args) {
+      if (!args || args.length === 0) return []
+
+      const string = args[0]
+      if (typeof string !== 'string') {
+        return stringifyArgs(args)
+      }
+
+      const textArray = string.split('%c')
+      const colors = textArray.length - 1
+      if (!colors) return [string]
+
+      const styleArray = []
+      for (let argIndex = 1; argIndex < args.length; argIndex++) {
+        styleArray.push(args[argIndex])
+      }
+
+      return textArray.map((text, index) => {
+        return index ? `<span style="${styleArray.shift()}">${text}</span>` : text
+      })
+    }
+
     // Create each of these methods on the proxy, and postMessage up to JS Bin
     // when one is called.
     const methods = (ProxyConsole.prototype.methods = [
@@ -204,7 +229,7 @@
       ProxyConsole.prototype[method] = function () {
         // Replace args that can't be sent through postMessage
         const originalArgs = [].slice.call(arguments)
-        const args = stringifyArgs(originalArgs)
+        const args = handleArgs(originalArgs)
 
         // Post up with method and the arguments
         window.parent.postMessage(
