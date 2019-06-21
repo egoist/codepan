@@ -182,7 +182,7 @@
 
       const textArray = string.split('%c')
       const colors = textArray.length - 1
-      if (!colors) return [string]
+      if (!colors || (colors === 1 && !textArray[1])) return [string]
 
       const styleArray = []
       for (let argIndex = 1; argIndex < args.length; argIndex++) {
