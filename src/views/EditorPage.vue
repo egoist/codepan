@@ -180,7 +180,7 @@ export default {
       }
     },
     async getCodeFund() {
-      const res = await axios.get('https://codefund.app/properties/241/funder.html')
+      const res = await axios.get('https://codefund.io/properties/241/funder.html')
       this.$refs.codefund.innerHTML = res.data
     }
   },
