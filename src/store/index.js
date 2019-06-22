@@ -18,7 +18,6 @@ import progress from 'nprogress'
 import api from '@/utils/github-api'
 import req from 'reqjs'
 import Event from '@/utils/event'
-import { visiblePans } from './iframe'
 
 Vue.use(Vuex)
 
@@ -69,7 +68,7 @@ const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: visiblePans || ['html', 'js', 'output'],
+    visiblePans: ['html', 'js', 'output'],
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
@@ -150,6 +149,7 @@ const store = new Vuex.Store({
       commit('TOGGLE_PAN', payload)
     },
     showPans({ commit }, pans) {
+      if (pans == null) return
       commit('SHOW_PANS', pans)
     },
     async updateTransformer({ commit }, { type, transformer }) {

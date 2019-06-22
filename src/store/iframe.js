@@ -1,3 +1,5 @@
+import store from '@/store/index.js'
+
 // lets you specify what tabs are to be opened on init, and what width they should be
 // 1 is just on of equal/standard width, and 50 is 50% width
 const pans = ['html', 'css', 'js', 'console', 'output']
@@ -13,7 +15,7 @@ const paramsO = params.reduce((a, x) => {
 
 const selected = pans.filter(x => Boolean(paramsO[x]))
 const visiblePans = nulify(selected.length ? selected : null)
-
+store.dispatch('showPans', visiblePans)
 const sorted = pans.map(x => paramsO[x]).filter(x => x)
 const sortedNames = pans.filter(x => paramsO[x])
 const sortLen = sorted.length
