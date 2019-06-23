@@ -8,7 +8,7 @@ function createSprite() {
 }
 
 function createApp() {
-  return new window['pixi-tiled-utils'].FullscreenApplication(tick)
+  return new tiledUtils.FullscreenApplication(tick)
 }
 
 function tick(time) {
