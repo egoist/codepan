@@ -1,19 +1,19 @@
-window.app = new window['pixi-tiled-utils'].TiledApplication()
+const sprite = createSprite()
+const app = createApp()
 
-const json = 'https://www.vikingsvillage.io/game/assets/json/island_kible_22.json'
-const tileset = 'https://www.vikingsvillage.io/game/assets/img/Viking3.png'
-const loader = new PIXI.Loader()
+function createSprite() {
+  const sprite = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/bunny.png')
+  sprite.anchor.set(0.5)
+  return sprite
+}
 
-loader.add('resource', tileset).load((loader, { resource }) => {
+function createApp() {
+  return new window['pixi-tiled-utils'].FullscreenApplication(tick)
+}
 
-  window.app.createTiles({
-    tilewidth: 42,
-    tileheight: 42,
-    offset: 1,
-    texture: resource.texture
-  })
+function tick(time) {
+  sprite.position.set(innerWidth / 2, innerHeight / 2)
+  sprite.rotation = time / 100
+}
 
-  window.app.createWorld(json, tileset, 42, ['Domek', 'Kibel', 'Bees', 'Thor', 'Meat'], ['Spawn']).then(() => {
-    console.log('game ready')
-  })
-})
+app.stage.addChild(sprite)
