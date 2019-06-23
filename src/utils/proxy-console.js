@@ -170,28 +170,47 @@
     }
 
     /**
-     * Add colors for console string or fallback on stringifyArgs for non-string types
+     * Add colors for console string
+     */
+    const styleText = function (textArray, styles) {
+      return textArray.map((text, index) => {
+        return index ? `<span style="${styles.shift()}">${text}</span>` : text
+      })
+    }
+
+    /**
+     * Add string replace for console string
+     */
+    const replaceText = function (text, texts) {
+      let output = text
+      while (output.indexOf('%s') !== -1) {
+        output = output.replace('%s', texts.shift())
+      }
+      return output
+    }
+
+    /**
+     * Add colors/string replace for console string or fallback on stringifyArgs for non-string types
      */
     const handleArgs = function (args) {
       if (!args || args.length === 0) return []
 
-      const string = args[0]
-      if (typeof string !== 'string') {
+      if (typeof args[0] !== 'string') {
         return stringifyArgs(args)
       }
 
-      const textArray = string.split('%c')
-      const colors = textArray.length - 1
-      if (!colors || (colors === 1 && !textArray[1])) return [string]
-
-      const styleArray = []
-      for (let argIndex = 1; argIndex < args.length; argIndex++) {
-        styleArray.push(args[argIndex])
+      const replacements = args[0].match(/(%[sc])([^%]*)/gm)
+      const texts = []
+      const styles = []
+      for (let i = 1; i < args.length; i++) {
+        switch (replacements.shift().substr(0, 2)) {
+          case '%s': texts.push(args[i]); break
+          case '%c': styles.push(args[i]); break
+        }
       }
 
-      return textArray.map((text, index) => {
-        return index ? `<span style="${styleArray.shift()}">${text}</span>` : text
-      })
+      const replaced = replaceText(args[0], texts)
+      return styleText(replaced.split('%c'), styles)
     }
 
     // Create each of these methods on the proxy, and postMessage up to JS Bin
