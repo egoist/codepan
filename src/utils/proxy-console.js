@@ -204,8 +204,11 @@
       const styles = []
       for (let i = 1; i < args.length; i++) {
         switch (replacements.shift().substr(0, 2)) {
-          case '%s': texts.push(args[i]); break
-          case '%c': styles.push(args[i]); break
+          case '%s': texts.push(args[i])
+            break
+          case '%c': styles.push(args[i])
+            break
+          default:
         }
       }
 
