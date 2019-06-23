@@ -354,11 +354,11 @@
   height: 28px
 
 .pan-toggles
-  box-shadow: 0 0 1px rgba(0,0,0,0.15) inset
   display: flex
   justify-content: center
 
   .pan-toggle
+    box-shadow: 0 0 1px rgba(0,0,0,0.15) inset
     display: flex
     align-items: center
     height: 100%
