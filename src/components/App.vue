@@ -21,13 +21,48 @@ html, body, #app, .page
   height: 100%
 
 body
+  font-family: Tahoma, Verdana, Arial, sans-serif !important
   background-color: #f9f9f9
   margin: 0
   font-size: 14px
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
 
 *
   box-sizing: border-box
+
+.el-checkbox__label
+.el-badge
+  font-size: 1em !important
+
+.el-button
+.el-checkbox
+  box-shadow: 0 0 1px rgba(0,0,0,0.15) inset
+  font-family: Tahoma, Verdana, Arial, sans-serif !important
+  font-size: 14px !important
+  border-radius: 0 !important
+  border: none !important
+  line-height: 40px
+  padding: 10px !important
+  height: 40px !important
+  margin: 0 !important
+
+  i + span:not(:empty)
+    margin-left: 5px !important
+
+.home-header
+  i[class*=" el-icon-"]
+  i[class^="el-icon-"]
+    font-size: 1.5em !important
+    vertical-align: middle
+    margin-top: -1px 
+    margin-bottom: 1px
+
+.el-checkbox__inner
+  width: 15px !important
+  height: 15px !important
+
+.el-checkbox__inner::after
+  height: 8px !important
+  width: 4px !important
 
 pre
   padding: 16px
@@ -82,4 +117,16 @@ pre > code
 
 .notie-overlay
   z-index: 9900
+
+@media screen and (max-width: 768px)
+  .home-header-block
+    .el-button
+      span
+        display: none !important
+
+  .el-message-box
+    max-width: 100%
+
+  .el-dropdown-menu
+    z-index: 9999
 </style>

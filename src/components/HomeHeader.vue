@@ -26,7 +26,6 @@
       <el-button
         v-if="!inIframe"
         class="home-header-left-item"
-        style="margin-right:0"
         icon="el-icon-plus"
         @click="promptLibrary"
         size="mini">
@@ -106,9 +105,7 @@
         trigger="click">
         <el-button
           :icon="isLoggedIn ? '' : 'el-icon-more'"
-          size="mini">
-          {{ isLoggedIn ? username : '' }}
-        </el-button>
+          size="mini">{{ isLoggedIn ? username : '' }}</el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="github-login">
             <div class="fake-anchor">
@@ -197,7 +194,7 @@
           case 'error':
             return 'el-icon-warning'
           default:
-            return 'el-icon-refresh'
+            return 'el-icon-caret-right'
         }
       },
       saveButtonTitle() {
@@ -329,30 +326,27 @@
 
 <style lang="stylus" scoped>
 .home-header
-  height: 40px;
+  font-family: Tahoma, Verdana, Arial, sans-serif !important
   border-bottom: 1px solid #bfbfbf
   background-color: white
   display: flex
   align-items: center
-  padding: 0 10px
+  padding: 0
   justify-content: space-between
+
+.home-header-middle
+  height: 40px
 
 .home-header-block
   flex: 1
-  width: 0
 
 .home-header-left
   display: flex
-  justify-content: flex-start
-  .home-header-left-item
-    margin-right: 10px
 
 .home-header-right
   display: flex
   justify-content: flex-end
   align-items: center
-  .home-header-right-item
-    margin-left: 10px
 
 .changelog-indicator
   display: flex
@@ -360,9 +354,9 @@
   height: 28px
 
 .pan-toggles
+  box-shadow: 0 0 1px rgba(0,0,0,0.15) inset
   display: flex
   justify-content: center
-  height: 100%
 
   .pan-toggle
     display: flex
@@ -398,9 +392,17 @@
     width: 16px
     height: @width
 
-@media screen and (max-width: 768px)
-  .home-header-left
-    display: none
+@media screen and (max-width: 400px)
+  .home-header
+    flex-direction: column
+
+    .home-header-block
+      justify-content: center !important
+
   .pan-toggles
     justify-content: left
+
+
+  .changelog-indicator:empty
+    display: none !important
 </style>

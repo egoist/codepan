@@ -83,7 +83,7 @@
     "codemirror": "^5.28.0",
     "codemirror-emmet": "^1.0.0",
     "debounce": "^1.0.2",
-    "element-ui": "^2.0.11",
+    "element-ui": "^2.9.2",
     "is-electron": "^2.1.0",
     "loadjs": "^3.5.1",
     "marked3": "^0.5.1",
