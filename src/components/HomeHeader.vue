@@ -400,8 +400,11 @@
     height: @width
 
 @media screen and (max-width: 400px)
+  body
+    font-size: 12px
+
   .home-header
-    flex-direction: column
+    flex-wrap: wrap
 
     .home-header-block
       justify-content: center !important
