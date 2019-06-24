@@ -351,7 +351,14 @@
 .changelog-indicator
   display: flex
   align-items: center
-  height: 28px
+  height: 40px
+
+.changelog-indicator:not(:empty)
+  padding: 0 5px
+
+.changelog-indicator > span
+    height: 40px !important
+    vertical-align: top
 
 .pan-toggles
   display: flex
@@ -401,8 +408,4 @@
 
   .pan-toggles
     justify-content: left
-
-
-  .changelog-indicator:empty
-    display: none !important
 </style>
