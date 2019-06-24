@@ -65,6 +65,7 @@
       }
       // Not in iframe
       if (window.self === window.top) {
+        document.querySelector(HW_config.selector).style.display = 'inline-block'
         var headwayScript = document.createElement('script')
         headwayScript.src = 'https://cdn.headwayapp.co/widget.js'
         headwayScript.async = true
