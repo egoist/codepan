@@ -23,7 +23,7 @@
         class="console-log cm-s-default"
         :class="`console-log-${log.type}`"
         :key="index"
-        v-html="highlight(log.message)"
+        v-html="log.message"
         v-for="(log, index) in logs">
       </div>
     </div>
@@ -37,7 +37,6 @@
   import panPosition from '@/utils/pan-position'
   import PanResizer from '@/components/PanResizer.vue'
   import { hasNextPan } from '@/utils'
-  import CodeMirror from 'codemirror'
   import '@/utils/highlight'
   import Event from '@/utils/event'
 
@@ -79,10 +78,7 @@
       }
     },
     methods: {
-      ...mapActions(['clearLogs', 'setActivePan']),
-      highlight(value) {
-        return CodeMirror.highlight(value, { mode: 'javascript' })
-      }
+      ...mapActions(['clearLogs', 'setActivePan'])
     },
     components: {
       'el-badge': Badge,

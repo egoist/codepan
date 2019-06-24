@@ -169,6 +169,53 @@
       return newArgs
     }
 
+    /**
+     * Add colors for console string
+     */
+    const styleText = function (textArray, styles) {
+      return textArray.map((text, index) => {
+        return index ? `<span style="${styles.shift()}">${text}</span>` : text
+      })
+    }
+
+    /**
+     * Add string replace for console string
+     */
+    const replaceText = function (text, texts) {
+      let output = text
+      while (output.indexOf('%s') !== -1) {
+        output = output.replace('%s', texts.shift())
+      }
+      return output
+    }
+
+    /**
+     * Add colors/string replace for console string or fallback on stringifyArgs for non-string types
+     */
+    const handleArgs = function (args) {
+      if (!args || args.length === 0) return []
+
+      if (typeof args[0] !== 'string') {
+        return stringifyArgs(args)
+      }
+
+      const replacements = args[0].match(/(%[sc])([^%]*)/gm)
+      const texts = []
+      const styles = []
+      for (let i = 1; i < args.length; i++) {
+        switch (replacements.shift().substr(0, 2)) {
+          case '%s': texts.push(args[i])
+            break
+          case '%c': styles.push(args[i])
+            break
+          default:
+        }
+      }
+
+      const replaced = replaceText(args[0], texts)
+      return styleText(replaced.split('%c'), styles)
+    }
+
     // Create each of these methods on the proxy, and postMessage up to JS Bin
     // when one is called.
     const methods = (ProxyConsole.prototype.methods = [
@@ -204,7 +251,7 @@
       ProxyConsole.prototype[method] = function () {
         // Replace args that can't be sent through postMessage
         const originalArgs = [].slice.call(arguments)
-        const args = stringifyArgs(originalArgs)
+        const args = handleArgs(originalArgs)
 
         // Post up with method and the arguments
         window.parent.postMessage(
