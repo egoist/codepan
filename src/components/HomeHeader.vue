@@ -399,7 +399,7 @@
     width: 16px
     height: @width
 
-@media screen and (max-width: 400px)
+@media screen and (max-width: 768px)
   body
     font-size: 12px
 
