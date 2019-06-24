@@ -7,7 +7,7 @@ export default async () => {
   return {
     js: {
       code: jsCode,
-      transformer: 'vue-jsx'
+      transformer: 'js'
     },
     html: {
       code: htmlCode,
