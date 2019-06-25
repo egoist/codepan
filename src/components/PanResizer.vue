@@ -10,6 +10,7 @@ export default {
   props: ['enable', 'pan'],
   data() {
     return {
+      panMoveTolerance: 4,
       resizing: false,
       originalNextPanTop: null,
       originalNextPanBottom: null,
@@ -73,10 +74,12 @@ export default {
     handleMouseMove(e) {
       e.preventDefault()
       if (this.resizing) {
-        const newNextPanTop = (e.clientY / window.innerHeight) * 100
+        const landscape = (window.innerWidth > window.innerHeight)
+        const correction = landscape ? 0 : 64
+        const newNextPanTop = (e.clientY / (window.innerHeight - correction)) * 100
         if (
-          newNextPanTop - this.originalCurrentPanTop > 5 &&
-          100 - newNextPanTop - this.originalNextPanBottom > 5
+          newNextPanTop - this.originalCurrentPanTop > this.panMoveTolerance &&
+          100 - newNextPanTop - this.originalNextPanBottom > this.panMoveTolerance
         ) {
           this.updateNextPan({ top: `${newNextPanTop}%` })
           const newCurrentPanBottom =
