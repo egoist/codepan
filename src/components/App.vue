@@ -232,10 +232,6 @@ span:empty {
   max-width: 420px;
 }
 
-#cf {
-  display: none;
-}
-
 @media (orientation: landscape) {
   header {
     overflow-y: auto;
@@ -274,6 +270,10 @@ span:empty {
 }
 
 @media (max-width: 800px), (max-height: 600px) {
+  #cf {
+    display: none;
+  }
+
   body {
     font-size: 12px;
   }
