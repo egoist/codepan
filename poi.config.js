@@ -1,6 +1,7 @@
+const { execSync } = require('child_process')
 const nodeModules = require('webpack-node-modules')
-const repoLatestCommit = require('repo-latest-commit')
 const pkg = require('./package')
+const LATEST_COMMIT = execSync('git rev-parse HEAD', { encoding: 'utf8' }).slice(0, 7)
 
 const cdns = {
   BABEL_CDN: 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.0.0-beta.32/babel.min.js',
@@ -29,10 +30,13 @@ module.exports = {
   },
   hash: false,
   homepage: '/',
-  env: Object.assign({
-    VERSION: `v${pkg.version}-${repoLatestCommit().commit.slice(0, 7)}`,
-    LATEST_COMMIT: repoLatestCommit().commit.slice(0, 7)
-  }, cdns),
+  env: Object.assign(
+    {
+      VERSION: `v${pkg.version}-LATEST_COMMIT}`,
+      LATEST_COMMIT
+    },
+    cdns
+  ),
   presets: [
     require('poi-preset-bundle-report')(),
     require('poi-preset-babel-minify')(),
