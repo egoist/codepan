@@ -11,10 +11,10 @@ export default {
   data() {
     return {
       resizing: false,
-      originalNextPanLeft: null,
-      originalNextPanRight: null,
-      originalCurrentPanRight: null,
-      originalCurrentPanLeft: null,
+      originalNextPanTop: null,
+      originalNextPanBottom: null,
+      originalCurrentPanBottom: null,
+      originalCurrentPanTop: null,
       currentPan: null,
       nextPan: null
     }
@@ -44,13 +44,13 @@ export default {
       this.resizing = true
       this.currentPan = this.$refs.resizer.parentNode
       this.nextPan = this.getNextVisiblePan(this.currentPan)
-      this.originalNextPanLeft = parseFloat(this.nextPan.style.left)
-      this.originalNextPanRight = parseFloat(this.nextPan.style.right)
-      this.originalCurrentPanRight = parseFloat(this.currentPan.style.right)
-      this.originalCurrentPanLeft = parseFloat(this.currentPan.style.left)
+      this.originalNextPanTop = parseFloat(this.nextPan.style.top)
+      this.originalNextPanBottom = parseFloat(this.nextPan.style.bottom)
+      this.originalCurrentPanBottom = parseFloat(this.currentPan.style.bottom)
+      this.originalCurrentPanTop = parseFloat(this.currentPan.style.top)
 
-      document.addEventListener('mousemove', this.handleMouseMove)
-      document.addEventListener('mouseup', this.handleMouseUp)
+      document.addEventListener('pointermove', this.handleMouseMove)
+      document.addEventListener('pointerup', this.handleMouseUp)
 
       this.currentPan.parentNode.classList.add('resizing')
       document
@@ -60,8 +60,8 @@ export default {
     handleMouseUp() {
       this.resizing = false
 
-      document.removeEventListener('mousemove', this.handleMouseMove)
-      document.removeEventListener('mouseup', this.handleMouseUp)
+      document.removeEventListener('pointermove', this.handleMouseMove)
+      document.removeEventListener('pointerup', this.handleMouseUp)
 
       this.currentPan.parentNode.classList.remove('resizing')
       document
@@ -71,18 +71,18 @@ export default {
       Event.$emit('refresh-editor', { run: false })
     },
     handleMouseMove(e) {
+      e.preventDefault()
       if (this.resizing) {
-        e.preventDefault()
-        const newNextPanLeft = (e.clientX / window.innerWidth) * 100
+        const newNextPanTop = (e.clientY / window.innerHeight) * 100
         if (
-          newNextPanLeft - this.originalCurrentPanLeft > 5 &&
-          100 - newNextPanLeft - this.originalNextPanRight > 5
+          newNextPanTop - this.originalCurrentPanTop > 5 &&
+          100 - newNextPanTop - this.originalNextPanBottom > 5
         ) {
-          this.updateNextPan({ left: `${newNextPanLeft}%` })
-          const newCurrentPanRight =
-            this.originalCurrentPanRight -
-            (newNextPanLeft - this.originalNextPanLeft)
-          this.updateCurrentPan({ right: `${newCurrentPanRight}%` })
+          this.updateNextPan({ top: `${newNextPanTop}%` })
+          const newCurrentPanBottom =
+            this.originalCurrentPanBottom -
+            (newNextPanTop - this.originalNextPanTop)
+          this.updateCurrentPan({ bottom: `${newCurrentPanBottom}%` })
         }
       }
     }
@@ -92,17 +92,18 @@ export default {
 
 <style lang="stylus" scoped>
 .pan-resizer {
-  width: 5px;
   position: absolute;
-  height: 100%;
-  top: 0;
+  left: 0;
   right: 0;
-  border-right: 1px solid #e2e2e2;
+  bottom: 0;
+  border-bottom: 1px solid #e2e2e2;
+  border-top: 3px solid transparent;
+  height: 1px;
   z-index: 1000;
 
   &.enable:hover {
-    cursor: move;
-    border-right: 1px dashed #39f;
+    cursor: ns-resize;
+    border-bottom: 1px dashed #39f;
   }
 }
 </style>

@@ -283,7 +283,7 @@ span:empty {
     padding: 6px;
   }
 
-  .compiled-code-dialog  {
+  .compiled-code-dialog {
     max-height: calc(100% - 20px);
     top: 10px !important;
   }

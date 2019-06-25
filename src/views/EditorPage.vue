@@ -221,8 +221,8 @@ export default {
 .pan {
   background-color: #f9f9f9;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  left: 0;
+  right: 0;
   overflow: auto;
 
   &.active-pan {
