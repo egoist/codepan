@@ -36,13 +36,14 @@ export default {
 <style lang="stylus" scoped>
 .home-header {
   font-family: Arial, sans-serif !important;
-  border-bottom: 1px solid #bfbfbf;
   background-color: white;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
   padding: 0;
-  justify-content: space-between;
+  border-bottom: 1px solid silver;
+  align-items: center;
+  justify-content: center;
 
   .changelog-indicator {
     display: none;
@@ -50,8 +51,10 @@ export default {
 }
 
 .home-header > * {
-  flex-grow: 1;
-  flex-shrink: 1;
-  text-align: center;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 </style>

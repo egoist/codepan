@@ -99,34 +99,54 @@ pre > code {
   z-index: 9900;
 }
 
-header, .run-buttons {
-  display: flex;
-  flex-wrap: wrap;
+header > * {
+  height: 100%;
+}
 
-  &>* {
-    flex-grow: 1;
-  }
+header, header .el-button, header .el-checkbox {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+header > *, header .el-dropdown, header .checkbox__inner {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+#cf > span {
+  z-index: 9999 !important;
 }
 
 header {
   .el-button, .el-checkbox {
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0;
     font-variant: small-caps;
     color: #409EFF !important;
     background: none !important;
-    height: 50px !important;
-    vertical-align: top;
-    margin: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    padding: 12px 16px !important;
 
-    span {
-      vertical-align: middle;
+    i, .el-checkbox__inner {
+      margin: 0 10px 0 0 !important;
     }
+  }
 
-    .el-checkbox__label {
-      line-height: 26px !important;
-    }
+  .el-button > *, .el-checkbox span {
+    margin: 0;
+    padding: 0;
+    display: block;
   }
 
   .el-checkbox:hover, .el-button:hover {
@@ -138,37 +158,44 @@ header {
     color: white !important;
   }
 
+  span.el-checkbox__inner {
+    margin: 0 !important;
+  }
+
   span.el-checkbox__inner, i[class^='el-icon'] {
     transform: scale(1.5);
-    margin: -1px 5px 1px 0;
-    vertical-align: middle;
-  }
-
-  [class*=el-icon-] {
-    margin: 5px !important;
-  }
-
-  [class*=el-icon-]+* {
-    display: inline-block;
   }
 }
 
 .pan-head {
-  padding: 10px;
-  height: 36px;
+  padding: 12px;
   font-size: 14px;
+
+  .el-dropdown {
+    display: block;
+
+    i {
+      margin: 0 !important;
+    }
+  }
 }
 
 .pan-head svg {
-  top: 6px;
-  right: 8px;
+  top: 3px;
+  right: 7px;
   cursor: pointer;
   position: absolute;
   transform: scale(0.5);
 }
 
 .CodeMirror {
-  height: calc(100% - 36px) !important;
+  height: auto !important;
+  background: inherit !important;
+}
+
+.CodeMirror-gutters {
+  border: 0 !important;
+  background: inherit !important;
 }
 
 .CodeMirror-lines {
@@ -186,17 +213,93 @@ header {
   max-width: 800px !important;
 }
 
-@media (max-width: 768px) {
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+span:empty {
+  display: none;
+}
+
+.el-dropdown .el-icon--right {
+  position: absolute;
+  top: 0;
+}
+
+.el-message-box {
+  width: calc(100% - 20px) !important;
+  max-width: 420px;
+}
+
+#cf {
+  display: none;
+}
+
+@media (orientation: landscape) {
+  header {
+    width: auto;
+    flex: 1;
+    height: auto;
+    border-bottom: 0 !important;
+    border-right: 1px solid silver;
+    flex-direction: column !important;
+
+    .el-button, .el-checkbox {
+      padding: 0 10px;
+      flex-direction: column !important;
+
+      i, .el-checkbox__inner {
+        margin: 0 0 10px 0 !important;
+      }
+    }
+  }
+
+  .el-popper {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  .page {
+    flex-direction: row;
+  }
+
+  .el-button > *, .el-checkbox > span, i {
+    margin: 10px 0 !important;
+  }
+
+  .pans {
+    height: 100% !important;
+    width: calc(100% - 64px);
+  }
+}
+
+@media (max-width: 800px), (max-height: 600px) {
   body {
     font-size: 12px;
   }
 
-  .el-checkbox .el-checkbox__label, .el-button span {
-    display: none;
+  .pan-head {
+    padding: 6px;
   }
 
-  .el-checkbox__inner {
-    margin: 5px !important;
+  .compiled-code-dialog  {
+    max-height: calc(100% - 20px);
+    top: 10px !important;
+  }
+
+  header {
+    min-width: 64px;
+
+    .el-button, .el-checkbox {
+      i, .el-checkbox__inner {
+        margin: 0 !important;
+      }
+
+      span:not(.el-checkbox__input):not(.el-checkbox__inner) {
+        display: none !important;
+      }
+    }
   }
 }
 </style>

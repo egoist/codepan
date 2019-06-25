@@ -2,29 +2,31 @@
   <div class="page" :class="{readonly: isReadOnly}">
     <home-header/>
 
-    <compiled-code-dialog
-      v-if="js.code"
-      :code="js"
-      :show.sync="showCompiledCode.js"
-      highlight="javascript"
-      type="js"
-    ></compiled-code-dialog>
+    <section class="dialogs">
+      <compiled-code-dialog
+        v-if="js.code"
+        :code="js"
+        :show.sync="showCompiledCode.js"
+        highlight="javascript"
+        type="js"
+      ></compiled-code-dialog>
 
-    <compiled-code-dialog
-      v-if="html.code"
-      :code="html"
-      :show.sync="showCompiledCode.html"
-      highlight="htmlmixed"
-      type="html"
-    ></compiled-code-dialog>
+      <compiled-code-dialog
+        v-if="html.code"
+        :code="html"
+        :show.sync="showCompiledCode.html"
+        highlight="htmlmixed"
+        type="html"
+      ></compiled-code-dialog>
 
-    <compiled-code-dialog
-      v-if="css.code"
-      :code="css"
-      :show.sync="showCompiledCode.css"
-      highlight="css"
-      type="css"
-    ></compiled-code-dialog>
+      <compiled-code-dialog
+        v-if="css.code"
+        :code="css"
+        :show.sync="showCompiledCode.css"
+        highlight="css"
+        type="css"
+      ></compiled-code-dialog>
+    </section>
 
     <div class="pans">
       <html-pan class="pan" v-show="isVisible('html')"/>
@@ -210,27 +212,8 @@ export default {
 
 <style lang="stylus" scoped>
 .pans {
-  height: calc(100% - 40px - 40px);
-  display: flex;
-  position: relative;
-}
-
-.pan {
-  background-color: #f9f9f9;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  overflow: auto;
-
-  &.active-pan {
-    background-color: white;
-  }
-}
-</style>
-
-<style lang="stylus">
-.pans {
-  height: calc(100% - 40px - 40px);
+  height: calc(100% - 64px);
+  width: 100%;
   display: flex;
   position: relative;
 }
