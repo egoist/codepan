@@ -117,7 +117,7 @@ export default {
     '$route.query.show': {
       handler(next, prev) {
         if (!next && prev) {
-          this.showPans(['js', 'html', 'output'])
+          this.showPans(['js', 'output'])
         } else if (next !== prev) {
           this.showPans(next.split(','))
         }

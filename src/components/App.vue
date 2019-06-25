@@ -238,15 +238,14 @@ span:empty {
 
 @media (orientation: landscape) {
   header {
-    width: auto;
-    flex: 1;
-    height: auto;
+    overflow-y: auto;
+    flex: 0 0 auto;
     border-bottom: 0 !important;
     border-right: 1px solid silver;
     flex-direction: column !important;
 
     .el-button, .el-checkbox {
-      padding: 0 10px;
+      padding: 10px;
       flex-direction: column !important;
 
       i, .el-checkbox__inner {
