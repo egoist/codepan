@@ -28,11 +28,13 @@ Clone this repository and install dependencies by running `yarn`, then:
 
 You can use url GET param:
 
-* pans
-
-with values `html,css,js,console,output`
+* `pans=html,css,js,console,output`
 
 First specified pan will open, their order will however be default as of yet
+
+* `menu=false`
+
+Any other value or not specifying it will show the menu header/side bar
 
 ## License
 

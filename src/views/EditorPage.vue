@@ -1,6 +1,7 @@
 <template>
   <div class="page" :class="{readonly: isReadOnly}">
-    <home-header/>
+
+    <home-header v-if="urlParams.menu !== 'false'"/>
 
     <section class="dialogs">
       <compiled-code-dialog
@@ -102,7 +103,7 @@ export default {
       isReadOnly: 'readonly' in this.$route.query
     }
   },
-  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html']),
+  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html', 'urlParams']),
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       await handleRouteChange(to, vm)

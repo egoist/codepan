@@ -74,6 +74,7 @@ const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
+    urlParams,
     visiblePans,
     activePan,
     autoRun: false,
