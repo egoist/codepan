@@ -2,7 +2,6 @@
   <div>success!</div>
 </template>
 
-
 <script>
 import progress from 'nprogress'
 

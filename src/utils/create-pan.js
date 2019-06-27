@@ -5,8 +5,11 @@ import PanResizer from '@/components/PanResizer.vue'
 import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
-import { hasNextPan, getHumanlizedTransformerName, getEditorModeByTransfomer } from '@/utils'
+import {
+  hasNextPan,
+  getHumanlizedTransformerName,
+  getEditorModeByTransfomer
+} from '@/utils'
 
 export default ({ name, editor, components } = {}) => {
   return {
@@ -37,8 +40,8 @@ export default ({ name, editor, components } = {}) => {
       },
       visiblePans: {
         immediate: true,
-        handler(val) {
-          this.style = panPosition(val, name)
+        handler() {
+          this.style.height = `${100 / this.visiblePans.length}%`
         }
       },
       [`${name}.transformer`](val) {
@@ -51,8 +54,8 @@ export default ({ name, editor, components } = {}) => {
         }
       }
     },
-    mounted() {
-      this.editor = createEditor(this.$refs.editor, {
+    async mounted() {
+      this.editor = await createEditor(this.$refs.editor, {
         ...editor,
         readOnly: 'readonly' in this.$route.query
       })
@@ -66,7 +69,8 @@ export default ({ name, editor, components } = {}) => {
         }
       })
       Event.$on('refresh-editor', () => {
-        this.editor.setValue(this[name].code)
+        if (!this[name].code) return
+        this.editor.setValue(this[name].code.default || this[name].code)
         this.editor.refresh()
       })
       // Focus the editor
@@ -84,7 +88,12 @@ export default ({ name, editor, components } = {}) => {
       })
     },
     methods: {
-      ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),
+      ...mapActions([
+        'updateCode',
+        'updateTransformer',
+        'setActivePan',
+        'editorChanged'
+      ]),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
       },

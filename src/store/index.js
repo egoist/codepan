@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import progress from 'nprogress'
+import req from 'reqjs'
 import {
   loadBabel,
   loadPug,
@@ -14,9 +16,7 @@ import {
   loadTypescript,
   loadStylus
 } from '@/utils/transformer'
-import progress from 'nprogress'
 import api from '@/utils/github-api'
-import req from 'reqjs'
 import Event from '@/utils/event'
 
 Vue.use(Vuex)
@@ -53,7 +53,7 @@ const getFileNameByLang = {
 const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
-    showPans: ['html', 'js', 'output']
+    showPans: ['js', 'output']
   })
 }
 function importAll(r) {
@@ -62,13 +62,14 @@ function importAll(r) {
     boilerplates[name] = r(key).default
   })
 }
+
 importAll(require.context('@/boilerplates', true, /index.js$/))
 
 const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: ['html', 'js', 'output'],
+    visiblePans: ['js', 'output'],
     activePan: 'js',
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
@@ -99,6 +100,7 @@ const store = new Vuex.Store({
       } else {
         pans.splice(idx, 1)
       }
+
       state.visiblePans = sortPans(pans)
     },
     SHOW_PANS(state, pans) {
@@ -181,6 +183,7 @@ const store = new Vuex.Store({
       } else if (transformer === 'stylus') {
         await loadStylus()
       }
+
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },
     transform({ commit }, status) {
@@ -232,7 +235,7 @@ const store = new Vuex.Store({
     },
     async setGist({ commit, dispatch, state }, id) {
       const data = await api(`gists/${id}`, state.githubToken, progress.done)
-      const files = data.files
+      const { files } = data
 
       if (!files) return
 
@@ -252,12 +255,13 @@ const store = new Vuex.Store({
           }
         }
       }
+
       await dispatch('setBoilerplate', main)
 
       delete data.files
       commit('SET_GIST_META', data)
     },
-    async setGitHubToken({ commit, dispatch }, token) {
+    async setGitHubToken({ commit }, token) {
       commit('SET_GITHUB_TOKEN', token)
       let userMeta = {}
       if (token) {
@@ -266,6 +270,7 @@ const store = new Vuex.Store({
       } else {
         localStorage.removeItem('codepan:gh-token')
       }
+
       commit('SET_USER_META', userMeta)
       if (Object.keys(userMeta).length > 0) {
         localStorage.setItem('codepan:user-meta', JSON.stringify(userMeta))

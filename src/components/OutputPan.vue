@@ -1,13 +1,6 @@
 <template>
-  <div
-    class="output-pan"
-    :class="{ 'active-pan': isActivePan }"
-    @click="setActivePan('output')"
-    :style="style">
-
-    <div class="pan-head">
-      Output
-    </div>
+  <div class="output-pan" :class="{ 'active-pan': isActivePan }" @click="setActivePan('output')">
+    <div class="pan-head">Output</div>
     <div class="output-iframe" id="output-iframe">
       <div id="output-iframe-holder"></div>
     </div>
@@ -22,10 +15,8 @@ import notie from 'notie'
 import * as transform from '@/utils/transform'
 import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
-import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
-import SvgIcon from './SvgIcon.vue'
+import proxyConsole from '!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console'
 
 const sandboxAttributes = [
   'allow-modals',
@@ -67,19 +58,6 @@ const makeGist = (data, { showPans, activePan }) => {
 
 export default {
   name: 'output-pan',
-  data() {
-    return {
-      style: {}
-    }
-  },
-  watch: {
-    visiblePans: {
-      immediate: true,
-      handler(val) {
-        this.style = panPosition(val, 'output')
-      }
-    }
-  },
   computed: {
     ...mapState([
       'js',
@@ -90,10 +68,7 @@ export default {
       'githubToken',
       'iframeStatus'
     ]),
-    ...mapGetters([
-      'isLoggedIn',
-      'canUpdateGist'
-    ]),
+    ...mapGetters(['isLoggedIn', 'canUpdateGist']),
     isActivePan() {
       return this.activePan === 'output'
     }
@@ -106,12 +81,6 @@ export default {
 
     window.addEventListener('message', this.listenIframe)
     Event.$on('run', () => this.run())
-    Event.$on(`set-output-pan-style`, style => {
-      this.style = {
-        ...this.style,
-        ...style
-      }
-    })
     Event.$on('save-gist', saveNew => {
       this.saveGist({ token: this.githubToken, saveNew })
     })
@@ -165,19 +134,18 @@ export default {
 
       try {
         await Promise.all([
-          transform.js(this.js)
+          transform
+            .js(this.js)
             .then(code => getScripts(code, scripts))
             .then(code => {
               js = code
             }),
-          transform.html(this.html)
-            .then(code => {
-              html = code
-            }),
-          transform.css(this.css)
-            .then(code => {
-              css = code
-            })
+          transform.html(this.html).then(code => {
+            html = code
+          }),
+          transform.css(this.css).then(code => {
+            css = code
+          })
         ])
 
         js = js.replace(/<\/script>/, '<\\/script>')
@@ -217,7 +185,8 @@ export default {
       await this.transform(false)
 
       const headStyle = createElement('style')(css)
-      const codePanRuntime = createElement('script')(`
+      const codePanRuntime =
+        createElement('script')(`
         window.process = window.process || { env: { NODE_ENV: 'development' } }
         `) +
         scripts
@@ -232,9 +201,7 @@ export default {
         createElement('script')(proxyConsole)
       const head = headStyle + codePanRuntime
 
-      const body =
-        html +
-        createElement('script')(js)
+      const body = html + createElement('script')(js)
 
       this.iframe.setHTML({
         head,
@@ -268,9 +235,7 @@ export default {
         }
         const shouldUpdateGist = this.canUpdateGist && !saveNew
         const url = `https://api.github.com/gists${
-          shouldUpdateGist ?
-          `/${this.$route.params.gist}` :
-          ''
+          shouldUpdateGist ? `/${this.$route.params.gist}` : ''
         }`
         const method = shouldUpdateGist ? 'PATCH' : 'POST'
         const { data } = await axios(url, {
@@ -309,22 +274,25 @@ export default {
         }
       }
     }
-  },
-  components: {
-    SvgIcon
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-$statusSize = 12px
+$statusSize = 12px;
 
-.output-pan
-  overflow: hidden
+.output-pan {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-.output-iframe
-  width: 100%
-  height: calc(100% - 40px)
-  &.disable-mouse-events
-    pointer-events: none
+.output-iframe {
+  position: relative;
+  flex: 1;
+
+  &.disable-mouse-events {
+    pointer-events: none;
+  }
+}
 </style>

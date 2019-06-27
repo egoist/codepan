@@ -13,10 +13,10 @@ export default async function (endpoint, token, errCb = () => {}) {
     }).then(res => res.data)
 
     return data
-  } catch (err) {
+  } catch (error) {
     errCb()
-    if (err.response) {
-      const { headers, status } = err.response
+    if (error.response) {
+      const { headers, status } = error.response
       if (!token && status === 403 && headers['x-ratelimit-remaining'] === '0') {
         notie.confirm({
           text: 'API rate limit exceeded, do you want to login?',
@@ -27,14 +27,14 @@ export default async function (endpoint, token, errCb = () => {}) {
       } else {
         notie.alert({
           type: 'error',
-          text: err.response.data.message,
+          text: error.response.data.message,
           time: 5
         })
       }
     } else {
       notie.alert({
         type: 'error',
-        text: err.message || 'GitHub API Error'
+        text: error.message || 'GitHub API Error'
       })
     }
   }

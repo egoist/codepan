@@ -1,42 +1,46 @@
 <template>
   <div class="page" :class="{readonly: isReadOnly}">
-    <home-header />
+    <home-header/>
 
-    <compiled-code-dialog
-      v-if="js.code"
-      :code="js"
-      :show.sync="showCompiledCode.js"
-      highlight="javascript"
-      type="js">
-    </compiled-code-dialog>
+    <section class="dialogs">
+      <compiled-code-dialog
+        v-if="js.code"
+        :code="js"
+        :show.sync="showCompiledCode.js"
+        highlight="javascript"
+        type="js"
+      ></compiled-code-dialog>
 
-    <compiled-code-dialog
-      v-if="html.code"
-      :code="html"
-      :show.sync="showCompiledCode.html"
-      highlight="htmlmixed"
-      type="html">
-    </compiled-code-dialog>
+      <compiled-code-dialog
+        v-if="html.code"
+        :code="html"
+        :show.sync="showCompiledCode.html"
+        highlight="htmlmixed"
+        type="html"
+      ></compiled-code-dialog>
 
-    <compiled-code-dialog
-      v-if="css.code"
-      :code="css"
-      :show.sync="showCompiledCode.css"
-      highlight="css"
-      type="css">
-    </compiled-code-dialog>
+      <compiled-code-dialog
+        v-if="css.code"
+        :code="css"
+        :show.sync="showCompiledCode.css"
+        highlight="css"
+        type="css"
+      ></compiled-code-dialog>
+    </section>
 
     <div class="pans">
-      <html-pan class="pan" v-show="isVisible('html')" />
-      <css-pan class="pan" v-show="isVisible('css')" />
-      <js-pan class="pan" v-show="isVisible('js')" />
-      <console-pan class="pan" v-show="isVisible('console')" />
-      <output-pan class="pan" v-show="isVisible('output')" />
+      <html-pan class="pan" v-show="isVisible('html')"/>
+      <css-pan class="pan" v-show="isVisible('css')"/>
+      <js-pan class="pan" v-show="isVisible('js')"/>
+      <console-pan class="pan" v-show="isVisible('console')"/>
+      <output-pan class="pan" v-show="isVisible('output')"/>
     </div>
 
+    <!--
     <div ref="codefund">
       <div class="codefund-placeholder">Loading CodeFund...</div>
     </div>
+    -->
   </div>
 </template>
 
@@ -98,16 +102,13 @@ export default {
       isReadOnly: 'readonly' in this.$route.query
     }
   },
-  computed: {
-    ...mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html'])
-  },
+  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html']),
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       await handleRouteChange(to, vm)
     })
   },
   async beforeRouteUpdate(to, from, next) {
-    console.log('route updated to', to)
     await handleRouteChange(to, this)
     next()
   },
@@ -115,7 +116,7 @@ export default {
     '$route.query.show': {
       handler(next, prev) {
         if (!next && prev) {
-          this.showPans(['js', 'html', 'output'])
+          this.showPans(['js', 'output'])
         } else if (next !== prev) {
           this.showPans(next.split(','))
         }
@@ -140,14 +141,16 @@ export default {
 
     // Since in prevous versions we didn't fetch userMeta after login
     // We need to force user to re-login in order to get that data
-    if (this.$store.state.githubToken && Object.keys(this.$store.state.userMeta).length === 0) {
-      this.$store.dispatch('setGitHubToken', null)
-        .then(() => {
-          notie.alert({
-            type: 'warning',
-            text: `You need to login again to use the new version!`
-          })
+    if (
+      this.$store.state.githubToken &&
+      Object.keys(this.$store.state.userMeta).length === 0
+    ) {
+      this.$store.dispatch('setGitHubToken', null).then(() => {
+        notie.alert({
+          type: 'warning',
+          text: `You need to login again to use the new version!`
         })
+      })
     }
 
     Event.$on('show-compiled-code', type => {
@@ -180,7 +183,10 @@ export default {
       }
     },
     async getCodeFund() {
-      const res = await axios.get('https://codefund.io/properties/241/funder.html')
+      if (!this.$refs.codefund) return
+      const res = await axios.get(
+        'https://codefund.io/properties/241/funder.html'
+      )
       this.$refs.codefund.innerHTML = res.data
     }
   },
@@ -200,73 +206,36 @@ export default {
 </script>
 
 <style src="codemirror/lib/codemirror.css">
-
 </style>
 <style src="codemirror/addon/fold/foldgutter.css">
-
 </style>
 
 <style lang="stylus" scoped>
-.pans
-  height: calc(100% - 40px - 40px)
-  display: flex
-  position: relative
+.pans {
+  height: calc(100% - 64px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-.pan
-  background-color: #f9f9f9
-  position: absolute
-  top: 0
-  bottom: 0
-  overflow: auto
-  &.active-pan
-    background-color: white
-</style>
+  &>*:not(:last-child) {
+    border-bottom: 1px dashed lightblue;
+  }
+}
 
-<style lang="stylus">
-.CodeMirror
-  height: calc(100% - 40px)
-  background-color: transparent
+.pan {
+  width: 100%;
+  position: static;
+  resize: vertical;
+  background-color: #f9f9f9;
+  overflow: auto;
 
-.CodeMirror-gutters
-  background-color: transparent
-  border-right: none
+  &:last-child {
+    flex-grow: 1;
+  }
 
-.pan-head
-  height: 40px
-  padding: 0 10px
-  font-size: 14px
-  display: flex
-  justify-content: space-between
-  align-items: center
-  svg.svg-icon
-    margin-left: 5px
-    cursor: pointer
-    width: 14px
-    height: @width
-    color: #666
-    outline: none
-    &:hover
-      color: #000
-
-.pans.resizing
-  cursor: ew-resize
-  .pan-resizer
-    cursor: ew-resize
-
-.page.readonly
-  .CodeMirror-cursor
-    display: none !important
-
-.cf-wrapper
-  height: 40px
-  line-height: 40px !important
-  z-index: 9999 !important
-  padding: 0 10px !important
-
-.codefund-placeholder
-  height: 40px
-  line-height 40px
-  border-top: 1px solid #ccc
-  text-align: center
-  padding: 0 10px
+  &.active-pan {
+    background-color: white;
+  }
+}
 </style>

@@ -3,6 +3,7 @@ class Iframe {
     if (!el) {
       throw new Error('Expect "el" to mount iframe to!')
     }
+
     this.$el = el
     this.sandboxAttributes = sandboxAttributes
   }

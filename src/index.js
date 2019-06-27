@@ -1,13 +1,16 @@
 import './polyfill'
 import Vue from 'vue'
 import Tippy from 'v-tippy'
-// @ is the path to `./src` folder
-import App from '@/components/App'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import App from '@/components/App.vue'
 import router from '@/router'
 import store from '@/store'
 
 Vue.config.productionTip = false
 
+Vue.use(ElementUI)
 Vue.use(Tippy, {
   position: 'bottom'
 })

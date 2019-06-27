@@ -69,6 +69,8 @@
         headwayScript.src = 'https://cdn.headwayapp.co/widget.js'
         headwayScript.async = true
         document.body.appendChild(headwayScript)
+        var element = document.querySelector(HW_config.selector)
+        element && (element.style.display = 'inline-block')
       }
     </script>
   </body>

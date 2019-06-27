@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unassigned-import */
 import CodeMirror from 'codemirror'
+import emmet from 'codemirror-emmet'
 import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/mode/jsx/jsx'
 import 'codemirror/mode/css/css'
@@ -40,11 +41,11 @@ export default function (el, opts = {}) {
       } else if (cm.getOption('mode').indexOf('html') > -1) {
         try {
           cm.execCommand('emmetExpandAbbreviation')
-        } catch (err) {
-          console.error(err)
+        } catch (error) {
+          console.error(error)
         }
       } else {
-        const spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
+        const spaces = new Array(cm.getOption('indentUnit') + 1).join(' ')
         cm.replaceSelection(spaces, 'end', '+input')
       }
     },
@@ -60,18 +61,18 @@ export default function (el, opts = {}) {
     }
   })
 
-  import(/* webpackChunkName: "codemirror-emmet" */ 'codemirror-emmet').then(emmet => {
-    emmet(CodeMirror)
-    editor.setOption('extraKeys', {
-      ...editor.getOption('extraKeys'),
-      Enter: 'emmetInsertLineBreak'
-    })
-    editor.setOption('emmet', {
-      markupSnippets: {
-        'script:unpkg': 'script[src="https://unpkg.com/"]',
-        'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]'
-      }
-    })
+  emmet(CodeMirror)
+
+  editor.setOption('extraKeys', {
+    ...editor.getOption('extraKeys'),
+    Enter: 'emmetInsertLineBreak'
+  })
+
+  editor.setOption('emmet', {
+    markupSnippets: {
+      'script:unpkg': 'script[src="https://unpkg.com/"]',
+      'script:jsd': 'script[src="https://cdn.jsdelivr.net/npm/"]'
+    }
   })
 
   return editor

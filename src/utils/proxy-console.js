@@ -1,7 +1,8 @@
 (function () {
-  window.onerror = function (message) {
+  /*eslint-disable no-empty*/
+  window.addEventListener('error', message => {
     window.parent.postMessage({ type: 'iframe-error', message }, '*')
-  }
+  })
   window.addEventListener('unhandledrejection', err => {
     window.parent.postMessage(
       { type: 'iframe-error', message: err.reason.stack },
@@ -23,10 +24,10 @@
 
     const htmlEntities = function (str) {
       return String(str)
-        // .replace(/&/g, '&amp;')
-        // .replace(/</g, '&lt;')
-        // .replace(/>/g, '&gt;')
-        // .replace(/"/g, '&quot;')
+      // .replace(/&/g, '&amp;')
+      // .replace(/</g, '&lt;')
+      // .replace(/>/g, '&gt;')
+      // .replace(/"/g, '&quot;')
     }
 
     /**
@@ -35,7 +36,6 @@
    * Goes 2 levels deep.
    */
     return function stringify(o, visited, buffer) {
-      // eslint-disable-line complexity
       let i
       let vi
       let type = ''
@@ -48,6 +48,7 @@
       if (o === null) {
         return 'null'
       }
+
       if (typeof o === 'undefined') {
         return 'undefined'
       }
@@ -55,7 +56,7 @@
       // Determine the type
       try {
         type = {}.toString.call(o)
-      } catch (err) {
+      } catch (error) {
         // only happens when typeof is protected (...randomly)
         type = '[object Object]'
       }
@@ -64,12 +65,15 @@
       if (type === '[object Number]') {
         return String(o)
       }
+
       if (type === '[object Boolean]') {
         return o ? 'true' : 'false'
       }
+
       if (type === '[object Function]') {
         return o.toString().split('\n  ').join('\n' + buffer)
       }
+
       if (type === '[object String]') {
         return '"' + htmlEntities(o.replace(/"/g, '\\"')) + '"'
       }
@@ -98,6 +102,7 @@
         for (i = 0; i < o.length; i++) {
           parts.push(stringify(o[i], visited))
         }
+
         return '[' + parts.join(', ') + ']'
       }
 
@@ -115,10 +120,9 @@
         // Some objects don't like 'in', so just skip them
         try {
           for (i in o) {
-            // eslint-disable-line guard-for-in
             names.push(i)
           }
-        } catch (err) {}
+        } catch (error) {}
 
         names.sort(sortci)
         for (i = 0; i < names.length; i++) {
@@ -129,7 +133,7 @@
                 ': ' +
                 stringify(o[names[i]], visited, newBuffer)
             )
-          } catch (err) {}
+          } catch (error) {}
         }
       }
 
@@ -156,7 +160,7 @@
       // TODO this was forEach but when the array is [undefined] it wouldn't
       // iterate over them
       let i = 0
-      const length = args.length
+      const { length } = args
       let arg
       for (; i < length; i++) {
         arg = args[i]
@@ -166,6 +170,7 @@
           newArgs.push(stringify(arg))
         }
       }
+
       return newArgs
     }
 
@@ -186,6 +191,7 @@
       while (output.indexOf('%s') !== -1) {
         output = output.replace('%s', texts.shift())
       }
+
       return output
     }
 
@@ -204,11 +210,11 @@
       const styles = []
       for (let i = 1; i < args.length; i++) {
         switch (replacements.shift().substr(0, 2)) {
-          case '%s': texts.push(args[i])
-            break
-          case '%c': styles.push(args[i])
-            break
-          default:
+        case '%s': texts.push(args[i])
+          break
+        case '%c': styles.push(args[i])
+          break
+        default:
         }
       }
 
@@ -248,9 +254,8 @@
       // Create console method
       const originalMethod = console[method]
       const originalClear = console.clear
-      ProxyConsole.prototype[method] = function () {
+      ProxyConsole.prototype[method] = function (...originalArgs) {
         // Replace args that can't be sent through postMessage
-        const originalArgs = [].slice.call(arguments)
         const args = handleArgs(originalArgs)
 
         // Post up with method and the arguments
@@ -284,4 +289,4 @@
   })()
 
   window.console = proxyConsole
-})() // eslint-disable-line semi
+})()
