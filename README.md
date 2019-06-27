@@ -24,6 +24,16 @@ Clone this repository and install dependencies by running `yarn`, then:
 - `yarn build`: Build in production mode
 - `yarn lint`: Run eslint
 
+## Set pans from the url GET parameters
+
+You can use url GET param:
+
+* pans
+
+with values `html,css,js,console,output`
+
+First specified pan will open, their order will however be default as of yet
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

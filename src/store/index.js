@@ -18,6 +18,7 @@ import {
 } from '@/utils/transformer'
 import api from '@/utils/github-api'
 import Event from '@/utils/event'
+import { getUrlParams } from '../utils'
 
 Vue.use(Vuex)
 
@@ -65,12 +66,16 @@ function importAll(r) {
 
 importAll(require.context('@/boilerplates', true, /index.js$/))
 
+const urlParams = getUrlParams()
+const visiblePans = (urlParams.pans || 'js,output').split(',')
+const activePan = (urlParams.active || visiblePans[0])
+
 const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: ['js', 'output'],
-    activePan: 'js',
+    visiblePans,
+    activePan,
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
     gistMeta: {},
@@ -245,7 +250,9 @@ const store = new Vuex.Store({
         js: {},
         ...(files['index.js'] ? req(files['index.js'].content) : {}),
         ...(files['codepan.js'] ? req(files['codepan.js'].content) : {}),
-        ...(files['codepan.json'] ? JSON.parse(files['codepan.json'].content) : {})
+        ...(files['codepan.json']
+          ? JSON.parse(files['codepan.json'].content)
+          : {})
       }
       for (const type of ['html', 'js', 'css']) {
         if (!main[type].code) {
@@ -302,9 +309,12 @@ const store = new Vuex.Store({
       return Boolean(githubToken)
     },
     canUpdateGist({ gistMeta, userMeta }) {
-      return gistMeta && userMeta &&
+      return (
+        gistMeta &&
+        userMeta &&
         gistMeta.owner &&
         gistMeta.owner.id === userMeta.id
+      )
     }
   }
 })
