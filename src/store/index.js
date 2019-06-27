@@ -222,7 +222,7 @@ const store = new Vuex.Store({
         )
       }
 
-      if (boilerplate.showPans) {
+      if (!urlParams.pans && boilerplate.showPans) {
         ps.push(dispatch('showPans', boilerplate.showPans))
       }
 
