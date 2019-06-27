@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unassigned-import */
 import CodeMirror from 'codemirror'
 import emmet from 'codemirror-emmet'
 import 'codemirror/mode/htmlmixed/htmlmixed'

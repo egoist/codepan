@@ -1,4 +1,4 @@
-import '@babel/polyfill'
+import 'core-js/stable'
 import Promise from 'promise-polyfill'
 
 if (!window.Promise) {
