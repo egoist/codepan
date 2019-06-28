@@ -74,12 +74,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import {
-  Button,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem
-} from 'element-ui'
+import { Button, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
 import Event from '@/utils/event'
 import popup from '@/utils/popup'
 import { inIframe } from '@/utils'
@@ -124,7 +119,7 @@ export default {
       return 'Login to save'
     }
   },
-  mounted() {
+  created() {
     Event.$on('showLogin', () => this.githubLogin())
   },
   methods: {
@@ -158,9 +153,9 @@ export default {
             type: 2,
             handler: () => {
               const loginURL =
-                process.env.NODE_ENV === 'development' ?
-                  'http://localhost:4001/login' :
-                  'https://gh-login.codepan.net/login'
+                process.env.NODE_ENV === 'development'
+                  ? 'http://localhost:4001/login'
+                  : 'https://gh-login.codepan.net/login'
 
               popup(loginURL, 'gh login', 600, 400)
             }

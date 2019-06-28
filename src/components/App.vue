@@ -20,6 +20,12 @@ html, body, #app, .page {
   height: 100%;
 }
 
+.pan > *:not(.pan-head) {
+  overflow-y: auto;
+  height: 100% !important;
+  background: transparent !important;
+}
+
 body {
   background-color: #f9f9f9;
   margin: 0;
@@ -125,8 +131,31 @@ header > *, header .el-dropdown, header .checkbox__inner {
   flex-direction: column;
 }
 
-#cf > span {
-  z-index: 9999 !important;
+pre {
+  word-break: break-all !important;
+}
+
+.pans[class*=row] {
+  #cf {
+    display: none !important;
+  }
+}
+
+.codefund-container, .codefund-placeholder, #cf > span {
+  display: block !important;
+  position: static !important;
+}
+
+.codefund-placeholder, #cf > span {
+  line-height: 1.25em;
+  box-sizing: border-box;
+}
+
+.codefund-placeholder {
+  padding: 12px 0 13px 0 !important;
+  text-align: center;
+  border-top: 1px solid #bfbfbf;
+  background: #eeeeee;
 }
 
 header {
@@ -172,9 +201,15 @@ header {
   font-size: 14px;
 
   .el-button {
-    right: 0;
-    padding: 0 3px;
+    right: 10px;
+    line-height: 14px;
+    padding: 5px;
     position: absolute;
+
+    &>* {
+      margin: 0 !important;
+      display: inline-block;
+    }
   }
 
   .el-dropdown {
@@ -187,16 +222,11 @@ header {
 }
 
 .pan-head svg {
-  top: 3px;
+  top: 7px;
   right: 7px;
   cursor: pointer;
   position: absolute;
   transform: scale(0.5);
-}
-
-.CodeMirror {
-  height: auto !important;
-  background: inherit !important;
 }
 
 .CodeMirror-wrap {
@@ -269,6 +299,23 @@ span:empty {
     &:not(:first-child) {
       border-top: 1px dashed lightblue;
     }
+  }
+}
+
+.pan {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: static;
+  resize: both;
+  background-color: #f9f9f9;
+
+  &:last-child {
+    flex-grow: 1;
+  }
+
+  &.active-pan {
+    background-color: white;
   }
 }
 

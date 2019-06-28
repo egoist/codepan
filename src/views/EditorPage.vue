@@ -29,14 +29,24 @@
     </section>
 
     <div :class="{ pans: true, [layout]: true }" :style="{ flexDirection: layout }">
-      <dynamic-pan v-for="(pan, index) in visiblePans" :key="index" :pan="pan"/>
-    </div>
+      <dynamic-pan v-for="pan in visiblePans" :key="pan" :pan="pan"/>
 
-    <!--
-    <div ref="codefund">
-      <div class="codefund-placeholder">Loading CodeFund...</div>
+      <dynamic-pan
+        :key="'output'"
+        :pan="'output'"
+        v-if="visiblePans.indexOf('output') === -1"
+        style="display: none;"
+      />
+
+      <div
+        ref="codefund"
+        v-if="codefundVisible"
+        class="codefund-container"
+        @click="codefundVisible = false"
+      >
+        <div class="codefund-placeholder">Loading CodeFund...</div>
+      </div>
     </div>
-    -->
   </div>
 </template>
 
@@ -86,6 +96,7 @@ export default {
   name: 'editor-page',
   data() {
     return {
+      codefundVisible: true,
       showCompiledCode: {
         js: false,
         css: false,
@@ -157,11 +168,12 @@ export default {
       })
     }
 
+    this.codefundVisible && this.getCodeFund()
+  },
+  created() {
     Event.$on('show-compiled-code', type => {
       this.showCompiledCode[type] = true
     })
-
-    this.getCodeFund()
   },
   methods: {
     ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
@@ -215,21 +227,5 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.pan {
-  flex: 1;
-  position: static;
-  resize: vertical;
-  background-color: #f9f9f9;
-  overflow: auto;
-
-  &:last-child {
-    flex-grow: 1;
-  }
-
-  &.active-pan {
-    background-color: white;
-  }
 }
 </style>

@@ -1,7 +1,6 @@
-import { mapActions, mapState } from 'vuex'
 import debounce from 'debounce'
+import { mapActions, mapState } from 'vuex'
 import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
-import PanResizer from '@/components/PanResizer.vue'
 import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
@@ -44,14 +43,14 @@ export default ({ name, editor, components } = {}) => {
           this.style.height = `${100 / this.visiblePans.length}%`
         }
       },
-      [`${name}.transformer`](val) {
-        const mode = getEditorModeByTransfomer(val)
-        this.editor.setOption('mode', mode)
-      },
       [`${name}.code`]() {
         if (this.autoRun) {
           this.debounceRunCode()
         }
+      },
+      [`${name}.transformer`](val) {
+        const mode = getEditorModeByTransfomer(val)
+        this.editor.setOption('mode', mode)
       }
     },
     async mounted() {
@@ -68,9 +67,11 @@ export default ({ name, editor, components } = {}) => {
           this.setActivePan(name)
         }
       })
+    },
+    created() {
       Event.$on('refresh-editor', () => {
         if (!this[name].code) return
-        this.editor.setValue(this[name].code.default || this[name].code)
+        this.editor.setValue(this[name].code)
         this.editor.refresh()
       })
       // Focus the editor
@@ -86,7 +87,6 @@ export default ({ name, editor, components } = {}) => {
           ...style
         }
       })
-      this.debounceRunCode()
     },
     methods: {
       ...mapActions([
@@ -95,18 +95,17 @@ export default ({ name, editor, components } = {}) => {
         'setActivePan',
         'editorChanged'
       ]),
-      async setTransformer(transformer) {
-        await this.updateTransformer({ type: name, transformer })
-      },
       debounceRunCode: debounce(() => {
         Event.$emit('run')
-      }, 500)
+      }, 500),
+      async setTransformer(transformer) {
+        await this.updateTransformer({ type: name, transformer })
+      }
     },
     components: {
       'el-dropdown': Dropdown,
       'el-dropdown-menu': DropdownMenu,
       'el-dropdown-item': DropdownItem,
-      PanResizer,
       CompiledCodeSwitcher,
       ...components
     }

@@ -2,7 +2,9 @@
   <div class="output-pan" :class="{ 'active-pan': isActivePan }" @click="setActivePan('output')">
     <div class="pan-head">Output</div>
     <div class="output-iframe" id="output-iframe">
-      <div id="output-iframe-holder"></div>
+      <div id="output-iframe-holder">
+        <iframe/>
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +15,6 @@ import { getHumanlizedTransformerName } from '@/utils'
 import axios from 'axios'
 import notie from 'notie'
 import * as transform from '@/utils/transform'
-import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
 import getScripts from '@/utils/get-scripts'
 import proxyConsole from '!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console'
@@ -74,19 +75,15 @@ export default {
     }
   },
   mounted() {
-    this.iframe = createIframe({
-      el: document.getElementById('output-iframe-holder'),
-      sandboxAttributes
-    })
-
+    this.iframe = this.getIframe()
+  },
+  created() {
     window.addEventListener('message', this.listenIframe)
+
     Event.$on('run', () => this.run())
     Event.$on('save-gist', saveNew => {
       this.saveGist({ token: this.githubToken, saveNew })
     })
-  },
-  beforeDestroy() {
-    window.removeEventListener('message', this.listenIframe)
   },
   methods: {
     ...mapActions([
@@ -101,6 +98,16 @@ export default {
       'transform'
     ]),
     getHumanlizedTransformerName,
+
+    getIframe() {
+      const iframe = this.$el.getElementsByTagName('iframe')[0]
+      iframe.setAttribute('sandbox', sandboxAttributes.join(' '))
+      iframe.setAttribute('scrolling', 'yes')
+      iframe.style.width = '100%'
+      iframe.style.height = '100%'
+      iframe.style.border = '0'
+      return iframe
+    },
 
     async listenIframe({ data = {} }) {
       if (data.type === 'iframe-error') {
@@ -124,56 +131,49 @@ export default {
 
     async run() {
       this.setIframeStatus('loading')
-      let js
-      // We may add preprocessors supports for html/css in the future
-      let html
-      let css
+      const transformed = {
+        html: '',
+        js: '',
+        css: ''
+      }
       const scripts = []
 
       await this.transform(true)
 
       try {
         await Promise.all([
+          transform.html(this.html).then(code => {
+            transformed.html = code
+          }),
           transform
             .js(this.js)
             .then(code => getScripts(code, scripts))
             .then(code => {
-              js = code
+              transformed.js = code
             }),
-          transform.html(this.html).then(code => {
-            html = code
-          }),
           transform.css(this.css).then(code => {
-            css = code
+            transformed.css = code
           })
-        ])
+        ]).catch(err => {
+          throw err
+        })
 
-        js = js.replace(/<\/script>/, '<\\/script>')
-        js = `
-          try {
-            ${js}
-          } catch (err) {
-            window.parent.postMessage(
-              {
+        transformed.js = `
+            try {
+              if (window.Vue) {
+                window.Vue.config.productionTip = false;
+              }
+              window.addEventListener('DOMContentLoaded', function() {
+                ${transformed.js}
+                window.parent.postMessage({ type: 'iframe-success' }, '*');
+              })
+            } catch (err) {
+              window.parent.postMessage({
                 type: 'iframe-error',
                 message: err instanceof Error ? (err.frame ? err.message + '\\n' + err.frame : err.stack) : err
-              },
-              '*'
-            )
-          }
+              }, '*')
+            }
         `
-        js = `
-          if (window.Vue) {
-            window.Vue.config.productionTip = false;
-          }
-          // console.clear();
-          document.addEventListener('DOMContentLoaded', __executeCodePan);
-          function __executeCodePan(){
-            window.parent.postMessage({ type: 'iframe-success' }, '*');
-            let script = document.createElement('script');
-            script.innerHTML = ${JSON.stringify(js)};
-            document.body.appendChild(script);
-          };`
       } catch (err) {
         this.setIframeStatus('error')
         return this.addLog({
@@ -184,29 +184,30 @@ export default {
 
       await this.transform(false)
 
-      const headStyle = createElement('style')(css)
-      const codePanRuntime =
-        createElement('script')(`
-        window.process = window.process || { env: { NODE_ENV: 'development' } }
-        `) +
-        scripts
-          .map(script =>
-            createElement('script')('', {
-              src: `https://bundle.run/${script.module}${script.path}?name=${
-                script.name
-              }`
-            })
-          )
-          .join('\n') +
-        createElement('script')(proxyConsole)
-      const head = headStyle + codePanRuntime
+      const headStyle = createElement('style')(transformed.css)
+      const codePanRuntime = [
+        createElement('script')('console.clear();'),
+        createElement('script')(`window.process = window.process || { env: { NODE_ENV: 'development' } }`),
+        createElement('script')(proxyConsole),
+        ...scripts.map(script =>
+          createElement('script')('', { src: `https://bundle.run/${script.module}${script.path}?name=${script.name}` })
+        )
+      ].join('\n')
 
-      const body = html + createElement('script')(js)
+      const head = `${headStyle}\n${codePanRuntime}`
 
-      this.iframe.setHTML({
-        head,
-        body
-      })
+      const body = [
+        transformed.html,
+        createElement('script')(transformed.js)
+      ].join('\n')
+
+      const iframeContent = `<!DOCTYPE html>
+      <html>
+        <head>${head}</head>
+        <body>${body}</body>
+      </html>`
+
+      this.iframe.src = `data:text/html;charset=utf-8,${iframeContent}`
     },
 
     /**

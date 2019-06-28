@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import Event from '@/utils/event'
 import { inIframe } from '@/utils'
 import { Button, MessageBox } from 'element-ui'
 import { mapActions } from 'vuex'
@@ -36,11 +37,10 @@ export default {
     },
     async addLibrary(name) {
       if (name) {
-        const code =
-          `&lt;script src="https://unpkg.com/${name}">&lt;/script>\n`.replace(
-            /&lt;/g,
-            '<'
-          ) + this.$store.state.html.code
+        /* eslint-disable-next-line no-useless-escape */
+        const code = `<script src="https://unpkg.com/${name}"><\/script>\n${
+          this.$store.state.html.code
+        }\n`
         await this.updateCode({ type: 'html', code })
         Event.$emit('refresh-editor')
       }

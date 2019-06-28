@@ -87,7 +87,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
-      state[type].code = code
+      state[type].code = typeof code === 'string' ? code : code.default
     },
     UPDATE_TRANSFORMER(state, { type, transformer }) {
       state[type].transformer = transformer
@@ -199,7 +199,7 @@ const store = new Vuex.Store({
       commit('SET_TRANSFORM', status)
     },
     // todo: simplify this action
-    async setBoilerplate({ dispatch }, boilerplate) {
+    async setBoilerplate({ state, dispatch }, boilerplate) {
       progress.start()
 
       if (typeof boilerplate === 'string') {
@@ -208,12 +208,11 @@ const store = new Vuex.Store({
 
       const ps = []
 
-      const defaultPans = emptyPans()
-
       for (const type of ['html', 'js', 'css']) {
+        const base = state[type]
         const { code, transformer } = {
-          code: defaultPans[type].code,
-          transformer: defaultPans[type].transformer,
+          code: base.code,
+          transformer: base.transformer,
           ...boilerplate[type]
         }
         ps.push(

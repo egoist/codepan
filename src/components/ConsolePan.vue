@@ -46,11 +46,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.console-logs {
-  height: calc(100% - 40px);
-  overflow: auto;
-}
-
 .console-log {
   white-space: pre-wrap;
   padding: 10px;

@@ -32,11 +32,11 @@ export default {
     'el-badge': Badge
   },
   computed: {
-    ...mapState(['visiblePans', 'autoRun']),
+    ...mapState(['visiblePans']),
     totalLogsCount: state => (state.logs ? state.logs.length : 0)
   },
   methods: {
-    ...mapActions(['togglePan', 'updateCode']),
+    ...mapActions(['togglePan']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     }
@@ -55,6 +55,7 @@ export default {
     display: inline-block;
     margin-right: 6px;
   }
+
   &>*:not(.visible)::before {
     content: '✅';
   }

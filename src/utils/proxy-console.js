@@ -1,28 +1,36 @@
-(function () {
+(function() {
+  function addEventListener(eventName, callback) {
+    window.removeEventListener(eventName, callback)
+    window.addEventListener(eventName, callback)
+  }
+
   /*eslint-disable no-empty*/
-  window.addEventListener('error', message => {
-    window.parent.postMessage({ type: 'iframe-error', message }, '*')
+  addEventListener('error', err => {
+    window.parent.postMessage(
+      { type: 'iframe-error', message: err.stack },
+      '*'
+    )
   })
-  window.addEventListener('unhandledrejection', err => {
+  addEventListener('unhandledrejection', err => {
     window.parent.postMessage(
       { type: 'iframe-error', message: err.reason.stack },
       '*'
     )
   })
-  window.addEventListener('click', () => {
+  addEventListener('click', () => {
     window.parent.postMessage({ type: 'codepan-make-output-active' }, '*')
   })
 
   /**
- * Stringify.
- * Inspect native browser objects and functions.
- */
-  const stringify = (function () {
-    const sortci = function (a, b) {
+   * Stringify.
+   * Inspect native browser objects and functions.
+   */
+  const stringify = (function() {
+    const sortci = function(a, b) {
       return a.toLowerCase() < b.toLowerCase() ? -1 : 1
     }
 
-    const htmlEntities = function (str) {
+    const htmlEntities = function(str) {
       return String(str)
       // .replace(/&/g, '&amp;')
       // .replace(/</g, '&lt;')
@@ -31,10 +39,10 @@
     }
 
     /**
-   * Recursively stringify an object. Keeps track of which objects it has
-   * visited to avoid hitting circular references, and a buffer for indentation.
-   * Goes 2 levels deep.
-   */
+     * Recursively stringify an object. Keeps track of which objects it has
+     * visited to avoid hitting circular references, and a buffer for indentation.
+     * Goes 2 levels deep.
+     */
     return function stringify(o, visited, buffer) {
       let i
       let vi
@@ -71,7 +79,10 @@
       }
 
       if (type === '[object Function]') {
-        return o.toString().split('\n  ').join('\n' + buffer)
+        return o
+          .toString()
+          .split('\n  ')
+          .join('\n' + buffer)
       }
 
       if (type === '[object String]') {
@@ -86,10 +97,12 @@
           return (
             '[circular ' +
             type.slice(1) +
-            ('outerHTML' in o ?
-              ' :\n' +
-                htmlEntities(o.outerHTML).split('\n').join('\n' + buffer) :
-              '')
+            ('outerHTML' in o
+              ? ' :\n' +
+                htmlEntities(o.outerHTML)
+                  .split('\n')
+                  .join('\n' + buffer)
+              : '')
           )
         }
       }
@@ -149,13 +162,13 @@
    * Proxy console.logs out to the parent window
    * ========================================================================== */
 
-  const proxyConsole = (function () {
-    const ProxyConsole = function () {}
+  const proxyConsole = (function() {
+    const ProxyConsole = function() {}
 
     /**
      * Stringify all of the console objects from an array for proxying
      */
-    const stringifyArgs = function (args) {
+    const stringifyArgs = function(args) {
       const newArgs = []
       // TODO this was forEach but when the array is [undefined] it wouldn't
       // iterate over them
@@ -177,7 +190,7 @@
     /**
      * Add colors for console string
      */
-    const styleText = function (textArray, styles) {
+    const styleText = function(textArray, styles) {
       return textArray.map((text, index) => {
         return index ? `<span style="${styles.shift()}">${text}</span>` : text
       })
@@ -186,7 +199,7 @@
     /**
      * Add string replace for console string
      */
-    const replaceText = function (text, texts) {
+    const replaceText = function(text, texts) {
       let output = text
       while (output.indexOf('%s') !== -1) {
         output = output.replace('%s', texts.shift())
@@ -198,7 +211,7 @@
     /**
      * Add colors/string replace for console string or fallback on stringifyArgs for non-string types
      */
-    const handleArgs = function (args) {
+    const handleArgs = function(args) {
       if (!args || args.length === 0) return []
 
       if (typeof args[0] !== 'string') {
@@ -210,9 +223,11 @@
       const styles = []
       for (let i = 1; i < args.length; i++) {
         switch (replacements.shift().substr(0, 2)) {
-        case '%s': texts.push(args[i])
+        case '%s':
+          texts.push(args[i])
           break
-        case '%c': styles.push(args[i])
+        case '%c':
+          styles.push(args[i])
           break
         default:
         }
@@ -254,7 +269,7 @@
       // Create console method
       const originalMethod = console[method]
       const originalClear = console.clear
-      ProxyConsole.prototype[method] = function (...originalArgs) {
+      ProxyConsole.prototype[method] = function(...originalArgs) {
         // Replace args that can't be sent through postMessage
         const args = handleArgs(originalArgs)
 
