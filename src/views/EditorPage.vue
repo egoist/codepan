@@ -1,5 +1,5 @@
 <template>
-  <div class="page" :class="{readonly: isReadOnly}">
+  <div class="page" :class="{ readonly: isReadOnly, nomenu: urlParams.menu === 'false' }">
     <home-header v-if="urlParams.menu !== 'false'"/>
 
     <section class="dialogs">
@@ -224,8 +224,6 @@ export default {
 
 <style lang="stylus" scoped>
 .pans {
-  height: calc(100% - 64px);
-  width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;

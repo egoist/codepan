@@ -266,6 +266,14 @@ span:empty {
   }
 }
 
+.pans {
+  height: calc(100% - 64px);
+}
+
+.page.nomenu .pans {
+  height: 100%;
+}
+
 .pans[class*=row] {
   .pan {
     height: 100% !important;
@@ -309,6 +317,10 @@ span:empty {
   .pans {
     height: 100% !important;
     width: calc(100% - 64px);
+  }
+
+  .page.nomenu .pans {
+    width: 100% !important;
   }
 }
 
