@@ -20,12 +20,19 @@ class Iframe {
 
     const iframe = this.createIframe()
 
-    this.$el.parentNode.replaceChild(iframe, this.$el)
-    iframe.contentWindow.document.open()
-    iframe.contentWindow.document.write(html)
-    iframe.contentWindow.document.close()
+    try {
+      if (this.$el.parentNode) {
+        this.$el.parentNode.replaceChild(iframe, this.$el)
 
-    this.$el = iframe
+        iframe.contentWindow.document.open()
+        iframe.contentWindow.document.write(html)
+        iframe.contentWindow.document.close()
+      } else {
+        console.log('setHTML called before iframe exists in DOM')
+      }
+    } catch (err) {
+      console.warn(iframe, err)
+    }
   }
 
   createIframe() {

@@ -171,6 +171,12 @@ header {
   padding: 12px;
   font-size: 14px;
 
+  .el-button {
+    right: 0;
+    padding: 0 3px;
+    position: absolute;
+  }
+
   .el-dropdown {
     display: block;
 

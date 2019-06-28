@@ -86,6 +86,7 @@ export default ({ name, editor, components } = {}) => {
           ...style
         }
       })
+      this.debounceRunCode()
     },
     methods: {
       ...mapActions([

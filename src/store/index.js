@@ -108,7 +108,9 @@ const store = new Vuex.Store({
       }
 
       state.visiblePans = sortPans(pans)
-      history.pushState(null, document.title, createUrl(state))
+
+      const location = createUrlBase() + '?' + createUrlParams(state)
+      history.replaceState(null, document.title, location)
     },
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)
@@ -321,20 +323,22 @@ const store = new Vuex.Store({
   }
 })
 
-function createUrl(state) {
-  const elements = {
+function createUrlBase() {
+  const index = location.href.indexOf('?')
+  return index === -1 ? location.href : location.href.substr(0, index)
+}
+
+function createUrlParams(state) {
+  return Object.entries({
     pans: state.visiblePans.join(','),
-    menu: urlParams.menu === 'false' ? '&menu=false' : '',
+    menu: urlParams.menu || 'true',
     layout: urlParams.layout || 'column'
-  }
-  return (
-    location.href.substr(0, location.href.indexOf('?')) +
-    '?' +
-    Object.entries(elements).reduce((carry, [key, value]) => {
+  })
+    .reduce((carry, [key, value]) => {
       value && carry.push(`${key}=${value}`)
       return carry
     }, [])
-  )
+    .join('&')
 }
 
 export default store

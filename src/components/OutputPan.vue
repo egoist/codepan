@@ -166,7 +166,7 @@ export default {
           if (window.Vue) {
             window.Vue.config.productionTip = false;
           }
-          console.clear();
+          // console.clear();
           document.addEventListener('DOMContentLoaded', __executeCodePan);
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
