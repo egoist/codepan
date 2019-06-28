@@ -29,11 +29,7 @@
     </section>
 
     <div :class="{ pans: true, [layout]: true }" :style="{ flexDirection: layout }">
-      <html-pan class="pan" v-show="isVisible('html')"/>
-      <css-pan class="pan" v-show="isVisible('css')"/>
-      <js-pan class="pan" v-show="isVisible('js')"/>
-      <console-pan class="pan" v-show="isVisible('console')"/>
-      <output-pan class="pan" v-show="isVisible('output')"/>
+      <dynamic-pan v-for="(pan, index) in visiblePans" :key="index" :pan="pan"/>
     </div>
 
     <!--
@@ -53,11 +49,7 @@ import axios from 'axios'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
 import HomeHeader from '@/components/HomeHeader.vue'
-import HTMLPan from '@/components/HTMLPan.vue'
-import JSPan from '@/components/JSPan.vue'
-import OutputPan from '@/components/OutputPan.vue'
-import ConsolePan from '@/components/ConsolePan.vue'
-import CSSPan from '@/components/CSSPan.vue'
+import DynamicPan from '@/components/DynamicPan.vue'
 import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
 
 async function handleRouteChange(to, vm) {
@@ -206,12 +198,8 @@ export default {
     window.removeEventListener('storage', this.handleStorageChanged)
   },
   components: {
-    'html-pan': HTMLPan,
-    'js-pan': JSPan,
-    'output-pan': OutputPan,
-    'console-pan': ConsolePan,
-    'css-pan': CSSPan,
-    'home-header': HomeHeader,
+    HomeHeader,
+    DynamicPan,
     CompiledCodeDialog
   }
 }

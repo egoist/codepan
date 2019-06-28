@@ -260,8 +260,8 @@ span:empty {
   .pan {
     width: 100% !important;
 
-    &>*:not(:last-child) {
-      border-bottom: 1px dashed lightblue;
+    &:not(:first-child) {
+      border-top: 1px dashed lightblue;
     }
   }
 }
@@ -278,8 +278,8 @@ span:empty {
   .pan {
     height: 100% !important;
 
-    &>*:not(:last-child) {
-      border-right: 1px dashed lightblue;
+    &:not(:first-child) {
+      border-left: 1px dashed lightblue;
     }
   }
 }

@@ -54,10 +54,13 @@ export const getEditorModeByTransfomer = transformer => {
 export const inIframe = window.self !== window.top
 
 export function getUrlParams() {
-  return location.href.split(/[?&]/).slice(1).reduce((carry, pair) => {
-    const parts = pair.split('=')
-    if (parts[0] || parts[1])
-      Object.assign(carry, { [parts[0]] : parts[1] })
-    return carry
-  }, {})
+  return location.href
+    .split(/[?&]/)
+    .slice(1)
+    .reduce((carry, pair) => {
+      const parts = pair.split('=')
+      if (parts[0] || parts[1])
+        Object.assign(carry, { [parts[0]]: parts[1].split('#')[0] })
+      return carry
+    }, {})
 }

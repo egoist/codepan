@@ -28,15 +28,17 @@ Clone this repository and install dependencies by running `yarn`, then:
 
 You can use url GET param:
 
-* `pans=html,css,js,console,output`
+- `pans=html,css,js,console,output`
 
-First specified pan will open, their order will however be default as of yet
+First specified pan will open,
+their order is determined by specified,
+you can also open multiple instances of same tab (idk why you would)
 
-* `menu=false`
+- `menu=false`
 
 Any other value or not specifying it will show the menu header/side bar
 
-* `layout=row|column`
+- `layout=row|column`
 
 Defaults to column layout
 
