@@ -68,7 +68,7 @@ importAll(require.context('@/boilerplates', true, /index.js$/))
 
 const urlParams = getUrlParams()
 const visiblePans = (urlParams.pans || 'js,output').split(',')
-const activePan = (urlParams.active || visiblePans[0])
+const activePan = urlParams.active || visiblePans[0]
 
 const store = new Vuex.Store({
   state: {
@@ -108,6 +108,13 @@ const store = new Vuex.Store({
       }
 
       state.visiblePans = sortPans(pans)
+      history.pushState(
+        null,
+        document.title,
+        `?pans=${state.visiblePans.join(',')}${
+          urlParams.menu === 'false' ? '&menu=false' : ''
+        }${urlParams.layout ? 'layout=' + urlParams.layout : ''}`
+      )
     },
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)

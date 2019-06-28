@@ -1,6 +1,5 @@
 <template>
   <div class="page" :class="{readonly: isReadOnly}">
-
     <home-header v-if="urlParams.menu !== 'false'"/>
 
     <section class="dialogs">
@@ -29,7 +28,7 @@
       ></compiled-code-dialog>
     </section>
 
-    <div class="pans">
+    <div :class="{ pans: true, [layout]: true }" :style="{ flexDirection: layout }">
       <html-pan class="pan" v-show="isVisible('html')"/>
       <css-pan class="pan" v-show="isVisible('css')"/>
       <js-pan class="pan" v-show="isVisible('js')"/>
@@ -103,7 +102,19 @@ export default {
       isReadOnly: 'readonly' in this.$route.query
     }
   },
-  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html', 'urlParams']),
+  computed: {
+    ...mapState([
+      'visiblePans',
+      'editorStatus',
+      'js',
+      'css',
+      'html',
+      'urlParams'
+    ]),
+    layout() {
+      return this.urlParams.layout || 'column'
+    }
+  },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       await handleRouteChange(to, vm)
@@ -218,14 +229,10 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-
-  &>*:not(:last-child) {
-    border-bottom: 1px dashed lightblue;
-  }
 }
 
 .pan {
-  width: 100%;
+  flex: 1;
   position: static;
   resize: vertical;
   background-color: #f9f9f9;

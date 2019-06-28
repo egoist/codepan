@@ -256,6 +256,26 @@ span:empty {
   position: relative;
 }
 
+.pans[class*=column] {
+  .pan {
+    width: 100% !important;
+
+    &>*:not(:last-child) {
+      border-bottom: 1px dashed lightblue;
+    }
+  }
+}
+
+.pans[class*=row] {
+  .pan {
+    height: 100% !important;
+
+    &>*:not(:last-child) {
+      border-right: 1px dashed lightblue;
+    }
+  }
+}
+
 @media (orientation: landscape) {
   header {
     overflow-y: auto;

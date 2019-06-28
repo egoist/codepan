@@ -36,6 +36,10 @@ First specified pan will open, their order will however be default as of yet
 
 Any other value or not specifying it will show the menu header/side bar
 
+* `layout=row|column`
+
+Defaults to column layout
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)
