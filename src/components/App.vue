@@ -136,7 +136,7 @@ pre {
 }
 
 .pans[class*=row] {
-  #cf {
+  #cf, .codefund-container {
     display: none !important;
   }
 }

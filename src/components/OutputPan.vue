@@ -51,7 +51,7 @@ const makeGist = (data, { showPans, activePan }) => {
   }
 
   files['codepan.json'] = {
-    content: JSON.stringify(manifest)
+    content: JSON.stringify(manifest, null, 2)
   }
 
   return files
@@ -158,6 +158,10 @@ export default {
           throw err
         })
 
+        localStorage.setItem('codepan.css', transformed.css)
+        localStorage.setItem('codepan.html', transformed.html)
+        localStorage.setItem('codepan.js', transformed.js)
+
         transformed.js = `
             try {
               if (window.Vue) {
@@ -186,7 +190,6 @@ export default {
 
       const headStyle = createElement('style')(transformed.css)
       const codePanRuntime = [
-        createElement('script')('console.clear();'),
         createElement('script')(`window.process = window.process || { env: { NODE_ENV: 'development' } }`),
         createElement('script')(proxyConsole),
         ...scripts.map(script =>
@@ -198,6 +201,7 @@ export default {
 
       const body = [
         transformed.html,
+        createElement('script')('console.clear();'),
         createElement('script')(transformed.js)
       ].join('\n')
 
