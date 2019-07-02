@@ -158,9 +158,9 @@ export default {
           throw err
         })
 
-        localStorage.setItem('codepan.css', transformed.css)
-        localStorage.setItem('codepan.html', transformed.html)
-        localStorage.setItem('codepan.js', transformed.js)
+        localStorage.setItem('codepan.css', this.css.code)
+        localStorage.setItem('codepan.html', this.html.code)
+        localStorage.setItem('codepan.js', this.js.code)
 
         transformed.js = `
             try {

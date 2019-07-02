@@ -292,6 +292,10 @@ span:empty {
   position: relative;
 }
 
+.pans.headless .pan-head {
+  display: none;
+}
+
 .pans[class*=column] {
   .pan {
     width: 100% !important;
@@ -357,6 +361,10 @@ span:empty {
 
   .el-popper {
     max-height: 100%;
+  }
+
+  .el-dropdown-menu.el-popper {
+    overflow-y: auto;
   }
 
   .page {

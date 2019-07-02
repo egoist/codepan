@@ -331,6 +331,7 @@ function createUrlParams(state) {
   return Object.entries({
     pans: state.visiblePans.join(','),
     menu: urlParams.menu || 'true',
+    title: urlParams.title || 'true',
     layout: urlParams.layout || 'column'
   })
     .reduce((carry, [key, value]) => {

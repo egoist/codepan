@@ -28,7 +28,7 @@
       ></compiled-code-dialog>
     </section>
 
-    <div :class="{ pans: true, [layout]: true }" :style="{ flexDirection: layout }">
+    <div :class="{ pans: true, [layout]: true, headless: title !== 'true' }" :style="{ flexDirection: layout }">
       <dynamic-pan v-for="pan in visiblePans" :key="pan" :pan="pan"/>
 
       <dynamic-pan
@@ -116,6 +116,9 @@ export default {
     ]),
     layout() {
       return this.urlParams.layout || 'column'
+    },
+    title() {
+      return this.urlParams.title || 'true'
     }
   },
   beforeRouteEnter(to, from, next) {
