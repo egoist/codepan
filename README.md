@@ -30,17 +30,15 @@ You can use url GET param:
 
 - `pans=html,css,js,console,output`
 
-First specified pan will open,
-their order is determined by specified,
-you can also open multiple instances of same tab (idk why you would)
+Sets types of visible open pans, any number is ok
 
-- `menu=false`
+- `layout=column|row`
 
-Any other value or not specifying it will show the menu header/side bar
+Sets the desired layout of open pans
 
-- `layout=row|column`
+- `headless=false|true`
 
-Defaults to column layout
+Doesnt show ads, menu or pan header titles
 
 ## License
 

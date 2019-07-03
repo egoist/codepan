@@ -18,7 +18,7 @@ import {
 } from '@/utils/transformer'
 import api from '@/utils/github-api'
 import Event from '@/utils/event'
-import { getUrlParams } from '../utils'
+import { getUrlParams, createUrlBase, createUrlParams } from '../utils'
 
 Vue.use(Vuex)
 
@@ -66,9 +66,16 @@ function importAll(r) {
 
 importAll(require.context('@/boilerplates', true, /index.js$/))
 
-const urlParams = getUrlParams()
-const visiblePans = (urlParams.pans || 'js,output').split(',')
-const activePan = urlParams.active || visiblePans[0]
+const urlParams = Object.assign(
+  {
+    pans: 'js,output',
+    layout: 'column',
+    headless: 'false'
+  },
+  getUrlParams()
+)
+const visiblePans = urlParams.pans.split(',')
+const activePan = visiblePans[0]
 
 const store = new Vuex.Store({
   state: {
@@ -109,7 +116,8 @@ const store = new Vuex.Store({
 
       state.visiblePans = sortPans(pans)
 
-      const location = createUrlBase() + '?' + createUrlParams(state)
+      const location =
+        createUrlBase() + '?' + createUrlParams(urlParams, state)
       history.replaceState(null, document.title, location)
     },
     SHOW_PANS(state, pans) {
@@ -321,24 +329,5 @@ const store = new Vuex.Store({
     }
   }
 })
-
-function createUrlBase() {
-  const index = location.href.indexOf('?')
-  return index === -1 ? location.href : location.href.substr(0, index)
-}
-
-function createUrlParams(state) {
-  return Object.entries({
-    pans: state.visiblePans.join(','),
-    menu: urlParams.menu || 'true',
-    title: urlParams.title || 'true',
-    layout: urlParams.layout || 'column'
-  })
-    .reduce((carry, [key, value]) => {
-      value && carry.push(`${key}=${value}`)
-      return carry
-    }, [])
-    .join('&')
-}
 
 export default store

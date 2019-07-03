@@ -267,8 +267,7 @@
 
     methods.forEach(method => {
       // Create console method
-      const originalMethod = console[method]
-      const originalClear = console.clear
+      const originalMethod = console[method] || console.log
       ProxyConsole.prototype[method] = function(...originalArgs) {
         // Replace args that can't be sent through postMessage
         const args = handleArgs(originalArgs)
@@ -283,19 +282,8 @@
           '*'
         )
 
-        // If the browner supports it, use the browser console but ignore _raw,
-        // as _raw should only go to the proxy console.
-        // Ignore clear if it doesn't exist as it's beahviour is different than
-        // log and we let it fallback to jsconsole for the panel and to nothing
-        // for the browser console
-        if (!originalMethod) {
-          method = 'log'
-        }
-
-        if (method !== '_raw') {
-          if (method !== 'clear' || (method === 'clear' && originalClear)) {
-            originalMethod.apply(ProxyConsole, originalArgs)
-          }
+        if (method !== '_raw' && method !== 'clear') {
+          originalMethod.apply(ProxyConsole, originalArgs)
         }
       }
     })

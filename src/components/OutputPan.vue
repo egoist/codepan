@@ -200,8 +200,8 @@ export default {
       const head = `${headStyle}\n${codePanRuntime}`
 
       const body = [
-        transformed.html,
         createElement('script')('console.clear();'),
+        transformed.html,
         createElement('script')(transformed.js)
       ].join('\n')
 

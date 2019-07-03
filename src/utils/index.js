@@ -64,3 +64,18 @@ export function getUrlParams() {
       return carry
     }, {})
 }
+
+export function createUrlBase() {
+  const index = location.href.indexOf('?')
+  return index === -1 ? location.href : location.href.substr(0, index)
+}
+
+export function createUrlParams(urlParams, state) {
+  return Object.entries(
+    Object.assign({}, urlParams, { pans: state.visiblePans.join(',') })
+  )
+    .reduce((carry, [key, value]) => {
+      value && carry.push(`${key}=${value}`)
+      return carry
+    }, []).join('&')
+}

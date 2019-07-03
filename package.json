@@ -6,7 +6,7 @@
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {},
   "scripts": {
     "test": "npm run lint",

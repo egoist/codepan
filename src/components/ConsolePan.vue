@@ -49,7 +49,6 @@ export default {
 .console-log {
   white-space: pre-wrap;
   padding: 10px;
-  border-bottom: 1px solid #efefef;
 }
 
 .console-log-error {

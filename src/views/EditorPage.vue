@@ -1,6 +1,6 @@
 <template>
-  <div class="page" :class="{ readonly: isReadOnly, nomenu: urlParams.menu === 'false' }">
-    <home-header v-if="urlParams.menu !== 'false'"/>
+  <div class="page" :class="{ readonly: isReadOnly, headless: urlParams.headless === 'true' }">
+    <home-header v-if="urlParams.headless !== 'true'"/>
 
     <section class="dialogs">
       <compiled-code-dialog
@@ -28,7 +28,7 @@
       ></compiled-code-dialog>
     </section>
 
-    <div :class="{ pans: true, [layout]: true, headless: title !== 'true' }" :style="{ flexDirection: layout }">
+    <div :class="{ pans: true, [urlParams.layout]: true, headless: urlParams.headless === 'true' }" :style="{ flexDirection: urlParams.layout }">
       <dynamic-pan v-for="pan in visiblePans" :key="pan" :pan="pan"/>
 
       <dynamic-pan
@@ -40,7 +40,7 @@
 
       <div
         ref="codefund"
-        v-if="codefundVisible"
+        v-if="urlParams.headless !== 'true' && codefundVisible"
         class="codefund-container"
         @click="codefundVisible = false"
       >
@@ -113,13 +113,7 @@ export default {
       'css',
       'html',
       'urlParams'
-    ]),
-    layout() {
-      return this.urlParams.layout || 'column'
-    },
-    title() {
-      return this.urlParams.title || 'true'
-    }
+    ])
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
