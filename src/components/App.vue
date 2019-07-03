@@ -323,11 +323,11 @@ span:empty {
   }
 }
 
-.pans {
+.pans:not(.headless) {
   height: calc(100% - 64px);
 }
 
-.page.nomenu .pans {
+.pans.headless {
   height: 100%;
 }
 
@@ -375,13 +375,14 @@ span:empty {
     margin: 10px 0 !important;
   }
 
-  .pans {
-    height: 100% !important;
+  .pans:not(.headless) {
+    height: 100%;
     width: calc(100% - 64px);
   }
 
-  .page.nomenu .pans {
-    width: 100% !important;
+  .pans.headless {
+    height: 100%;
+    width: 100%;
   }
 }
 
