@@ -105,10 +105,6 @@ pre > code {
   z-index: 9900;
 }
 
-header > * {
-  height: 100%;
-}
-
 header, header .el-button, header .el-checkbox {
   display: flex;
   flex-direction: row;
@@ -341,6 +337,10 @@ span:empty {
   }
 }
 
+header > * {
+  height: 100%;
+}
+
 @media (orientation: landscape) {
   header {
     overflow-y: auto;
@@ -357,6 +357,10 @@ span:empty {
         margin: 0 0 10px 0 !important;
       }
     }
+  }
+
+  header > * {
+    height: auto !important;
   }
 
   .el-popper {
