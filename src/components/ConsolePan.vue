@@ -47,6 +47,10 @@ export default {
 
 <style lang="stylus" scoped>
 .console-log {
+  font-family: monospace;
+}
+
+.console-log {
   white-space: pre-wrap;
   padding: 10px;
 }

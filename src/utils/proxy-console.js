@@ -171,7 +171,7 @@
         if (typeof arg === 'undefined') {
           newArgs.push('undefined')
         } else {
-          newArgs.push(stringify(arg))
+          newArgs.push(stringify(arg) + ' ')
         }
       }
 

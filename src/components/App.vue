@@ -29,8 +29,11 @@ html, body, #app, .page {
 body {
   background-color: #f9f9f9;
   margin: 0;
-  font-size: 12px;
   font-family: Arial;
+}
+
+body, .pan-head {
+  font-size: 10px;
 }
 
 * {
@@ -194,7 +197,6 @@ header {
 
 .pan-head {
   padding: 12px;
-  font-size: 12px;
 
   .el-button {
     right: 10px;
@@ -393,10 +395,6 @@ header > * {
 @media (max-width: 800px), (max-height: 600px) {
   #cf {
     display: none;
-  }
-
-  body {
-    font-size: 10px;
   }
 
   .pan-head {
