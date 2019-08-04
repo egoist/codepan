@@ -213,6 +213,8 @@ const store = new Vuex.Store({
     },
     // todo: simplify this action
     async setBoilerplate({ state, dispatch }, boilerplate) {
+      if (!boilerplate) return
+
       progress.start()
 
       if (typeof boilerplate === 'string') {
@@ -255,6 +257,8 @@ const store = new Vuex.Store({
       progress.done()
     },
     async setGist({ commit, dispatch, state }, id) {
+      if (!id) return
+
       const data = await api(`gists/${id}`, state.githubToken, progress.done)
       const { files } = data
 
