@@ -6,14 +6,21 @@
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.2.1",
-  "repository": {},
+  "version": "0.2.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Prozi/codepan"
+  },
+  "bugs": {
+    "url": "https://github.com/Prozi/codepan/issues"
+  },
   "scripts": {
     "test": "npm run lint",
     "lint": "eslint --ext=.vue,.js -c .eslintrc.js src ./*.js",
     "dev": "poi --serve",
     "deploy": "surge -p dist -d codepan.net",
-    "build": "NODE_ENV=production poi --prod && cp dist/index.html dist/200.html",
+    "clean": "rm -rf dist",
+    "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
     "start": "http-server dist -p$PORT"
   },
   "devDependencies": {

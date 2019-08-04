@@ -32,7 +32,7 @@ body {
   font-family: Arial;
 }
 
-body, .pan-head {
+body, .pan-head, .pan-head * {
   font-size: 10px;
 }
 
