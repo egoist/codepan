@@ -1,8 +1,8 @@
 <template>
   <div
     ref="codefund"
-    v-if="codefundReady && codefundVisible && urlParams.headless !== 'true'"
     class="codefund-container"
+    v-if="codefundReady && codefundVisible && urlParams.headless !== 'true'"
     @click="codefundVisible = false"
   >
     <div class="codefund-placeholder">Loading CodeFund...</div>
@@ -24,7 +24,7 @@ export default {
     ...mapState(['urlParams'])
   },
   mounted() {
-    this.$refs.codefund && this.getCodeFund()
+    this.$refs.codefund && this.urlParams.headless !== 'true' && this.getCodeFund()
   },
   methods: {
     async getCodeFund() {

@@ -29,7 +29,7 @@ html, body, #app, .page {
 body {
   background-color: #f9f9f9;
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   font-family: Arial;
 }
 
@@ -194,7 +194,7 @@ header {
 
 .pan-head {
   padding: 12px;
-  font-size: 14px;
+  font-size: 12px;
 
   .el-button {
     right: 10px;
@@ -396,7 +396,7 @@ header > * {
   }
 
   body {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .pan-head {

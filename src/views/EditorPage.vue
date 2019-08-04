@@ -57,7 +57,7 @@ import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
 
 async function handleRouteChange(to, from, vm) {
 
-  if (from !== to) {
+  if (from.path !== to.path) {
     switch (to.name) {
     case 'home':
       await vm.setBoilerplate(to.query.boilerplate)
