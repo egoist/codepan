@@ -12,7 +12,8 @@ const LATEST_COMMIT = execSync(
 const cdns = {
   BABEL_CDN:
     'https://cdn.jsdelivr.net/npm/@babel/standalone@7.0.0-beta.32/babel.min.js',
-  PUG_CDN: 'https://cdn.jsdelivr.net/npm/browserified-pug@0.3.0/index.js',
+  PUG_CDN:
+    'https://cdn.jsdelivr.net/npm/browserified-pug@0.3.0/index.js',
   CSSNEXT_CDN:
     'https://cdn.jsdelivr.net/npm/browserified-postcss-cssnext@0.3.0/index.js',
   POSTCSS_CDN:

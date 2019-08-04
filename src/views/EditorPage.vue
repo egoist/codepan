@@ -56,30 +56,25 @@ import HomeHeader from '@/components/HomeHeader.vue'
 import DynamicPan from '@/components/DynamicPan.vue'
 import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
 
-async function handleRouteChange(to, vm) {
-  let boilerplate
-  let gist
+async function handleRouteChange(to, from, vm) {
 
-  const { name } = to
-
-  if (name === 'home') {
-    boilerplate = to.query.boilerplate
-    gist = to.query.gist
-  } else if (name === 'boilerplate') {
-    boilerplate = to.params.boilerplate
-  } else if (name === 'gist') {
-    gist = to.params.gist
+  if (from !== to) {
+    switch (to.name) {
+      case 'home':
+        await vm.setBoilerplate(to.query.boilerplate)
+        await vm.setGist(to.query.gist)
+        break;
+      case 'boilerplate': 
+        await vm.setBoilerplate(to.params.boilerplate)
+        break;
+      case 'gist': 
+        await vm.setGist(to.params.gist)
+        break;
+    }
   }
 
-  if (boilerplate) {
-    await vm.setBoilerplate(boilerplate)
-    Event.$emit('refresh-editor')
-    Event.$emit('run')
-  } else if (gist) {
-    await vm.setGist(gist)
-    Event.$emit('refresh-editor')
-    Event.$emit('run')
-  }
+  Event.$emit('refresh-editor')
+  Event.$emit('run')
 
   await vm.setAutoRun(true)
 
@@ -110,11 +105,11 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
-      await handleRouteChange(to, vm)
+      await handleRouteChange(to, from, vm)
     })
   },
   async beforeRouteUpdate(to, from, next) {
-    await handleRouteChange(to, this)
+    await handleRouteChange(to, from, this)
     next()
   },
   watch: {
@@ -154,12 +149,14 @@ export default {
     }
   },
   created() {
+    Event.$on('refresh-editor', () => this.refreshFromUrl())
+
     Event.$on('show-compiled-code', type => {
       this.showCompiledCode[type] = true
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
+    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun', 'refreshFromUrl']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },

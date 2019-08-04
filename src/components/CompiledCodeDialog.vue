@@ -35,9 +35,8 @@ export default {
       try {
         const code = await transform[this.type](this.code)
         this.transformedCode = CodeMirror.highlight(code, { mode: this.highlight, theme: 'default' })
-      } catch (err) {
-        const message = `compiler error: ${err.message}`
-        this.addLog({ type: 'error', message })
+      } catch ({ message, stack }) {
+        this.addLog({ type: 'error', message: stack || message })
         this.transformedCode = message
       }
       await this.$nextTick()

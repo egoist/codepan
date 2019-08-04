@@ -79,3 +79,15 @@ export function createUrlParams(urlParams, state) {
       return carry
     }, []).join('&')
 }
+
+export function createElement(tag, content = '', attrs = {}) {
+  const element = document.createElement(tag)
+  Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value))
+  element.innerHTML = content
+
+  return element
+}
+
+export function createElementHTML(tag, content = '', attrs = {}) {
+  return createElement(tag, content, attrs).outerHTML
+}

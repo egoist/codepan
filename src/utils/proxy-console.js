@@ -4,19 +4,16 @@
     window.addEventListener(eventName, callback)
   }
 
-  /*eslint-disable no-empty*/
-  addEventListener('error', err => {
-    window.parent.postMessage(
-      { type: 'iframe-error', message: err.stack },
-      '*'
-    )
+  addEventListener('error', (e) => {
+    const { message, stack } = e.error || e
+    window.parent.postMessage({ type: 'iframe-error', message: stack || message }, '*')
   })
-  addEventListener('unhandledrejection', err => {
-    window.parent.postMessage(
-      { type: 'iframe-error', message: err.reason.stack },
-      '*'
-    )
+
+  addEventListener('unhandledrejection', (e) => {
+    const { message, stack } = e.reason || e
+    window.parent.postMessage({ type: 'iframe-error', message: stack || message }, '*')
   })
+
   addEventListener('click', () => {
     window.parent.postMessage({ type: 'codepan-make-output-active' }, '*')
   })
@@ -28,14 +25,6 @@
   const stringify = (function() {
     const sortci = function(a, b) {
       return a.toLowerCase() < b.toLowerCase() ? -1 : 1
-    }
-
-    const htmlEntities = function(str) {
-      return String(str)
-      // .replace(/&/g, '&amp;')
-      // .replace(/</g, '&lt;')
-      // .replace(/>/g, '&gt;')
-      // .replace(/"/g, '&quot;')
     }
 
     /**
@@ -86,7 +75,7 @@
       }
 
       if (type === '[object String]') {
-        return '"' + htmlEntities(o.replace(/"/g, '\\"')) + '"'
+        return '"' + o.replace(/"/g, '\\"') + '"'
       }
 
       // Check for circular references
@@ -99,7 +88,7 @@
             type.slice(1) +
             ('outerHTML' in o
               ? ' :\n' +
-                htmlEntities(o.outerHTML)
+                o.outerHTML
                   .split('\n')
                   .join('\n' + buffer)
               : '')

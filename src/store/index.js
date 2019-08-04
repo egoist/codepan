@@ -66,7 +66,7 @@ function importAll(r) {
 
 importAll(require.context('@/boilerplates', true, /index.js$/))
 
-const urlParams = Object.assign(
+const urlParams = () => Object.assign(
   {
     pans: 'js,output',
     layout: 'column',
@@ -74,14 +74,16 @@ const urlParams = Object.assign(
   },
   getUrlParams()
 )
-const visiblePans = urlParams.pans.split(',')
+
+const params = urlParams()
+const visiblePans = params.pans.split(',')
 const activePan = visiblePans[0]
 
 const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    urlParams,
+    urlParams: params,
     visiblePans,
     activePan,
     autoRun: false,
@@ -93,6 +95,11 @@ const store = new Vuex.Store({
     transforming: false
   },
   mutations: {
+    REFRESH_FROM_URL(state) {
+      state.urlParams = urlParams()
+      state.visiblePans = state.urlParams.pans.split(',')
+      state.activePan = state.visiblePans[0]
+    },
     UPDATE_CODE(state, { type, code }) {
       state[type].code = typeof code === 'string' ? code : code.default
     },
@@ -116,9 +123,7 @@ const store = new Vuex.Store({
 
       state.visiblePans = sortPans(pans)
 
-      const location =
-        createUrlBase() + '?' + createUrlParams(urlParams, state)
-      history.replaceState(null, document.title, location)
+      history.replaceState(null, document.title, createUrlBase() + '?' + createUrlParams(urlParams, state))
     },
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)
@@ -313,6 +318,9 @@ const store = new Vuex.Store({
     },
     setIframeStatus({ commit }, status) {
       commit('SET_IFRAME_STATUS', status)
+    },
+    refreshFromUrl({ commit }) {
+      commit('REFRESH_FROM_URL')
     }
   },
   getters: {

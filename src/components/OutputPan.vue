@@ -1,17 +1,13 @@
 <template>
-  <div class="output-pan" :class="{ 'active-pan': isActivePan }" @click="setActivePan('output')">
+  <div class="output-pan" :class="{'active-pan': isActivePan}" @click="setActivePan('output')">
     <div class="pan-head">Output</div>
-    <div class="output-iframe" id="output-iframe">
-      <div id="output-iframe-holder">
-        <iframe/>
-      </div>
-    </div>
+    <div class="output-iframe" ref="output" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import { getHumanlizedTransformerName } from '@/utils'
+import { getHumanlizedTransformerName, createElement, createElementHTML } from '@/utils'
 import axios from 'axios'
 import notie from 'notie'
 import * as transform from '@/utils/transform'
@@ -27,16 +23,6 @@ const sandboxAttributes = [
   'allow-same-origin',
   'allow-scripts'
 ]
-
-const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
-
-const createElement = tag => (content = '', attrs = {}) => {
-  const attributeString = Object.keys(attrs)
-    .map(key => `${key}="${attrs[key]}"`)
-    .join(' ')
-
-  return `<${tag} ${attributeString}>${content}<${tag}/>`
-}
 
 const makeGist = (data, { showPans, activePan }) => {
   const files = {}
@@ -56,6 +42,11 @@ const makeGist = (data, { showPans, activePan }) => {
 
 export default {
   name: 'output-pan',
+  data() {
+    return {
+      frame: null
+    }
+  },
   computed: {
     ...mapState([
       'js',
@@ -70,9 +61,6 @@ export default {
     isActivePan() {
       return this.activePan === 'output'
     }
-  },
-  mounted() {
-    this.iframe = this.getIframe()
   },
   created() {
     window.addEventListener('message', this.listenIframe)
@@ -96,19 +84,29 @@ export default {
     ]),
     getHumanlizedTransformerName,
 
-    getIframe() {
-      const iframe = this.$el.getElementsByTagName('iframe')[0]
-      iframe.setAttribute('sandbox', sandboxAttributes.join(' '))
-      iframe.setAttribute('scrolling', 'yes')
-      iframe.style.width = '100%'
-      iframe.style.height = '100%'
-      iframe.style.border = '0'
-      return iframe
+    rebuildFrame(content) {
+      this.frame = createElement('iframe', '', {
+        sandbox: sandboxAttributes.join(' '),
+        scrolling: 'yes',
+        style: 'flex: 1;',
+        frameborder: '0'
+      })
+
+      if (this.$refs.output) {
+        while (this.$refs.output.hasChildNodes()) {
+          this.$refs.output.removeChild(this.$refs.output.firstChild)
+        }
+        this.$refs.output.appendChild(this.frame)
+      }
+
+      this.frame.contentDocument.open()
+      this.frame.contentDocument.write(content)
+      this.frame.contentDocument.close()
     },
 
     async listenIframe({ data = {} }) {
       if (data.type === 'iframe-error') {
-        this.addLog({ type: 'error', message: data.message.trim() })
+        this.addLog({ type: 'error', message: data.stack || data.message })
         this.setIframeStatus('error')
       } else if (data.type === 'codepan-console') {
         if (data.method === 'clear') {
@@ -128,11 +126,8 @@ export default {
 
     async run() {
       this.setIframeStatus('loading')
-      const transformed = {
-        html: '',
-        js: '',
-        css: ''
-      }
+
+      const transformed = { html: '', js: '', css: '' }
       const scripts = []
 
       await this.transform(true)
@@ -159,56 +154,37 @@ export default {
         localStorage.setItem('codepan.html', this.html.code)
         localStorage.setItem('codepan.js', this.js.code)
 
-        transformed.js = `
-            try {
-              if (window.Vue) {
-                window.Vue.config.productionTip = false;
-              }
-              window.addEventListener('DOMContentLoaded', function() {
-                ${transformed.js}
-                window.parent.postMessage({ type: 'iframe-success' }, '*');
-              })
-            } catch (err) {
-              window.parent.postMessage({
-                type: 'iframe-error',
-                message: err instanceof Error ? (err.frame ? err.message + '\\n' + err.frame : err.stack) : err
-              }, '*')
-            }
-        `
       } catch (err) {
+
         this.setIframeStatus('error')
-        return this.addLog({
-          type: 'error',
-          message: err.frame ? `${err.message}\n${err.frame}` : err.stack
-        })
+
+        return this.addLog({ type: 'error', message: err.stack || err.message })
       }
 
       await this.transform(false)
 
-      const headStyle = createElement('style')(transformed.css)
-      const codePanRuntime = [
-        createElement('script')(`window.process = window.process || { env: { NODE_ENV: 'development' } }`),
-        createElement('script')(proxyConsole),
+      const head = [
+        createElementHTML('style', transformed.css),
+        createElementHTML('script', `window.process = window.process || { env: { NODE_ENV: 'development' } }`),
+        createElementHTML('script', proxyConsole),
         ...scripts.map(script =>
-          createElement('script')('', { src: `https://bundle.run/${script.module}${script.path}?name=${script.name}` })
+          createElementHTML('script', '', { src: `https://bundle.run/${script.module}${script.path}?name=${script.name}` })
         )
       ].join('\n')
 
-      const head = `${headStyle}\n${codePanRuntime}`
-
       const body = [
-        createElement('script')('console.clear();'),
+        createElementHTML('script', 'console.clear();'),
         transformed.html,
-        createElement('script')(transformed.js)
+        createElementHTML('script', transformed.js)
       ].join('\n')
 
-      const iframeContent = `<!DOCTYPE html>
+      this.rebuildFrame(`<!DOCTYPE html>
       <html>
         <head>${head}</head>
         <body>${body}</body>
-      </html>`
-
-      this.iframe.src = `data:text/html;charset=utf-8,${iframeContent}`
+      </html>`)
+      
+      this.setIframeStatus('ready')
     },
 
     /**
@@ -290,8 +266,10 @@ $statusSize = 12px;
 }
 
 .output-iframe {
-  position: relative;
+  overflow: hidden;
+  display: flex;
   flex: 1;
+  margin-top: -1px;
 
   &.disable-mouse-events {
     pointer-events: none;
