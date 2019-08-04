@@ -1,4 +1,6 @@
 (function() {
+  /* eslint-disable no-empty */
+
   function addEventListener(eventName, callback) {
     window.removeEventListener(eventName, callback)
     window.addEventListener(eventName, callback)
@@ -212,13 +214,13 @@
       const styles = []
       for (let i = 1; Array.isArray(replacements) && i < args.length; i++) {
         switch (replacements.shift().substr(0, 2)) {
-          case '%s':
-            texts.push(args[i])
-            break
-          case '%c':
-            styles.push(args[i])
-            break
-          default:
+        case '%s':
+          texts.push(args[i])
+          break
+        case '%c':
+          styles.push(args[i])
+          break
+        default:
         }
       }
 

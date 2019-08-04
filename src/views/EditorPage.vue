@@ -48,7 +48,6 @@ import progress from 'nprogress'
 import { mapState, mapActions } from 'vuex'
 import notie from 'notie'
 import isElectron from 'is-electron'
-import axios from 'axios'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
 import Codefund from '@/components/Codefund.vue'
@@ -60,16 +59,16 @@ async function handleRouteChange(to, from, vm) {
 
   if (from !== to) {
     switch (to.name) {
-      case 'home':
-        await vm.setBoilerplate(to.query.boilerplate)
-        await vm.setGist(to.query.gist)
-        break;
-      case 'boilerplate': 
-        await vm.setBoilerplate(to.params.boilerplate)
-        break;
-      case 'gist': 
-        await vm.setGist(to.params.gist)
-        break;
+    case 'home':
+      await vm.setBoilerplate(to.query.boilerplate)
+      await vm.setGist(to.query.gist)
+      break
+    case 'boilerplate': 
+      await vm.setBoilerplate(to.params.boilerplate)
+      break
+    case 'gist': 
+      await vm.setGist(to.params.gist)
+      break
     }
   }
 
