@@ -8,5 +8,3 @@ class Foo {
 `, {
   presets: [env]
 })
-
-console.log(code)
