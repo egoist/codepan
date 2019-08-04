@@ -42,4 +42,7 @@ Doesnt show ads, menu or pan header titles
 
 ## License
 
-MIT &copy; [EGOIST](https://github.com/egoist)
+MIT
+
+v.0.1.x &copy; [EGOIST](https://github.com/egoist)
+v.0.2.x &copy; [PROZI](https://github.com/Prozi)
