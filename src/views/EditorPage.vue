@@ -38,14 +38,7 @@
         style="display: none;"
       />
 
-      <div
-        ref="codefund"
-        v-if="urlParams.headless !== 'true' && codefundVisible"
-        class="codefund-container"
-        @click="codefundVisible = false"
-      >
-        <div class="codefund-placeholder">Loading CodeFund...</div>
-      </div>
+      <codefund />
     </div>
   </div>
 </template>
@@ -58,6 +51,7 @@ import isElectron from 'is-electron'
 import axios from 'axios'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
+import Codefund from '@/components/Codefund.vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import DynamicPan from '@/components/DynamicPan.vue'
 import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
@@ -96,7 +90,6 @@ export default {
   name: 'editor-page',
   data() {
     return {
-      codefundVisible: true,
       showCompiledCode: {
         js: false,
         css: false,
@@ -137,11 +130,6 @@ export default {
     }
   },
   mounted() {
-    // Tell the parent window we're ready!
-    if (inIframe) {
-      window.parent.postMessage({ type: 'codepan-ready' }, '*')
-    }
-
     window.addEventListener('storage', this.handleStorageChanged)
 
     window.addEventListener('beforeunload', e => {
@@ -164,8 +152,6 @@ export default {
         })
       })
     }
-
-    this.codefundVisible && this.getCodeFund()
   },
   created() {
     Event.$on('show-compiled-code', type => {
@@ -195,13 +181,6 @@ export default {
         }
       }
     },
-    async getCodeFund() {
-      if (!this.$refs.codefund) return
-      const res = await axios.get(
-        'https://codefund.io/properties/241/funder.html'
-      )
-      this.$refs.codefund.innerHTML = res.data
-    }
   },
   beforeDestroy() {
     window.removeEventListener('storage', this.handleStorageChanged)
@@ -209,6 +188,7 @@ export default {
   components: {
     HomeHeader,
     DynamicPan,
+    Codefund,
     CompiledCodeDialog
   }
 }

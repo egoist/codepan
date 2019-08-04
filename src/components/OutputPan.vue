@@ -31,14 +31,11 @@ const sandboxAttributes = [
 const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
 
 const createElement = tag => (content = '', attrs = {}) => {
-  attrs = Object.keys(attrs)
-    .map(key => {
-      return `${key}="${attrs[key]}"`
-    })
+  const attributeString = Object.keys(attrs)
+    .map(key => `${key}="${attrs[key]}"`)
     .join(' ')
-  return replaceQuote(
-    `__QUOTE_LEFT__${tag} ${attrs}>${content}__QUOTE_LEFT__/${tag}>`
-  )
+
+  return `<${tag} ${attributeString}>${content}<${tag}/>`
 }
 
 const makeGist = (data, { showPans, activePan }) => {
