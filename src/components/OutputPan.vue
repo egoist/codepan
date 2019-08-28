@@ -141,7 +141,7 @@ export default {
         if (data.method === 'clear') {
           this.clearLogs()
         } else {
-          this.addLog({ type: data.method, message: data.args.join('') })
+          this.addLog({ type: data.method, message: data.args.join(' ') })
         }
       } else if (data.type === 'codepan-make-output-active') {
         this.setActivePan('output')

@@ -172,7 +172,7 @@
     /**
      * Add colors for console string
      */
-    const styleText = function (textArray, styles) {
+    const styleText = function (textArray, styles = []) {
       return textArray.map((text, index) => {
         return index ? `<span style="${styles.shift()}">${text}</span>` : text
       })
@@ -200,6 +200,12 @@
       }
 
       const replacements = args[0].match(/(%[sc])([^%]*)/gm)
+
+      // If no replacement is found, we return a unstyled text
+      if (!replacements || replacements === null) {
+        return styleText(args);
+      }
+
       const texts = []
       const styles = []
       for (let i = 1; i < args.length; i++) {
