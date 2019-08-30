@@ -174,7 +174,7 @@
      */
     const styleText = function (textArray, styles = []) {
       return textArray.map((text, index) => {
-        return index ? `<span style="${styles.shift()}">${text}</span>` : text
+        return index ? `<span style="${styles.shift()}">${stringify(text)}</span>` : text
       })
     }
 
