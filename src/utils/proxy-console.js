@@ -202,7 +202,7 @@
       const replacements = args[0].match(/(%[sc])([^%]*)/gm)
 
       // If no replacement is found, we return a unstyled text
-      if (!replacements || replacements === null) {
+      if (!replacements || !replacements.length) {
         return styleText(args);
       }
 
