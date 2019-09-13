@@ -15,17 +15,17 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
-import { getHumanlizedTransformerName } from '@/utils'
 import axios from 'axios'
 import notie from 'notie'
+import { mapState, mapActions, mapGetters } from 'vuex'
+import SvgIcon from './SvgIcon'
+import { getHumanlizedTransformerName } from '@/utils'
 import * as transform from '@/utils/transform'
 import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
 import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
-import SvgIcon from './SvgIcon.vue'
 
 const sandboxAttributes = [
   'allow-modals',

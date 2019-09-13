@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import progress from 'nprogress'
+import req from 'reqjs'
 import {
   loadBabel,
   loadPug,
@@ -14,9 +16,7 @@ import {
   loadTypescript,
   loadStylus
 } from '@/utils/transformer'
-import progress from 'nprogress'
 import api from '@/utils/github-api'
-import req from 'reqjs'
 import Event from '@/utils/event'
 
 Vue.use(Vuex)
@@ -31,30 +31,30 @@ const sortPans = ps => {
 const emptyPans = () => ({
   js: {
     code: '',
-    transformer: 'js'
+    transformer: 'js',
   },
   css: {
     code: '',
-    transformer: 'css'
+    transformer: 'css',
   },
   html: {
     code: '',
-    transformer: 'html'
-  }
+    transformer: 'html',
+  },
 })
 
 const getFileNameByLang = {
   html: 'index.html',
   js: 'script.js',
-  css: 'style.css'
+  css: 'style.css',
 }
 
 // Load entries of all boilerplates
 const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
-    showPans: ['html', 'js', 'output']
-  })
+    showPans: ['html', 'js', 'output'],
+  }),
 }
 function importAll(r) {
   r.keys().forEach(key => {
@@ -76,7 +76,7 @@ const store = new Vuex.Store({
     userMeta: JSON.parse(localStorage.getItem('codepan:user-meta')) || {},
     editorStatus: 'saved',
     iframeStatus: null,
-    transforming: false
+    transforming: false,
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -127,7 +127,7 @@ const store = new Vuex.Store({
     },
     SET_TRANSFORM(state, status) {
       state.transforming = status
-    }
+    },
   },
   actions: {
     updateCode({ commit }, payload) {
@@ -202,13 +202,13 @@ const store = new Vuex.Store({
         const { code, transformer } = {
           code: defaultPans[type].code,
           transformer: defaultPans[type].transformer,
-          ...boilerplate[type]
+          ...boilerplate[type],
         }
         ps.push(
           dispatch('updateCode', { type, code }),
           dispatch('updateTransformer', {
             type,
-            transformer
+            transformer,
           })
         )
       }
@@ -242,7 +242,7 @@ const store = new Vuex.Store({
         js: {},
         ...(files['index.js'] ? req(files['index.js'].content) : {}),
         ...(files['codepan.js'] ? req(files['codepan.js'].content) : {}),
-        ...(files['codepan.json'] ? JSON.parse(files['codepan.json'].content) : {})
+        ...(files['codepan.json'] ? JSON.parse(files['codepan.json'].content) : {}),
       }
       for (const type of ['html', 'js', 'css']) {
         if (!main[type].code) {
@@ -290,18 +290,21 @@ const store = new Vuex.Store({
     },
     setIframeStatus({ commit }, status) {
       commit('SET_IFRAME_STATUS', status)
-    }
+    },
   },
   getters: {
     isLoggedIn({ githubToken }) {
       return Boolean(githubToken)
     },
     canUpdateGist({ gistMeta, userMeta }) {
-      return gistMeta && userMeta &&
+      return (
+        gistMeta &&
+        userMeta &&
         gistMeta.owner &&
         gistMeta.owner.id === userMeta.id
-    }
-  }
+      )
+    },
+  },
 })
 
 export default store
