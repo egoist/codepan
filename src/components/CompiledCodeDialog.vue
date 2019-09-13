@@ -14,9 +14,9 @@
 import Modal from 'vue-slim-modal'
 import { mapActions, mapState } from 'vuex'
 import { RepeatIcon } from 'vue-feather-icons'
+import Highlight from './Highlight'
 import { getHumanlizedTransformerName } from '@/utils'
 import * as transform from '@/utils/transform'
-import Highlight from './Highlight'
 
 export default {
   name: 'compiled-code-dialog',

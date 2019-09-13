@@ -35,7 +35,7 @@
   import { mapState, mapActions } from 'vuex'
   import { Badge, Button } from 'element-ui'
   import panPosition from '@/utils/pan-position'
-  import PanResizer from '@/components/PanResizer.vue'
+  import PanResizer from '@/components/PanResizer'
   import { hasNextPan } from '@/utils'
   import '@/utils/highlight'
   import Event from '@/utils/event'

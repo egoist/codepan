@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Event from '@/utils/event'
 import { RepeatIcon } from 'vue-feather-icons'
+import Event from '@/utils/event'
 
 export default {
   props: {

@@ -1,21 +1,20 @@
 {
   "private": true,
-  "name": "codepan",
-  "productName": "CodePan",
-  "description": "Play with JS/CSS/HTML so simple it hurts",
-  "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
+  "name": "p5-codepan",
+  "productName": "p5-CodePan",
+  "description": "P5.js web IDE for offlien and online",
+  "details": "Codepan fork, cutomized to bean P5.js browser based IDE.",
   "main": "src/index.js",
-  "homepage": "https://codepan.net/",
   "version": "0.1.0",
   "repository": {},
   "scripts": {
     "test": "npm run lint",
-    "lint": "xo",
-    "dev": "poi",
-    "build": "poi build",
-    "deploy": "surge -p dist -d codepan.net",
+    "lint": "npx xo",
+    "dev": "npx poi",
+    "build": "npx poi build",
+    "deploy": "npx surge -p dist -d codepan.net",
     "predeploy": "npm run build && cp dist/index.html dist/200.html",
-    "report": "poi build --bundle-report"
+    "report": "npx poi build --bundle-report"
   },
   "xo": {
     "parser": "babel-eslint",
@@ -101,6 +100,7 @@
     "vue-inline": "^1.0.1",
     "vue-router": "^2.7.0",
     "vue-slim-modal": "^1.0.4",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "webpack": "^3.11.0"
   }
 }

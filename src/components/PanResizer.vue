@@ -8,8 +8,8 @@
 </template>
 
 <script>
-  import Event from '@/utils/event'
   import { mapState } from 'vuex'
+  import Event from '@/utils/event'
 
   export default {
     props: ['enable', 'pan'],
