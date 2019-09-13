@@ -4,6 +4,7 @@
 
 ### Lintint issue
 
-Codepan project is forked with configured `xo` linter, while I use ESLINT and others.
-Migrate from `xo'.
+Codepan project is forked with configured `xo`, and opionated ESLINT wrapper linter,
+while I imported my personalized ESLINT and others.
+Adjust my configs to `xo' or get rid of it.
 
