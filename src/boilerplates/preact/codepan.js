@@ -1,28 +1,21 @@
 /* @jsx h */
-const { Component, h, render } = preact
+const { h, render } = preact
+const { useState } = preactHooks
 
-class App extends Component {
-  state = {
-    count: 0
-  }
+const App = () => {
+  const [count, setCount] = useState(0)
 
-  inc = () => this.setState({
-    count: this.state.count + 1
-  })
+  const inc = () => setCount(count + 1)
 
-  dec = () => this.setState({
-    count: this.state.count - 1
-  })
+  const dec = () => setCount(count - 1)
 
-  render() {
-    return (
-      <div>
-        <h2>{ this.state.count }</h2>
-        <button onClick={this.inc}>Increment</button>
-        <button onClick={this.dec}>Decrement</button>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={inc}>Increment</button>
+      <button onClick={dec}>Decrement</button>
+    </div>
+  )
 }
 
 render(<App />, document.body)
