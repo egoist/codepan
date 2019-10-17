@@ -16,14 +16,18 @@ const defaultPresets = [
 export async function js({ code, transformer }) {
   if (transformer === 'js') {
     return code
-  } else if (
+  }
+
+  if (
     transformer === 'babel' ||
     transformer === 'jsx' /* @deprecated, use "babel" */
   ) {
     return window.Babel.transform(code, {
       presets: [...defaultPresets, 'flow', 'react']
     }).code
-  } else if (transformer === 'typescript') {
+  }
+
+  if (transformer === 'typescript') {
     const res = window.typescript.transpileModule(code, {
       fileName: '/foo.ts',
       reportDiagnostics: true,
@@ -33,14 +37,18 @@ export async function js({ code, transformer }) {
     })
     console.log(res)
     return res.outputText
-  } else if (transformer === 'vue-jsx') {
+  }
+
+  if (transformer === 'vue-jsx') {
     return window.Babel.transform(code, {
       presets: [...defaultPresets, 'flow', transformers.get('VuePreset')]
     }).code.replace(
       /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
       transformers.get('VueJSXMergeProps')
     )
-  } else if (transformer === 'svelte') {
+  }
+
+  if (transformer === 'svelte') {
     return (
       transformers.get('svelte').compile(code, {
         format: 'es'
@@ -49,7 +57,9 @@ export async function js({ code, transformer }) {
         'new SvelteComponent({target: document.body})'
       )
     )
-  } else if (transformer === 'reason') {
+  }
+
+  if (transformer === 'reason') {
     const wrapInExports = code =>
       `;(function(exports) {\n${code}\n})(window.exports = {})`
 
@@ -58,10 +68,10 @@ export async function js({ code, transformer }) {
       const res = JSON.parse(window.ocaml.compile(ocamlCode))
       if (res.js_error_msg) return res.js_error_msg
       return wrapInExports(res.js_code)
-    } catch (err) {
-      console.log(err)
-      return `${err.message}${
-        err.location ? `\n${JSON.stringify(err.location, null, 2)}` : ''
+    } catch (error) {
+      console.log(error)
+      return `${error.message}${
+        error.location ? `\n${JSON.stringify(error.location, null, 2)}` : ''
       }`
     }
   } else if (transformer === 'coffeescript-2') {
@@ -78,54 +88,61 @@ export async function js({ code, transformer }) {
     if (data.error) {
       return data.error.trim()
     }
+
     return `console.log(${JSON.stringify(data.result.trim())})`
   }
+
   throw new Error(`Unknow transformer: ${transformer}`)
 }
 
 export async function html({ code, transformer }) {
   if (transformer === 'html') {
     return code
-  } else if (transformer === 'pug') {
+  }
+
+  if (transformer === 'pug') {
     return window.pug.render(code)
-  } else if (transformer === 'markdown') {
+  }
+
+  if (transformer === 'markdown') {
     return transformers.get('markdown')(code)
   }
+
   throw new Error(`Unknow transformer: ${transformer}`)
 }
 
 export async function css({ code, transformer }) {
   switch (transformer) {
-    case 'css':
-      return code
-    case 'cssnext':
-      return window
-        .postcss([window.cssnext])
-        .process(code)
-        .then(res => res.css)
-    case 'less':
-      return transformers
-        .get('less')
-        .render(code)
-        .then(res => res.css)
-    case 'scss':
-    case 'sass':
-      return new Promise((resolve, reject) => {
-        transformers.get('sass').compile(code, {
-          indentedSyntax: transformer === 'sass'
-        }, result => {
-          if (result.status === 0) return resolve(result.text)
-          reject(new Error(result.formatted))
-        })
+  case 'css':
+    return code
+  case 'cssnext':
+    return window
+      .postcss([window.cssnext])
+      .process(code)
+      .then(res => res.css)
+  case 'less':
+    return transformers
+      .get('less')
+      .render(code)
+      .then(res => res.css)
+  case 'scss':
+  case 'sass':
+    return new Promise((resolve, reject) => {
+      transformers.get('sass').compile(code, {
+        indentedSyntax: transformer === 'sass'
+      }, result => {
+        if (result.status === 0) return resolve(result.text)
+        reject(new Error(result.formatted))
       })
-    case 'stylus':
-      return new Promise((resolve, reject) => {
-        window.stylus.render(code, { filename: 'codepan.styl' }, (err, css) => {
-          if (err) return reject(err)
-          resolve(css)
-        })
+    })
+  case 'stylus':
+    return new Promise((resolve, reject) => {
+      window.stylus.render(code, { filename: 'codepan.styl' }, (err, css) => {
+        if (err) return reject(err)
+        resolve(css)
       })
-    default:
-      throw new Error(`Unknow transformer: ${transformer}`)
+    })
+  default:
+    throw new Error(`Unknow transformer: ${transformer}`)
   }
 }

@@ -1,12 +1,14 @@
-import { mapActions, mapState } from 'vuex'
 import debounce from 'debounce'
+import { mapActions, mapState } from 'vuex'
 import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
-import PanResizer from '@/components/PanResizer.vue'
 import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
-import { hasNextPan, getHumanlizedTransformerName, getEditorModeByTransfomer } from '@/utils'
+import {
+  hasNextPan,
+  getHumanlizedTransformerName,
+  getEditorModeByTransfomer
+} from '@/utils'
 
 export default ({ name, editor, components } = {}) => {
   return {
@@ -37,22 +39,22 @@ export default ({ name, editor, components } = {}) => {
       },
       visiblePans: {
         immediate: true,
-        handler(val) {
-          this.style = panPosition(val, name)
+        handler() {
+          this.style.height = `${100 / this.visiblePans.length}%`
         }
-      },
-      [`${name}.transformer`](val) {
-        const mode = getEditorModeByTransfomer(val)
-        this.editor.setOption('mode', mode)
       },
       [`${name}.code`]() {
         if (this.autoRun) {
           this.debounceRunCode()
         }
+      },
+      [`${name}.transformer`](val) {
+        const mode = getEditorModeByTransfomer(val)
+        this.editor.setOption('mode', mode)
       }
     },
-    mounted() {
-      this.editor = createEditor(this.$refs.editor, {
+    async mounted() {
+      this.editor = await createEditor(this.$refs.editor, {
         ...editor,
         readOnly: 'readonly' in this.$route.query
       })
@@ -65,7 +67,10 @@ export default ({ name, editor, components } = {}) => {
           this.setActivePan(name)
         }
       })
+    },
+    created() {
       Event.$on('refresh-editor', () => {
+        if (!this[name].code) return
         this.editor.setValue(this[name].code)
         this.editor.refresh()
       })
@@ -84,19 +89,23 @@ export default ({ name, editor, components } = {}) => {
       })
     },
     methods: {
-      ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),
-      async setTransformer(transformer) {
-        await this.updateTransformer({ type: name, transformer })
-      },
+      ...mapActions([
+        'updateCode',
+        'updateTransformer',
+        'setActivePan',
+        'editorChanged'
+      ]),
       debounceRunCode: debounce(() => {
         Event.$emit('run')
-      }, 500)
+      }, 500),
+      async setTransformer(transformer) {
+        await this.updateTransformer({ type: name, transformer })
+      }
     },
     components: {
       'el-dropdown': Dropdown,
       'el-dropdown-menu': DropdownMenu,
       'el-dropdown-item': DropdownItem,
-      PanResizer,
       CompiledCodeSwitcher,
       ...components
     }

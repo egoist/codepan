@@ -22,8 +22,7 @@
         <compiled-code-switcher type="css" v-if="css.code"></compiled-code-switcher>
       </div>
     </div>
-    <textarea ref="editor">{{ css.code }}</textarea>
-    <pan-resizer pan="css" :enable="enableResizer" />
+    <textarea ref="editor" v-model="css.code"></textarea>
   </div>
 </template>
 

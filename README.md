@@ -24,6 +24,25 @@ Clone this repository and install dependencies by running `yarn`, then:
 - `yarn build`: Build in production mode
 - `yarn lint`: Run eslint
 
+## Set pans from the url GET parameters
+
+You can use url GET param:
+
+- `pans=html,css,js,console,output`
+
+Sets types of visible open pans, any number is ok
+
+- `layout=column|row`
+
+Sets the desired layout of open pans
+
+- `headless=false|true`
+
+Doesnt show ads, menu or pan header titles
+
 ## License
 
-MIT &copy; [EGOIST](https://github.com/egoist)
+MIT
+
+v.0.1.x &copy; [EGOIST](https://github.com/egoist)
+v.0.2.x &copy; [PROZI](https://github.com/Prozi)

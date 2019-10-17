@@ -1,31 +1,19 @@
 <template>
-  <div
-    class="output-pan"
-    :class="{ 'active-pan': isActivePan }"
-    @click="setActivePan('output')"
-    :style="style">
-
-    <div class="pan-head">
-      Output
-    </div>
-    <div class="output-iframe" id="output-iframe">
-      <div id="output-iframe-holder"></div>
-    </div>
+  <div class="output-pan" :class="{'active-pan': isActivePan}" @click="setActivePan('output')">
+    <div class="pan-head">Output</div>
+    <div class="output-iframe" ref="output" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import { getHumanlizedTransformerName } from '@/utils'
+import { getHumanlizedTransformerName, createElement, createElementHTML } from '@/utils'
 import axios from 'axios'
 import notie from 'notie'
 import * as transform from '@/utils/transform'
-import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
-import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
-import SvgIcon from './SvgIcon.vue'
+import proxyConsole from '!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console'
 
 const sandboxAttributes = [
   'allow-modals',
@@ -35,19 +23,6 @@ const sandboxAttributes = [
   'allow-same-origin',
   'allow-scripts'
 ]
-
-const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
-
-const createElement = tag => (content = '', attrs = {}) => {
-  attrs = Object.keys(attrs)
-    .map(key => {
-      return `${key}="${attrs[key]}"`
-    })
-    .join(' ')
-  return replaceQuote(
-    `__QUOTE_LEFT__${tag} ${attrs}>${content}__QUOTE_LEFT__/${tag}>`
-  )
-}
 
 const makeGist = (data, { showPans, activePan }) => {
   const files = {}
@@ -59,7 +34,7 @@ const makeGist = (data, { showPans, activePan }) => {
   }
 
   files['codepan.json'] = {
-    content: JSON.stringify(manifest)
+    content: JSON.stringify(manifest, null, 2)
   }
 
   return files
@@ -69,15 +44,7 @@ export default {
   name: 'output-pan',
   data() {
     return {
-      style: {}
-    }
-  },
-  watch: {
-    visiblePans: {
-      immediate: true,
-      handler(val) {
-        this.style = panPosition(val, 'output')
-      }
+      frame: null
     }
   },
   computed: {
@@ -90,34 +57,18 @@ export default {
       'githubToken',
       'iframeStatus'
     ]),
-    ...mapGetters([
-      'isLoggedIn',
-      'canUpdateGist'
-    ]),
+    ...mapGetters(['isLoggedIn', 'canUpdateGist']),
     isActivePan() {
       return this.activePan === 'output'
     }
   },
-  mounted() {
-    this.iframe = createIframe({
-      el: document.getElementById('output-iframe-holder'),
-      sandboxAttributes
-    })
-
+  created() {
     window.addEventListener('message', this.listenIframe)
+
     Event.$on('run', () => this.run())
-    Event.$on(`set-output-pan-style`, style => {
-      this.style = {
-        ...this.style,
-        ...style
-      }
-    })
     Event.$on('save-gist', saveNew => {
       this.saveGist({ token: this.githubToken, saveNew })
     })
-  },
-  beforeDestroy() {
-    window.removeEventListener('message', this.listenIframe)
   },
   methods: {
     ...mapActions([
@@ -133,9 +84,29 @@ export default {
     ]),
     getHumanlizedTransformerName,
 
+    rebuildFrame(content) {
+      this.frame = createElement('iframe', '', {
+        sandbox: sandboxAttributes.join(' '),
+        scrolling: 'yes',
+        style: 'flex: 1;',
+        frameborder: '0'
+      })
+
+      if (this.$refs.output) {
+        while (this.$refs.output.hasChildNodes()) {
+          this.$refs.output.removeChild(this.$refs.output.firstChild)
+        }
+        this.$refs.output.appendChild(this.frame)
+      }
+
+      this.frame.contentDocument.open()
+      this.frame.contentDocument.write(content)
+      this.frame.contentDocument.close()
+    },
+
     async listenIframe({ data = {} }) {
       if (data.type === 'iframe-error') {
-        this.addLog({ type: 'error', message: data.message.trim() })
+        this.addLog({ type: 'error', message: data.stack || data.message })
         this.setIframeStatus('error')
       } else if (data.type === 'codepan-console') {
         if (data.method === 'clear') {
@@ -155,91 +126,65 @@ export default {
 
     async run() {
       this.setIframeStatus('loading')
-      let js
-      // We may add preprocessors supports for html/css in the future
-      let html
-      let css
+
+      const transformed = { html: '', js: '', css: '' }
       const scripts = []
 
       await this.transform(true)
 
       try {
         await Promise.all([
-          transform.js(this.js)
+          transform.html(this.html).then(code => {
+            transformed.html = code
+          }),
+          transform
+            .js(this.js)
             .then(code => getScripts(code, scripts))
             .then(code => {
-              js = code
+              transformed.js = code
             }),
-          transform.html(this.html)
-            .then(code => {
-              html = code
-            }),
-          transform.css(this.css)
-            .then(code => {
-              css = code
-            })
-        ])
-
-        js = js.replace(/<\/script>/, '<\\/script>')
-        js = `
-          try {
-            ${js}
-          } catch (err) {
-            window.parent.postMessage(
-              {
-                type: 'iframe-error',
-                message: err instanceof Error ? (err.frame ? err.message + '\\n' + err.frame : err.stack) : err
-              },
-              '*'
-            )
-          }
-        `
-        js = `
-          if (window.Vue) {
-            window.Vue.config.productionTip = false;
-          }
-          console.clear();
-          document.addEventListener('DOMContentLoaded', __executeCodePan);
-          function __executeCodePan(){
-            window.parent.postMessage({ type: 'iframe-success' }, '*');
-            let script = document.createElement('script');
-            script.innerHTML = ${JSON.stringify(js)};
-            document.body.appendChild(script);
-          };`
-      } catch (err) {
-        this.setIframeStatus('error')
-        return this.addLog({
-          type: 'error',
-          message: err.frame ? `${err.message}\n${err.frame}` : err.stack
+          transform.css(this.css).then(code => {
+            transformed.css = code
+          })
+        ]).catch(err => {
+          throw err
         })
+
+        localStorage.setItem('codepan.css', this.css.code)
+        localStorage.setItem('codepan.html', this.html.code)
+        localStorage.setItem('codepan.js', this.js.code)
+
+      } catch (err) {
+
+        this.setIframeStatus('error')
+
+        return this.addLog({ type: 'error', message: err.stack || err.message })
       }
 
       await this.transform(false)
 
-      const headStyle = createElement('style')(css)
-      const codePanRuntime = createElement('script')(`
-        window.process = window.process || { env: { NODE_ENV: 'development' } }
-        `) +
-        scripts
-          .map(script =>
-            createElement('script')('', {
-              src: `https://bundle.run/${script.module}${script.path}?name=${
-                script.name
-              }`
-            })
-          )
-          .join('\n') +
-        createElement('script')(proxyConsole)
-      const head = headStyle + codePanRuntime
+      const head = [
+        createElementHTML('style', transformed.css),
+        createElementHTML('script', `window.process = window.process || { env: { NODE_ENV: 'development' } }`),
+        createElementHTML('script', proxyConsole),
+        ...scripts.map(script =>
+          createElementHTML('script', '', { src: `https://bundle.run/${script.module}${script.path}?name=${script.name}` })
+        )
+      ].join('\n')
 
-      const body =
-        html +
-        createElement('script')(js)
+      const body = [
+        createElementHTML('script', 'console.clear();'),
+        transformed.html,
+        createElementHTML('script', transformed.js)
+      ].join('\n')
 
-      this.iframe.setHTML({
-        head,
-        body
-      })
+      this.rebuildFrame(`<!DOCTYPE html>
+      <html>
+        <head>${head}</head>
+        <body>${body}</body>
+      </html>`)
+      
+      this.setIframeStatus('ready')
     },
 
     /**
@@ -268,9 +213,7 @@ export default {
         }
         const shouldUpdateGist = this.canUpdateGist && !saveNew
         const url = `https://api.github.com/gists${
-          shouldUpdateGist ?
-          `/${this.$route.params.gist}` :
-          ''
+          shouldUpdateGist ? `/${this.$route.params.gist}` : ''
         }`
         const method = shouldUpdateGist ? 'PATCH' : 'POST'
         const { data } = await axios(url, {
@@ -309,22 +252,27 @@ export default {
         }
       }
     }
-  },
-  components: {
-    SvgIcon
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-$statusSize = 12px
+$statusSize = 12px;
 
-.output-pan
-  overflow: hidden
+.output-pan {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-.output-iframe
-  width: 100%
-  height: calc(100% - 40px)
-  &.disable-mouse-events
-    pointer-events: none
+.output-iframe {
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  margin-top: -1px;
+
+  &.disable-mouse-events {
+    pointer-events: none;
+  }
+}
 </style>

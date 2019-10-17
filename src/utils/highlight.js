@@ -41,3 +41,5 @@ CodeMirror.highlight = function (string, options = {}) {
 
   return html
 }
+
+export default CodeMirror

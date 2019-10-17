@@ -18,19 +18,18 @@
 
       <compiled-code-switcher type="html" v-if="html.code"></compiled-code-switcher>
     </div>
-    <textarea ref="editor">{{ html.code }}</textarea>
-    <pan-resizer pan="html" :enable="enableResizer" />
+    <textarea ref="editor" v-model="html.code"></textarea>
   </div>
 </template>
 
 <script>
-  import createPan from '@/utils/create-pan'
+import createPan from '@/utils/create-pan'
 
-  export default createPan({
-    name: 'html',
-    editor: {
-      mode: 'htmlmixed',
-      autoCloseTags: true
-    }
-  })
+export default createPan({
+  name: 'html',
+  editor: {
+    mode: 'htmlmixed',
+    autoCloseTags: true
+  }
+})
 </script>

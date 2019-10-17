@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import progress from 'nprogress'
+import req from 'reqjs'
 import {
   loadBabel,
   loadPug,
@@ -14,10 +16,9 @@ import {
   loadTypescript,
   loadStylus
 } from '@/utils/transformer'
-import progress from 'nprogress'
 import api from '@/utils/github-api'
-import req from 'reqjs'
 import Event from '@/utils/event'
+import { getUrlParams, createUrlBase, createUrlParams } from '../utils'
 
 Vue.use(Vuex)
 
@@ -53,7 +54,7 @@ const getFileNameByLang = {
 const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
-    showPans: ['html', 'js', 'output']
+    showPans: ['js', 'output']
   })
 }
 function importAll(r) {
@@ -62,14 +63,29 @@ function importAll(r) {
     boilerplates[name] = r(key).default
   })
 }
+
 importAll(require.context('@/boilerplates', true, /index.js$/))
+
+const urlParams = () => Object.assign(
+  {
+    pans: 'js,output',
+    layout: 'column',
+    headless: 'false'
+  },
+  getUrlParams()
+)
+
+const params = urlParams()
+const visiblePans = params.pans.split(',')
+const activePan = visiblePans[0]
 
 const store = new Vuex.Store({
   state: {
     ...emptyPans(),
     logs: [],
-    visiblePans: ['html', 'js', 'output'],
-    activePan: 'js',
+    urlParams: params,
+    visiblePans,
+    activePan,
     autoRun: false,
     githubToken: localStorage.getItem('codepan:gh-token') || '',
     gistMeta: {},
@@ -79,8 +95,13 @@ const store = new Vuex.Store({
     transforming: false
   },
   mutations: {
+    REFRESH_FROM_URL(state) {
+      state.urlParams = urlParams()
+      state.visiblePans = state.urlParams.pans.split(',')
+      state.activePan = state.visiblePans[0]
+    },
     UPDATE_CODE(state, { type, code }) {
-      state[type].code = code
+      state[type].code = typeof code === 'string' ? code : code.default
     },
     UPDATE_TRANSFORMER(state, { type, transformer }) {
       state[type].transformer = transformer
@@ -99,7 +120,10 @@ const store = new Vuex.Store({
       } else {
         pans.splice(idx, 1)
       }
+
       state.visiblePans = sortPans(pans)
+
+      history.replaceState(null, document.title, createUrlBase() + '?' + createUrlParams(urlParams, state))
     },
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)
@@ -181,13 +205,16 @@ const store = new Vuex.Store({
       } else if (transformer === 'stylus') {
         await loadStylus()
       }
+
       commit('UPDATE_TRANSFORMER', { type, transformer })
     },
     transform({ commit }, status) {
       commit('SET_TRANSFORM', status)
     },
     // todo: simplify this action
-    async setBoilerplate({ dispatch }, boilerplate) {
+    async setBoilerplate({ state, dispatch }, boilerplate) {
+      if (!boilerplate) return
+
       progress.start()
 
       if (typeof boilerplate === 'string') {
@@ -196,12 +223,11 @@ const store = new Vuex.Store({
 
       const ps = []
 
-      const defaultPans = emptyPans()
-
       for (const type of ['html', 'js', 'css']) {
+        const base = state[type]
         const { code, transformer } = {
-          code: defaultPans[type].code,
-          transformer: defaultPans[type].transformer,
+          code: base.code,
+          transformer: base.transformer,
           ...boilerplate[type]
         }
         ps.push(
@@ -213,7 +239,7 @@ const store = new Vuex.Store({
         )
       }
 
-      if (boilerplate.showPans) {
+      if (!urlParams.pans && boilerplate.showPans) {
         ps.push(dispatch('showPans', boilerplate.showPans))
       }
 
@@ -231,8 +257,10 @@ const store = new Vuex.Store({
       progress.done()
     },
     async setGist({ commit, dispatch, state }, id) {
+      if (!id) return
+
       const data = await api(`gists/${id}`, state.githubToken, progress.done)
-      const files = data.files
+      const { files } = data
 
       if (!files) return
 
@@ -242,7 +270,9 @@ const store = new Vuex.Store({
         js: {},
         ...(files['index.js'] ? req(files['index.js'].content) : {}),
         ...(files['codepan.js'] ? req(files['codepan.js'].content) : {}),
-        ...(files['codepan.json'] ? JSON.parse(files['codepan.json'].content) : {})
+        ...(files['codepan.json']
+          ? JSON.parse(files['codepan.json'].content)
+          : {})
       }
       for (const type of ['html', 'js', 'css']) {
         if (!main[type].code) {
@@ -252,12 +282,13 @@ const store = new Vuex.Store({
           }
         }
       }
+
       await dispatch('setBoilerplate', main)
 
       delete data.files
       commit('SET_GIST_META', data)
     },
-    async setGitHubToken({ commit, dispatch }, token) {
+    async setGitHubToken({ commit }, token) {
       commit('SET_GITHUB_TOKEN', token)
       let userMeta = {}
       if (token) {
@@ -266,6 +297,7 @@ const store = new Vuex.Store({
       } else {
         localStorage.removeItem('codepan:gh-token')
       }
+
       commit('SET_USER_META', userMeta)
       if (Object.keys(userMeta).length > 0) {
         localStorage.setItem('codepan:user-meta', JSON.stringify(userMeta))
@@ -290,6 +322,9 @@ const store = new Vuex.Store({
     },
     setIframeStatus({ commit }, status) {
       commit('SET_IFRAME_STATUS', status)
+    },
+    refreshFromUrl({ commit }) {
+      commit('REFRESH_FROM_URL')
     }
   },
   getters: {
@@ -297,9 +332,12 @@ const store = new Vuex.Store({
       return Boolean(githubToken)
     },
     canUpdateGist({ gistMeta, userMeta }) {
-      return gistMeta && userMeta &&
+      return (
+        gistMeta &&
+        userMeta &&
         gistMeta.owner &&
         gistMeta.owner.id === userMeta.id
+      )
     }
   }
 })

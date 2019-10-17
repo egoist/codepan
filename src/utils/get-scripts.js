@@ -29,6 +29,7 @@ export default async (code, scripts) => {
         replacement += `var ${variable.local} = ${moduleName}.${variable.imported};\n`
       }
     }
+
     if (replacement) {
       replacements.push(replacement)
     }

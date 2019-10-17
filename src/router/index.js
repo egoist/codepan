@@ -10,7 +10,7 @@ const NotFound = () => import(/* webpackChunkName: "not-found-page" */ '@/views/
 const GitHubSuccess = () => import(/* webpackChunkName: "ghlogin-result" */ '@/views/GitHubSuccess.vue')
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       name: 'home',

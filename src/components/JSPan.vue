@@ -24,20 +24,19 @@
         <compiled-code-switcher type="js" v-if="js.code"></compiled-code-switcher>
       </div>
     </div>
-    <textarea ref="editor">{{ js.code }}</textarea>
-    <pan-resizer pan="js" :enable="enableResizer" />
+    <textarea ref="editor" v-model="js.code"></textarea>
   </div>
 </template>
 
 <script>
-  import createPan from '@/utils/create-pan'
+import createPan from '@/utils/create-pan'
 
-  export default createPan({
-    name: 'js',
-    editor: {
-      mode: 'jsx',
-      autofocus: true,
-      autoCloseBrackets: true
-    }
-  })
+export default createPan({
+  name: 'js',
+  editor: {
+    mode: 'jsx',
+    autofocus: true,
+    autoCloseBrackets: true
+  }
+})
 </script>
