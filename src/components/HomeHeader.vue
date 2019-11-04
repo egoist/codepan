@@ -111,6 +111,39 @@
           {{ isLoggedIn ? username : '' }}
         </el-button>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-button
+              v-if="!inIframe"
+              :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload2'"
+              size="mini"
+              plain
+              :disabled="editorStatus === 'saving'"
+              :title="saveButtonTitle"
+              v-tippy="{position: 'bottom'}"
+              @click="saveGist">
+              Save
+            </el-button>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-button
+              :icon="iframeStatusIcon"
+              size="mini"
+              :type="iframeStatus === 'error' ? 'danger' : 'primary'"
+              plain
+              @click="runCode">
+              Run
+            </el-button>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-checkbox
+              border
+              size="mini"
+              :value="autoRun"
+              v-if="!inIframe"
+              @change="setAutoRun">
+              Auto-run
+            </el-checkbox>
+          </el-dropdown-item>
           <el-dropdown-item command="github-login">
             <div class="fake-anchor">
               <log-out-icon v-if="githubToken" />
@@ -348,12 +381,34 @@
   .home-header-left-item
     margin-right: 10px
 
+.el-dropdown-menu__item > label, .el-dropdown-menu__item > button
+  width: 100%
+  display: none
+
+.el-dropdown-menu__item > button
+  text-align: left
+
+@media screen and (max-width: 992px)
+  .el-dropdown-menu__item > label
+    display: inline-block
+
+@media screen and (max-width: 576px)
+  .el-dropdown-menu__item > button
+    display: inline-block
+
 .home-header-right
   display: flex
   justify-content: flex-end
   align-items: center
   .home-header-right-item
     margin-left: 10px
+  @media screen and (max-width: 992px)
+    > label
+      display: none
+
+  @media screen and (max-width: 576px)
+    > button
+      display: none
 
 .changelog-indicator
   display: flex
