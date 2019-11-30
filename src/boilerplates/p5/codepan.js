@@ -1,4 +1,3 @@
-const cl = console.log;
 const W = H = 400;
 function setup() {
   createCanvas(W, H);
