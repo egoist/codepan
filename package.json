@@ -61,7 +61,7 @@
     "eslint-plugin-html": "^3.2.0",
     "gh-pages": "^1.0.0",
     "less": "^2.7.3",
-    "offline-plugin": "^4.8.3",
+    "offline-plugin": "^5.0.7",
     "poi": "^9.6.7",
     "poi-preset-babel-minify": "^1.0.3",
     "poi-preset-bundle-report": "^2.0.1",
