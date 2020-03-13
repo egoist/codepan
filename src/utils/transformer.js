@@ -83,15 +83,6 @@ async function loadRust() {
   }
 }
 
-async function loadSvelte() {
-  if (!transformers.get('svelte')) {
-    progress.start()
-    const svelte = await import('svelte')
-    transformers.set('svelte', svelte)
-    progress.done()
-  }
-}
-
 async function loadReason() {
   if (loadjs.isDefined('reason')) return
 
@@ -172,7 +163,6 @@ export {
   loadPug,
   loadMarkdown,
   transformers,
-  loadSvelte,
   loadReason,
   loadCoffeeScript2,
   loadCssnext,

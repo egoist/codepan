@@ -40,15 +40,6 @@ export async function js({ code, transformer }) {
       /import [^\s]+ from ['"]babel-helper-vue-jsx-merge-props['"];?/,
       transformers.get('VueJSXMergeProps')
     )
-  } else if (transformer === 'svelte') {
-    return (
-      transformers.get('svelte').compile(code, {
-        format: 'es'
-      }).code.replace(
-        /^export default SvelteComponent;/m,
-        'new SvelteComponent({target: document.body})'
-      )
-    )
   } else if (transformer === 'reason') {
     const wrapInExports = code =>
       `;(function(exports) {\n${code}\n})(window.exports = {})`

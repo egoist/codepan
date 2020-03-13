@@ -12,7 +12,6 @@ export const getHumanlizedTransformerName = transformer => {
     babel: 'Babel',
     jsx: 'JSX', // @deprecated, use "babel"
     css: 'CSS',
-    svelte: 'Svelte',
     reason: 'Reason',
     'coffeescript-2': 'CoffeeScript 2',
     cssnext: 'cssnext',
@@ -37,7 +36,6 @@ export const getEditorModeByTransfomer = transformer => {
     babel: 'jsx',
     jsx: 'jsx', // @deprecated, use "babel"
     css: 'css',
-    svelte: 'htmlmixed',
     reason: 'mllike',
     'coffeescript-2': 'coffeescript',
     cssnext: 'css',

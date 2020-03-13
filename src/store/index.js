@@ -4,7 +4,6 @@ import {
   loadBabel,
   loadPug,
   loadMarkdown,
-  loadSvelte,
   loadReason,
   loadCoffeeScript2,
   loadCssnext,
@@ -162,8 +161,6 @@ const store = new Vuex.Store({
         await loadPug()
       } else if (transformer === 'markdown') {
         await loadMarkdown()
-      } else if (transformer === 'svelte') {
-        await loadSvelte()
       } else if (transformer === 'reason') {
         await loadReason()
       } else if (transformer === 'coffeescript-2') {
