@@ -6682,9 +6682,10 @@ surge@^0.19.0:
     tar.gz "0.1.1"
     url-parse-as-address "1.0.0"
 
-svelte@^1.30.0:
-  version "1.49.3"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.49.3.tgz#7a63439bd882164000100a488b91ddb68d363c36"
+svelte@^3.19.2:
+  version "3.19.2"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.19.2.tgz#4b0169ee33b37399f08eb92163593a0a46c242c7"
+  integrity sha512-Jswg065u8R9QYcN0rdpTQSFIr0hFq7YUzcPpEY6ZpFSAWkJKZG9AJvHE1d8+NJDTfr7SzKrO6EYssYYkUmszpA==
 
 svg-tags@^1.0.0:
   version "1.0.0"

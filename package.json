@@ -94,7 +94,7 @@
     "pify": "^3.0.0",
     "promise-polyfill": "^6.0.2",
     "reqjs": "^1.0.3",
-    "svelte": "^1.30.0",
+    "svelte": "^3.19.2",
     "v-tippy": "^1.0.0",
     "vue-feather-icons": "^4.5.0",
     "vue-ga": "^1.0.0",

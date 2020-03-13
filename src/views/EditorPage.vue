@@ -34,8 +34,8 @@
       <output-pan class="pan" v-show="isVisible('output')" />
     </div>
 
-    <div ref="codefund">
-      <div class="codefund-placeholder">Loading CodeFund...</div>
+    <div ref="sponsor" class="sponsor">
+      <a href="https://github.com/sponsors/egoist" target="_blank" rel="noopener nofollow">❤️ Sponsor me on GitHub to support the rewrite of CodePan!</a>
     </div>
   </div>
 </template>
@@ -153,8 +153,6 @@ export default {
     Event.$on('show-compiled-code', type => {
       this.showCompiledCode[type] = true
     })
-
-    this.getCodeFund()
   },
   methods: {
     ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
@@ -178,10 +176,6 @@ export default {
           })
         }
       }
-    },
-    async getCodeFund() {
-      const res = await axios.get('https://codefund.io/properties/241/funder.html')
-      this.$refs.codefund.innerHTML = res.data
     }
   },
   beforeDestroy() {
@@ -263,10 +257,14 @@ export default {
   z-index: 9999 !important
   padding: 0 10px !important
 
-.codefund-placeholder
+.sponsor
   height: 40px
   line-height 40px
   border-top: 1px solid #ccc
   text-align: center
   padding: 0 10px
+  a
+    text-decoration: none
+    &:hover
+      text-decoration: underline
 </style>
