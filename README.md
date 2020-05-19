@@ -1,3 +1,5 @@
+> __The current version is no longer maintained!__
+
 # CodePan
 
 [![CircleCI](https://circleci.com/gh/egoist/codepan/tree/master.svg?style=shield&circle-token=e811a08d6464123dd65d2dcd52f62806bf9e37fc)](https://circleci.com/gh/egoist/codepan/tree/master) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
