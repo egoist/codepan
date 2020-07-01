@@ -70,6 +70,11 @@
         headwayScript.async = true
         document.body.appendChild(headwayScript)
       }
+
+      if (location.hostname === 'codepan.net') {
+        location.href = location.href
+         .replace('codepan.net', codepan.egoist.sh')
+      }
     </script>
     <script src="https://cdn.analybase.com/analybase.js" async defer data-analybase data-site="codepan.net"></script>
   </body>
