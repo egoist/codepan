@@ -1,4 +1,4 @@
-> # CodePan.net is shutting down, the current version is no longer maintained! You can still access the website for now, the domain is going to expire on 2021/07/12.
+> # CodePan.net is shutting down, the current version is no longer maintained! You can still access the website for now, the domain is going to expire on 2021/07/12, but codepan.egoist.sh will always be available.
 
 # CodePan
 
