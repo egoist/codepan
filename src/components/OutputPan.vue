@@ -195,7 +195,7 @@ export default {
           }
         `
         js = `
-          if (window.Vue) {
+          if (window.Vue && window.Vue.config) {
             window.Vue.config.productionTip = false;
           }
           console.clear();
