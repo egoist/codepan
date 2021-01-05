@@ -77,7 +77,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.0.0-beta.32",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-preset-vue": "^2.0.0",
     "cm-highlight": "^0.1.1",
     "codemirror": "^5.28.0",
