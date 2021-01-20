@@ -1,5 +1,3 @@
-> # CodePan.net is shutting down, the current version is no longer maintained! You can still access the website for now, the domain is going to expire on 2021/07/12, but codepan.egoist.sh will always be available.
-
 # CodePan
 
 [![CircleCI](https://circleci.com/gh/egoist/codepan/tree/master.svg?style=shield&circle-token=e811a08d6464123dd65d2dcd52f62806bf9e37fc)](https://circleci.com/gh/egoist/codepan/tree/master) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
