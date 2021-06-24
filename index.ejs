@@ -1,74 +1,120 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <% if (htmlWebpackPlugin.options.description) { %>
-    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
+    <meta
+      name="description"
+      content="<%= htmlWebpackPlugin.options.description %>"
+    />
     <% } %>
 
-    <meta property="og:url" content="<%= htmlWebpackPlugin.options.pkg.homepage %>">
-    <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.title %>">
-    <meta property="og:title" content="<%= htmlWebpackPlugin.options.description %>">
-    <meta property="og:description" content="<%= htmlWebpackPlugin.options.pkg.details %>">
-    <meta property="og:image" content="<%= htmlWebpackPlugin.options.pkg.homepage + 'favicon-192.png' %>">
-    <meta property="og:image:type" content="image/png">
+    <meta
+      property="og:url"
+      content="<%= htmlWebpackPlugin.options.pkg.homepage %>"
+    />
+    <meta
+      property="og:site_name"
+      content="<%= htmlWebpackPlugin.options.title %>"
+    />
+    <meta
+      property="og:title"
+      content="<%= htmlWebpackPlugin.options.description %>"
+    />
+    <meta
+      property="og:description"
+      content="<%= htmlWebpackPlugin.options.pkg.details %>"
+    />
+    <meta
+      property="og:image"
+      content="<%= htmlWebpackPlugin.options.pkg.homepage + 'favicon-192.png' %>"
+    />
+    <meta property="og:image:type" content="image/png" />
 
     <!-- For old IEs -->
     <link rel="shortcut icon" href="/favicon.ico" />
 
     <!-- For new browsers - multisize ico  -->
-    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="/favicon.ico">
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32"
+      href="/favicon.ico"
+    />
 
     <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/favicon-152.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="/favicon-152.png"
+    />
 
     <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicon-144.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="/favicon-144.png"
+    />
 
     <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/favicon-120.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="120x120"
+      href="/favicon-120.png"
+    />
 
     <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicon-114.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="/favicon-114.png"
+    />
 
     <!-- For iPhone 6+ -->
-    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/favicon-180.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicon-180.png"
+    />
 
     <!-- For first- and second-generation iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicon-72.png">
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="/favicon-72.png"
+    />
 
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <link rel="apple-touch-icon-precomposed" href="/favicon-57.png">
+    <link rel="apple-touch-icon-precomposed" href="/favicon-57.png" />
 
     <!-- For Old Chrome -->
-    <link rel="icon" href="/favicon-32.png" sizes="32x32">
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" />
 
     <!-- For IE10 Metro -->
-    <meta name="msapplication-TileColor" content="#FFFFFF">
-    <meta name="msapplication-TileImage" content="/favicon-144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/favicon-144.png" />
+    <meta name="theme-color" content="#ffffff" />
 
     <!-- Chrome for Android -->
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" sizes="192x192" href="/favicon-192.png">
-
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" sizes="192x192" href="/favicon-192.png" />
   </head>
   <body>
     <div id="app"></div>
     <script>
       var HW_config = {
         selector: ".changelog-indicator", // CSS selector where to inject the badge
-        account:  "ypaPgx"
-      }
+        account: "ypaPgx",
+      };
       // Not in iframe
       if (window.self === window.top) {
-        var headwayScript = document.createElement('script')
-        headwayScript.src = 'https://cdn.headwayapp.co/widget.js'
-        headwayScript.async = true
-        document.body.appendChild(headwayScript)
+        var headwayScript = document.createElement("script");
+        headwayScript.src = "https://cdn.headwayapp.co/widget.js";
+        headwayScript.async = true;
+        document.body.appendChild(headwayScript);
       }
 
       /**
@@ -78,6 +124,10 @@
       }
       */
     </script>
-    <script src="https://cdn.analybase.com/analybase.js" async defer data-analybase data-site="codepan.net"></script>
+    <script
+      data-ad-client="ca-pub-7003521480797900"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
   </body>
 </html>
