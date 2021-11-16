@@ -223,7 +223,7 @@ export default {
         scripts
           .map(script =>
             createElement('script')('', {
-              src: `https://bundle.run/${script.module}${script.path}?name=${
+              src: `https://esbuild.vercel.app/${script.module}${script.path}?format=iife&globalName=${
                 script.name
               }`
             })
