@@ -1,12 +1,15 @@
-new Vue({
-  el: '#app',
-  data: { count: 0 },
-  methods: {
-    inc() {
-      this.count++
-    },
-    dec() {
-      this.count--
+const { createApp, h, ref } = Vue
+
+const app = createApp({
+  setup() {
+    const count = ref(0)
+    const inc = () => count.value++
+    const dec = () => count.value--
+    return {
+      inc,
+      dec
     }
   }
 })
+
+app.mount('#app')
