@@ -261,10 +261,9 @@ export default {
             activePan: this.activePan
           }
         )
-        const params = {}
+        const headers = {}
         if (token) {
-          // eslint-disable-next-line camelcase
-          params.access_token = token
+           headers['Authorization'] = 'token ' + token
         }
         const shouldUpdateGist = this.canUpdateGist && !saveNew
         const url = `https://api.github.com/gists${
@@ -274,7 +273,7 @@ export default {
         }`
         const method = shouldUpdateGist ? 'PATCH' : 'POST'
         const { data } = await axios(url, {
-          params,
+          headers,
           method,
           data: {
             public: false,
@@ -290,7 +289,7 @@ export default {
             // Update gist id in the description of newly created gist
             axios(`https://api.github.com/gists/${data.id}`, {
               method: 'PATCH',
-              params,
+              headers,
               data: {
                 description: `Try it online! https://codepan.net/gist/${
                   data.id
