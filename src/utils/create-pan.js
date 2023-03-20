@@ -7,6 +7,7 @@ import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
 import { hasNextPan, getHumanlizedTransformerName, getEditorModeByTransfomer } from '@/utils'
+import { initialStyles } from '../store/iframe'
 
 export default ({ name, editor, components } = {}) => {
   return {
@@ -82,6 +83,9 @@ export default ({ name, editor, components } = {}) => {
           ...style
         }
       })
+      if (initialStyles[name]) {
+        this.style = initialStyles[name]
+      }
     },
     methods: {
       ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),

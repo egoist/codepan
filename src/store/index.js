@@ -148,6 +148,7 @@ const store = new Vuex.Store({
       commit('TOGGLE_PAN', payload)
     },
     showPans({ commit }, pans) {
+      if (pans == null) return
       commit('SHOW_PANS', pans)
     },
     async updateTransformer({ commit }, { type, transformer }) {
