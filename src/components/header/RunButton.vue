@@ -6,7 +6,9 @@
       class="home-header-right-item"
       plain
       @click="runCode"
-    >Run</el-button>
+    >
+      Run
+    </el-button>
   </section>
 </template>
 

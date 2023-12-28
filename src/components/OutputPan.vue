@@ -1,7 +1,16 @@
 <template>
-  <div class="output-pan" :class="{'active-pan': isActivePan}" @click="setActivePan('output')">
-    <div class="pan-head">Output</div>
-    <div class="output-iframe" ref="output" />
+  <div
+    class="output-pan"
+    :class="{'active-pan': isActivePan}"
+    @click="setActivePan('output')"
+  >
+    <div class="pan-head">
+      Output
+    </div>
+    <div
+      ref="output"
+      class="output-iframe"
+    />
   </div>
 </template>
 
@@ -41,7 +50,7 @@ const makeGist = (data, { showPans, activePan }) => {
 }
 
 export default {
-  name: 'output-pan',
+  name: 'OutputPan',
   data() {
     return {
       frame: null

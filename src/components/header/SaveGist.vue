@@ -1,14 +1,16 @@
 <template>
   <el-button
     v-if="!inIframe"
+    v-tippy="{position: 'bottom'}"
     :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload'"
     plain
     :disabled="editorStatus === 'saving'"
     :title="saveButtonTitle"
-    v-tippy="{position: 'bottom'}"
     class="home-header-right-item"
     @click="saveGist"
-  >Save</el-button>
+  >
+    Save
+  </el-button>
 </template>
 
 <script>

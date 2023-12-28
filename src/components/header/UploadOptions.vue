@@ -3,29 +3,31 @@
     <el-dropdown
       v-if="!inIframe"
       class="home-header-right-item home-header-more"
-      @command="handleDropdownCommand"
       trigger="click"
+      @command="handleDropdownCommand"
     >
       <el-button
         :icon="isLoggedIn ? 'el-icon-lock' : 'el-icon-unlock'"
-      >{{ isLoggedIn ? username : '' }}</el-button>
+      >
+        {{ isLoggedIn ? username : '' }}
+      </el-button>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="github-login">
           <div class="fake-anchor">
-            <log-out-icon v-if="githubToken"/>
-            <github-icon v-else/>
+            <log-out-icon v-if="githubToken" />
+            <github-icon v-else />
             GitHub {{ githubToken ? 'Logout' : 'Login' }}
           </div>
         </el-dropdown-item>
         <el-dropdown-item
+          v-if="canUpdateGist"
+          v-tippy="{position: 'left',arrow: true}"
           :disabled="editorStatus === 'saving'"
           command="save-new-gist"
           title="Create a new gist from editor"
-          v-tippy="{position: 'left',arrow: true}"
-          v-if="canUpdateGist"
         >
           <div class="fake-anchor">
-            <git-branch-icon></git-branch-icon>Save new
+            <git-branch-icon />Save new
           </div>
         </el-dropdown-item>
         <el-dropdown-item style="padding: 0;">
@@ -34,7 +36,7 @@
             target="_blank"
             href="https://github.com/egoist/codepan"
           >
-            <link2-icon></link2-icon>Source Code
+            <link2-icon />Source Code
           </a>
         </el-dropdown-item>
         <el-dropdown-item style="padding: 0;">
@@ -43,7 +45,7 @@
             target="_blank"
             href="https://twitter.com/_egoistlily"
           >
-            <twitter-icon></twitter-icon>Follow me on Twitter
+            <twitter-icon />Follow me on Twitter
           </a>
         </el-dropdown-item>
         <el-dropdown-item style="padding: 0;">
@@ -52,21 +54,25 @@
             class="el-dropdown-menu__item fake-anchor"
             :href="`https://github.com/egoist/codepan/commit/${latestCommit}`"
           >
-            <info-icon></info-icon>
+            <info-icon />
             {{ version }}
           </a>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <a
-      title="Edit on CodePan"
-      v-tippy
       v-if="inIframe"
+      v-tippy
+      title="Edit on CodePan"
       class="home-header-right-item"
       :href="url"
       target="_blank"
     >
-      <img height="30" src="/favicon-180.png" alt="codepan">
+      <img
+        height="30"
+        src="/favicon-180.png"
+        alt="codepan"
+      >
     </a>
   </section>
 </template>

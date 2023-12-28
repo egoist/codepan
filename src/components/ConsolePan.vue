@@ -1,17 +1,36 @@
 <template>
-  <div class="console-pan" :class="{'active-pan': isActivePan}" @click="setActivePan('console')">
+  <div
+    class="console-pan"
+    :class="{'active-pan': isActivePan}"
+    @click="setActivePan('console')"
+  >
     <div class="pan-head">
-      <el-badge :value="logs.length" :max="99">Console</el-badge>
-      <el-button icon="el-icon-delete" size="mini" v-show="logs.length" @click="clearLogs">Clear</el-button>
+      <el-badge
+        :value="logs.length"
+        :max="99"
+      >
+        Console
+      </el-badge>
+      <el-button
+        v-show="logs.length"
+        icon="el-icon-delete"
+        size="mini"
+        @click="clearLogs"
+      >
+        Clear
+      </el-button>
     </div>
-    <div class="console-logs" ref="console">
+    <div
+      ref="console"
+      class="console-logs"
+    >
       <div
+        v-for="(log, index) in logs"
+        :key="index"
         class="console-log cm-s-default"
         :class="`console-log-${log.type}`"
-        :key="index"
         v-html="log.message"
-        v-for="(log, index) in logs"
-      ></div>
+      />
     </div>
   </div>
 </template>

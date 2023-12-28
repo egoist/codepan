@@ -1,14 +1,48 @@
 <template>
-  <el-dropdown trigger="click" @command="togglePan" class="home-header-left-item">
-    <el-button icon="el-icon-thumb">Toggle Pans</el-button>
-    <el-dropdown-menu slot="dropdown" class="pan-toggles">
-      <el-dropdown-item :class="{visible: isVisible('html')}" command="html">HTML</el-dropdown-item>
-      <el-dropdown-item :class="{visible: isVisible('css')}" command="css">CSS</el-dropdown-item>
-      <el-dropdown-item :class="{visible: isVisible('js')}" command="js">JS</el-dropdown-item>
-      <el-dropdown-item :class="{visible: isVisible('console')}" command="console">
-        <el-badge :is-dot="totalLogsCount > 0">Console</el-badge>
+  <el-dropdown
+    trigger="click"
+    class="home-header-left-item"
+    @command="togglePan"
+  >
+    <el-button icon="el-icon-thumb">
+      Toggle Pans
+    </el-button>
+    <el-dropdown-menu
+      slot="dropdown"
+      class="pan-toggles"
+    >
+      <el-dropdown-item
+        :class="{visible: isVisible('html')}"
+        command="html"
+      >
+        HTML
       </el-dropdown-item>
-      <el-dropdown-item :class="{visible: isVisible('output')}" command="output">Output</el-dropdown-item>
+      <el-dropdown-item
+        :class="{visible: isVisible('css')}"
+        command="css"
+      >
+        CSS
+      </el-dropdown-item>
+      <el-dropdown-item
+        :class="{visible: isVisible('js')}"
+        command="js"
+      >
+        JS
+      </el-dropdown-item>
+      <el-dropdown-item
+        :class="{visible: isVisible('console')}"
+        command="console"
+      >
+        <el-badge :is-dot="totalLogsCount > 0">
+          Console
+        </el-badge>
+      </el-dropdown-item>
+      <el-dropdown-item
+        :class="{visible: isVisible('output')}"
+        command="output"
+      >
+        Output
+      </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>

@@ -5,10 +5,13 @@
     :click-outside="() => $emit('update:show', false)"
   >
     <h2 class="modal-title">
-      <repeat-icon class="svg-icon"></repeat-icon>
+      <repeat-icon class="svg-icon" />
       Compiled with {{ transformerName }}
     </h2>
-    <pre class="CodeMirror cm-s-default CodeMirror-wrap" v-html="transforming ? 'Compiling...' : transformedCode"/>
+    <pre
+      class="CodeMirror cm-s-default CodeMirror-wrap"
+      v-html="transforming ? 'Compiling...' : transformedCode"
+    />
   </modal>
 </template>
 
@@ -21,7 +24,7 @@ import * as transform from '@/utils/transform'
 import CodeMirror from '@/utils/highlight'
 
 export default {
-  name: 'compiled-code-dialog',
+  name: 'CompiledCodeDialog',
   props: ['show', 'type', 'code', 'highlight'],
   data() {
     return {

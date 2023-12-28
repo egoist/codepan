@@ -1,11 +1,14 @@
 <template>
-  <div class="spinner" :style="{height: `${height}px`}">
+  <div
+    class="spinner"
+    :style="{height: `${height}px`}"
+  >
     <div
-      :class="`rect${n}`"
-      :key="n"
       v-for="n in 5"
-      :style="{width: `${lineWidth}px`}">
-    </div>
+      :key="n"
+      :class="`rect${n}`"
+      :style="{width: `${lineWidth}px`}"
+    />
   </div>
 </template>
 

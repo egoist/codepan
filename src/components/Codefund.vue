@@ -1,11 +1,13 @@
 <template>
   <div
+    v-if="codefundReady && codefundVisible && urlParams.headless !== 'true'"
     ref="codefund"
     class="codefund-container"
-    v-if="codefundReady && codefundVisible && urlParams.headless !== 'true'"
     @click="codefundVisible = false"
   >
-    <div class="codefund-placeholder">Loading CodeFund...</div>
+    <div class="codefund-placeholder">
+      Loading CodeFund...
+    </div>
   </div>
 </template>
 

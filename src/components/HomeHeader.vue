@@ -1,13 +1,13 @@
 <template>
   <header class="home-header">
-    <run-button/>
-    <autorun-button/>
-    <pan-toggles/>
-    <span class="home-header-left-item changelog-indicator"></span>
-    <add-boilerplate/>
-    <add-library/>
-    <save-gist/>
-    <upload-options/>
+    <run-button />
+    <autorun-button />
+    <pan-toggles />
+    <span class="home-header-left-item changelog-indicator" />
+    <add-boilerplate />
+    <add-library />
+    <save-gist />
+    <upload-options />
   </header>
 </template>
 

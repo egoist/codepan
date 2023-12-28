@@ -1,9 +1,24 @@
 <template>
-  <html-pan class="pan" v-if="pan === 'html'"/>
-  <css-pan class="pan" v-else-if="pan === 'css'"/>
-  <js-pan class="pan" v-else-if="pan === 'js'"/>
-  <console-pan class="pan" v-else-if="pan === 'console'"/>
-  <output-pan class="pan" v-else-if="pan === 'output'"/>
+  <html-pan
+    v-if="pan === 'html'"
+    class="pan"
+  />
+  <css-pan
+    v-else-if="pan === 'css'"
+    class="pan"
+  />
+  <js-pan
+    v-else-if="pan === 'js'"
+    class="pan"
+  />
+  <console-pan
+    v-else-if="pan === 'console'"
+    class="pan"
+  />
+  <output-pan
+    v-else-if="pan === 'output'"
+    class="pan"
+  />
 </template>
 
 <script>
@@ -14,13 +29,13 @@ import ConsolePan from '@/components/ConsolePan.vue'
 import CSSPan from '@/components/CSSPan.vue'
 
 export default {
-  props: ['pan'],
   components: {
     'html-pan': HTMLPan,
     'js-pan': JSPan,
     'output-pan': OutputPan,
     'console-pan': ConsolePan,
     'css-pan': CSSPan
-  }
+  },
+  props: ['pan']
 }
 </script>

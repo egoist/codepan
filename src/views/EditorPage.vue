@@ -1,40 +1,50 @@
 <template>
-  <div class="page" :class="{ readonly: isReadOnly, headless: urlParams.headless === 'true' }">
-    <home-header v-if="urlParams.headless !== 'true'"/>
+  <div
+    class="page"
+    :class="{ readonly: isReadOnly, headless: urlParams.headless === 'true' }"
+  >
+    <home-header v-if="urlParams.headless !== 'true'" />
 
     <section class="dialogs">
       <compiled-code-dialog
         v-if="js.code"
+        v-model:show="showCompiledCode.js"
         :code="js"
-        :show.sync="showCompiledCode.js"
         highlight="javascript"
         type="js"
-      ></compiled-code-dialog>
+      />
 
       <compiled-code-dialog
         v-if="html.code"
+        v-model:show="showCompiledCode.html"
         :code="html"
-        :show.sync="showCompiledCode.html"
         highlight="htmlmixed"
         type="html"
-      ></compiled-code-dialog>
+      />
 
       <compiled-code-dialog
         v-if="css.code"
+        v-model:show="showCompiledCode.css"
         :code="css"
-        :show.sync="showCompiledCode.css"
         highlight="css"
         type="css"
-      ></compiled-code-dialog>
+      />
     </section>
 
-    <div :class="{ pans: true, [urlParams.layout]: true, headless: urlParams.headless === 'true' }" :style="{ flexDirection: urlParams.layout }">
-      <dynamic-pan v-for="pan in visiblePans" :key="pan" :pan="pan"/>
+    <div
+      :class="{ pans: true, [urlParams.layout]: true, headless: urlParams.headless === 'true' }"
+      :style="{ flexDirection: urlParams.layout }"
+    >
+      <dynamic-pan
+        v-for="pan in visiblePans"
+        :key="pan"
+        :pan="pan"
+      />
 
       <dynamic-pan
+        v-if="visiblePans.indexOf('output') === -1"
         :key="'output'"
         :pan="'output'"
-        v-if="visiblePans.indexOf('output') === -1"
         style="display: none;"
       />
 
@@ -81,7 +91,7 @@ async function handleRouteChange(to, from, vm) {
 }
 
 export default {
-  name: 'editor-page',
+  name: 'EditorPage',
   data() {
     return {
       showCompiledCode: {
@@ -178,7 +188,7 @@ export default {
       }
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('storage', this.handleStorageChanged)
   },
   components: {

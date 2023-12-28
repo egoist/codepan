@@ -4,7 +4,9 @@
     class="home-header-left-item"
     icon="el-icon-notebook-2"
     @click="promptLibrary"
-  >Add library</el-button>
+  >
+    Add library
+  </el-button>
 </template>
 
 <script>
@@ -14,13 +16,13 @@ import { Button, MessageBox } from 'element-ui'
 import { mapActions } from 'vuex'
 
 export default {
+  components: {
+    'el-button': Button
+  },
   data() {
     return {
       inIframe
     }
-  },
-  components: {
-    'el-button': Button
   },
   methods: {
     ...mapActions(['updateCode']),
