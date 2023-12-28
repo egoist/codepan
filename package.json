@@ -21,7 +21,7 @@
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
-    "start": "http-server dist -p$PORT"
+    "start": "PORT=4000 chef-express dist"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
@@ -68,7 +68,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "http-server": "^14.1.1"
+    "chef-express": "^2.1.3"
   },
   "optionalDependencies": {
     "babel-eslint": "^10.0.2",
