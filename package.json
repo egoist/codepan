@@ -21,7 +21,7 @@
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
-    "start": "PORT=4000 chef-express dist"
+    "start": "chef-express dist"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
