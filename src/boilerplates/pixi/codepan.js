@@ -2,7 +2,7 @@ const sprite = createSprite();
 const app = createApp();
 
 function createSprite() {
-  const bunny = 'https://pixijs.io/examples/examples/assets/bunny.png'
+  const bunny = "https://pixijs.io/examples/examples/assets/bunny.png";
   const sprite = PIXI.Sprite.from(bunny);
   sprite.anchor.set(0.5);
   sprite.scale.set(3);

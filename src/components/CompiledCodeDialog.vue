@@ -16,53 +16,56 @@
 </template>
 
 <script>
-import Modal from 'vue-slim-modal'
-import { mapActions, mapState } from 'vuex'
-import { RepeatIcon } from 'vue-feather-icons'
-import { getHumanlizedTransformerName } from '@/utils'
-import * as transform from '@/utils/transform'
-import CodeMirror from '@/utils/highlight'
+import Modal from "vue-slim-modal";
+import { mapActions, mapState } from "vuex";
+import { RepeatIcon } from "vue-feather-icons";
+import { getHumanlizedTransformerName } from "@/utils";
+import * as transform from "@/utils/transform";
+import CodeMirror from "@/utils/highlight";
 
 export default {
-  name: 'CompiledCodeDialog',
-  props: ['show', 'type', 'code', 'highlight'],
+  name: "CompiledCodeDialog",
+  props: ["show", "type", "code", "highlight"],
   data() {
     return {
-      transformedCode: ''
-    }
+      transformedCode: "",
+    };
   },
   watch: {
     async show(show) {
-      if (!show) return
-      await this.transform(true)
+      if (!show) return;
+      await this.transform(true);
       try {
-        const code = await transform[this.type](this.code)
-        this.transformedCode = CodeMirror.highlight(code, { mode: this.highlight, theme: 'default' })
+        const code = await transform[this.type](this.code);
+        this.transformedCode = CodeMirror.highlight(code, {
+          mode: this.highlight,
+          theme: "default",
+        });
       } catch ({ message, stack }) {
-        this.addLog({ type: 'error', message: stack || message })
-        this.transformedCode = message
+        this.addLog({ type: "error", message: stack || message });
+        this.transformedCode = message;
       }
-      await this.$nextTick()
-      await this.transform(false)
-    }
+      await this.$nextTick();
+      await this.transform(false);
+    },
   },
   computed: {
-    ...mapState(['transforming']),
+    ...mapState(["transforming"]),
     source() {
-      return this.$store.state[this.type]
+      return this.$store.state[this.type];
     },
     transformerName() {
-      return getHumanlizedTransformerName(this.source.transformer)
-    }
+      return getHumanlizedTransformerName(this.source.transformer);
+    },
   },
   methods: {
-    ...mapActions(['addLog', 'transform'])
+    ...mapActions(["addLog", "transform"]),
   },
   components: {
     Modal,
-    RepeatIcon
-  }
-}
+    RepeatIcon,
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

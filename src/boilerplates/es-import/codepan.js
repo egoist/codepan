@@ -1,10 +1,13 @@
-import babel from '@babel/core'
-import env from '@babel/preset-env'
+import babel from "@babel/core";
+import env from "@babel/preset-env";
 
-const { code } = babel.transform(`
+const { code } = babel.transform(
+  `
 class Foo {
   bar() {}
 }
-`, {
-  presets: [env]
-})
+`,
+  {
+    presets: [env],
+  }
+);

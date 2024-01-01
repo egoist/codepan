@@ -1,12 +1,12 @@
 new Vue({
-  el: '#app',
+  el: "#app",
   data: { count: 0 },
   methods: {
     inc() {
-      this.count++
+      this.count++;
     },
     dec() {
-      this.count--
-    }
-  }
-})
+      this.count--;
+    },
+  },
+});

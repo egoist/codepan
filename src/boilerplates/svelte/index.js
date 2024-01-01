@@ -1,11 +1,11 @@
 export default async () => {
-  const jsCode = await import('!raw-loader!./codepan.svelte')
+  const jsCode = await import("!raw-loader!./codepan.svelte");
 
   return {
     js: {
       code: jsCode,
-      transformer: 'svelte'
+      transformer: "svelte",
     },
-    showPans: ['js', 'output']
-  }
-}
+    showPans: ["js", "output"],
+  };
+};

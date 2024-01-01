@@ -10,43 +10,41 @@
 </template>
 
 <script>
-import Event from '@/utils/event'
-import { inIframe } from '@/utils'
-import { Button, MessageBox } from 'element-ui'
-import { mapActions } from 'vuex'
+import Event from "@/utils/event";
+import { inIframe } from "@/utils";
+import { Button, MessageBox } from "element-ui";
+import { mapActions } from "vuex";
 
 export default {
   components: {
-    'el-button': Button
+    "el-button": Button,
   },
   data() {
     return {
-      inIframe
-    }
+      inIframe,
+    };
   },
   methods: {
-    ...mapActions(['updateCode']),
+    ...mapActions(["updateCode"]),
     async promptLibrary() {
       const { value } = await MessageBox.prompt(
-        'Type an npm package name:',
-        'Add Library',
+        "Type an npm package name:",
+        "Add Library",
         {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel'
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
         }
-      )
-      this.addLibrary(value)
+      );
+      this.addLibrary(value);
     },
     async addLibrary(name) {
       if (name) {
         /* eslint-disable-next-line no-useless-escape */
-        const code = `<script src="https://unpkg.com/${name}"><\/script>\n${
-          this.$store.state.html.code
-        }\n`
-        await this.updateCode({ type: 'html', code })
-        Event.$emit('refresh-editor')
+        const code = `<script src="https://unpkg.com/${name}"><\/script>\n${this.$store.state.html.code}\n`;
+        await this.updateCode({ type: "html", code });
+        Event.$emit("refresh-editor");
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

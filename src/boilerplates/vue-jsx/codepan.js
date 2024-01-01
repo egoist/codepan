@@ -1,13 +1,13 @@
 new Vue({
-  el: '#app',
+  el: "#app",
   data: { count: 0 },
   methods: {
     inc() {
-      this.count++
+      this.count++;
     },
     dec() {
-      this.count--
-    }
+      this.count--;
+    },
   },
   render() {
     return (
@@ -16,6 +16,6 @@ new Vue({
         <button onClick={this.inc}>inc</button>
         <button onClick={this.dec}>dec</button>
       </div>
-    )
-  }
-})
+    );
+  },
+});

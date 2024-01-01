@@ -1,43 +1,49 @@
-import axios from 'axios'
-import notie from 'notie'
+import axios from "axios";
+import notie from "notie";
 
 export default async function (endpoint, token, errCb = () => {}) {
   const params = {
     // eslint-disable-next-line camelcase
-    access_token: token
-  }
+    access_token: token,
+  };
 
   try {
-    const data = await axios.get(`https://api.github.com/${endpoint}`, {
-      params
-    }).then(res => res.data)
+    const data = await axios
+      .get(`https://api.github.com/${endpoint}`, {
+        params,
+      })
+      .then((res) => res.data);
 
-    return data
+    return data;
   } catch (error) {
-    errCb()
+    errCb();
     if (error.response) {
-      const { headers, status } = error.response
-      if (!token && status === 403 && headers['x-ratelimit-remaining'] === '0') {
+      const { headers, status } = error.response;
+      if (
+        !token &&
+        status === 403 &&
+        headers["x-ratelimit-remaining"] === "0"
+      ) {
         notie.confirm({
-          text: 'API rate limit exceeded, do you want to login?',
+          text: "API rate limit exceeded, do you want to login?",
           submitCallback() {
-            Event.$emit('showLogin')
-          }
-        })
+            Event.$emit("showLogin");
+          },
+        });
       } else {
         notie.alert({
-          type: 'error',
+          type: "error",
           text: error.response.data.message,
-          time: 5
-        })
+          time: 5,
+        });
       }
     } else {
       notie.alert({
-        type: 'error',
-        text: error.message || 'GitHub API Error'
-      })
+        type: "error",
+        text: error.message || "GitHub API Error",
+      });
     }
   }
 
-  return {}
+  return {};
 }

@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="spinner"
-    :style="{height: `${height}px`}"
-  >
+  <div class="spinner" :style="{ height: `${height}px` }">
     <div
       v-for="n in 5"
       :key="n"
       :class="`rect${n}`"
-      :style="{width: `${lineWidth}px`}"
+      :style="{ width: `${lineWidth}px` }"
     />
   </div>
 </template>
@@ -17,16 +14,15 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 40
+      default: 40,
     },
     lineWidth: {
       type: Number,
-      default: 6
-    }
-  }
-}
+      default: 6,
+    },
+  },
+};
 </script>
-
 
 <style lang="stylus" scoped>
 .spinner

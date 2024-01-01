@@ -4,41 +4,25 @@
     class="home-header-left-item"
     @command="togglePan"
   >
-    <el-button icon="el-icon-thumb">
-      Toggle Pans
-    </el-button>
-    <el-dropdown-menu
-      slot="dropdown"
-      class="pan-toggles"
-    >
-      <el-dropdown-item
-        :class="{visible: isVisible('html')}"
-        command="html"
-      >
+    <el-button icon="el-icon-thumb"> Toggle Pans </el-button>
+    <el-dropdown-menu slot="dropdown" class="pan-toggles">
+      <el-dropdown-item :class="{ visible: isVisible('html') }" command="html">
         HTML
       </el-dropdown-item>
-      <el-dropdown-item
-        :class="{visible: isVisible('css')}"
-        command="css"
-      >
+      <el-dropdown-item :class="{ visible: isVisible('css') }" command="css">
         CSS
       </el-dropdown-item>
-      <el-dropdown-item
-        :class="{visible: isVisible('js')}"
-        command="js"
-      >
+      <el-dropdown-item :class="{ visible: isVisible('js') }" command="js">
         JS
       </el-dropdown-item>
       <el-dropdown-item
-        :class="{visible: isVisible('console')}"
+        :class="{ visible: isVisible('console') }"
         command="console"
       >
-        <el-badge :is-dot="totalLogsCount > 0">
-          Console
-        </el-badge>
+        <el-badge :is-dot="totalLogsCount > 0"> Console </el-badge>
       </el-dropdown-item>
       <el-dropdown-item
-        :class="{visible: isVisible('output')}"
+        :class="{ visible: isVisible('output') }"
         command="output"
       >
         Output
@@ -48,34 +32,34 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 import {
   Button,
   Badge,
   Dropdown,
   DropdownMenu,
-  DropdownItem
-} from 'element-ui'
+  DropdownItem,
+} from "element-ui";
 
 export default {
   components: {
-    'el-button': Button,
-    'el-dropdown': Dropdown,
-    'el-dropdown-menu': DropdownMenu,
-    'el-dropdown-item': DropdownItem,
-    'el-badge': Badge
+    "el-button": Button,
+    "el-dropdown": Dropdown,
+    "el-dropdown-menu": DropdownMenu,
+    "el-dropdown-item": DropdownItem,
+    "el-badge": Badge,
   },
   computed: {
-    ...mapState(['visiblePans']),
-    totalLogsCount: state => (state.logs ? state.logs.length : 0)
+    ...mapState(["visiblePans"]),
+    totalLogsCount: (state) => (state.logs ? state.logs.length : 0),
   },
   methods: {
-    ...mapActions(['togglePan']),
+    ...mapActions(["togglePan"]),
     isVisible(pan) {
-      return this.visiblePans.indexOf(pan) !== -1
-    }
-  }
-}
+      return this.visiblePans.indexOf(pan) !== -1;
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
