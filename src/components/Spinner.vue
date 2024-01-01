@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="spinner" :style="{ height: `${height}px` }">
     <div

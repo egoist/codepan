@@ -48,7 +48,7 @@
         style="display: none"
       />
 
-      <codefund />
+      <code-fund />
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ import notie from "notie";
 import isElectron from "is-electron";
 import { inIframe } from "@/utils";
 import Event from "@/utils/event";
-import Codefund from "@/components/Codefund.vue";
+import CodeFund from "@/components/CodeFund.vue";
 import HomeHeader from "@/components/HomeHeader.vue";
 import DynamicPan from "@/components/DynamicPan.vue";
 import CompiledCodeDialog from "@/components/CompiledCodeDialog.vue";
@@ -199,7 +199,7 @@ export default {
   components: {
     HomeHeader,
     DynamicPan,
-    Codefund,
+    CodeFund,
     CompiledCodeDialog,
   },
 };
