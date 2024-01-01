@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/github/codepan
     docker:
-      - image: circleci/node:8.0.0
+      - image: circleci/node:18.0.0
     branches:
       ignore:
         - gh-pages # list of branches to ignore
