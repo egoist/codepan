@@ -69,13 +69,13 @@ export default {
 
 .pan-toggles {
   &>*::before {
-    content: '✔️';
+    content: '🔳';
     display: inline-block;
     margin-right: 6px;
   }
 
   &>*:not(.visible)::before {
-    content: '✅';
+    content: '⬜️';
   }
 }
 </style>
