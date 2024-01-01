@@ -181,7 +181,7 @@ export default {
         createElementHTML("script", proxyConsole),
         ...scripts.map((script) =>
           createElementHTML("script", "", {
-            src: `https://bundle.run/${script.module}${script.path}?name=${script.name}`,
+            src: `https://cdn.jsdelivr.net/npm/${script.name}`,
           })
         ),
       ].join("\n");

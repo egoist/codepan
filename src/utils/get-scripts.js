@@ -11,8 +11,8 @@ export default async (code, scripts) => {
   const res = getImports(code);
   code = res.code;
   for (const [index, item] of res.imports.entries()) {
-    const moduleName = `__npm_module_${index}`;
     const pkg = parsePackageName(item.module);
+    const moduleName = pkg.name || `__npm_module_${index}`;
     const version = pkg.version || "latest";
     scripts.push({
       path: pkg.path ? `/${pkg.path}` : "",

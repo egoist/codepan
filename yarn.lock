@@ -2886,6 +2886,11 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
 
+cm-highlight@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/cm-highlight/-/cm-highlight-0.1.1.tgz#47aacc3cec1ccdef40c2e0b5e31b9dbc0a01fb88"
+  integrity sha512-v0VNpV6UbLs5mCp30ZI2mEUV0GrqfUbIFLFdWnz7gE46U5Gtk3equauML238mV9ftic13iGmhjGpJA4CJ3Ek9Q==
+
 coa@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/coa/-/coa-2.0.2.tgz#43f6c21151b4ef2bf57187db0d73de229e3e7ec3"

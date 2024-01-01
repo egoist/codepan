@@ -1,9 +1,11 @@
-import debounce from "debounce";
 import { mapActions, mapState } from "vuex";
+import debounce from "debounce";
 import { Dropdown, DropdownMenu, DropdownItem } from "element-ui";
+import PanResizer from "@/components/PanResizer.vue";
 import CompiledCodeSwitcher from "@/components/CompiledCodeSwitcher.vue";
 import createEditor from "@/utils/create-editor";
 import Event from "@/utils/event";
+import panPosition from "@/utils/pan-position";
 import {
   hasNextPan,
   getHumanlizedTransformerName,
@@ -39,22 +41,22 @@ export default ({ name, editor, components } = {}) => {
       },
       visiblePans: {
         immediate: true,
-        handler() {
-          this.style.height = `${100 / this.visiblePans.length}%`;
+        handler(val) {
+          this.style = panPosition(val, name);
         },
+      },
+      [`${name}.transformer`](val) {
+        const mode = getEditorModeByTransfomer(val);
+        this.editor.setOption("mode", mode);
       },
       [`${name}.code`]() {
         if (this.autoRun) {
           this.debounceRunCode();
         }
       },
-      [`${name}.transformer`](val) {
-        const mode = getEditorModeByTransfomer(val);
-        this.editor.setOption("mode", mode);
-      },
     },
-    async mounted() {
-      this.editor = await createEditor(this.$refs.editor, {
+    mounted() {
+      this.editor = createEditor(this.$refs.editor, {
         ...editor,
         readOnly: "readonly" in this.$route.query,
       });
@@ -70,8 +72,7 @@ export default ({ name, editor, components } = {}) => {
     },
     created() {
       Event.$on("refresh-editor", () => {
-        if (!this[name].code) return;
-        this.editor.setValue(this[name].code);
+        this.editor.setValue(this[name].code || "");
         this.editor.refresh();
       });
       // Focus the editor
@@ -95,17 +96,18 @@ export default ({ name, editor, components } = {}) => {
         "setActivePan",
         "editorChanged",
       ]),
-      debounceRunCode: debounce(() => {
-        Event.$emit("run");
-      }, 500),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer });
       },
+      debounceRunCode: debounce(() => {
+        Event.$emit("run");
+      }, 500),
     },
     components: {
       "el-dropdown": Dropdown,
       "el-dropdown-menu": DropdownMenu,
       "el-dropdown-item": DropdownItem,
+      PanResizer,
       CompiledCodeSwitcher,
       ...components,
     },
