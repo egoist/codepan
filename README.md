@@ -4,6 +4,10 @@
 
 Play with JS/CSS/HTML so simple it hurts, the web playground that works offline.
 
+## Demo
+
+https://code.pietal.dev/
+
 ## Why
 
 > Aren't there already JSBin/CodePen/JSFiddle?
