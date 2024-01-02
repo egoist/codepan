@@ -72,12 +72,18 @@ export default ({ name, editor, components } = {}) => {
     },
     created() {
       Event.$on("refresh-editor", () => {
+        if (!this.editor) {
+          return;
+        }
         this.editor.setValue(this[name].code || "");
         this.editor.refresh();
       });
       // Focus the editor
       // This is usually emitted after setting boilerplate or gist
       Event.$on("focus-editor", (active) => {
+        if (!this.editor) {
+          return;
+        }
         if (active === name) {
           this.editor.focus();
         }

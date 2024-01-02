@@ -21,7 +21,8 @@
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
-    "start": "chef-express dist"
+    "start": "chef-express dist",
+    "format": "npm run lint && prettier --write src"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
