@@ -30,7 +30,7 @@
           <a
             class="el-dropdown-menu__item fake-anchor"
             target="_blank"
-            href="https://github.com/egoist/codepan"
+            href="https://github.com/Prozi/codepan"
           >
             <link2-icon />Source Code
           </a>
@@ -39,16 +39,16 @@
           <a
             class="el-dropdown-menu__item fake-anchor"
             target="_blank"
-            href="https://twitter.com/_egoistlily"
+            href="https://twitter.com/Prozi"
           >
-            <twitter-icon />Follow me on Twitter
+            <github-icon />Follow me on GitHub
           </a>
         </el-dropdown-item>
         <el-dropdown-item style="padding: 0">
           <a
             target="_blank"
             class="el-dropdown-menu__item fake-anchor"
-            :href="`https://github.com/egoist/codepan/commit/${latestCommit}`"
+            :href="`https://github.com/Prozi/codepan/commit/${latestCommit}`"
           >
             <info-icon />
             {{ version }}
@@ -76,12 +76,7 @@ import Event from "@/utils/event";
 import popup from "@/utils/popup";
 import { inIframe } from "@/utils";
 import notie from "notie";
-import {
-  GithubIcon,
-  Link2Icon,
-  TwitterIcon,
-  InfoIcon,
-} from "vue-feather-icons";
+import { GithubIcon, Link2Icon, InfoIcon } from "vue-feather-icons";
 
 export default {
   data() {
@@ -181,7 +176,6 @@ export default {
     "el-dropdown-item": DropdownItem,
     GithubIcon,
     Link2Icon,
-    TwitterIcon,
     InfoIcon,
   },
 };
