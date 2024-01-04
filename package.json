@@ -43,7 +43,7 @@
     "notie": "^4.3.1",
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
-    "offline-plugin": "^5",
+    "offline-plugin": "^4.8.0",
     "parse-package-name": "^0",
     "pify": "^4",
     "poi": "^12.10.3",
