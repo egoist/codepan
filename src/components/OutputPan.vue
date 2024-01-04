@@ -181,7 +181,8 @@ export default {
         createElementHTML("script", proxyConsole),
         ...scripts.map((script) =>
           createElementHTML("script", "", {
-            src: `https://cdn.jsdelivr.net/npm/${script.name}`,
+            type: script.module.match(/[?&]type=module/) ? "module" : "",
+            src: `https://unpkg.com/${script.name}`,
           })
         ),
       ].join("\n");

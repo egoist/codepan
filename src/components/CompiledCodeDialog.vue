@@ -1,7 +1,7 @@
 <template>
   <modal
     class="compiled-code-dialog"
-    :is-open="show"
+    :is-open="!!show"
     :click-outside="() => $emit('update:show', false)"
   >
     <h2 class="modal-title">

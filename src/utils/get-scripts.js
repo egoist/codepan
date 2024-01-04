@@ -10,25 +10,28 @@ export default async (code, scripts) => {
   const replacements = [];
   const res = getImports(code);
   code = res.code;
+
   for (const [index, item] of res.imports.entries()) {
     const pkg = parsePackageName(item.module);
-    const moduleName = pkg.name || `__npm_module_${index}`;
-    const version = pkg.version || "latest";
+    const pkgVersion = pkg.version || "latest";
+    const pkgName = pkg.name || `__npm_module_${index}`;
+    const pkgNameFormatted = pkgName.match(/([a-z]+)/)[1];
+    const moduleName =
+      pkgNameFormatted[0].toUpperCase() + pkgNameFormatted.substring(1);
+
     scripts.push({
       path: pkg.path ? `/${pkg.path}` : "",
-      name: moduleName,
+      name: pkgName,
       module:
         pkg.name === "vue" && !pkg.path
-          ? `vue@${version}/dist/vue.esm.js`
-          : `${pkg.name}@${version}`,
+          ? `vue@${pkgVersion}/dist/vue.esm.js`
+          : `${pkg.name}@${pkgVersion}`,
     });
+
     let replacement = "\n";
+
     for (const variable of item.variables) {
-      if (variable.imported === "default") {
-        replacement += `var ${variable.local} = ${moduleName}.default || ${moduleName};\n`;
-      } else {
-        replacement += `var ${variable.local} = ${moduleName}.${variable.imported};\n`;
-      }
+      replacement += `var ${variable.local} = ${moduleName}.${variable.imported} || ${moduleName};\n`;
     }
 
     if (replacement) {
@@ -36,9 +39,5 @@ export default async (code, scripts) => {
     }
   }
 
-  if (replacements.length > 0) {
-    code = replacements.join("\n") + code;
-  }
-
-  return code;
+  return `${code}${replacements.join("\n")}`;
 };

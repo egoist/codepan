@@ -1,13 +1,15 @@
-import babel from "@babel/core";
-import env from "@babel/preset-env";
+import "@babel/standalone";
 
-const { code } = babel.transform(
+const { code } = Babel.transform(
   `
-class Foo {
-  bar() {}
-}
-`,
-  {
-    presets: [env],
+  class Point {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
   }
+`,
+  {}
 );
+
+console.log(code);
