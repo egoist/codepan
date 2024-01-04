@@ -66,7 +66,7 @@ module.exports = {
   ],
   envs: Object.assign(
     {
-      VERSION: `v${pkg.version}-${LATEST_COMMIT}`,
+      VERSION: `v${pkg.version}-${LATEST_COMMIT || 'latest'}`,
       LATEST_COMMIT,
     },
     cdns
