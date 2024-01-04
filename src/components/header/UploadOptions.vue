@@ -48,7 +48,9 @@
           <a
             target="_blank"
             class="el-dropdown-menu__item fake-anchor"
-            :href="`https://github.com/Prozi/codepan/commit/${latestCommit}`"
+            :href="`https://github.com/Prozi/codepan/${
+              latestCommit ? 'commit/' + latestCommit : 'tree/master'
+            }`"
           >
             <info-icon />
             {{ version }}

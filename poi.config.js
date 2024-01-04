@@ -2,11 +2,11 @@ const { execSync } = require("child_process");
 const nodeModules = require("webpack-node-modules");
 const pkg = require("./package");
 
-const LATEST_COMMIT = execSync(
-  'if [ -d ".git" ]; then git rev-parse HEAD; else echo unknown; fi',
-  {
+const LATEST_COMMIT = (
+  process.env.COMMIT_HASH ||
+  execSync('if [ -d ".git" ]; then git rev-parse HEAD; fi', {
     encoding: "utf8",
-  }
+  })
 ).slice(0, 7);
 
 const cdns = {
