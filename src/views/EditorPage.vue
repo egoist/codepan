@@ -47,6 +47,7 @@ import notie from 'notie'
 import isElectron from 'is-electron'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
+import { pans } from '@/store'
 import HomeHeader from '@/components/HomeHeader.vue'
 import HTMLPan from '@/components/HTMLPan.vue'
 import JSPan from '@/components/JSPan.vue'
@@ -54,6 +55,41 @@ import OutputPan from '@/components/OutputPan.vue'
 import ConsolePan from '@/components/ConsolePan.vue'
 import CSSPan from '@/components/CSSPan.vue'
 import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
+
+function parseWidth(value) {
+  const width = Number(value)
+  return width > 0 ? width : null
+}
+
+function getQueryValue(value) {
+  return Array.isArray(value) ? value[value.length - 1] : value
+}
+
+function parsePanWidths(query) {
+  const widths = {}
+  const panWidths = getQueryValue(query.panWidths)
+
+  if (panWidths) {
+    panWidths.split(',').forEach(item => {
+      const [pan, value] = item.split(':')
+      if (pans.indexOf(pan) !== -1) {
+        const width = parseWidth(value)
+        if (width) {
+          widths[pan] = width
+        }
+      }
+    })
+  }
+
+  pans.forEach(pan => {
+    const width = parseWidth(getQueryValue(query[`${pan}Width`]))
+    if (width) {
+      widths[pan] = width
+    }
+  })
+
+  return widths
+}
 
 async function handleRouteChange(to, vm) {
   let boilerplate
@@ -80,6 +116,7 @@ async function handleRouteChange(to, vm) {
     Event.$emit('run')
   }
 
+  await vm.setPanWidths(parsePanWidths(to.query))
   await vm.setAutoRun(true)
 
   progress.done()
@@ -154,7 +191,13 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
+    ...mapActions([
+      'setBoilerplate',
+      'setGist',
+      'showPans',
+      'setAutoRun',
+      'setPanWidths'
+    ]),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },

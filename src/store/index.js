@@ -21,6 +21,8 @@ import Event from '@/utils/event'
 Vue.use(Vuex)
 
 const pans = ['html', 'css', 'js', 'console', 'output']
+export { pans }
+
 const sortPans = ps => {
   return ps.sort((a, b) => {
     return pans.indexOf(a) > pans.indexOf(b)
@@ -75,7 +77,8 @@ const store = new Vuex.Store({
     userMeta: JSON.parse(localStorage.getItem('codepan:user-meta')) || {},
     editorStatus: 'saved',
     iframeStatus: null,
-    transforming: false
+    transforming: false,
+    panWidths: {}
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -126,6 +129,9 @@ const store = new Vuex.Store({
     },
     SET_TRANSFORM(state, status) {
       state.transforming = status
+    },
+    SET_PAN_WIDTHS(state, widths) {
+      state.panWidths = widths
     }
   },
   actions: {
@@ -182,6 +188,9 @@ const store = new Vuex.Store({
     },
     transform({ commit }, status) {
       commit('SET_TRANSFORM', status)
+    },
+    setPanWidths({ commit }, widths) {
+      commit('SET_PAN_WIDTHS', widths)
     },
     // todo: simplify this action
     async setBoilerplate({ dispatch }, boilerplate) {

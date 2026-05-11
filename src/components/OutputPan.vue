@@ -75,8 +75,14 @@ export default {
   watch: {
     visiblePans: {
       immediate: true,
-      handler(val) {
-        this.style = panPosition(val, 'output')
+      handler() {
+        this.updateStyle()
+      }
+    },
+    panWidths: {
+      deep: true,
+      handler() {
+        this.updateStyle()
       }
     }
   },
@@ -88,7 +94,8 @@ export default {
       'visiblePans',
       'activePan',
       'githubToken',
-      'iframeStatus'
+      'iframeStatus',
+      'panWidths'
     ]),
     ...mapGetters([
       'isLoggedIn',
@@ -132,6 +139,9 @@ export default {
       'transform'
     ]),
     getHumanlizedTransformerName,
+    updateStyle() {
+      this.style = panPosition(this.visiblePans, 'output', this.panWidths)
+    },
 
     async listenIframe({ data = {} }) {
       if (data.type === 'iframe-error') {

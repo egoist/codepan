@@ -17,7 +17,7 @@ export default ({ name, editor, components } = {}) => {
       }
     },
     computed: {
-      ...mapState([name, 'visiblePans', 'activePan', 'autoRun']),
+      ...mapState([name, 'visiblePans', 'activePan', 'autoRun', 'panWidths']),
       ...mapState({
         isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
@@ -37,8 +37,14 @@ export default ({ name, editor, components } = {}) => {
       },
       visiblePans: {
         immediate: true,
-        handler(val) {
-          this.style = panPosition(val, name)
+        handler() {
+          this.updateStyle()
+        }
+      },
+      panWidths: {
+        deep: true,
+        handler() {
+          this.updateStyle()
         }
       },
       [`${name}.transformer`](val) {
@@ -85,6 +91,9 @@ export default ({ name, editor, components } = {}) => {
     },
     methods: {
       ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),
+      updateStyle() {
+        this.style = panPosition(this.visiblePans, name, this.panWidths)
+      },
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
       },

@@ -55,8 +55,14 @@
       },
       visiblePans: {
         immediate: true,
-        handler(val) {
-          this.style = panPosition(val, 'console')
+        handler() {
+          this.updateStyle()
+        }
+      },
+      panWidths: {
+        deep: true,
+        handler() {
+          this.updateStyle()
         }
       }
     },
@@ -69,7 +75,7 @@
       })
     },
     computed: {
-      ...mapState(['logs', 'visiblePans', 'activePan']),
+      ...mapState(['logs', 'visiblePans', 'activePan', 'panWidths']),
       enableResizer() {
         return hasNextPan(this.visiblePans, 'console')
       },
@@ -78,7 +84,10 @@
       }
     },
     methods: {
-      ...mapActions(['clearLogs', 'setActivePan'])
+      ...mapActions(['clearLogs', 'setActivePan']),
+      updateStyle() {
+        this.style = panPosition(this.visiblePans, 'console', this.panWidths)
+      }
     },
     components: {
       'el-badge': Badge,

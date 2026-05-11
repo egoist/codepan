@@ -1,48 +1,77 @@
-export default (pans, pan) => {
-  const panWidth = 100 / pans.length
-  const pansCount = matchedPans => {
-    return pans.filter(p => {
-      return matchedPans.indexOf(p) !== -1
-    }).length
+const getPanWidths = (pans, widths = {}) => {
+  const customWidths = pans.reduce((res, pan) => {
+    const width = Number(widths[pan])
+    if (width > 0) {
+      res[pan] = width
+    }
+    return res
+  }, {})
+  const customTotal = Object.keys(customWidths).reduce((res, pan) => {
+    return res + customWidths[pan]
+  }, 0)
+  const missingPans = pans.filter(pan => !customWidths[pan])
+  const remaining = Math.max(100 - customTotal, 0)
+  const fallbackWidth = missingPans.length > 0 ? remaining / missingPans.length : 0
+  const rawWidths = pans.map(pan => customWidths[pan] || fallbackWidth)
+  const total = rawWidths.reduce((res, width) => res + width, 0)
+
+  if (total === 0) {
+    return pans.map(() => 100 / pans.length)
   }
-  const rightOffset = leftCount => pans.length - 1 - leftCount
-  const suffix = count => `${count * panWidth}%`
+
+  return rawWidths.map(width => width / total * 100)
+}
+
+const suffix = value => {
+  return value === 0 ? 0 : `${value}%`
+}
+
+export default (pans, pan, widths) => {
+  const panWidths = getPanWidths(pans, widths)
+  const panIndex = pans.indexOf(pan)
+
+  if (panIndex === -1) {
+    return {}
+  }
+
+  const left = panWidths.slice(0, panIndex).reduce((res, width) => {
+    return res + width
+  }, 0)
+  const right = panWidths.slice(panIndex + 1).reduce((res, width) => {
+    return res + width
+  }, 0)
 
   if (pan === 'html') {
     return {
       left: 0,
-      right: suffix(rightOffset(0))
+      right: suffix(right)
     }
   }
 
   if (pan === 'css') {
-    const leftCount = pansCount(['html'])
     return {
-      left: suffix(leftCount),
-      right: suffix(rightOffset(leftCount))
+      left: suffix(left),
+      right: suffix(right)
     }
   }
 
   if (pan === 'js') {
-    const leftCount = pansCount(['html', 'css'])
     return {
-      left: suffix(leftCount),
-      right: suffix(rightOffset(leftCount))
+      left: suffix(left),
+      right: suffix(right)
     }
   }
 
   if (pan === 'console') {
-    const leftCount = pansCount(['html', 'css', 'js'])
     return {
-      left: suffix(leftCount),
-      right: suffix(rightOffset(leftCount))
+      left: suffix(left),
+      right: suffix(right)
     }
   }
 
   if (pan === 'output') {
-    const leftCount = pansCount(['html', 'css', 'js', 'console'])
     return {
-      left: suffix(leftCount),
+      left: suffix(left),
       right: 0
     }
   }
