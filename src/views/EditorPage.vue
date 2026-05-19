@@ -115,9 +115,16 @@ export default {
       handler(next, prev) {
         if (!next && prev) {
           this.showPans(['js', 'html', 'output'])
+          this.setPanWidths(null)
         } else if (next !== prev) {
           this.showPans(next.split(','))
         }
+      },
+      immediate: true
+    },
+    '$route.query.widths': {
+      handler(next) {
+        this.setPanWidths(next)
       },
       immediate: true
     }
@@ -154,7 +161,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
+    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun', 'setPanWidths']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },
