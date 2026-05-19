@@ -17,7 +17,7 @@ export default ({ name, editor, components } = {}) => {
       }
     },
     computed: {
-      ...mapState([name, 'visiblePans', 'activePan', 'autoRun']),
+      ...mapState([name, 'visiblePans', 'activePan', 'autoRun', 'panWidths']),
       ...mapState({
         isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
@@ -38,8 +38,11 @@ export default ({ name, editor, components } = {}) => {
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, name)
+          this.style = panPosition(val, name, this.panWidths)
         }
+      },
+      panWidths(val) {
+        this.style = panPosition(this.visiblePans, name, val)
       },
       [`${name}.transformer`](val) {
         const mode = getEditorModeByTransfomer(val)

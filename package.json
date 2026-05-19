@@ -10,6 +10,7 @@
   "repository": {},
   "scripts": {
     "test": "npm run lint",
+    "test:pan-widths": "node test/pan-widths.js",
     "lint": "xo",
     "dev": "poi",
     "build": "poi build",
