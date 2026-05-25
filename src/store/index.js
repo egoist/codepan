@@ -17,6 +17,7 @@ import progress from 'nprogress'
 import api from '@/utils/github-api'
 import req from 'reqjs'
 import Event from '@/utils/event'
+import { parsePanWidths } from '@/utils/pan-widths'
 
 Vue.use(Vuex)
 
@@ -75,7 +76,9 @@ const store = new Vuex.Store({
     userMeta: JSON.parse(localStorage.getItem('codepan:user-meta')) || {},
     editorStatus: 'saved',
     iframeStatus: null,
-    transforming: false
+    transforming: false,
+    panWidthsQuery: null,
+    panWidths: null
   },
   mutations: {
     UPDATE_CODE(state, { type, code }) {
@@ -102,6 +105,11 @@ const store = new Vuex.Store({
     },
     SHOW_PANS(state, pans) {
       state.visiblePans = sortPans(pans)
+      state.panWidths = parsePanWidths(state.panWidthsQuery, state.visiblePans)
+    },
+    SET_PAN_WIDTHS(state, value) {
+      state.panWidthsQuery = value
+      state.panWidths = parsePanWidths(value, state.visiblePans)
     },
     ACTIVE_PAN(state, pan) {
       state.activePan = pan
@@ -149,6 +157,9 @@ const store = new Vuex.Store({
     },
     showPans({ commit }, pans) {
       commit('SHOW_PANS', pans)
+    },
+    setPanWidths({ commit }, value) {
+      commit('SET_PAN_WIDTHS', value)
     },
     async updateTransformer({ commit }, { type, transformer }) {
       if (

@@ -56,8 +56,11 @@
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, 'console')
+          this.style = panPosition(val, 'console', this.panWidths)
         }
+      },
+      panWidths(val) {
+        this.style = panPosition(this.visiblePans, 'console', val)
       }
     },
     mounted() {
@@ -69,7 +72,7 @@
       })
     },
     computed: {
-      ...mapState(['logs', 'visiblePans', 'activePan']),
+      ...mapState(['logs', 'visiblePans', 'activePan', 'panWidths']),
       enableResizer() {
         return hasNextPan(this.visiblePans, 'console')
       },
