@@ -76,8 +76,11 @@ export default {
     visiblePans: {
       immediate: true,
       handler(val) {
-        this.style = panPosition(val, 'output')
+        this.style = panPosition(val, 'output', this.panWidths)
       }
+    },
+    panWidths(val) {
+      this.style = panPosition(this.visiblePans, 'output', val)
     }
   },
   computed: {
@@ -86,6 +89,7 @@ export default {
       'css',
       'html',
       'visiblePans',
+      'panWidths',
       'activePan',
       'githubToken',
       'iframeStatus'

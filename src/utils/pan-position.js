@@ -1,4 +1,12 @@
-export default (pans, pan) => {
+import { getPanPosition } from '@/utils/pan-widths'
+
+export default (pans, pan, widths) => {
+  const customPosition = getPanPosition(pans, pan, widths)
+
+  if (customPosition) {
+    return customPosition
+  }
+
   const panWidth = 100 / pans.length
   const pansCount = matchedPans => {
     return pans.filter(p => {

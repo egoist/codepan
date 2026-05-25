@@ -120,6 +120,12 @@ export default {
         }
       },
       immediate: true
+    },
+    '$route.query.widths': {
+      handler(next) {
+        this.setPanWidths(next)
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -154,7 +160,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
+    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun', 'setPanWidths']),
     isVisible(pan) {
       return this.visiblePans.indexOf(pan) !== -1
     },
