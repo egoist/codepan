@@ -35,10 +35,13 @@ export default ({ name, editor, components } = {}) => {
       isVisible() {
         this.editor.refresh()
       },
+      '$route.query.widths'(widths) {
+        this.style = panPosition(this.visiblePans, name, widths)
+      },
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, name)
+          this.style = panPosition(val, name, this.$route.query.widths)
         }
       },
       [`${name}.transformer`](val) {

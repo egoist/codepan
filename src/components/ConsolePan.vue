@@ -53,10 +53,13 @@
           console.scrollTop = console.scrollHeight
         })
       },
+      '$route.query.widths'(widths) {
+        this.style = panPosition(this.visiblePans, 'console', widths)
+      },
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, 'console')
+          this.style = panPosition(val, 'console', this.$route.query.widths)
         }
       }
     },

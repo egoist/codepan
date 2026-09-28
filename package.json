@@ -15,7 +15,8 @@
     "build": "poi build",
     "deploy": "surge -p dist -d codepan.net",
     "predeploy": "npm run build && cp dist/index.html dist/200.html",
-    "report": "poi build --bundle-report"
+    "report": "poi build --bundle-report",
+    "test:layout": "node test/pan-position.mjs"
   },
   "xo": {
     "parser": "babel-eslint",
