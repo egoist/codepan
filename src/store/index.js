@@ -23,7 +23,7 @@ Vue.use(Vuex)
 const pans = ['html', 'css', 'js', 'console', 'output']
 const sortPans = ps => {
   return ps.sort((a, b) => {
-    return pans.indexOf(a) > pans.indexOf(b)
+    return pans.indexOf(a) - pans.indexOf(b)
   })
 }
 

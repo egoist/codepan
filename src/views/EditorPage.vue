@@ -111,6 +111,9 @@ export default {
     next()
   },
   watch: {
+    '$route.query.widths'() {
+      this.$nextTick(() => Event.$emit('refresh-editor'))
+    },
     '$route.query.show': {
       handler(next, prev) {
         if (!next && prev) {

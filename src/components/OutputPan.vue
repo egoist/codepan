@@ -73,10 +73,13 @@ export default {
     }
   },
   watch: {
+    '$route.query.widths'(widths) {
+      this.style = panPosition(this.visiblePans, 'output', widths)
+    },
     visiblePans: {
       immediate: true,
       handler(val) {
-        this.style = panPosition(val, 'output')
+        this.style = panPosition(val, 'output', this.$route.query.widths)
       }
     }
   },
