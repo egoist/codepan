@@ -19,7 +19,7 @@ export const parsePanWidths = width => {
 export default (pans, pan, widths) => {
   const widthOf = name => {
     if (widths && widths[name] != null) return widths[name]
-    const custom = pans.reduce((sum, name) => sum + (widths && widths[name]) || 0, 0)
+    const custom = pans.reduce((sum, name) => sum + ((widths && widths[name]) || 0), 0)
     const defaulted = pans.filter(name => !(widths && widths[name] != null)).length
     return defaulted ? (100 - custom) / defaulted : 0
   }
