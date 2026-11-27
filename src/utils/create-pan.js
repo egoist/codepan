@@ -5,7 +5,7 @@ import PanResizer from '@/components/PanResizer.vue'
 import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
 import createEditor from '@/utils/create-editor'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
+import panPosition, { parsePanWidths } from '@/utils/pan-position'
 import { hasNextPan, getHumanlizedTransformerName, getEditorModeByTransfomer } from '@/utils'
 
 export default ({ name, editor, components } = {}) => {
@@ -38,7 +38,7 @@ export default ({ name, editor, components } = {}) => {
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, name)
+          this.style = panPosition(val, name, parsePanWidths(this.$route.query.width))
         }
       },
       [`${name}.transformer`](val) {
