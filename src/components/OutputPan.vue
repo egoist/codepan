@@ -22,7 +22,7 @@ import notie from 'notie'
 import * as transform from '@/utils/transform'
 import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
+import panPosition, { parsePanWidths } from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
 import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
 import SvgIcon from './SvgIcon.vue'
@@ -76,7 +76,7 @@ export default {
     visiblePans: {
       immediate: true,
       handler(val) {
-        this.style = panPosition(val, 'output')
+        this.style = panPosition(val, 'output', parsePanWidths(this.$route.query.width))
       }
     }
   },

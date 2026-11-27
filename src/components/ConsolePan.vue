@@ -34,7 +34,7 @@
 <script>
   import { mapState, mapActions } from 'vuex'
   import { Badge, Button } from 'element-ui'
-  import panPosition from '@/utils/pan-position'
+  import panPosition, { parsePanWidths } from '@/utils/pan-position'
   import PanResizer from '@/components/PanResizer.vue'
   import { hasNextPan } from '@/utils'
   import '@/utils/highlight'
@@ -56,7 +56,7 @@
       visiblePans: {
         immediate: true,
         handler(val) {
-          this.style = panPosition(val, 'console')
+          this.style = panPosition(val, 'console', parsePanWidths(this.$route.query.width))
         }
       }
     },
